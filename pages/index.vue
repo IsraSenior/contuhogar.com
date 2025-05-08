@@ -90,19 +90,19 @@ const services = ref([
                 <div
                     class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg"
+                        src="https://www.bbva.com.co/content/dam/library/logos/logo-bbva.svg"
                         alt="Transistor" width="158" height="48">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform"
+                        src="https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ" alt="Reform"
                         width="158" height="48">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple"
+                        src="/logo-bolivar_scroll.svg" alt="Tuple"
                         width="158" height="48">
                     <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src="https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg"
+                        src="https://amarilo.com.co/images/logo.svg"
                         alt="SavvyCal" width="158" height="48">
                     <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src="https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg"
+                        src="https://gruposancarlos.com/assets/images/logo-gsc-v1.svg"
                         alt="Statamic" width="158" height="48">
                 </div>
                 <div class="mt-16 flex justify-center">
@@ -233,7 +233,7 @@ const services = ref([
                             <p class="text-gray-700 text-base line-clamp-6">{{ n.description }}</p>
                         </div>
                         <div class="px-6 pt-4 pb-4 flex justify-end">
-                            <a href="#" class="text-sm/6 font-semibold text-gray-900">Learn more <span
+                            <a href="#" class="text-sm/6 font-semibold text-gray-900">Leer más <span
                                     aria-hidden="true">→</span></a>
                         </div>
                     </div>
