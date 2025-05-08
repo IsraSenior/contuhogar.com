@@ -215,7 +215,7 @@ const services = ref([
             </div>
         </div>
 
-        <div class="mx-auto py-24 sm:py-32 px-6 lg:px-8">
+        <div class="bg-gray-50 mx-auto py-24 sm:py-32 px-6 lg:px-8">
             <div class="mx-auto max-w-7xl text-center">
                 <h2 class="text-base/7 font-semibold text-indigo-600">Nuestros servicios</h2>
                 <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">

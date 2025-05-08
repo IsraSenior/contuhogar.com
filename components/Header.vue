@@ -76,7 +76,7 @@ const services = ref([
                         leave-active-class="transition ease-in duration-150"
                         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
                         <div v-if="servicesDropdown"
-                            class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                            class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-lg overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                             <div class="p-4">
                                 <div v-for="(s, index) in services" :key="index"
                                     class="group relative flex gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
