@@ -90,20 +90,18 @@ const services = ref([
                 <div
                     class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://www.bbva.com.co/content/dam/library/logos/logo-bbva.svg"
-                        alt="Transistor" width="158" height="48">
-                    <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ" alt="Reform"
+                        src="https://www.bbva.com.co/content/dam/library/logos/logo-bbva.svg" alt="Transistor"
                         width="158" height="48">
                     <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                        src="/logo-bolivar_scroll.svg" alt="Tuple"
-                        width="158" height="48">
+                        src="https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ"
+                        alt="Reform" width="158" height="48">
+                    <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="/logo-bolivar_scroll.svg"
+                        alt="Tuple" width="158" height="48">
                     <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                        src="https://amarilo.com.co/images/logo.svg"
-                        alt="SavvyCal" width="158" height="48">
+                        src="https://amarilo.com.co/images/logo.svg" alt="SavvyCal" width="158" height="48">
                     <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                        src="https://gruposancarlos.com/assets/images/logo-gsc-v1.svg"
-                        alt="Statamic" width="158" height="48">
+                        src="https://gruposancarlos.com/assets/images/logo-gsc-v1.svg" alt="Statamic" width="158"
+                        height="48">
                 </div>
                 <div class="mt-16 flex justify-center">
                     <p
@@ -227,7 +225,8 @@ const services = ref([
             <Carousel v-bind="carouselConfig" class="mt-16">
                 <Slide v-for="(n, index) in services" :key="index" class="pb-8">
                     <div class="max-w-sm sm:rounded-3xl overflow-hidden shadow-lg">
-                        <img class="w-full h-52 object-center object-cover" :src="n.image" alt="Sunset in the mountains">
+                        <img class="w-full h-52 object-center object-cover" :src="n.image"
+                            alt="Sunset in the mountains">
                         <div class="px-6 py-4">
                             <div class="font-bold text-xl mb-2">{{ n.title }}</div>
                             <p class="text-gray-700 text-base line-clamp-6">{{ n.description }}</p>
@@ -245,14 +244,17 @@ const services = ref([
             <div class="mx-auto container px-6 lg:px-8">
                 <div class="max-w-5xl mx-auto lg:mx-0">
                     <h2 class="text-base/7 font-semibold text-indigo-600">Actualidad inmobiliaria</h2>
-                        <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
-                            Noticias que impulsan tu inversión</p>
-                        <p class="mt-6 text-xl/8 text-gray-600">Mantente al día con las últimas tendencias del mercado, cambios en créditos hipotecarios y oportunidades exclusivas para colombianos en el exterior. Aquí encontrarás información clave para tomar decisiones inteligentes sobre tu propiedad en Colombia.</p>
+                    <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
+                        Noticias que impulsan tu inversión</p>
+                    <p class="mt-6 text-xl/8 text-gray-600">Mantente al día con las últimas tendencias del mercado,
+                        cambios en créditos hipotecarios y oportunidades exclusivas para colombianos en el exterior.
+                        Aquí encontrarás información clave para tomar decisiones inteligentes sobre tu propiedad en
+                        Colombia.</p>
                 </div>
                 <div
                     class="mx-auto flex max-w-2xl mt-16 flex-col items-start justify-around gap-16 lg:mx-0 lg:max-w-none lg:flex-row">
                     <div class="w-full lg:max-w-xl lg:flex-auto">
-                        
+
                         <img src="https://img.freepik.com/fotos-premium/gente-sentada-acera-texto-fondo_1048944-7461820.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
                             alt=""
                             class="aspect-6/5 w-full rounded-2xl bg-gray-50 object-cover object-right lg:aspect-auto lg:h-[34.5rem]">
@@ -265,12 +267,16 @@ const services = ref([
                                     <dt class="sr-only">Title</dt>
                                     <dd class="w-full flex-none text-lg font-semibold tracking-tight text-gray-900">
                                         <a href="#">
-                                            ¡Nuevas tasas de interés! Bancos lanzan beneficios especiales para colombianos en el exterior
+                                            ¡Nuevas tasas de interés! Bancos lanzan beneficios especiales para
+                                            colombianos en el exterior
                                             <span class="absolute inset-0" aria-hidden="true"></span>
                                         </a>
                                     </dd>
                                     <dt class="sr-only">Description</dt>
-                                    <dd class="mt-2 w-full flex-none text-base/7 text-gray-600">A partir de julio 2025, entran en vigor condiciones preferenciales para financiar vivienda en Colombia. Te explicamos cómo acceder a estas tasas reducidas y qué requisitos debes cumplir desde tu país de residencia.</dd>
+                                    <dd class="mt-2 w-full flex-none text-base/7 text-gray-600">A partir de julio 2025,
+                                        entran en vigor condiciones preferenciales para financiar vivienda en Colombia.
+                                        Te explicamos cómo acceder a estas tasas reducidas y qué requisitos debes
+                                        cumplir desde tu país de residencia.</dd>
                                     <!-- <dt class="sr-only">Salary</dt> -->
                                     <!-- <dd class="mt-4 text-base/7 font-semibold text-gray-900">$75,000 USD</dd> -->
                                     <dt class="sr-only">Date</dt>
@@ -293,7 +299,10 @@ const services = ref([
                                         </a>
                                     </dd>
                                     <dt class="sr-only">Description</dt>
-                                    <dd class="mt-2 w-full flex-none text-base/7 text-gray-600">Analizamos proyecciones de rentabilidad, plusvalía y demanda en las dos ciudades más atractivas para colombianos en el exterior. Descubre datos clave antes de tomar tu decisión.</dd>
+                                    <dd class="mt-2 w-full flex-none text-base/7 text-gray-600">Analizamos proyecciones
+                                        de rentabilidad, plusvalía y demanda en las dos ciudades más atractivas para
+                                        colombianos en el exterior. Descubre datos clave antes de tomar tu decisión.
+                                    </dd>
                                     <!-- <dt class="sr-only">Salary</dt> -->
                                     <!-- <dd class="mt-4 text-base/7 font-semibold text-gray-900">$75,000 USD</dd> -->
                                     <dt class="sr-only">Date</dt>
@@ -308,7 +317,8 @@ const services = ref([
                             </li>
                         </ul>
                         <div class="mt-8 flex border-t border-gray-100 pt-8">
-                            <a href="#" class="text-sm/6 font-semibold text-indigo-600 hover:text-indigo-500">Ver todas las noticias <span aria-hidden="true">&rarr;</span></a>
+                            <a href="#" class="text-sm/6 font-semibold text-indigo-600 hover:text-indigo-500">Ver todas
+                                las noticias <span aria-hidden="true">&rarr;</span></a>
                         </div>
                     </div>
                 </div>
@@ -332,8 +342,10 @@ const services = ref([
                         </defs>
                     </svg>
                     <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                        <h2 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">¿Listo para invertir en tu futuro en Colombia?</h2>
-                        <p class="mt-6 text-lg/8 text-pretty text-gray-300"> Nuestro equipo está listo para escucharte, orientarte y ayudarte a tomar la mejor decisión.</p>
+                        <h2 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">¿Listo
+                            para invertir en tu futuro en Colombia?</h2>
+                        <p class="mt-6 text-lg/8 text-pretty text-gray-300"> Nuestro equipo está listo para escucharte,
+                            orientarte y ayudarte a tomar la mejor decisión.</p>
                         <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                             <a href="#"
                                 class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</a>
@@ -349,5 +361,223 @@ const services = ref([
                 </div>
             </div>
         </div>
+
+
+        <div class="relative isolate bg-white pt-24 pb-32 sm:pt-32">
+            <!-- <div class="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
+                aria-hidden="true">
+                <div class="ml-[max(50%,38rem)] aspect-1313/771 w-[82.0625rem] bg-linear-to-tr from-[#ff80b5] to-[#9089fc]"
+                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                </div>
+            </div>
+            <div class="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-32 opacity-25 blur-3xl sm:pt-40 xl:justify-end"
+                aria-hidden="true">
+                <div class="ml-[-22rem] aspect-1313/771 w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] xl:mr-[calc(50%-12rem)] xl:ml-0"
+                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                </div>
+            </div> -->
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-5xl text-center">
+                    <h2 class="text-base/7 font-semibold text-indigo-600">Testimonios</h2>
+                    <p class="mt-2 text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">Estas son algunas de sus historias, contadas en sus propias palabras.</p>
+                </div>
+                <div
+                    class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
+                    <figure
+                        class="rounded-2xl bg-white shadow-lg ring-1 ring-gray-900/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
+                        <blockquote class="p-6 text-lg font-semibold tracking-tight text-gray-900 sm:p-12 sm:text-xl/8">
+                            <p>“Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor
+                                libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis
+                                blandit vel et proin. Non hendrerit in vel ac diam.”</p>
+                        </blockquote>
+                        <figcaption
+                            class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
+                            <img class="size-10 flex-none rounded-full bg-gray-50"
+                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
+                                alt="">
+                            <div class="flex-auto">
+                                <div class="font-semibold">Brenna Goyette</div>
+                                <div class="text-gray-600">@brennagoyette</div>
+                            </div>
+                            <img class="h-10 w-auto flex-none"
+                                src="https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg" alt="">
+                        </figcaption>
+                    </figure>
+                    <div class="space-y-8 xl:contents xl:space-y-0">
+                        <div class="space-y-8 xl:row-span-2">
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
+                                        enim doloremque et ipsam.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leslie Alexander</div>
+                                        <div class="text-gray-600">@lesliealexander</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
+                                        enim doloremque et ipsam.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leslie Alexander</div>
+                                        <div class="text-gray-600">@lesliealexander</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
+                                        enim doloremque et ipsam.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leslie Alexander</div>
+                                        <div class="text-gray-600">@lesliealexander</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <!-- More testimonials... -->
+                        </div>
+                        <div class="space-y-8 xl:row-start-1">
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut
+                                        officia rem nulla blanditiis.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Lindsay Walton</div>
+                                        <div class="text-gray-600">@lindsaywalton</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut
+                                        officia rem nulla blanditiis.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Lindsay Walton</div>
+                                        <div class="text-gray-600">@lindsaywalton</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <!-- More testimonials... -->
+                        </div>
+                    </div>
+                    <div class="space-y-8 xl:contents xl:space-y-0">
+                        <div class="space-y-8 xl:row-start-1">
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae.
+                                        Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Tom Cook</div>
+                                        <div class="text-gray-600">@tomcook</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae.
+                                        Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Tom Cook</div>
+                                        <div class="text-gray-600">@tomcook</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <!-- More testimonials... -->
+                        </div>
+                        <div class="space-y-8 xl:row-span-2">
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
+                                        excepturi rerum voluptatem minus harum.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leonard Krasner</div>
+                                        <div class="text-gray-600">@leonardkrasner</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
+                                        excepturi rerum voluptatem minus harum.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leonard Krasner</div>
+                                        <div class="text-gray-600">@leonardkrasner</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                <blockquote class="text-gray-900">
+                                    <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
+                                        excepturi rerum voluptatem minus harum.”</p>
+                                </blockquote>
+                                <figcaption class="mt-6 flex items-center gap-x-4">
+                                    <img class="size-10 rounded-full bg-gray-50"
+                                        src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="">
+                                    <div>
+                                        <div class="font-semibold">Leonard Krasner</div>
+                                        <div class="text-gray-600">@leonardkrasner</div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                            <!-- More testimonials... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
