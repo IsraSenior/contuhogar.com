@@ -6,15 +6,24 @@ const carouselConfig = {
     snapAlign: "start",
     wrapAround: false,
     pauseAutoplayOnHover: true,
-}
+    breakpointMode: 'carousel',
 
-const testimonialsCarouselConfig = {
-    itemsToShow: 2,
-    gap: 5,
-    autoplay: 2000,
-    snapAlign: "center",
-    wrapAround: false,
-    pauseAutoplayOnHover: true,
+    // Breakpoints are mobile-first
+    // Any settings not specified will fall back to the carousel's default settings
+    breakpoints: {
+        // 300px and up
+        300: {
+            itemsToShow: 1,
+            snapAlign: 'center',
+        },
+
+        1080: {
+            itemsToShow: 4,
+            snapAlign: 'center',
+        },
+        
+
+    }
 }
 
 const services = ref([
@@ -62,7 +71,7 @@ const services = ref([
                             </div>
                         </div>
                         <h1
-                            class="mt-24 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-6xl">
+                            class="md:mt-24 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-6xl">
                             Tu vivienda en Colombia empieza aquí, <br><span class="text-indigo-600"> estés donde
                                 estés.</span></h1>
                         <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">Más de 15 años
@@ -223,8 +232,8 @@ const services = ref([
                     diseñados para facilitar cada paso del proceso de inversión en finca raíz en Colombia.</p>
             </div>
             <Carousel v-bind="carouselConfig" class="mt-16">
-                <Slide v-for="(n, index) in services" :key="index" class="pb-8">
-                    <div class="max-w-sm sm:rounded-3xl overflow-hidden shadow-lg">
+                <Slide v-for="(n, index) in services" :key="index" class="pb-8 px-1 md:px-0">
+                    <div class="max-w-sm rounded-3xl overflow-hidden shadow-lg">
                         <img class="w-full h-52 object-center object-cover" :src="n.image"
                             alt="Sunset in the mountains">
                         <div class="px-6 py-4">
@@ -379,7 +388,8 @@ const services = ref([
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-5xl text-center">
                     <h2 class="text-base/7 font-semibold text-indigo-600">Testimonios</h2>
-                    <p class="mt-2 text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">Estas son algunas de sus historias, contadas en sus propias palabras.</p>
+                    <p class="mt-2 text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">Estas
+                        son algunas de sus historias, contadas en sus propias palabras.</p>
                 </div>
                 <div
                     class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
