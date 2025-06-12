@@ -20,60 +20,60 @@ const services = ref([
 
 
 <template>
-    <footer class="bg-gray-900">
+    <footer class="bg-primary">
         <div class="mx-auto max-w-7xl px-6 pt-20 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <div class="grid grid-cols-2 gap-8 xl:col-span-2">
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 class="text-sm/6 font-semibold text-white">Solutions</h3>
+                            <h3 class="text-base font-semibold text-white">Solutions</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li v-for="(s, index) in services" :key="index">
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">{{ s.title }}</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">{{ s.title }}</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div>
-                            <h3 class="text-sm/6 mt-10 md:mt-0 font-semibold text-white">ConTuHogar</h3>
+                            <h3 class="text-base mt-10 md:mt-0 font-semibold text-white">ConTuHogar</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Nosotros</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Nosotros</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Testimonios</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Testimonios</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Blog</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Noticias</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Noticias</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 class="text-sm/6 font-semibold text-white">Soporte</h3>
+                            <h3 class="text-basefont-semibold text-white">Soporte</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Contacto</a>
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Contacto</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Preguntas
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Preguntas
                                         frecuentes</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="mt-10 md:mt-0">
-                            <h3 class="text-sm/6 font-semibold text-white">Legal</h3>
+                            <h3 class="text-base font-semibold text-white">Legal</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Términos y
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Términos y
                                         condiciones</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white">Políticas de
+                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Políticas de
                                         privacidad</a>
                                 </li>
                             </ul>
@@ -81,17 +81,17 @@ const services = ref([
                     </div>
                 </div>
                 <div class="mt-10 xl:mt-0">
-                    <h3 class="text-sm/6 font-semibold text-white">Suscríbase a nuestro boletín</h3>
-                    <p class="mt-2 text-sm/6 text-gray-300">Las últimas noticias, artículos y recursos, enviados a su
+                    <h3 class="text-sm font-semibold text-white">Suscríbase a nuestro boletín</h3>
+                    <p class="mt-2 text-sm text-white">Las últimas noticias, artículos y recursos, enviados a su
                         bandeja de entrada mensualmente.</p>
                     <form class="mt-6 sm:flex sm:max-w-md">
                         <label for="email-address" class="sr-only">Correo electrónico</label>
                         <input type="email" name="email-address" id="email-address" autocomplete="email" required
-                            class="w-full min-w-0 rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:w-64 sm:text-sm/6 xl:w-full"
+                            class="w-full min-w-0 rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-white focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:w-64 sm:text-sm/6 xl:w-full"
                             placeholder="Ingresa tu correo electrónico">
                         <div class="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
                             <button type="submit"
-                                class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Suscríbase</button>
+                                class="btn secondary">Suscríbase</button>
                         </div>
                     </form>
                 </div>
@@ -99,7 +99,7 @@ const services = ref([
             <div
                 class="mt-16 border-t border-white/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24">
                 <div class="flex gap-x-6 md:order-2">
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-white hover:text-secondary">
                         <span class="sr-only">Facebook</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -107,7 +107,7 @@ const services = ref([
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-white hover:text-secondary">
                         <span class="sr-only">Instagram</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -115,14 +115,14 @@ const services = ref([
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-white hover:text-secondary">
                         <span class="sr-only">X</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path
                                 d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
                         </svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-white hover:text-secondary">
                         <span class="sr-only">YouTube</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -131,7 +131,7 @@ const services = ref([
                         </svg>
                     </a>
                 </div>
-                <p class="mt-8 text-sm/6 text-gray-400 md:order-1 md:mt-0">&copy; 2025 ConTuHogar, Todos los derechos
+                <p class="mt-8 text-sm/6 text-white md:order-1 md:mt-0">&copy; 2025 ConTuHogar, Todos los derechos
                     reservados.</p>
             </div>
         </div>

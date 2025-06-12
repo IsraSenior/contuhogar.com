@@ -4,30 +4,35 @@ const servicesDropdown = ref(false);
 const services = ref([
     {
         icon: "🏦",
+        href: "/test",
         title: "Crédito Hipotecario",
         description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país.",
         image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🏘️",
+        href: "/test",
         title: "Leasing Habitacional",
         description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional.",
         image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🛠️",
+        href: "/test",
         title: "Crédito para Remodelación",
         description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación.",
         image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "💳",
+        href: "/test",
         title: "Compra de Cartera",
         description: "Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. ",
         image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🏡",
+        href: "/test",
         title: "Compra y Venta de Inmuebles",
         description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
         image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
@@ -40,17 +45,17 @@ const services = ref([
     <header class="bg-white fixed inset-x-0 top-0 z-20">
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
-                <a href="#" class="-m-1.5 p-1.5">
+                <NuxtLink to="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">ConTuHogar</span>
                     <Logo class="h-10 w-auto" />
-                </a>
+                </NuxtLink>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="#" class="text-sm/6 font-semibold text-gray-900">Sobre nosotros</a>
+                <NuxtLink to="/nosotros" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Sobre nosotros</NuxtLink>
 
                 <div class="relative">
                     <button @click.prevent="servicesDropdown = !servicesDropdown" type="button"
-                        class="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900" aria-expanded="false">
+                        class="flex items-center gap-x-1 text-base font-semibold text-gray-600 hover:text-secondary" aria-expanded="false">
                         Nuestros servicios
                         <svg class="size-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                             aria-hidden="true" data-slot="icon">
@@ -65,10 +70,10 @@ const services = ref([
                         leave-active-class="transition ease-in duration-150"
                         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
                         <div v-if="servicesDropdown"
-                            class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-lg overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                            class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-lg overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
                             <div class="p-4">
                                 <div v-for="(s, index) in services" :key="index"
-                                    class="group relative flex gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
+                                    class="group relative flex gap-x-6 rounded-lg p-4 text-base hover:bg-gray-50">
                                     <div
                                         class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <span class=" text-gray-600 group-hover:text-indigo-600 text-center text-xl">
@@ -76,17 +81,17 @@ const services = ref([
                                         </span>
                                     </div>
                                     <div class="flex-auto">
-                                        <a href="#" class="block font-semibold text-gray-900">
+                                        <NuxtLink :to="`/servicios${s.href}`" @click.native="servicesDropdown = false" class="block font-semibold text-gray-600 text-base lg:text-lg">
                                             {{ s.title }}
                                             <span class="absolute inset-0"></span>
-                                        </a>
-                                        <p class="mt-1 text-gray-600">{{ s.description }}</p>
+                                        </NuxtLink>
+                                        <p class="mt-1 text-gray-600 text-base">{{ s.description }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+                            <div class="grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50">
                                 <a href="#"
-                                    class="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100">
+                                    class="flex items-center justify-center gap-x-2.5 p-3 text-sm lg:text-base font-semibold text-gray-600 hover:bg-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                         class="size-5 flex-none text-gray-400">
                                         <path fill-rule="evenodd"
@@ -97,7 +102,7 @@ const services = ref([
                                     Calculadora
                                 </a>
                                 <a href="#"
-                                    class="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100">
+                                    class="flex items-center justify-center gap-x-2.5 p-3 text-sm lg:text-base font-semibold text-gray-600 hover:bg-gray-100">
                                     <svg class="size-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                         aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd"
@@ -111,16 +116,16 @@ const services = ref([
                     </Transition>
                 </div>
 
-                <a href="#" class="text-sm/6 font-semibold text-gray-900">Preguntas frecuentes</a>
-                <a href="#" class="text-sm/6 font-semibold text-gray-900">Blog & Noticias</a>
+                <NuxtLink to="/faqs" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Preguntas frecuentes</NuxtLink>
+                <NuxtLink to="/blog" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Blog</NuxtLink>
+                <!-- <NuxtLink to="/noticias" class="text-base font-semibold text-gray-600 hover:text-secondary">Noticias</NuxtLink> -->
             </div>
             <div class="flex flex-1 items-center justify-end gap-x-6">
-                <!-- <a href="#" class="hidden text-sm/6 font-semibold text-gray-900 lg:block">Log in</a> -->
-                <a href="#"
-                    class="hidden md:flex rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Contáctanos</a>
+                <NuxtLink to="/contacto" @click.native="servicesDropdown = false"
+                    class="hidden md:flex btn secondary" v-umami="{name: 'contact-button-header-desktop'}">Contáctanos</NuxtLink>
 
                 <button type="button"
-                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                    class="-m-2.5 inline-flex lg:hidden items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
                     <svg class="size-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                         aria-hidden="true" data-slot="icon">
@@ -135,7 +140,7 @@ const services = ref([
             <!-- Background backdrop, show/hide based on slide-over state. -->
             <div class="fixed inset-0 z-10"></div>
             <div
-                class="fixed inset-y-0 right-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                class="fixed inset-y-0 right-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-600/10">
                 <div class="p-6">
                     <div class="flex items-center justify-between">
                         <a href="#" class="-m-1.5 p-1.5">
@@ -156,7 +161,7 @@ const services = ref([
                         <div class="-my-6 divide-y divide-gray-500/10">
                             <div class="space-y-2 py-6">
                                 <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     <div
                                         class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
@@ -171,7 +176,7 @@ const services = ref([
                                     Analytics
                                 </a>
                                 <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     <div
                                         class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
@@ -184,7 +189,7 @@ const services = ref([
                                     Engagement
                                 </a>
                                 <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     <div
                                         class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
@@ -197,7 +202,7 @@ const services = ref([
                                     Security
                                 </a>
                                 <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     <div
                                         class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
@@ -210,7 +215,7 @@ const services = ref([
                                     Integrations
                                 </a>
                                 <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     <div
                                         class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                                         <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
@@ -225,31 +230,31 @@ const services = ref([
                             </div>
                             <div class="space-y-2 py-6">
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Features</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Features</a>
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Marketplace</a>
 
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">About
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">About
                                     us</a>
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Careers</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Careers</a>
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Support</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Support</a>
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Blog</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Blog</a>
                             </div>
                             <div class="py-6">
                                 <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Log
                                     in</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50 text-center">
-                    <a href="#" class="p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-100">Watch demo</a>
-                    <a href="#" class="p-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-100">Contact sales</a>
+                <div class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50 text-center">
+                    <a href="#" class="p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-100">Watch demo</a>
+                    <a href="#" class="p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-100">Contact sales</a>
                 </div>
             </div>
         </div>
