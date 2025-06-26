@@ -20,7 +20,7 @@ const services = ref([
 
 
 <template>
-    <footer class="bg-primary">
+    <footer class="bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 pt-20 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <div class="grid grid-cols-2 gap-8 xl:col-span-2">
@@ -69,13 +69,13 @@ const services = ref([
                             <h3 class="text-base font-semibold text-white">Legal</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Términos y
-                                        condiciones</a>
+                                    <NuxtLink to="terminos-condiciones" class="text-sm/6 text-white hover:text-secondary">Términos y
+                                        condiciones</NuxtLink>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#" class="text-sm/6 text-white hover:text-secondary">Políticas de
                                         privacidad</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>

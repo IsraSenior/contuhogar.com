@@ -18,7 +18,8 @@
     --color-gray-900: oklch(0.208 0.042 265.755);
     --color-gray-950: oklch(0.129 0.042 264.695);
 
-    --color-primary: #204491;
+    /* --color-primary: #204491; */
+    --color-primary: oklch(0.208 0.042 265.755);
     --color-secondary: #ec6e07;
     --color-muted: #f8f8f8;
 

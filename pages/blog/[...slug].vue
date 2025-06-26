@@ -5,13 +5,40 @@
 <template>
     <div class="bg-muted px-6 py-32 lg:px-8">
         <div class="mx-auto max-w-5xl text-base/7 text-gray-500">
-            <p class="text-base/7 font-semibold text-secondary">Introducing</p>
-            <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Lorem ipsum
-                dolor sit amet consectetur adipisicing elit.</h1>
-            <p class="mt-6 text-xl/8">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui
-                mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra
-                scelerisque eget. Eleifend egestas fringilla sapien.</p>
-            <div class="mt-10 max-w-2xl">
+            <p class="text-base/7 font-semibold text-secondary">El momento es ahora</p>
+            <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Aprovecha el poder de las tasas de cambio a tu favor.</h1>
+            <div class="space-y-6 text-xl/8 mt-6">
+                <p>En los últimos años, la devaluación del peso colombiano ha dificultado que
+                    muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado
+                    o a través de créditos hipotecarios. Sin embargo, esta realidad ha generado una gran
+                    oportunidad para los colombianos residentes en el exterior quienes reciben ingresos en
+                    monedas fuertes como el dólar, el euro u otras fuertes divisas.</p>
+
+                <p>Hoy, los colombianos quienes trabajan y residen en algunos países del exterior tienen una
+                    ventaja única, su dinero vale más en Colombia. Esta diferencia les permite invertir de forma
+                    más estratégica, segura y rentable, incluso en mejores condiciones que en su país de
+                    residencia.</p>
+
+                <p>La finca raíz continúa siendo una de las formas más estables y sólidas de inversión en el
+                    mundo. No solo incrementa el patrimonio, sino que también brinda seguridad y estabilidad
+                    financiera. Contar con ingresos en una moneda fuerte y acceder a créditos en pesos
+                    colombianos ofrece beneficios como cuotas más asequibles, posibilidad de hacer abonos a
+                    capital y, en muchos casos, pagar el préstamo en menos tiempo del previsto.</p>
+
+                <p> Hoy es el momento ideal para invertir en tu país, aplica a un crédito de vivienda y compra
+                    tu propiedad ya, o ayuda a tu familia a cumplir ese sueño que la economía local ha hecho
+                    difícil. La diferencia la haces tú. Tus buenas decisiones pueden convertirse en un hogar
+                    para ti o los tuyos en Colombia.</p>
+
+                <p class="font-bold">Alejandra Pérez C.</p>
+            </div>
+
+
+
+
+
+            <!-- <div class="mt-10 max-w-2xl">
+
                 <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed
                     amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius
                     sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
@@ -53,7 +80,8 @@
                     molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate
                     et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
                 </p>
-                <h2 class="mt-16 text-3xl font-semibold tracking-tight text-pretty text-primary">Lorem ipsum dolor sit amet.</h2>
+                <h2 class="mt-16 text-3xl font-semibold tracking-tight text-pretty text-primary">Lorem ipsum dolor sit
+                    amet.</h2>
                 <p class="mt-6">Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu
                     ipsum urna nibh. Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas
                     pellentesque id sed tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque
@@ -75,8 +103,8 @@
                 <p class="mt-10">Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris
                     semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra
                     tellus varius sit neque erat velit.</p>
-            </div>
-            <figure class="mt-16">
+            </div> -->
+            <!-- <figure class="mt-16">
                 <img class="aspect-video rounded-xl bg-gray-50 object-cover"
                     src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&w=1310&h=873&q=80&facepad=3"
                     alt="">
@@ -89,8 +117,8 @@
                     </svg>
                     Faucibus commodo massa rhoncus, volutpat.
                 </figcaption>
-            </figure>
-            <div class="mt-16 max-w-2xl">
+            </figure> -->
+            <!-- <div class="mt-16 max-w-2xl">
                 <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 </h2>
@@ -101,7 +129,7 @@
                 <p class="mt-8">Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris
                     semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra
                     tellus varius sit neque erat velit.</p>
-            </div>
+            </div> -->
         </div>
     </div>
 

@@ -1,45 +1,44 @@
 <script setup>
 const questions = ref([
     {
-        question: "¿Qué es un Broker?",
+        question: "¿Qué es un bróker?",
         answer: `Es el canal de contacto entre usted y las entidades financieras para la obtención de un crédito de vivienda en Colombia desde el exterior.`
     },
     {
+        question: "¿Puedo pedir un préstamo de vivienda en Colombia a pesar de vivir en el exterior?",
+        answer: `Sí. Toda vez que cumpla con los requisitos que exige la entidad financiera, usted podrá presentar la documentación que justifique su estabilidad tanto laboral como económica, entre otros.`
+    },
+    {
         question: "¿Cuál es la función de ContuHogar en mi solicitud de crédito?",
-        answer: `Nos encargamos de asesorarle, recibir su documentación, filtrar sus posibilidades, verificar la información y acompañarle durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, resultará en el desembolso del crédito, incluyendo servicio de posventa durante toda la vida del crédito.`
+        answer: `Nos encargamos de asesorarle, recibir su documentación, filtrar sus posibilidades, verificar la información y acompañarle durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, podrá resultar en el desembolso del crédito.`
     },
     {
-        question: "¿Cómo identifico el crédito que se ajuste a mi necesidad?",
-        answer: `
-        <ol class="list-decimal list-inside">
-            <li>Con el crédito hipotecario usted podrá financiar el 70 % sobre el valor comercial del inmueble. Se escritura a su nombre y queda con una garantía en primer grado a favor del banco. </li>
-            <li>Con el leasing habitacional no familiar usted podrá financiar hasta el 85 % sobre el valor comercial del inmueble. Se escritura a nombre del banco, y se usa la figura de contrato de arrendamiento financiero, donde usted será el locatario y tendrá la primera opción de compra. </li>
-            <li>Con el crédito de remodelación usted podrá hacer mejoras, reparaciones, remodelación a su vivienda o incluso destinar ese dinero como un libre inversión. Se financia hasta el 50 %.</li>
-            <li>Con la compra de cartera usted podrá mejorar las condiciones financieras del actual crédito, disminuyendo la tasa de interés y por ende el valor de la cuota mensual que contrato con el otro banco. El objetivo es brindarle la mejor opción financiera.  </li>  
-        </ol>
-        `
+        question: "¿Si tengo reportes negativos en Colombia o en el exterior puedo aplicar a un préstamo?",
+        answer: `Depende. Para cualquiera de los dos casos usted debe presentar paz y salvo de la deuda, dependiendo del tipo de reporte y la cuantía, requerirá una excepción especial. En caso de un reporte castigado, deberá estudiarse individualmente su situación.`
     },
     {
-        question: "¿Quiénes pueden acceder a estos créditos?",
-        answer: `Personas naturales colombianas con edades entre 18 y 74 años; que estén bien calificados ante las centrales de riesgo por sus buenos hábitos de pago; con capacidad de pago suficiente para atender la deuda; demostrando con soportes reales su estabilidad laboral y económica.`
+        question: "¿Mi crédito en el exterior se verá afectado con el préstamo que haga en Colombia?",
+        answer: `No. El préstamo de vivienda en Colombia será únicamente reportado en Colombia bajo la Ley 546 de 1999, también conocida como la Ley de Vivienda.`
+    },
+    {
+        question: "Mi pareja es extranjero, ¿él puede pedir un préstamo conmigo para la compra de vivienda en Colombia?",
+        answer: `Si usted ha validado esta unión mediante un documento legal podrá consolidar ingresos con su cónyuge. Él como extranjero se deberá presentar con el pasaporte.`
     },
     {
         question: "¿Debo tener definida la compra de la vivienda para aplicar al crédito?",
-        answer: `No. Se recomienda que usted inicie el proceso de estudio de crédito y una vez cuente con la aprobación por parte del banco pueda tranquilamente negociar la compra de su inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
+        answer: `No. Se recomienda que usted inicie el proceso de estudio de crédito y una vez cuente con la aprobación pueda tranquilamente negociar la compra de su inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
     },
     {
         question: "¿Cuánto dinero me pueden prestar?",
-        answer: `En cuanto al monto a solicitar no existe un límite. Usted puede aplicar a uno o más cupos de crédito, todo depende de su capacidad de pago, es decir, de acuerdo con sus ingresos y gastos mensuales, se revisa su capacidad de pago y se determinará su nivel de endeudamiento. De no aplicar al valor que requiere se sugiere un cupo viable.`
+        answer: `En cuanto al monto a solicitar no existe un límite. Usted puede aplicar a uno o más cupos de crédito, todo depende de su capacidad de pago. Validaremos sus ingresos frente a sus gastos. De no aplicar al valor que requiere se sugiere un cupo viable.`
     },
     {
         question: "Si no cuento con los requisitos y condiciones para aplicar, ¿qué podría hacer?",
         answer: `Nosotros estamos en capacidad de asesorarle certeramente para que en un futuro cumpla con los requerimientos y condiciones del banco. Nuestra asesoría es integral y nuestro afán es suplir su necesidad sea en el momento o a futuro.`
-    },
-    {
-        question: "Si vivo en el exterior y no puedo viajar a Colombia para hacer el préstamo o elegir la vivienda ¿cómo podría hacer?",
-        answer: `El colombiano residente en el exterior puede nombrar a un apoderado, quien será su representante en Colombia y se encargará de firmar los documentos exigidos por el banco y el vendedor (constructor o persona natural), a través de un poder especial, que para efectos del banco será diligenciado por ContuHogar o a través de un poder por escritura pública. <br/> <br/> El apoderado debe ser una persona de confianza y disponer de tiempo para los trámites. El apoderado no aparecerá en el crédito, ni en la compra, solo es un representante suyo.`
-    },
-])
+    }
+]);
+
+const current = ref(0);
 </script>
 
 <template>
@@ -53,20 +52,33 @@ const questions = ref([
                         </h2>
                         <p class="mt-4 text-base/7 text-pretty text-gray-500">¿No encuentra la respuesta que busca?
                             Póngase en contacto con <a href="#"
-                                class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.</p>
+                                class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.
+                        </p>
                         <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
                             src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000"
                             alt="">
                     </div>
                 </div>
                 <div class="mt-10 lg:col-span-7 lg:mt-0">
-                    <dl class="space-y-10">
+                    <dl class="space-y-6">
                         <div v-for="(item, index) in questions" :key="index">
-                            <dt class="text-xl font-bold text-primary">{{ item?.question }}</dt>
-                            <dd class="mt-2 text-lg text-gray-500" v-html="item?.answer"></dd>
-                        </div>
+                            <dt :class="[
+                                'text-base font-bold cursor-pointer px-2 py-1.5 rounded-lg flex justify-between items-start',
+                                current === index ? 'bg-primary text-white' : 'bg-muted border border-primary text-primary hover:bg-primary hover:text-white'
+                            ]" @click="current = index">
+                                <span class="flex-1">{{ item?.question }}</span>
+                                <span class="pl-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
 
-                        <!-- More questions... -->
+                                </span>
+                            </dt>
+                            <dd v-if="current === index" class="mt-2 text-lg text-gray-500 px-5" v-html="item?.answer">
+                            </dd>
+                        </div>
                     </dl>
                 </div>
             </div>

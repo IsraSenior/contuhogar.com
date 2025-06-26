@@ -1,37 +1,56 @@
 <script setup>
 const team = ref([
     {
-        name: "Alejandra Perez",
+        name: "Alejandra Pérez",
+        email: "gerencia@contuhogar.net",
         title: "Gerente",
         image: "https://static.wixstatic.com/media/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg/v1/fill/w_854,h_850,al_c,q_85,enc_auto/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg"
     },
     {
         name: "Fernando Muñóz Tatar",
-        title: "Director Comercial",
+        email: "directorcomercial@contuhogar.net",
+        title: "Director Operativo",
         image: "https://static.wixstatic.com/media/b4f6b9_d0c18f1dca334911a27916d9df2f63f4~mv2.png/v1/fill/w_845,h_795,al_c,q_90,enc_auto/b4f6b9_d0c18f1dca334911a27916d9df2f63f4~mv2.png"
     },
     {
         name: "Marly Sierra",
-        title: "Directora de Crédito",
+        email: "creditodevivienda05@contuhogar.net",
+        title: "Ejecutiva de Crédito",
         image: "https://static.wixstatic.com/media/b4f6b9_86bd5973ddec4b2993355256b7c4c3ab~mv2.jpg/v1/fill/w_679,h_589,al_c,q_85,enc_auto/b4f6b9_86bd5973ddec4b2993355256b7c4c3ab~mv2.jpg"
     },
     {
-        name: "Derly Plazas",
-        title: "Analista de Crédito",
-        image: "https://static.wixstatic.com/media/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg/v1/fill/w_854,h_804,al_c,q_85,enc_auto/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg"
+        name: "Yeison Chavez",
+        email: "ejecutivocomercial@contuhogar.net",
+        title: "Ejecutiva de Crédito",
+        image: ""
     },
     {
+        name: "Carlos Garzón",
+        email: "analistadecredito@contuhogar.net",
+        title: "Analista de Crédito",
+        image: ""
+    },
+    // {
+    //     name: "Derly Plazas",
+    // email: "",
+    //     title: "Analista de Crédito",
+    //     image: "https://static.wixstatic.com/media/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg/v1/fill/w_854,h_804,al_c,q_85,enc_auto/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg"
+    // },
+    {
         name: "Catalina Romero",
+        email: "gestionhumana@contuhogar.net",
         title: "Directora de Gestión Humana",
         image: "https://static.wixstatic.com/media/b4f6b9_0858857fecb44815ba2d64c0a44aea07~mv2.jpg/v1/fill/w_514,h_536,al_c,lg_1,q_80,enc_auto/b4f6b9_0858857fecb44815ba2d64c0a44aea07~mv2.jpg"
     },
     {
         name: "Kelly Johanna Rojas",
+        email: "asistentedegerencia@contuhogar.net",
         title: "Asistente de Gerencia",
         image: "https://static.wixstatic.com/media/11062b_9db578b244284d28a4833e20b4d0c6ff~mv2_d_7000_4667_s_4_2.jpg/v1/fill/w_2090,h_1393,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/11062b_9db578b244284d28a4833e20b4d0c6ff~mv2_d_7000_4667_s_4_2.jpg"
     },
     {
         name: "Diego Roojas",
+        email: "contabilidad@contuhogar.net",
         title: "Contatador",
         image: "https://static.wixstatic.com/media/b4f6b9_ccda897c03c64584baeaf92e7720c4aa~mv2.jpg/v1/fill/w_545,h_485,al_c,lg_1,q_80,enc_auto/b4f6b9_ccda897c03c64584baeaf92e7720c4aa~mv2.jpg"
     },
@@ -100,20 +119,25 @@ const team = ref([
     <div class="bg-muted py-24 sm:py-32">
         <div class="mx-auto container lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra promesa
+                <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra historia
                 </h2>
                 <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-4xl lg:flex-auto">
-                        <p class="font-bold text-secondary">Hacerlo fácil, transparente y posible, sin importar en qué
-                            parte del mundo te encuentres.</p>
-                        <p class="mt-6 max-w-3xl">
-                            Sabemos lo importante que es construir un futuro sólido, incluso desde lejos,
-                            por eso nos convertimos en tu aliado de confianza para cada paso del proceso. <br> <br>
-                            Desde 2009, hemos asesorado a cientos de clientes que buscaban comprar su vivienda,
-                            financiarla,
-                            remodelarla o invertir en finca raíz.</p>
+                        <p class="font-bold text-secondary">ContuHogar es una empresa con amplia experiencia y
+                            trayectoria en la prestación de
+                            servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los
+                            mercados, principalmente a residentes en el exterior.</p>
+                        <div class="mt-6 space-y-6 max-w-3xl">
+                            <p>Desde su creación en el 2009, ContuHogar ha sido una empresa que se esfuerza por
+                                ofrecer una alternativa única en incentivar a los clientes a creer en nuestro país e
+                                invertir en finca raíz, asegurando desde ya un sitio donde vivir en Colombia, bien sea
+                                en el corto o largo plazo, para apoyar a sus familias e incluso como inversión.</p>
+                            <p>Trabajamos de la mano con varias entidades financieras como BBVA Colombia,
+                                Banco de Occidente y Banco Unión, al igual que con varias constructoras e
+                                inmobiliarias en toda Colombia.</p>
+                        </div>
                     </div>
-                    <div class="lg:flex lg:flex-auto lg:justify-center lg:-mt-32">
+                    <div class="lg:flex lg:flex-auto lg:justify-center">
                         <dl class="w-64 space-y-8 xl:w-80">
                             <div class="flex flex-col-reverse gap-y-4">
                                 <dt class="text-base/7 text-gray-500">Transacciones cada año</dt>
@@ -129,6 +153,37 @@ const team = ref([
                             </div>
                         </dl>
                     </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16">
+
+                    <div class="block p-6 rounded-lg shadow-sm  bg-gray-900">
+
+                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-white">Propósito</h5>
+                        <p class="font-normal text-white">Ayudar a las personas a cumplir su sueño
+                            de tener vivienda propia en Colombia,
+                            aunque vivan en el exterior. Brindar otros servicios relacionados con este tipo de
+                            inversión para presentarles una oferta integral..</p>
+                    </div>
+
+                    <div class="block p-6 rounded-lg shadow-sm  bg-secondary">
+
+                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-primary">Misión</h5>
+                        <p class="font-normal text-primary">Asesorar y ayudar a las personas a
+                            obtener financiación para finca raíz en Colombia
+                            desde el exterior de forma oportuna, ágil y eficiente, así como en otros servicios
+                            propios a esta inversión.</p>
+                    </div>
+
+                    <div class="block p-6 rounded-lg shadow-sm  bg-gray-900">
+
+                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-white">Visión</h5>
+                        <p class="font-normal text-white">Posicionarnos como una de las empresas
+                            más influyentes y preferidas como bróker
+                            inmobiliario, asegurando el manejo correcto de las inversiones de vivienda de
+                            nuestros clientes y todo lo referente a los servicios que lo complementen.</p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -148,8 +203,9 @@ const team = ref([
             <ul role="list"
                 class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
                 <li v-for="(staff, index) in team" :key="index">
-                    <img class="aspect-14/13 w-full rounded-2xl object-cover" :src="staff?.image" :alt="staff?.name">
-                    <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}r</h3>
+                    <img class="aspect-14/13 w-full rounded-2xl object-cover bg-muted" :src="staff?.image"
+                        :alt="staff?.name">
+                    <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}</h3>
                     <p class="text-base/7 text-gray-500">{{ staff?.title }}</p>
                     <!-- <p class="text-sm/6 text-gray-500">Toronto, Canada</p> -->
                 </li>

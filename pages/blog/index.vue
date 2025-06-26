@@ -24,20 +24,20 @@
             </div>
             <div class="">
               <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2025</time>
+                <time datetime="2020-03-16" class="text-gray-500">Junio 25, 2025</time>
                 <a href="#"
                   class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-500 hover:bg-gray-100">Broker</a>
               </div>
               <div class="group relative max-w-2xl">
                 <h3 class="mt-3 text-lg/6 font-semibold text-primary group-hover:text-gray-500">
-                  <NuxtLink to="/blog/test">
+                  <NuxtLink to="/blog/el-momento-es-ahora">
                     <span class="absolute inset-0"></span>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Aprovecha el poder de las tasas de cambio a tu favor
                   </NuxtLink>
                 </h3>
-                <p class="mt-5 text-gray-500">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel
-                  totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur
-                  nulla deserunt vel iusto corrupti dicta laboris incididunt.</p>
+                <p class="mt-5 text-gray-500">En los últimos años, la devaluación del peso colombiano ha dificultado que
+                  muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado
+                  o a través de créditos hipotecarios.</p>
               </div>
               <div class="mt-6 flex border-t borderprimary/5 pt-6">
                 <div class="relative flex items-center gap-x-4">
@@ -48,7 +48,7 @@
                     <p class="font-semibold text-primary">
                       <a href="#">
                         <span class="absolute inset-0"></span>
-                        Alejandra Perez
+                        Alejandra Pérez C.
                       </a>
                     </p>
                     <p class="text-gray-500">Gerente</p>
@@ -58,7 +58,7 @@
             </div>
           </article>
 
-          <article class="relative isolate flex flex-col gap-8 lg:flex-row-reverse bg-muted hover:bg-white p-5 rounded-3xl">
+          <!-- <article class="relative isolate flex flex-col gap-8 lg:flex-row-reverse bg-muted hover:bg-white p-5 rounded-3xl">
             <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
               <img
                 src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
@@ -100,9 +100,9 @@
                 </div>
               </div>
             </div>
-          </article>
+          </article> -->
 
-          <article class="relative isolate flex flex-col gap-8 lg:flex-row bg-muted hover:bg-white p-5 rounded-3xl">
+          <!-- <article class="relative isolate flex flex-col gap-8 lg:flex-row bg-muted hover:bg-white p-5 rounded-3xl">
             <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
               <img
                 src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
@@ -143,9 +143,9 @@
                 </div>
               </div>
             </div>
-          </article>
+          </article> -->
 
-          <article class="relative isolate flex flex-col gap-8 lg:flex-row-reverse bg-muted hover:bg-white p-5 rounded-3xl">
+          <!-- <article class="relative isolate flex flex-col gap-8 lg:flex-row-reverse bg-muted hover:bg-white p-5 rounded-3xl">
             <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
               <img
                 src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
@@ -187,12 +187,12 @@
                 </div>
               </div>
             </div>
-          </article>
+          </article> -->
 
           <!-- More posts... -->
         </div>
 
-        <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-32 max-w-3xl mx-auto">
+        <!-- <nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-32 max-w-3xl mx-auto">
           <div class="-mt-px flex w-0 flex-1">
             <a href="#"
               class="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-gray-500 hover:border-secondary hover:text-secondary">
@@ -208,7 +208,7 @@
           <div class="hidden md:-mt-px md:flex">
             <a href="#"
               class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-secondary hover:text-secondary">1</a>
-            <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-secondary hover:border-secondary" -->
+
             <a href="#"
               class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
               aria-current="page">2</a>
@@ -235,7 +235,7 @@
               </svg>
             </a>
           </div>
-        </nav>
+        </nav> -->
 
       </div>
     </div>
