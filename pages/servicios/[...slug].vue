@@ -12,7 +12,7 @@ const services = {
         title: "Compra de Cartera",
         intro: "Es una línea hipotecaria diseñada para ofrecer mejores condiciones financieras que las que actualmente un cliente tiene con su banco. Al trasladar el crédito a otra entidad financiera, se reduce el valor de la cuota mensual y se optimiza el flujo de caja. Gracias a la Ley 546 de 1999, los deudores hipotecarios tienen la posibilidad de cambiar de entidad financiera en cualquier momento, siempre que la nueva entidad ofrezca una tasa de interés más baja."
     },
-    "credito-de-remodelación:": {
+    "credito-de-remodelacion": {
         title: "Crédito de Remodelación",
         intro: "Se trata de una línea de crédito con garantía hipotecaria, dirigida a financiar mejoras, reparaciones o remodelaciones en una vivienda. El inmueble puede estar totalmente libre de deuda o aún tener una hipoteca vigente. En ambos casos, este crédito funciona de manera similar a un crédito de libre inversión, pero con condiciones más favorables en plazo, tasas de interés, entre otras, gracias a la garantía hipotecaria."
     },
@@ -132,11 +132,11 @@ const content = ref([
                     <div>
                         <h1 class="text-4xl font-semibold tracking-tight text-pretty text-primary leading-tight sm:text-5xl"
                             v-motion-fadein-up-once :delay="300">
-                            {{ services?.[slug].title }}
+                            {{ services?.[slug[0]]?.title }}
                         </h1>
                         <div class="mt-6 text-base/7 text-gris-aluminio font-normal space-y-6" v-motion-fadein-up-once>
 
-                            <p><b>Características:</b> {{ services?.[slug].intro }}
+                            <p><b>Características:</b> {{ services?.[slug[0]]?.intro }}
                             </p>
                             <p>
                                 <b>Plazos:</b> los plazos van desde los 5 hasta los 15 años, aunque usted puede
