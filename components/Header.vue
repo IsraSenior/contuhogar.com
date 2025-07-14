@@ -4,36 +4,36 @@ const servicesDropdown = ref(false);
 const services = ref([
     {
         icon: "🏦",
-        href: "/test",
+        href: "/credito-hipotecario",
         title: "Crédito Hipotecario",
         description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país.",
         image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🏘️",
-        href: "/test",
+        href: "/leasing-habitacional",
         title: "Leasing Habitacional",
         description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional.",
         image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🛠️",
-        href: "/test",
-        title: "Crédito para Remodelación",
+        href: "/credito-de-remodelacion",
+        title: "Crédito de Remodelación",
         description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación.",
         image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "💳",
-        href: "/test",
+        href: "/compra-de-cartera",
         title: "Compra de Cartera",
         description: "Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. ",
         image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         icon: "🏡",
-        href: "/test",
-        title: "Compra y Venta de Inmuebles",
+        href: "/conturenta",
+        title: "ConTuRenta",
         description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
         image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
