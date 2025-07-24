@@ -28,6 +28,10 @@
 
 
 @layer base {
+    :root {
+        scroll-padding-top: 25px;
+    }
+    
     * {
         -webkit-font-smoothing: antialiased;
     }

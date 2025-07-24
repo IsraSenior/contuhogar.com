@@ -251,10 +251,11 @@
           <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
             orientarte y ayudarte a tomar la mejor decisión.</p>
           <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-            <a href="#"
-              class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</a>
-            <a href="#" class="text-sm/6 font-semibold text-white hover:text-primary">Conocer más <span
-                aria-hidden="true">→</span></a>
+            <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
+                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
+                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
+            <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
+              Conocer más <span aria-hidden="true">→</span></NuxtLink>
           </div>
         </div>
         <div class="relative mt-16 h-full lg:mt-8">

@@ -29,7 +29,7 @@ const slug = computed(() => {
 
 const currentStep = ref(0);
 const steps = ref([
-    'Datos',
+    'Información general',
     'Dirigido a',
     'Beneficios',
     'Condiciones',
@@ -122,6 +122,8 @@ const content = ref([
     </ul>
     `
 ])
+
+const showMore = ref(false)
 </script>
 
 <template>
@@ -136,9 +138,9 @@ const content = ref([
                         </h1>
                         <div class="mt-6 text-base/7 text-gris-aluminio font-normal space-y-6" v-motion-fadein-up-once>
 
-                            <p><b>Características:</b> {{ services?.[slug[0]]?.intro }}
+                            <p>{{ services?.[slug[0]]?.intro }}
                             </p>
-                            <p>
+                            <!-- <p>
                                 <b>Plazos:</b> los plazos van desde los 5 hasta los 15 años, aunque usted puede
                                 hacer
                                 abonos
@@ -146,8 +148,8 @@ const content = ref([
                                 La
                                 tasa
                                 de interés será la vigente en el momento del desembolso.
-                            </p>
-                            <p>
+                            </p> -->
+                            <!-- <p>
                                 <b>Dirigido a:</b> clientes interesados en compra de vivienda nueva o usada en
                                 cualquier
                                 parte de
@@ -163,25 +165,61 @@ const content = ref([
                                 solicitud, al ser ellos quienes proveen los recursos a través de la documentación,
                                 información y verificación que nosotros como su bróker le suministramos.
 
-                            </p>
+                            </p> -->
                             <p>
                                 Una vez aprobado su crédito, ContuHogar le brindará un acompañamiento integral en
                                 todo
                                 el
                                 proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el
-                                desembolso del dinero por parte de la entidad financiera. También contará con
-                                servicio
-                                de
-                                postventa.
+                                desembolso del dinero por parte de la entidad financiera.
                             </p>
+
+                            <button @click.prevent="showMore = !showMore" class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer {{showMore ? "menos": "más"}}</button>
+                        </div>
+
+                        <div v-if="showMore" class="mt-16">
+                            <div>
+                                <span class="isolate inline-flex rounded-md shadow-xs">
+                                    <button type="button" v-for="(step, index) in steps" :key="index"
+                                        @click="currentStep = index" :class="[
+                                            'relative inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-primary-100 ring-inset hover:bg-gray-50 focus:z-10',
+                                            {
+                                                'rounded-r-md': index === steps.length - 1,
+                                                'rounded-l-md': index === 0,
+                                                '!bg-primary text-white ring-2 ring-primary': currentStep === index,
+                                                'text-primary': currentStep !== index,
+                                                'hover:bg-muted': currentStep !== index,
+                                                'focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-secondary':
+                                                    currentStep !== index
+                                            }]" v-motion-fadein-up-once :delay="index * 100" v-tooltip="{
+                                        content: step,
+                                        placement: 'top',
+                                        trigger: 'hover focus',
+                                        theme: 'dark',
+                                        delay: { show: 100, hide: 100 },
+                                        offset: [0, 8],
+                                        arrow: true,
+                                        arrowSize: 6,
+                                        arrowOffset: 8,
+                                        arrowColor: '#000000',
+                                        arrowClass: 'tooltip-arrow',
+                                        delay: { show: 100, hide: 100 },
+                                    }
+                                        ">{{ step }}</button>
+                                </span>
+
+                            </div>
+
+                            <div class="space-y-6 mt-8">
+                                <div v-html="content[currentStep]"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class=" pb-16 px-5 lg:sticky lg:top-[144px] lg:overflow-hidden lg:col-span-2">
                     <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5"
-                        src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000"
-                        alt="">
+                        src="/2148392254.jpg" alt="">
 
                     <!-- <iframe width="100%" height="450" v-motion-fadein-up-once
                         src="https://www.youtube.com/embed/QjtQiIq0Jdk?si=X5kV6GvABwE5vu0M" title="YouTube video player"
@@ -196,52 +234,11 @@ const content = ref([
                             <h2 class="text-2xl font-semibold tracking-tight text-balance text-primary sm:text-3xl">
                                 Aumente su productividad hoy mismo</h2>
                             <div class="mt-10 flex items-center justify-center gap-x-6">
-                                <a href="#" class="btn primary">
+                                <NuxtLink to="/contacto" class="btn primary">
                                     Solicita
-                                    nuestro servicio</a>
-                                <a href="https://www.softexpert.com/" target="_blank" rel="noopener noreferrer"
-                                    class="text-secondary hover:text-primary">Contáctanos
-                                    <span aria-hidden="true">→</span></a>
+                                    nuestro servicio</NuxtLink>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5">
-                    <div>
-                        <span class="isolate inline-flex rounded-md shadow-xs">
-                            <button type="button" v-for="(step, index) in steps" :key="index"
-                                @click="currentStep = index" :class="[
-                                    'relative inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-primary-100 ring-inset hover:bg-gray-50 focus:z-10',
-                                    {
-                                        'rounded-r-md': index === steps.length - 1,
-                                        'rounded-l-md': index === 0,
-                                        '!bg-primary text-white ring-2 ring-primary': currentStep === index,
-                                        'text-primary': currentStep !== index,
-                                        'hover:bg-muted': currentStep !== index,
-                                        'focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-secondary':
-                                            currentStep !== index
-                                    }]" v-motion-fadein-up-once :delay="index * 100" v-tooltip="{
-                                                content: step,
-                                                placement: 'top',
-                                                trigger: 'hover focus',
-                                                theme: 'dark',
-                                                delay: { show: 100, hide: 100 },
-                                                offset: [0, 8],
-                                                arrow: true,
-                                                arrowSize: 6,
-                                                arrowOffset: 8,
-                                                arrowColor: '#000000',
-                                                arrowClass: 'tooltip-arrow',
-                                                delay: { show: 100, hide: 100 },
-                                            }
-                                                ">{{ step }}</button>
-                        </span>
-
-                    </div>
-
-                    <div class="space-y-6 mt-8">
-                        <div v-html="content[currentStep]"></div>
                     </div>
                 </div>
             </div>
@@ -253,7 +250,7 @@ const content = ref([
     <!-- <div class="relative overflow-hidden">
             <div class="mx-auto container px-5">
                 <img class="mb-[-12%] w-full rounded-xl shadow-2xl ring-1 ring-primary/5"
-                    src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000" alt="">
+                    src="/2148392254.jpg" alt="">
                 <div class="relative" aria-hidden="true">
                     <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t from-white pt-[7%]"></div>
                 </div>

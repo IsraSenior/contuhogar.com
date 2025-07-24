@@ -29,101 +29,107 @@ const carouselConfig = {
 const services = ref([
     {
         title: "🏦 Crédito Hipotecario",
+        href: "/credito-hipotecario",
         description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país, como BBVA Colombia y Giros y Finanzas. Puedes financiar hasta el 70% del valor del inmueble, con condiciones diseñadas para colombianos que viven en el exterior. Nosotros te guiamos en todo el proceso, desde la solicitud hasta el desembolso.",
         image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         title: "🏘️ Leasing Habitacional",
+        href: "/leasing-habitacional",
         description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional. Con el leasing habitacional puedes financiar hasta el 85% del valor de la vivienda y optar por la compra del inmueble al finalizar el contrato. Es una opción muy usada por residentes en el exterior que desean facilidad y flexibilidad.",
         image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
-        title: "🛠️ Crédito para Remodelación",
+        title: "🛠️ Crédito de Remodelación",
+        href: "/credito-de-remodelacion",
         description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación. Puedes financiar hasta el 50% del valor del inmueble para adecuaciones, ampliaciones o mejoras estructurales, todo con aliados que entienden tu condición de residente en el exterior.",
         image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
         title: "💳 Compra de Cartera",
+        href: "/compra-de-cartera",
         description: "¿Ya tienes un crédito hipotecario vigente? Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. Esta opción puede generar ahorros significativos en el largo plazo y la puedes gestionar desde el exterior, con nuestro acompañamiento completo.",
         image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
-        title: "🏡 Compra y Venta de Inmuebles",
+        title: "🏡 ConTuRenta",
+        href: "/conturenta",
         description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados. Si estás vendiendo, publicamos y promovemos tu propiedad. Si estás comprando, buscamos las mejores opciones según tus necesidades. Todo con asesoría profesional y personalizada.",
         image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
 ])
+
+const logos = [
+    "https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ",
+    "https://www.bancodeoccidente.com.co/documents/33634/406709/Banco+de+Occidente.png/a8e7e079-bff9-9a05-7d00-25cac54cad32?version=1.0&t=1747756786004",
+    "/logo-bolivar_scroll.svg",
+    "https://amarilo.com.co/images/logo.svg",
+    "https://constructoracolpatria.com/site/assets/img/constructora-colpatria.png",
+    "https://marval.com.co/wp-content/uploads/2022/03/Grupo-429.png"
+]
 </script>
 
 <template>
-    <div class="relative bg-white">
+    <section class="relative bg-white">
         <div class="mx-auto container lg:grid lg:grid-cols-12 lg:gap-x-20 lg:px-8">
-            <div class="px-6 pt-10 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 lg:pt-40 lg:pb-48 xl:col-span-6">
-                <div class="mx-auto max-w-2xl lg:mx-0">
+            <div
+                class="px-5 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 xl:col-span-6 h-[75vh] flex items-center justify-center">
+                <div class="mx-auto max-w-2xl lg:mx-0 mt-16">
                     <div class="hidden lg:block max-w-md">
                         <div
                             class="relative flex items-center justify-between rounded-full px-3 py-1 text-sm text-gray-500 ring-1 ring-primary/10 hover:ring-primary/20">
-                            Mantente al día con las últimas noticias<a href="#"
+                            Mantente al día con las últimas noticias<NuxtLink to="/blog"
                                 class="font-semibold whitespace-nowrap text-secondary hover:text-primary"><span
                                     class="absolute inset-0" aria-hidden="true"></span> Infórmate ahora <span
-                                    aria-hidden="true">&rarr;</span></a>
+                                    aria-hidden="true">&rarr;</span></NuxtLink>
                         </div>
                     </div>
                     <h1
-                        class="md:mt-24 text-5xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-6xl">
+                        class="md:mt-24 text-3xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-5xl">
                         Tu vivienda en Colombia empieza aquí, <br><span class="text-primary"> estés donde
-                            estés</span></h1>
-                    <p class="mt-8">Más de 15 años
+                            estés.</span></h1>
+                    <p class="mt-8">Más de 16 años
                         de experiencia guiando a colombianos en el exterior hacia inversiones inmobiliarias seguras
                         y créditos adaptados a sus necesidades. Tu patrimonio en Colombia, en las mejores manos.</p>
                     <div class="mt-10 flex items-center gap-x-6">
-                        <a href="#" class="btn primary">Contáctanos</a>
-                        <a href="#" class="text-sm/6 font-semibold text-secondary hover:text-primary">Conoce
-                            nuestros servicios <span aria-hidden="true">→</span></a>
+                        <NuxtLink to="/contacto" class="btn primary">Contáctanos</NuxtLink>
+                        <NuxtLink :to="{ path: '/', hash: '#servicios' }"
+                            class="text-sm/6 font-semibold text-secondary hover:text-primary">Conoce
+                            nuestros servicios <span aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
             </div>
             <div
                 class="relative lg:col-span-5 sm:rounded-bl-3xl overflow-hidden lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
                 <img class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-                    src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000"
-                    alt="">
+                    src="/2148392254.jpg" alt="">
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-white py-24 sm:py-32">
+    <section class="bg-white py-16 md:py-24">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div
-                class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src="https://www.bbva.com.co/content/dam/library/logos/logo-bbva.svg" alt="Transistor" width="158"
-                    height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src="https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ"
-                    alt="Reform" width="158" height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="/logo-bolivar_scroll.svg"
-                    alt="Tuple" width="158" height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                    src="https://amarilo.com.co/images/logo.svg" alt="SavvyCal" width="158" height="48">
-                <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                    src="https://gruposancarlos.com/assets/images/logo-gsc-v1.svg" alt="Statamic" width="158"
-                    height="48">
+                class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
+                <div v-for="(client, index) in logos" :key="index" class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-12" :src="client" alt="">
+                </div>
             </div>
+
             <div class="mt-16 flex justify-center">
                 <p
                     class="relative rounded-3xl bg-gray-50 px-4 py-1.5 text-sm text-gray-500 ring-1 ring-primary/5 ring-inset">
                     <span class="hidden md:inline">Trabajamos con los bancos y constructoras más reconocidas de
                         Colombia para brindarte soluciones confiables y seguras.</span>
-                    <a href="#" class="font-semibold text-secondary hover:text-primary"><span class="absolute inset-0"
+                    <NuxtLink :to="{ path: '/', hash: '#testimonios' }" class="font-semibold text-secondary hover:text-primary"><span class="absolute inset-0"
                             aria-hidden="true"></span> Testimonios de nuestros clientes
-                        <span aria-hidden="true">&rarr;</span></a>
+                        <span aria-hidden="true">&rarr;</span></NuxtLink>
                 </p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="overflow-hidden bg-white py-24 sm:py-32">
+    <section class="overflow-hidden bg-white py-16 md:py-24">
         <div class="mx-auto container px-6 lg:px-8">
             <div
                 class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -222,9 +228,9 @@ const services = ref([
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-gray-50 mx-auto py-24 sm:py-32 px-6 lg:px-8">
+    <section id="servicios" class="bg-gray-50 mx-auto py-16 md:py-24 px-6 lg:px-8">
         <div class="mx-auto max-w-7xl text-center">
             <h2 class="text-base/7 font-semibold text-secondary">Nuestros servicios</h2>
             <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">
@@ -242,20 +248,20 @@ const services = ref([
                         <p class="text-base line-clamp-3">{{ n.description }}</p>
                     </div>
                     <div class="px-6 pt-4 pb-4 flex justify-end">
-                        <a href="#" class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer más <span
-                                aria-hidden="true">→</span></a>
+                        <NuxtLink :to="`/servicios${n.href}`" class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer más <span
+                                aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
             </Slide>
         </Carousel>
-    </div>
+    </section>
 
-    <div class="bg-white py-32">
+    <section class="bg-white py-24">
         <div class="mx-auto container px-6 lg:px-8">
             <div class="max-w-5xl mx-auto lg:mx-0">
                 <h2 class="text-base/7 font-semibold text-secondary">Actualidad inmobiliaria</h2>
                 <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">
-                    Noticias que impulsan tu inversión</p>
+                    Artículos que impulsan tu inversión</p>
                 <p class="mt-6 text-xl/8">Mantente al día con las últimas tendencias del mercado,
                     cambios en créditos hipotecarios y oportunidades exclusivas para colombianos en el exterior.
                     Aquí encontrarás información clave para tomar decisiones inteligentes sobre tu propiedad en
@@ -270,24 +276,20 @@ const services = ref([
                         class="aspect-6/5 w-full rounded-2xl bg-gray-50 object-cover object-right lg:aspect-auto lg:h-[34.5rem]">
                 </div>
                 <div class="w-full lg:max-w-2xl">
-                    <h3 class="sr-only">Noticias</h3>
+                    <h3 class="sr-only">Artículos</h3>
                     <ul class="-my-8 divide-y divide-gray-100">
                         <li class="py-8">
                             <dl class="relative flex flex-wrap gap-x-3 group">
                                 <dt class="sr-only">Título</dt>
                                 <dd
                                     class="w-full flex-none text-lg font-semibold tracking-tight text-primary hover:text-secondary">
-                                    <a href="#">
-                                        ¡Nuevas tasas de interés! Bancos lanzan beneficios especiales para
-                                        colombianos en el exterior
+                                    <NuxtLink to="blog/el-momento-es-ahora">
+                                        Aprovecha el poder de las tasas de cambio a tu favor.
                                         <span class="absolute inset-0" aria-hidden="true"></span>
-                                    </a>
+                                    </NuxtLink>
                                 </dd>
                                 <dt class="sr-only">Descripción</dt>
-                                <dd class="mt-2 w-full flex-none text-base/7">A partir de julio 2025,
-                                    entran en vigor condiciones preferenciales para financiar vivienda en Colombia.
-                                    Te explicamos cómo acceder a estas tasas reducidas y qué requisitos debes
-                                    cumplir desde tu país de residencia.</dd>
+                                <dd class="mt-2 w-full flex-none text-base/7">En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado o a través de créditos hipotecarios.</dd>
                                 <!-- <dt class="sr-only">Salary</dt> -->
                                 <!-- <dd class="mt-4 text-base/7 font-semibold text-primary">$75,000 USD</dd> -->
                                 <dt class="sr-only">Date</dt>
@@ -295,47 +297,20 @@ const services = ref([
                                     <svg viewBox="0 0 2 2" class="size-0.5 flex-none fill-gray-300" aria-hidden="true">
                                         <circle cx="1" cy="1" r="1" />
                                     </svg>
-                                    25/04/2025
-                                </dd>
-                            </dl>
-                        </li>
-                        <li class="py-8">
-                            <dl class="relative flex flex-wrap gap-x-3 group">
-                                <dt class="sr-only">Title</dt>
-                                <dd
-                                    class="w-full flex-none text-lg font-semibold tracking-tight text-primary hover:text-secondary">
-                                    <a href="#">
-                                        Inversión en Bogotá vs. Medellín: ¿Dónde conviene comprar propiedad en 2025?
-                                        <span class="absolute inset-0" aria-hidden="true"></span>
-                                    </a>
-                                </dd>
-                                <dt class="sr-only">Description</dt>
-                                <dd class="mt-2 w-full flex-none text-base/7">Analizamos proyecciones
-                                    de rentabilidad, plusvalía y demanda en las dos ciudades más atractivas para
-                                    colombianos en el exterior. Descubre datos clave antes de tomar tu decisión.
-                                </dd>
-                                <!-- <dt class="sr-only">Salary</dt> -->
-                                <!-- <dd class="mt-4 text-base/7 font-semibold text-primary">$75,000 USD</dd> -->
-                                <dt class="sr-only">Date</dt>
-                                <dd class="mt-4 flex items-center gap-x-3 text-base/7 text-gray-500">
-                                    <svg viewBox="0 0 2 2" class="size-0.5 flex-none fill-gray-300" aria-hidden="true">
-                                        <circle cx="1" cy="1" r="1" />
-                                    </svg>
-                                    30/04/2025
+                                    24/07/2025
                                 </dd>
                             </dl>
                         </li>
                     </ul>
                     <div class="mt-8 flex border-t border-gray-100 pt-8">
-                        <a href="#" class="text-sm/6 font-semibold text-secondary hover:text-primary">Ver todas
-                            las noticias <span aria-hidden="true">&rarr;</span></a>
+                        <NuxtLink to="/blog" class="text-sm/6 font-semibold text-secondary hover:text-primary">Ver todos los artículos <span aria-hidden="true">&rarr;</span></NuxtLink>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-white">
+    <section class="bg-white">
         <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
             <div
                 class="relative isolate overflow-hidden bg-secondary px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
@@ -345,10 +320,11 @@ const services = ref([
                     <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
                         orientarte y ayudarte a tomar la mejor decisión.</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                        <a href="#"
-                            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</a>
-                        <a href="#" class="text-sm/6 font-semibold text-white hover:text-primary">Conocer más <span
-                                aria-hidden="true">→</span></a>
+                        <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
+                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
+                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
+                        <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
+                            Conocer más <span aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
@@ -358,82 +334,62 @@ const services = ref([
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="relative isolate bg-white pt-24 pb-32 sm:pt-32">
+    <section id="testimonios" class="relative isolate bg-white py-16 md:py-24">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-5xl text-center">
                 <h2 class="text-base/7 font-semibold text-secondary">Testimonios</h2>
                 <p class="mt-2 text-4xl font-semibold tracking-tight text-balance text-primary sm:text-5xl">Estas
-                    son algunas de sus historias, contadas en sus propias palabras.</p>
+                    son algunas de nuestras historias, contadas en sus propias palabras</p>
             </div>
             <div
                 class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 text-primary sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
                 <figure
                     class="rounded-2xl bg-white shadow-lg ring-1 ring-primary/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
                     <blockquote class="p-6 text-lg font-semibold tracking-tight text-primary sm:p-12 sm:text-xl/8">
-                        <p>“Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor
-                            libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis
-                            blandit vel et proin. Non hendrerit in vel ac diam.”</p>
+                        <p>“Hice el proceso con ContuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin super bien. La verdad súper recomendado.”</p>
                     </blockquote>
                     <figcaption
                         class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-primary/10 px-6 py-4 sm:flex-nowrap">
                         <img class="size-10 flex-none rounded-full bg-gray-50"
-                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
-                            alt="">
+                            src="/testimonials/juancamilolave.jpeg"
+                            alt="Ingrid Yurley Fajardo Contreras">
                         <div class="flex-auto">
-                            <div class="font-semibold">Brenna Goyette</div>
-                            <div class="text-gray-500">@brennagoyette</div>
+                            <div class="font-semibold">Juan Camilo Manrique Olave</div>
+                            <div class="text-gray-500">@juancamilolave</div>
                         </div>
-                        <img class="h-10 w-auto flex-none"
-                            src="https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-primary.svg" alt="">
+                        <!-- <img class="h-10 w-auto flex-none"
+                            src="/testimonials/ingrid-yurley.jpeg" alt="Ingrid Yurley Fajardo Contreras"> -->
                     </figcaption>
                 </figure>
                 <div class="space-y-8 xl:contents xl:space-y-0">
                     <div class="space-y-8 xl:row-span-2">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
-                                    enim doloremque et ipsam.”</p>
+                                <p>“Quiero agradecer a CONTUHOGAR por todo el acompañamiento que me brindaron, la asesoría fue excelente, te resuelven todas las inquietudes permitiéndome hacer el proceso mucho más fácil y seguro. Los recomiendo al 100, una empresa muy responsable y confiable.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/nafyc_moda.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Leslie Alexander</div>
-                                    <div class="text-gray-500">@lesliealexander</div>
+                                    <div class="font-semibold">Ingrid Yurley Fajardo Contreras</div>
+                                    <div class="text-gray-500">@nafyc_moda</div>
                                 </div>
                             </figcaption>
                         </figure>
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
-                                    enim doloremque et ipsam.”</p>
+                                <p>“Vivo en Estados Unidos y mi experiencia con ContuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, ¡100 de 10!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/bibiana.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Leslie Alexander</div>
-                                    <div class="text-gray-500">@lesliealexander</div>
-                                </div>
-                            </figcaption>
-                        </figure>
-
-                        <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
-                            <blockquote class="text-primary">
-                                <p>“Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut
-                                    enim doloremque et ipsam.”</p>
-                            </blockquote>
-                            <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
-                                <div>
-                                    <div class="font-semibold">Leslie Alexander</div>
-                                    <div class="text-gray-500">@lesliealexander</div>
+                                    <div class="font-semibold">Bibiana Patricia Velásquez Velásquez</div>
+                                    <!-- <div class="text-gray-500">@Gecortes92</div> -->
                                 </div>
                             </figcaption>
                         </figure>
@@ -443,32 +399,15 @@ const services = ref([
                     <div class="space-y-8 xl:row-start-1">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut
-                                    officia rem nulla blanditiis.”</p>
+                                <p>“Tuve una excelente experiencia con Contuhogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. ¡Muy feliz con el resultado y los recomiendo totalmente!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/Gecortes92.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Lindsay Walton</div>
-                                    <div class="text-gray-500">@lindsaywalton</div>
-                                </div>
-                            </figcaption>
-                        </figure>
-
-                        <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
-                            <blockquote class="text-primary">
-                                <p>“Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut
-                                    officia rem nulla blanditiis.”</p>
-                            </blockquote>
-                            <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
-                                <div>
-                                    <div class="font-semibold">Lindsay Walton</div>
-                                    <div class="text-gray-500">@lindsaywalton</div>
+                                    <div class="font-semibold">German Enrique Cortés Hernández</div>
+                                    <div class="text-gray-500">@Gecortes92</div>
                                 </div>
                             </figcaption>
                         </figure>
@@ -480,80 +419,64 @@ const services = ref([
                     <div class="space-y-8 xl:row-start-1">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae.
-                                    Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.”</p>
+                                <p>“Muy buenos días, mi nombre es  Cindy Sanchez y tuve una excelente experiencia con el crédito y CONTUHOGAR . El acompañamiento fue muy agradable porque no me dejaron sola en este proceso y hoy ya puedo disfrutar de mi nuevo apartamento en Medellín. Muchas gracias por la excelencia que tuvieron con mi caso.⭐️”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/milufitoficial.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Tom Cook</div>
-                                    <div class="text-gray-500">@tomcook</div>
+                                    <div class="font-semibold">Cindy Sánchez</div>
+                                    <div class="text-gray-500">@milufitoficial</div>
                                 </div>
                             </figcaption>
                         </figure>
-                        <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
+                        <!-- <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae.
-                                    Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti.”</p>
+                                <p>“Voluptas”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Tom Cook</div>
+                                    <div class="font-semibold">Tom</div>
                                     <div class="text-gray-500">@tomcook</div>
                                 </div>
                             </figcaption>
-                        </figure>
+                        </figure> -->
 
                         <!-- More testimonials... -->
                     </div>
                     <div class="space-y-8 xl:row-span-2">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
-                                    excepturi rerum voluptatem minus harum.”</p>
+                                <p>“En Contuhogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido como una madre con su hijo. Quiero agradecerles por tanto. 
+Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia.
+Gracias mil veces por su apoyo incondicional.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/dmilenep.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Leonard Krasner</div>
+                                    <div class="font-semibold">Diana Piedrahíta</div>
                                     <div class="text-gray-500">@leonardkrasner</div>
                                 </div>
                             </figcaption>
                         </figure>
+
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
-                                    excepturi rerum voluptatem minus harum.”</p>
+                                <p>“Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con Contuhogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
                                 <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="/testimonials/Elena.jpeg"
                                     alt="">
                                 <div>
-                                    <div class="font-semibold">Leonard Krasner</div>
-                                    <div class="text-gray-500">@leonardkrasner</div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                        <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
-                            <blockquote class="text-primary">
-                                <p>“Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt
-                                    excepturi rerum voluptatem minus harum.”</p>
-                            </blockquote>
-                            <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
-                                <div>
-                                    <div class="font-semibold">Leonard Krasner</div>
-                                    <div class="text-gray-500">@leonardkrasner</div>
+                                    <div class="font-semibold">Elena Marcela Quiroga Imparato</div>
+                                    <!-- <div class="text-gray-500">@leonardkrasner</div> -->
                                 </div>
                             </figcaption>
                         </figure>
@@ -563,5 +486,5 @@ const services = ref([
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>

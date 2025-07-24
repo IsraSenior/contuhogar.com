@@ -518,16 +518,17 @@
                     del tratamiento de datos.</h3>
 
                 <p><b>Cargo:</b> gerente general</p>
-                <p><b>Dirección:</b> Calle 81 # 11-68, Bogotá D.C.</p>
+                <p><b>Dirección:</b> carrera 54 # 105 - 20, Bogotá.</p>
                 <p><b>Correo electrónico:</b> <a href="mailto:gerencia@contuhogar.net">gerencia@contuhogar.net</a></p>
-                <p><b>Teléfono:</b> <a href="tel:8053353">8053353</a></p>
+                <!-- <p><b>Teléfono:</b> <a href="tel:8053353">8053353</a></p> -->
 
                 <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.8. Datos del responsable de
                     la atención de solicitudes, consultas y
                     reclamos</h3>
 
-                <p><b>Cargo:</b> Director de Operaciones</p>
+                <p><b>Cargo:</b> director de operaciones</p>
                 <p><b>Dirección:</b> carrera 54 # 105 - 20, Bogotá.</p>
+                <p><b>Correo electrónico:</b> <a href="mailto:directorcomercial@contuhogar.net">directorcomercial@contuhogar.net</a></p>
             </div>
         </div>
     </div>

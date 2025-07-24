@@ -4,119 +4,55 @@ const team = ref([
         name: "Alejandra Pérez",
         email: "gerencia@contuhogar.net",
         title: "Gerente",
-        image: "https://static.wixstatic.com/media/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg/v1/fill/w_854,h_850,al_c,q_85,enc_auto/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg"
+        image: "/team/alejandra-perez.avif"
     },
     {
         name: "Fernando Muñóz Tatar",
         email: "directorcomercial@contuhogar.net",
         title: "Director Operativo",
-        image: "https://static.wixstatic.com/media/b4f6b9_d0c18f1dca334911a27916d9df2f63f4~mv2.png/v1/fill/w_845,h_795,al_c,q_90,enc_auto/b4f6b9_d0c18f1dca334911a27916d9df2f63f4~mv2.png"
+        image: "/team/fernando-munoz.avif"
     },
     {
         name: "Marly Sierra",
         email: "creditodevivienda05@contuhogar.net",
         title: "Ejecutiva de Crédito",
-        image: "https://static.wixstatic.com/media/b4f6b9_86bd5973ddec4b2993355256b7c4c3ab~mv2.jpg/v1/fill/w_679,h_589,al_c,q_85,enc_auto/b4f6b9_86bd5973ddec4b2993355256b7c4c3ab~mv2.jpg"
+        image: "/team/marly-sierra.avif"
     },
     {
-        name: "Yeison Chavez",
+        name: "Yeison Chaves",
         email: "ejecutivocomercial@contuhogar.net",
         title: "Ejecutiva de Crédito",
-        image: ""
+        image: "/team/yeison-chaves.jpeg"
     },
     {
         name: "Carlos Garzón",
         email: "analistadecredito@contuhogar.net",
         title: "Analista de Crédito",
-        image: ""
+        image: "/team/carlos-garzon.jpeg"
     },
-    // {
-    //     name: "Derly Plazas",
-    // email: "",
-    //     title: "Analista de Crédito",
-    //     image: "https://static.wixstatic.com/media/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg/v1/fill/w_854,h_804,al_c,q_85,enc_auto/b4f6b9_d546c693fe71466f8b183ccdd86bcdbf~mv2.jpg"
-    // },
     {
         name: "Catalina Romero",
         email: "gestionhumana@contuhogar.net",
         title: "Directora de Gestión Humana",
-        image: "https://static.wixstatic.com/media/b4f6b9_0858857fecb44815ba2d64c0a44aea07~mv2.jpg/v1/fill/w_514,h_536,al_c,lg_1,q_80,enc_auto/b4f6b9_0858857fecb44815ba2d64c0a44aea07~mv2.jpg"
+        image: "/team/catalina-romero.avif"
     },
     {
         name: "Kelly Johanna Rojas",
         email: "asistentedegerencia@contuhogar.net",
         title: "Asistente de Gerencia",
-        image: "https://static.wixstatic.com/media/11062b_9db578b244284d28a4833e20b4d0c6ff~mv2_d_7000_4667_s_4_2.jpg/v1/fill/w_2090,h_1393,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/11062b_9db578b244284d28a4833e20b4d0c6ff~mv2_d_7000_4667_s_4_2.jpg"
+        image: "/team/kelly-rojas.jpeg"
     },
     {
         name: "Diego Roojas",
         email: "contabilidad@contuhogar.net",
         title: "Contatador",
-        image: "https://static.wixstatic.com/media/b4f6b9_ccda897c03c64584baeaf92e7720c4aa~mv2.jpg/v1/fill/w_545,h_485,al_c,lg_1,q_80,enc_auto/b4f6b9_ccda897c03c64584baeaf92e7720c4aa~mv2.jpg"
+        image: "/team/diego-rojas.avif"
     },
 ])
 </script>
 
 <template>
-    <div class="relative bg-white">
-        <div class="mx-auto container lg:grid lg:grid-cols-12 lg:gap-x-20 lg:px-8">
-            <div class="px-6 pt-10 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 lg:pt-40 lg:pb-48 xl:col-span-6">
-                <div class="mx-auto max-w-2xl lg:mx-0">
-                    <h1
-                        class="md:mt-24 text-5xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-6xl">
-                        Conectamos a colombianos en el exterior con oportunidades reales en su país
-                    </h1>
-                    <p class="mt-8">
-                        Llevamos más de 15 años acompañando a familias y personas que viven fuera de Colombia a invertir
-                        con seguridad y confianza en el mercado inmobiliario y financiero del país.</p>
-                    <div class="mt-10 flex items-center gap-x-6">
-                        <a href="#" class="btn primary">Conoce más</a>
-                        <a href="#" class="text-sm/6 font-semibold text-secondary hover:text-primary">Nuestro equipo
-                            <span aria-hidden="true">→</span></a>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="relative lg:col-span-5 sm:rounded-bl-3xl overflow-hidden lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
-                <img class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-                    src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000"
-                    alt="">
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div
-                class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src="https://www.bbva.com.co/content/dam/library/logos/logo-bbva.svg" alt="Transistor" width="158"
-                    height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src="https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ"
-                    alt="Reform" width="158" height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="/logo-bolivar_scroll.svg"
-                    alt="Tuple" width="158" height="48">
-                <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                    src="https://amarilo.com.co/images/logo.svg" alt="SavvyCal" width="158" height="48">
-                <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                    src="https://gruposancarlos.com/assets/images/logo-gsc-v1.svg" alt="Statamic" width="158"
-                    height="48">
-            </div>
-            <div class="mt-16 flex justify-center">
-                <p
-                    class="relative rounded-3xl bg-gray-50 px-4 py-1.5 text-sm text-gray-500 ring-1 ring-primary/5 ring-inset">
-                    <span class="hidden md:inline">Trabajamos con los bancos y constructoras más reconocidas de
-                        Colombia para brindarte soluciones confiables y seguras.</span>
-                    <a href="#" class="font-semibold text-secondary hover:text-primary"><span class="absolute inset-0"
-                            aria-hidden="true"></span> Testimonios de nuestros clientes
-                        <span aria-hidden="true">&rarr;</span></a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-muted py-24 sm:py-32">
+    <div class="bg-muted py-16 md:py-24">
         <div class="mx-auto container lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra historia
@@ -166,7 +102,7 @@ const team = ref([
                             inversión para presentarles una oferta integral..</p>
                     </div>
 
-                    <div class="block p-6 rounded-lg shadow-sm  bg-secondary">
+                    <div class="block p-6 rounded-lg shadow-sm  bg-white">
 
                         <h5 class="mb-6 text-2xl font-bold tracking-tight text-primary">Misión</h5>
                         <p class="font-normal text-primary">Asesorar y ayudar a las personas a
@@ -189,7 +125,7 @@ const team = ref([
         </div>
     </div>
 
-    <div class="bg-gray-900 py-24 sm:py-32">
+    <div class="bg-gray-900 py-16 md:py-24">
         <div class="mx-auto container lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
@@ -223,10 +159,11 @@ const team = ref([
                     <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
                         orientarte y ayudarte a tomar la mejor decisión.</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                        <a href="#"
-                            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</a>
-                        <a href="#" class="text-sm/6 font-semibold text-white hover:text-primary">Conocer más <span
-                                aria-hidden="true">→</span></a>
+                        <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
+                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
+                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
+                        <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
+                            Conocer más <span aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">

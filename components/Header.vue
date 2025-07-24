@@ -1,12 +1,12 @@
 <script setup>
 const servicesDropdown = ref(false);
 
-const services = ref([
+const services = [
     {
         icon: "🏦",
         href: "/credito-hipotecario",
         title: "Crédito Hipotecario",
-        description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país.",
+        description: "Te ayudamos a gestionar tu crédito de vivienda con garantía hipotecaria através de las principales entidades financieras del país.",
         image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
@@ -37,7 +37,7 @@ const services = ref([
         description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
         image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
-])
+]
 </script>
 
 
@@ -47,15 +47,17 @@ const services = ref([
             <div class="flex lg:flex-1">
                 <NuxtLink to="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">ConTuHogar</span>
-                    <Logo class="h-10 w-auto" />
+                    <Logo class="h-12 w-auto" />
                 </NuxtLink>
             </div>
             <div class="hidden lg:flex lg:gap-x-12">
-                <NuxtLink to="/nosotros" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Sobre nosotros</NuxtLink>
+                <NuxtLink to="/nosotros" @click.native="servicesDropdown = false"
+                    class="text-base font-semibold text-gray-600 hover:text-secondary">Sobre nosotros</NuxtLink>
 
                 <div class="relative">
                     <button @click.prevent="servicesDropdown = !servicesDropdown" type="button"
-                        class="flex items-center gap-x-1 text-base font-semibold text-gray-600 hover:text-secondary" aria-expanded="false">
+                        class="flex items-center gap-x-1 text-base font-semibold text-gray-600 hover:text-secondary"
+                        aria-expanded="false">
                         Nuestros servicios
                         <svg class="size-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                             aria-hidden="true" data-slot="icon">
@@ -70,7 +72,7 @@ const services = ref([
                         leave-active-class="transition ease-in duration-150"
                         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
                         <div v-if="servicesDropdown"
-                            class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-lg overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
+                            class="absolute top-full -left-8 z-10 mt-5 w-screen max-w-xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
                             <div class="p-4">
                                 <div v-for="(s, index) in services" :key="index"
                                     class="group relative flex gap-x-6 rounded-lg p-4 text-base hover:bg-gray-50">
@@ -81,7 +83,8 @@ const services = ref([
                                         </span>
                                     </div>
                                     <div class="flex-auto">
-                                        <NuxtLink :to="`/servicios${s.href}`" @click.native="servicesDropdown = false" class="block font-semibold text-gray-600 text-base lg:text-lg">
+                                        <NuxtLink :to="`/servicios${s.href}`" @click.native="servicesDropdown = false"
+                                            class="block font-semibold text-gray-600 text-base">
                                             {{ s.title }}
                                             <span class="absolute inset-0"></span>
                                         </NuxtLink>
@@ -89,7 +92,7 @@ const services = ref([
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50">
+                            <!-- <div class="grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50">
                                 <a href="#"
                                     class="flex items-center justify-center gap-x-2.5 p-3 text-sm lg:text-base font-semibold text-gray-600 hover:bg-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -111,18 +114,20 @@ const services = ref([
                                     </svg>
                                     Contáctanos
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </Transition>
                 </div>
 
-                <NuxtLink to="/faqs" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Preguntas frecuentes</NuxtLink>
-                <NuxtLink to="/blog" @click.native="servicesDropdown = false" class="text-base font-semibold text-gray-600 hover:text-secondary">Blog</NuxtLink>
+                <NuxtLink to="/faqs" @click.native="servicesDropdown = false"
+                    class="text-base font-semibold text-gray-600 hover:text-secondary">Preguntas frecuentes</NuxtLink>
+                <NuxtLink to="/blog" @click.native="servicesDropdown = false"
+                    class="text-base font-semibold text-gray-600 hover:text-secondary">Blog</NuxtLink>
                 <!-- <NuxtLink to="/noticias" class="text-base font-semibold text-gray-600 hover:text-secondary">Noticias</NuxtLink> -->
             </div>
             <div class="flex flex-1 items-center justify-end gap-x-6">
-                <NuxtLink to="/contacto" @click.native="servicesDropdown = false"
-                    class="hidden md:flex btn secondary" v-umami="{name: 'contact-button-header-desktop'}">Contáctanos</NuxtLink>
+                <NuxtLink to="/contacto" @click.native="servicesDropdown = false" class="hidden md:flex btn secondary"
+                    v-umami="{ name: 'contact-button-header-desktop' }">Contáctanos</NuxtLink>
 
                 <button type="button"
                     class="-m-2.5 inline-flex lg:hidden items-center justify-center rounded-md p-2.5 text-gray-700">

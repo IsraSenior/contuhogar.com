@@ -55,7 +55,7 @@ const current = ref(0);
                                 class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.
                         </p>
                         <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
-                            src="https://img.freepik.com/foto-gratis/adorables-padres-hijo-casa_23-2148392254.jpg?t=st=1746707746~exp=1746711346~hmac=c9d3039226a05d96e5d6a6e2c447beec5e55da8c40e072766106ec3da06d2b99&w=2000"
+                            src="/2148392254.jpg"
                             alt="">
                     </div>
                 </div>
@@ -95,16 +95,17 @@ const current = ref(0);
                     <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
                         orientarte y ayudarte a tomar la mejor decisión.</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                        <a href="#"
-                            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</a>
-                        <a href="#" class="text-sm/6 font-semibold text-white hover:text-primary">Conocer más <span
-                                aria-hidden="true">→</span></a>
+                        <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
+                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
+                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
+                        <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
+                            Conocer más <span aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
                     <img class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-                        src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt="App screenshot">
+                        src="/2148392254.jpg"
+                        alt="">
                 </div>
             </div>
         </div>

@@ -1,21 +1,41 @@
 <script setup>
-const services = ref([
+const services = [
     {
+        icon: "🏦",
+        href: "/credito-hipotecario",
         title: "Crédito Hipotecario",
+        description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país.",
+        image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
+        icon: "🏘️",
+        href: "/leasing-habitacional",
         title: "Leasing Habitacional",
+        description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional.",
+        image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
-        title: "Crédito para Remodelación",
+        icon: "🛠️",
+        href: "/credito-de-remodelacion",
+        title: "Crédito de Remodelación",
+        description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación.",
+        image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
+        icon: "💳",
+        href: "/compra-de-cartera",
         title: "Compra de Cartera",
+        description: "Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. ",
+        image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
     {
-        title: "Compra y Venta de Inmuebles",
+        icon: "🏡",
+        href: "/conturenta",
+        title: "ConTuRenta",
+        description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
+        image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
     },
-])
+]
 </script>
 
 
@@ -26,10 +46,12 @@ const services = ref([
                 <div class="grid grid-cols-2 gap-8 xl:col-span-2">
                     <div class="md:grid md:grid-cols-2 md:gap-8">
                         <div>
-                            <h3 class="text-base font-semibold text-white">Solutions</h3>
+                            <h3 class="text-base font-semibold text-white">Servicios</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li v-for="(s, index) in services" :key="index">
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">{{ s.title }}</a>
+                                    <NuxtLink :to="`/servicios${s.href}`" class="text-sm/6 text-white hover:text-secondary">{{ s.title
+                                        }}
+                                    </NuxtLink>
                                 </li>
                             </ul>
                         </div>
@@ -38,16 +60,16 @@ const services = ref([
                             <h3 class="text-base mt-10 md:mt-0 font-semibold text-white">ConTuHogar</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Nosotros</a>
+                                    <NuxtLink to="/nosotros" class="text-sm/6 text-white hover:text-secondary">Nosotros
+                                    </NuxtLink>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Testimonios</a>
+                                    <NuxtLink :to="{ path: '/', hash: '#testimonios' }"
+                                        class="text-sm/6 text-white hover:text-secondary">Testimonios</NuxtLink>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Noticias</a>
+                                    <NuxtLink to="/blog" class="text-sm/6 text-white hover:text-secondary">Blog
+                                    </NuxtLink>
                                 </li>
                             </ul>
                         </div>
@@ -57,11 +79,12 @@ const services = ref([
                             <h3 class="text-basefont-semibold text-white">Soporte</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Contacto</a>
+                                    <NuxtLink to="/contacto" class="text-sm/6 text-white hover:text-secondary">Contacto
+                                    </NuxtLink>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-white hover:text-secondary">Preguntas
-                                        frecuentes</a>
+                                    <NuxtLink to="/faqs" class="text-sm/6 text-white hover:text-secondary">Preguntas
+                                        frecuentes</NuxtLink>
                                 </li>
                             </ul>
                         </div>
@@ -69,7 +92,8 @@ const services = ref([
                             <h3 class="text-base font-semibold text-white">Legal</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <NuxtLink to="terminos-condiciones" class="text-sm/6 text-white hover:text-secondary">Términos y
+                                    <NuxtLink to="terminos-condiciones"
+                                        class="text-sm/6 text-white hover:text-secondary">Términos y
                                         condiciones</NuxtLink>
                                 </li>
                                 <!-- <li>
@@ -90,8 +114,7 @@ const services = ref([
                             class="w-full min-w-0 rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-white focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:w-64 sm:text-sm/6 xl:w-full"
                             placeholder="Ingresa tu correo electrónico">
                         <div class="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
-                            <button type="submit"
-                                class="btn secondary">Suscríbase</button>
+                            <button type="submit" class="btn secondary">Suscríbase</button>
                         </div>
                     </form>
                 </div>
@@ -99,7 +122,8 @@ const services = ref([
             <div
                 class="mt-16 border-t border-white/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24">
                 <div class="flex gap-x-6 md:order-2">
-                    <a href="#" class="text-white hover:text-secondary">
+                    <a href="https://www.facebook.com/contuhogar" target="_blank"
+                        class="text-white hover:text-secondary">
                         <span class="sr-only">Facebook</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -107,7 +131,8 @@ const services = ref([
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="text-white hover:text-secondary">
+                    <a href="https://www.instagram.com/contuhogar" target="_blank"
+                        class="text-white hover:text-secondary">
                         <span class="sr-only">Instagram</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
@@ -115,21 +140,21 @@ const services = ref([
                                 clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <a href="#" class="text-white hover:text-secondary">
+                    <a href="https://x.com/contuhogar" target="_blank" class="text-white hover:text-secondary">
                         <span class="sr-only">X</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path
                                 d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
                         </svg>
                     </a>
-                    <a href="#" class="text-white hover:text-secondary">
+                    <!-- <a href="#" target="_blank" class="text-white hover:text-secondary">
                         <span class="sr-only">YouTube</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill-rule="evenodd"
                                 d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
                                 clip-rule="evenodd" />
                         </svg>
-                    </a>
+                    </a> -->
                 </div>
                 <p class="mt-8 text-sm/6 text-white md:order-1 md:mt-0">&copy; 2025 ConTuHogar, Todos los derechos
                     reservados.</p>
