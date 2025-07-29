@@ -1,5 +1,5 @@
 <script setup>
-const open = ref(true)
+const open = ref(false)
 
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
