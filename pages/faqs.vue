@@ -1,43 +1,5 @@
 <script setup>
-const questions = ref([
-    {
-        question: "¿Qué es un bróker?",
-        answer: `Es el canal de contacto entre usted y las entidades financieras para la obtención de un crédito de vivienda en Colombia desde el exterior.`
-    },
-    {
-        question: "¿Puedo pedir un préstamo de vivienda en Colombia a pesar de vivir en el exterior?",
-        answer: `Sí. Toda vez que cumpla con los requisitos que exige la entidad financiera, usted podrá presentar la documentación que justifique su estabilidad tanto laboral como económica, entre otros.`
-    },
-    {
-        question: "¿Cuál es la función de ContuHogar en mi solicitud de crédito?",
-        answer: `Nos encargamos de asesorarle, recibir su documentación, filtrar sus posibilidades, verificar la información y acompañarle durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, podrá resultar en el desembolso del crédito.`
-    },
-    {
-        question: "¿Si tengo reportes negativos en Colombia o en el exterior puedo aplicar a un préstamo?",
-        answer: `Depende. Para cualquiera de los dos casos usted debe presentar paz y salvo de la deuda, dependiendo del tipo de reporte y la cuantía, requerirá una excepción especial. En caso de un reporte castigado, deberá estudiarse individualmente su situación.`
-    },
-    {
-        question: "¿Mi crédito en el exterior se verá afectado con el préstamo que haga en Colombia?",
-        answer: `No. El préstamo de vivienda en Colombia será únicamente reportado en Colombia bajo la Ley 546 de 1999, también conocida como la Ley de Vivienda.`
-    },
-    {
-        question: "Mi pareja es extranjero, ¿él puede pedir un préstamo conmigo para la compra de vivienda en Colombia?",
-        answer: `Si usted ha validado esta unión mediante un documento legal podrá consolidar ingresos con su cónyuge. Él como extranjero se deberá presentar con el pasaporte.`
-    },
-    {
-        question: "¿Debo tener definida la compra de la vivienda para aplicar al crédito?",
-        answer: `No. Se recomienda que usted inicie el proceso de estudio de crédito y una vez cuente con la aprobación pueda tranquilamente negociar la compra de su inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
-    },
-    {
-        question: "¿Cuánto dinero me pueden prestar?",
-        answer: `En cuanto al monto a solicitar no existe un límite. Usted puede aplicar a uno o más cupos de crédito, todo depende de su capacidad de pago. Validaremos sus ingresos frente a sus gastos. De no aplicar al valor que requiere se sugiere un cupo viable.`
-    },
-    {
-        question: "Si no cuento con los requisitos y condiciones para aplicar, ¿qué podría hacer?",
-        answer: `Nosotros estamos en capacidad de asesorarle certeramente para que en un futuro cumpla con los requerimientos y condiciones del banco. Nuestra asesoría es integral y nuestro afán es suplir su necesidad sea en el momento o a futuro.`
-    }
-]);
-
+const store = useMainStore();
 const current = ref(0);
 </script>
 
@@ -55,13 +17,13 @@ const current = ref(0);
                                 class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.
                         </p>
                         <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
-                            src="/2148392254.jpg"
+                            src="https://img.freepik.com/foto-gratis/colegas-trabajando-juntos-oficina_23-2148738270.jpg"
                             alt="">
                     </div>
                 </div>
                 <div class="mt-10 lg:col-span-7 lg:mt-0">
                     <dl class="space-y-6">
-                        <div v-for="(item, index) in questions" :key="index">
+                        <div v-for="(item, index) in store.questions" :key="index">
                             <dt :class="[
                                 'text-base font-bold cursor-pointer px-2 py-1.5 rounded-lg flex justify-between items-start',
                                 current === index ? 'bg-primary text-white' : 'bg-muted border border-primary text-primary hover:bg-primary hover:text-white'
@@ -104,7 +66,7 @@ const current = ref(0);
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
                     <img class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-                        src="/2148392254.jpg"
+                        src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
                         alt="">
                 </div>
             </div>

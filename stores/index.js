@@ -53,14 +53,110 @@ export const useMainStore = defineStore('index', {
                 description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
                 image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
             },
+        ],
+        logos: [
+            "https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ",
+            "https://www.bancodeoccidente.com.co/documents/33634/406709/Banco+de+Occidente.png/a8e7e079-bff9-9a05-7d00-25cac54cad32?version=1.0&t=1747756786004",
+            "/logo-bolivar_scroll.svg",
+            "https://amarilo.com.co/images/logo.svg",
+            "https://constructoracolpatria.com/site/assets/img/constructora-colpatria.png",
+            "https://marval.com.co/wp-content/uploads/2022/03/Grupo-429.png"
+        ],
+        team: [
+            {
+                name: "Alejandra Pérez",
+                email: "gerencia@contuhogar.net",
+                title: "Gerente",
+                image: "/team/alejandra-perez.avif"
+            },
+            {
+                name: "Fernando Muñóz Tatar",
+                email: "directorcomercial@contuhogar.net",
+                title: "Director Operativo",
+                image: "/team/fernando-munoz.avif"
+            },
+            {
+                name: "Marly Sierra",
+                email: "creditodevivienda05@contuhogar.net",
+                title: "Ejecutiva de Crédito",
+                image: "/team/marly-sierra.avif"
+            },
+            {
+                name: "Yeison Chaves",
+                email: "ejecutivocomercial@contuhogar.net",
+                title: "Ejecutiva de Crédito",
+                image: "/team/yeison-chaves.jpeg"
+            },
+            {
+                name: "Carlos Garzón",
+                email: "analistadecredito@contuhogar.net",
+                title: "Analista de Crédito",
+                image: "/team/carlos-garzon.jpeg"
+            },
+            {
+                name: "Catalina Romero",
+                email: "gestionhumana@contuhogar.net",
+                title: "Directora de Gestión Humana",
+                image: "/team/catalina-romero.avif"
+            },
+            {
+                name: "Kelly Johanna Rojas",
+                email: "asistentedegerencia@contuhogar.net",
+                title: "Asistente de Gerencia",
+                image: "/team/kelly-rojas.jpeg"
+            },
+            {
+                name: "Diego Roojas",
+                email: "contabilidad@contuhogar.net",
+                title: "Contatador",
+                image: "/team/diego-rojas.avif"
+            },
+        ],
+        questions: [
+            {
+                question: "¿Qué es un bróker?",
+                answer: `Es el canal de contacto entre usted y las entidades financieras para la obtención de un crédito de vivienda en Colombia desde el exterior.`
+            },
+            {
+                question: "¿Puedo pedir un préstamo de vivienda en Colombia a pesar de vivir en el exterior?",
+                answer: `Sí. Toda vez que cumpla con los requisitos que exige la entidad financiera, usted podrá presentar la documentación que justifique su estabilidad tanto laboral como económica, entre otros.`
+            },
+            {
+                question: "¿Cuál es la función de ContuHogar en mi solicitud de crédito?",
+                answer: `Nos encargamos de asesorarle, recibir su documentación, filtrar sus posibilidades, verificar la información y acompañarle durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, podrá resultar en el desembolso del crédito.`
+            },
+            {
+                question: "¿Si tengo reportes negativos en Colombia o en el exterior puedo aplicar a un préstamo?",
+                answer: `Depende. Para cualquiera de los dos casos usted debe presentar paz y salvo de la deuda, dependiendo del tipo de reporte y la cuantía, requerirá una excepción especial. En caso de un reporte castigado, deberá estudiarse individualmente su situación.`
+            },
+            {
+                question: "¿Mi crédito en el exterior se verá afectado con el préstamo que haga en Colombia?",
+                answer: `No. El préstamo de vivienda en Colombia será únicamente reportado en Colombia bajo la Ley 546 de 1999, también conocida como la Ley de Vivienda.`
+            },
+            {
+                question: "Mi pareja es extranjero, ¿él puede pedir un préstamo conmigo para la compra de vivienda en Colombia?",
+                answer: `Si usted ha validado esta unión mediante un documento legal podrá consolidar ingresos con su cónyuge. Él como extranjero se deberá presentar con el pasaporte.`
+            },
+            {
+                question: "¿Debo tener definida la compra de la vivienda para aplicar al crédito?",
+                answer: `No. Se recomienda que usted inicie el proceso de estudio de crédito y una vez cuente con la aprobación pueda tranquilamente negociar la compra de su inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
+            },
+            {
+                question: "¿Cuánto dinero me pueden prestar?",
+                answer: `En cuanto al monto a solicitar no existe un límite. Usted puede aplicar a uno o más cupos de crédito, todo depende de su capacidad de pago. Validaremos sus ingresos frente a sus gastos. De no aplicar al valor que requiere se sugiere un cupo viable.`
+            },
+            {
+                question: "Si no cuento con los requisitos y condiciones para aplicar, ¿qué podría hacer?",
+                answer: `Nosotros estamos en capacidad de asesorarle certeramente para que en un futuro cumpla con los requerimientos y condiciones del banco. Nuestra asesoría es integral y nuestro afán es suplir su necesidad sea en el momento o a futuro.`
+            }
         ]
     }),
     getters: {
         // variableGetter: state => state.variable
     },
     actions: {
-        actionFunction() {
-            this.variable
-        },
+        // actionFunction() {
+        //     this.variable
+        // },
     },
 });

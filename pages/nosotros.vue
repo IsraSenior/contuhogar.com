@@ -1,54 +1,5 @@
 <script setup>
-const team = ref([
-    {
-        name: "Alejandra Pérez",
-        email: "gerencia@contuhogar.net",
-        title: "Gerente",
-        image: "/team/alejandra-perez.avif"
-    },
-    {
-        name: "Fernando Muñóz Tatar",
-        email: "directorcomercial@contuhogar.net",
-        title: "Director Operativo",
-        image: "/team/fernando-munoz.avif"
-    },
-    {
-        name: "Marly Sierra",
-        email: "creditodevivienda05@contuhogar.net",
-        title: "Ejecutiva de Crédito",
-        image: "/team/marly-sierra.avif"
-    },
-    {
-        name: "Yeison Chaves",
-        email: "ejecutivocomercial@contuhogar.net",
-        title: "Ejecutiva de Crédito",
-        image: "/team/yeison-chaves.jpeg"
-    },
-    {
-        name: "Carlos Garzón",
-        email: "analistadecredito@contuhogar.net",
-        title: "Analista de Crédito",
-        image: "/team/carlos-garzon.jpeg"
-    },
-    {
-        name: "Catalina Romero",
-        email: "gestionhumana@contuhogar.net",
-        title: "Directora de Gestión Humana",
-        image: "/team/catalina-romero.avif"
-    },
-    {
-        name: "Kelly Johanna Rojas",
-        email: "asistentedegerencia@contuhogar.net",
-        title: "Asistente de Gerencia",
-        image: "/team/kelly-rojas.jpeg"
-    },
-    {
-        name: "Diego Roojas",
-        email: "contabilidad@contuhogar.net",
-        title: "Contatador",
-        image: "/team/diego-rojas.avif"
-    },
-])
+const store = useMainStore();
 </script>
 
 <template>
@@ -143,7 +94,7 @@ const team = ref([
             </div>
             <ul role="list"
                 class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
-                <li v-for="(staff, index) in team" :key="index">
+                <li v-for="(staff, index) in store.team" :key="index">
                     <img class="aspect-14/13 w-full rounded-2xl object-cover bg-muted" :src="staff?.image"
                         :alt="staff?.name">
                     <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}</h3>
