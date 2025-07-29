@@ -1,45 +1,7 @@
 <script setup>
+const store = useMainStore();
 const servicesDropdown = ref(false);
-
-const services = [
-    {
-        icon: "🏦",
-        href: "/credito-hipotecario",
-        title: "Crédito Hipotecario",
-        description: "Te ayudamos a gestionar tu crédito de vivienda con garantía hipotecaria através de las principales entidades financieras del país.",
-        image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        icon: "🏘️",
-        href: "/leasing-habitacional",
-        title: "Leasing Habitacional",
-        description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional.",
-        image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        icon: "🛠️",
-        href: "/credito-de-remodelacion",
-        title: "Crédito de Remodelación",
-        description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación.",
-        image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        icon: "💳",
-        href: "/compra-de-cartera",
-        title: "Compra de Cartera",
-        description: "Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. ",
-        image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        icon: "🏡",
-        href: "/conturenta",
-        title: "ConTuRenta",
-        description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
-        image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-]
 </script>
-
 
 <template>
     <header class="bg-white fixed inset-x-0 top-0 z-20">
@@ -72,9 +34,9 @@ const services = [
                         leave-active-class="transition ease-in duration-150"
                         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
                         <div v-if="servicesDropdown"
-                            class="absolute top-full -left-8 z-10 mt-5 w-screen max-w-xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
+                            class="absolute top-full -left-8 z-10 mt-5 w-screen max-w-3xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
                             <div class="p-4">
-                                <div v-for="(s, index) in services" :key="index"
+                                <div v-for="(s, index) in store.services" :key="index"
                                     class="group relative flex gap-x-6 rounded-lg p-4 text-base hover:bg-gray-50">
                                     <div
                                         class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">

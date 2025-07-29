@@ -57,7 +57,7 @@ const team = ref([
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra historia
                 </h2>
-                <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+                <div class="mt-6 flex flex-col gap-x-8 gap-20 lg:flex-row">
                     <div class="lg:w-full lg:max-w-4xl lg:flex-auto">
                         <p class="font-bold text-secondary">ContuHogar es una empresa con amplia experiencia y
                             trayectoria en la prestación de
@@ -73,7 +73,7 @@ const team = ref([
                                 inmobiliarias en toda Colombia.</p>
                         </div>
                     </div>
-                    <div class="lg:flex lg:flex-auto lg:justify-center">
+                    <!-- <div class="lg:flex lg:flex-auto lg:justify-center">
                         <dl class="w-64 space-y-8 xl:w-80">
                             <div class="flex flex-col-reverse gap-y-4">
                                 <dt class="text-base/7 text-gray-500">Transacciones cada año</dt>
@@ -88,6 +88,11 @@ const team = ref([
                                 <dd class="text-5xl font-semibold tracking-tight text-primary">2,000</dd>
                             </div>
                         </dl>
+                    </div> -->
+                    <div class="relative w-full">
+                        <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-top object-cover max-h-[400px]"
+                            src="https://img.freepik.com/foto-gratis/retrato-nina-linda-que-pone-dinero-alcancia-rosa-ahorrar-juguete-nuevo-ella-su-hermano-pequeno_662251-568.jpg"
+                            alt="">
                     </div>
                 </div>
 

@@ -1,4 +1,5 @@
 <script setup>
+const store = useMainStore();
 const carouselConfig = {
     itemsToShow: 4,
     gap: 5,
@@ -26,39 +27,6 @@ const carouselConfig = {
     }
 }
 
-const services = ref([
-    {
-        title: "🏦 Crédito Hipotecario",
-        href: "/credito-hipotecario",
-        description: "Te ayudamos a gestionar tu crédito hipotecario con las principales entidades financieras del país, como BBVA Colombia y Giros y Finanzas. Puedes financiar hasta el 70% del valor del inmueble, con condiciones diseñadas para colombianos que viven en el exterior. Nosotros te guiamos en todo el proceso, desde la solicitud hasta el desembolso.",
-        image: "https://img.freepik.com/foto-gratis/agente-inmobiliario-trabajo-que-muestra-casa-hace-negocios_23-2150164731.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        title: "🏘️ Leasing Habitacional",
-        href: "/leasing-habitacional",
-        description: "Ideal para quienes no tienen historial crediticio en Colombia o desean una vía distinta a la hipoteca tradicional. Con el leasing habitacional puedes financiar hasta el 85% del valor de la vivienda y optar por la compra del inmueble al finalizar el contrato. Es una opción muy usada por residentes en el exterior que desean facilidad y flexibilidad.",
-        image: "https://img.freepik.com/foto-gratis/arriba-pareja-contrato-hipoteca_23-2147797656.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        title: "🛠️ Crédito de Remodelación",
-        href: "/credito-de-remodelacion",
-        description: "Si ya tienes vivienda en Colombia pero necesita mejoras, te asesoramos en la gestión de créditos para remodelación. Puedes financiar hasta el 50% del valor del inmueble para adecuaciones, ampliaciones o mejoras estructurales, todo con aliados que entienden tu condición de residente en el exterior.",
-        image: "https://img.freepik.com/fotos-premium/imagen-recortada-arquitecto-sosteniendo-casco-trabajo-mesa-oficina_1048944-25215908.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        title: "💳 Compra de Cartera",
-        href: "/compra-de-cartera",
-        description: "¿Ya tienes un crédito hipotecario vigente? Te ayudamos a trasladarlo a otra entidad financiera que te ofrezca mejores tasas, plazos o condiciones de pago. Esta opción puede generar ahorros significativos en el largo plazo y la puedes gestionar desde el exterior, con nuestro acompañamiento completo.",
-        image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-    {
-        title: "🏡 ConTuRenta",
-        href: "/conturenta",
-        description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados. Si estás vendiendo, publicamos y promovemos tu propiedad. Si estás comprando, buscamos las mejores opciones según tus necesidades. Todo con asesoría profesional y personalizada.",
-        image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-    },
-])
-
 const logos = [
     "https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ",
     "https://www.bancodeoccidente.com.co/documents/33634/406709/Banco+de+Occidente.png/a8e7e079-bff9-9a05-7d00-25cac54cad32?version=1.0&t=1747756786004",
@@ -85,9 +53,9 @@ const logos = [
                         </div>
                     </div>
                     <h1
-                        class="md:mt-24 text-3xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-5xl">
-                        Tu vivienda en Colombia empieza aquí, <br><span class="text-primary"> estés donde
-                            estés.</span></h1>
+                        class="md:mt-24 text-3xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-6xl">
+                        Tu crédito de vivienda en
+                        Colombia empieza aquí, estés donde estés</h1>
                     <p class="mt-8">Más de 16 años
                         de experiencia guiando a colombianos en el exterior hacia inversiones inmobiliarias seguras
                         y créditos adaptados a sus necesidades. Tu patrimonio en Colombia, en las mejores manos.</p>
@@ -109,8 +77,10 @@ const logos = [
 
     <section class="bg-white py-16 md:py-24">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div
-                class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
+            <div class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
+                <div class="w-2/3">
+                    <span class="w-full font-bold text-base">Banco BBVA</span>
+                </div>
                 <div v-for="(client, index) in logos" :key="index" class="w-1/3">
                     <img class="h-full w-full object-contain max-h-12" :src="client" alt="">
                 </div>
@@ -121,9 +91,11 @@ const logos = [
                     class="relative rounded-3xl bg-gray-50 px-4 py-1.5 text-sm text-gray-500 ring-1 ring-primary/5 ring-inset">
                     <span class="hidden md:inline">Trabajamos con los bancos y constructoras más reconocidas de
                         Colombia para brindarte soluciones confiables y seguras.</span>
-                    <NuxtLink :to="{ path: '/', hash: '#testimonios' }" class="font-semibold text-secondary hover:text-primary"><span class="absolute inset-0"
+                    <NuxtLink :to="{ path: '/', hash: '#testimonios' }"
+                        class="font-semibold text-secondary hover:text-primary"><span class="absolute inset-0"
                             aria-hidden="true"></span> Testimonios de nuestros clientes
-                        <span aria-hidden="true">&rarr;</span></NuxtLink>
+                        <span aria-hidden="true">&rarr;</span>
+                    </NuxtLink>
                 </p>
             </div>
         </div>
@@ -197,11 +169,14 @@ const logos = [
                 </div>
                 <div class="lg:pr-4 flex items-center">
                     <div
-                        class="relative overflow-hidden rounded-3xl bg-primary px-6 pt-64 pb-9 shadow-2xl shadow-primary/5 sm:px-12 lg:px-8 lg:pb-8 xl:px-10 xl:pb-10">
-                        <img class="absolute inset-0 size-full object-cover brightness-125 saturate-0"
+                        class="relative overflow-hidden rounded-3xl bg-primary px-6 pt-64 pb-9 shadow-2xl shadow-primary/5 sm:px-12 lg:px-8 lg:pb-8 xl:px-10 xl:pb-10 h-full w-full">
+                        <!-- <img class="absolute inset-0 size-full object-cover brightness-125 saturate-0"
                             src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg?w=2000"
+                            alt=""> -->
+                        <img class="absolute inset-0 size-full object-cover"
+                            src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg"
                             alt="">
-                        <div class="absolute inset-0 bg-primary mix-blend-multiply"></div>
+                        <!-- <div class="absolute inset-0 bg-primary mix-blend-multiply"></div>
                         <div class="absolute top-1/2 left-1/2 -ml-16 -translate-x-1/2 -translate-y-1/2 transform-gpu blur-3xl"
                             aria-hidden="true">
                             <div class="aspect-1097/845 w-[68.5625rem] bg-linear-to-tr from-secondary to-primary opacity-40"
@@ -223,7 +198,7 @@ const logos = [
                             <figcaption class="mt-6 text-sm/6 text-white"><strong
                                     class="font-semibold text-white">Fernando Muñoz,</strong> CEO at ConTuHogar
                             </figcaption>
-                        </figure>
+                        </figure> -->
                     </div>
                 </div>
             </div>
@@ -240,15 +215,16 @@ const logos = [
                 diseñados para facilitar cada paso del proceso de inversión en finca raíz en Colombia.</p>
         </div>
         <Carousel v-bind="carouselConfig" class="mt-16">
-            <Slide v-for="(n, index) in services" :key="index" class="pb-8 px-1 md:px-0">
+            <Slide v-for="(n, index) in store.services" :key="index" class="pb-8 px-1 md:px-0">
                 <div class="max-w-sm rounded-3xl overflow-hidden shadow-lg shadow-primary/5">
                     <img class="w-full h-52 object-center object-cover" :src="n.image" alt="">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2 text-primary">{{ n.title }}</div>
-                        <p class="text-base line-clamp-3">{{ n.description }}</p>
+                        <p class="text-base line-clamp-3">{{ n.intro }}</p>
                     </div>
                     <div class="px-6 pt-4 pb-4 flex justify-end">
-                        <NuxtLink :to="`/servicios${n.href}`" class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer más <span
+                        <NuxtLink :to="`/servicios/${n.slug}`"
+                            class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer más <span
                                 aria-hidden="true">→</span></NuxtLink>
                     </div>
                 </div>
@@ -289,7 +265,10 @@ const logos = [
                                     </NuxtLink>
                                 </dd>
                                 <dt class="sr-only">Descripción</dt>
-                                <dd class="mt-2 w-full flex-none text-base/7">En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado o a través de créditos hipotecarios.</dd>
+                                <dd class="mt-2 w-full flex-none text-base/7">En los últimos años, la devaluación del
+                                    peso colombiano ha dificultado que muchas familias en el país puedan acceder a una
+                                    vivienda propia, ya sea mediante pagos de contado o a través de créditos
+                                    hipotecarios.</dd>
                                 <!-- <dt class="sr-only">Salary</dt> -->
                                 <!-- <dd class="mt-4 text-base/7 font-semibold text-primary">$75,000 USD</dd> -->
                                 <dt class="sr-only">Date</dt>
@@ -303,7 +282,8 @@ const logos = [
                         </li>
                     </ul>
                     <div class="mt-8 flex border-t border-gray-100 pt-8">
-                        <NuxtLink to="/blog" class="text-sm/6 font-semibold text-secondary hover:text-primary">Ver todos los artículos <span aria-hidden="true">&rarr;</span></NuxtLink>
+                        <NuxtLink to="/blog" class="text-sm/6 font-semibold text-secondary hover:text-primary">Ver todos
+                            los artículos <span aria-hidden="true">&rarr;</span></NuxtLink>
                     </div>
                 </div>
             </div>
@@ -348,12 +328,14 @@ const logos = [
                 <figure
                     class="rounded-2xl bg-white shadow-lg ring-1 ring-primary/5 sm:col-span-2 xl:col-start-2 xl:row-end-1">
                     <blockquote class="p-6 text-lg font-semibold tracking-tight text-primary sm:p-12 sm:text-xl/8">
-                        <p>“Hice el proceso con ContuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin super bien. La verdad súper recomendado.”</p>
+                        <p>“Hice el proceso con ContuHogar de una compra de vivienda desde el extranjero y la verdad fue
+                            súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para
+                            otro. La asesoría, todo el proceso de principio a fin super bien. La verdad súper
+                            recomendado.”</p>
                     </blockquote>
                     <figcaption
                         class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-primary/10 px-6 py-4 sm:flex-nowrap">
-                        <img class="size-10 flex-none rounded-full bg-gray-50"
-                            src="/testimonials/juancamilolave.jpeg"
+                        <img class="size-10 flex-none rounded-full bg-gray-50" src="/testimonials/juancamilolave.jpeg"
                             alt="Ingrid Yurley Fajardo Contreras">
                         <div class="flex-auto">
                             <div class="font-semibold">Juan Camilo Manrique Olave</div>
@@ -367,12 +349,13 @@ const logos = [
                     <div class="space-y-8 xl:row-span-2">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Quiero agradecer a CONTUHOGAR por todo el acompañamiento que me brindaron, la asesoría fue excelente, te resuelven todas las inquietudes permitiéndome hacer el proceso mucho más fácil y seguro. Los recomiendo al 100, una empresa muy responsable y confiable.”</p>
+                                <p>“Quiero agradecer a CONTUHOGAR por todo el acompañamiento que me brindaron, la
+                                    asesoría fue excelente, te resuelven todas las inquietudes permitiéndome hacer el
+                                    proceso mucho más fácil y seguro. Los recomiendo al 100, una empresa muy responsable
+                                    y confiable.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/nafyc_moda.jpeg"
-                                    alt="">
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/nafyc_moda.jpeg" alt="">
                                 <div>
                                     <div class="font-semibold">Ingrid Yurley Fajardo Contreras</div>
                                     <div class="text-gray-500">@nafyc_moda</div>
@@ -381,12 +364,13 @@ const logos = [
                         </figure>
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Vivo en Estados Unidos y mi experiencia con ContuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, ¡100 de 10!”</p>
+                                <p>“Vivo en Estados Unidos y mi experiencia con ContuHogar ha sido excelente. Marly me
+                                    acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en
+                                    Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy
+                                    agradecida, ¡100 de 10!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/bibiana.jpeg"
-                                    alt="">
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/bibiana.jpeg" alt="">
                                 <div>
                                     <div class="font-semibold">Bibiana Patricia Velásquez Velásquez</div>
                                     <!-- <div class="text-gray-500">@Gecortes92</div> -->
@@ -399,12 +383,14 @@ const logos = [
                     <div class="space-y-8 xl:row-start-1">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Tuve una excelente experiencia con Contuhogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. ¡Muy feliz con el resultado y los recomiendo totalmente!”</p>
+                                <p>“Tuve una excelente experiencia con Contuhogar. Me ayudaron a gestionar un crédito
+                                    hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue
+                                    rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el
+                                    conocimiento y la experiencia para lograr la aprobación del banco sin
+                                    complicaciones. ¡Muy feliz con el resultado y los recomiendo totalmente!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/Gecortes92.jpeg"
-                                    alt="">
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/Gecortes92.jpeg" alt="">
                                 <div>
                                     <div class="font-semibold">German Enrique Cortés Hernández</div>
                                     <div class="text-gray-500">@Gecortes92</div>
@@ -419,11 +405,13 @@ const logos = [
                     <div class="space-y-8 xl:row-start-1">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Muy buenos días, mi nombre es  Cindy Sanchez y tuve una excelente experiencia con el crédito y CONTUHOGAR . El acompañamiento fue muy agradable porque no me dejaron sola en este proceso y hoy ya puedo disfrutar de mi nuevo apartamento en Medellín. Muchas gracias por la excelencia que tuvieron con mi caso.⭐️”</p>
+                                <p>“Muy buenos días, mi nombre es Cindy Sanchez y tuve una excelente experiencia con el
+                                    crédito y CONTUHOGAR . El acompañamiento fue muy agradable porque no me dejaron sola
+                                    en este proceso y hoy ya puedo disfrutar de mi nuevo apartamento en Medellín. Muchas
+                                    gracias por la excelencia que tuvieron con mi caso.⭐️”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/milufitoficial.jpeg"
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/milufitoficial.jpeg"
                                     alt="">
                                 <div>
                                     <div class="font-semibold">Cindy Sánchez</div>
@@ -451,14 +439,16 @@ const logos = [
                     <div class="space-y-8 xl:row-span-2">
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“En Contuhogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido como una madre con su hijo. Quiero agradecerles por tanto. 
-Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia.
-Gracias mil veces por su apoyo incondicional.”</p>
+                                <p>“En Contuhogar obtuve todo el apoyo y la guía para poder realizar el estudio de
+                                    crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación
+                                    que ustedes me brindaron paso a paso me hicieron sentir protegido como una madre con
+                                    su hijo. Quiero agradecerles por tanto.
+                                    Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada
+                                    Colombia.
+                                    Gracias mil veces por su apoyo incondicional.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/dmilenep.jpeg"
-                                    alt="">
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/dmilenep.jpeg" alt="">
                                 <div>
                                     <div class="font-semibold">Diana Piedrahíta</div>
                                     <div class="text-gray-500">@leonardkrasner</div>
@@ -468,12 +458,14 @@ Gracias mil veces por su apoyo incondicional.”</p>
 
                         <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-primary/5">
                             <blockquote class="text-primary">
-                                <p>“Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con Contuhogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.”</p>
+                                <p>“Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos,
+                                    les comparto mi experiencia con Contuhogar, la cual fue excelente, el personal muy
+                                    amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre
+                                    pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas
+                                    y muy profesionales, los recomiendo.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50"
-                                    src="/testimonials/Elena.jpeg"
-                                    alt="">
+                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/Elena.jpeg" alt="">
                                 <div>
                                     <div class="font-semibold">Elena Marcela Quiroga Imparato</div>
                                     <!-- <div class="text-gray-500">@leonardkrasner</div> -->

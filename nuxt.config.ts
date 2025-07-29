@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   //   pageTransition: { name: "page", mode: "out-in" },
   // },
 
-  modules: ["vue3-carousel-nuxt", "nuxt-umami"],
+  modules: ["vue3-carousel-nuxt", "nuxt-umami", "@pinia/nuxt"],
 
   umami: {
     enabled: true,

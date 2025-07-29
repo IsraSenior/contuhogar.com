@@ -18,7 +18,7 @@
           <article class="relative isolate flex flex-col gap-8 lg:flex-row bg-muted hover:bg-white p-5 rounded-3xl">
             <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
               <img
-                src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
+                src="https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg"
                 alt="" class="absolute inset-0 size-full rounded-2xl bg-primary object-cover">
               <div class="absolute inset-0 rounded-2xl ring-1 ring-primary/10 ring-inset"></div>
             </div>
@@ -42,7 +42,7 @@
               <div class="mt-6 flex border-t borderprimary/5 pt-6">
                 <div class="relative flex items-center gap-x-4">
                   <img
-                    src="https://static.wixstatic.com/media/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg/v1/fill/w_854,h_850,al_c,q_85,enc_auto/b4f6b9_1ce72466a9da41378f2270f92a80a759~mv2.jpg"
+                    src="/team/alejandra-perez.avif"
                     alt="" class="size-10 rounded-full bg-gray-50">
                   <div class="text-sm/6">
                     <p class="font-semibold text-primary">
@@ -262,7 +262,7 @@
           <img
             class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
             src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-            alt="App screenshot">
+            alt="">
         </div>
       </div>
     </div>

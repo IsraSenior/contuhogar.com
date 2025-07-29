@@ -1,14 +1,30 @@
 <script setup>
-const store = useMainStore();
-const route = useRoute();
+const services = {
+    "credito-hipotecario": {
+        title: "Crédito Hipotecario",
+        intro: "Es un préstamo destinado a la compra de vivienda, sujeto a que el aspirante cumpla con las condiciones y requisitos establecidos por la entidad financiera. Una vez aprobado, la propiedad del inmueble queda a nombre del comprador con una garantía hipotecaria en primer grado a favor del banco, hasta que se cancele la totalidad del crédito."
+    },
+    "leasing-habitacional": {
+        title: "Leasing Habitacional",
+        intro: "Es otra buena alternativa de financiamiento para adquirir vivienda, similar al crédito hipotecario, y dirigida a quienes cumplan con los requisitos y condiciones definidas por la entidad financiera. No obstante, la principal diferencia es que, durante la vigencia del contrato, el inmueble permanece a nombre del banco, mientras el cliente lo habita como locatario. Al finalizar el plazo y cumplir con la obligación de pago, será el más opcionado de adquirir la propiedad del inmueble."
+    },
+    "compra-de-cartera": {
+        title: "Compra de Cartera",
+        intro: "Es una línea hipotecaria diseñada para ofrecer mejores condiciones financieras que las que actualmente un cliente tiene con su banco. Al trasladar el crédito a otra entidad financiera, se reduce el valor de la cuota mensual y se optimiza el flujo de caja. Gracias a la Ley 546 de 1999, los deudores hipotecarios tienen la posibilidad de cambiar de entidad financiera en cualquier momento, siempre que la nueva entidad ofrezca una tasa de interés más baja."
+    },
+    "credito-de-remodelacion": {
+        title: "Crédito de Remodelación",
+        intro: "Se trata de una línea de crédito con garantía hipotecaria, dirigida a financiar mejoras, reparaciones o remodelaciones en una vivienda. El inmueble puede estar totalmente libre de deuda o aún tener una hipoteca vigente. En ambos casos, este crédito funciona de manera similar a un crédito de libre inversión, pero con condiciones más favorables en plazo, tasas de interés, entre otras, gracias a la garantía hipotecaria."
+    },
+    "conturenta": {
+        title: "ConTuRenta",
+        intro: "es un servicio que en primera medida le permite conocer si usted está o no obligado a declarar renta en Colombia, residiendo en Colombia o en el exterior. Si está obligado a declarar, a través de expertos contables, realizamos su declaración de renta de acuerdo con las leyes colombianas. Pregúntenos cómo."
+    }
+}
+
+const route = useRoute()
 const slug = computed(() => {
     return route.params.slug;
-})
-
-const currentService = computed(() => {
-    const service = store.services.filter(x => x.slug === route.params.slug[0])
-
-    return service?.[0]
 })
 
 const currentStep = ref(0);
@@ -111,20 +127,44 @@ const showMore = ref(false)
 </script>
 
 <template>
-    <div class="relative isolate overflow-hidden bg-muted px-6 py-24 sm:pt-32 lg:overflow-visible lg:px-0">
+    <div class="relative isolate overflow-hidden bg-muted px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
         <div class="container mx-auto">
             <div class="grid lg:grid-cols-5 gap-16">
                 <div class="lg:col-span-3">
                     <div>
-                        <h1
-                            class="text-4xl font-semibold tracking-tight text-pretty text-primary leading-tight sm:text-5xl">
-                            {{ currentService?.title }}
+                        <h1 class="text-4xl font-semibold tracking-tight text-pretty text-primary leading-tight sm:text-5xl">
+                            {{ services?.[slug[0]]?.title }}
                         </h1>
                         <div class="mt-6 text-base/7 text-gris-aluminio font-normal space-y-6">
 
-                            <p>{{ currentService?.content }}
+                            <p>{{ services?.[slug[0]]?.intro }}
                             </p>
+                            <!-- <p>
+                                <b>Plazos:</b> los plazos van desde los 5 hasta los 15 años, aunque usted puede
+                                hacer
+                                abonos
+                                parciales o el pago total de la deuda en el momento que desee sin penalidad alguna.
+                                La
+                                tasa
+                                de interés será la vigente en el momento del desembolso.
+                            </p> -->
+                            <!-- <p>
+                                <b>Dirigido a:</b> clientes interesados en compra de vivienda nueva o usada en
+                                cualquier
+                                parte de
+                                Colombia. Usted puede definir su compra sobre planos, lista para la entrega o un
+                                inmueble
+                                usado. Este crédito no va dirigido a compra de locales, lotes, fincas o
+                                construcción,
+                                usted
+                                puede definir su compra sobre planos, lista para la entrega o un inmueble usado. Las
+                                entidades financieras que representamos en Colombia son las responsables del estudio
+                                de
+                                su
+                                solicitud, al ser ellos quienes proveen los recursos a través de la documentación,
+                                información y verificación que nosotros como su bróker le suministramos.
 
+                            </p> -->
                             <p>
                                 Una vez aprobado su crédito, ContuHogar le brindará un acompañamiento integral en
                                 todo
@@ -133,14 +173,7 @@ const showMore = ref(false)
                                 desembolso del dinero por parte de la entidad financiera.
                             </p>
 
-                            <div class="space-x-6 mt-16">
-                                <NuxtLink :to="`/contacto?slug=${currentService?.slug}`" class="btn primary">
-                                    Solicita
-                                    nuestro servicio</NuxtLink>
-                                <button @click.prevent="showMore = !showMore"
-                                    class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer {{ showMore ?
-                                        "menos" : "más" }}</button>
-                            </div>
+                            <button @click.prevent="showMore = !showMore" class="text-sm/6 font-semibold text-secondary hover:text-primary">Leer {{showMore ? "menos": "más"}}</button>
                         </div>
 
                         <div v-if="showMore" class="mt-16">
@@ -169,11 +202,18 @@ const showMore = ref(false)
                     </div>
                 </div>
 
-                <div class=" pb-16 px-5 lg:col-span-2 relative">
-                    <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-center object-cover"
-                        :src="currentService?.image" :alt="currentService?.title">
+                <div class=" pb-16 px-5 lg:sticky lg:top-[144px] lg:overflow-hidden lg:col-span-2">
+                    <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5"
+                        src="/2148392254.jpg" alt="">
 
-                    <!-- <div class="mt-6">
+                    <!-- <iframe width="100%" height="450"
+                        src="https://www.youtube.com/embed/QjtQiIq0Jdk?si=X5kV6GvABwE5vu0M" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                        class="rounded-xl bg-primary-50 shadow-xl ring-1 ring-primary-50"></iframe> -->
+
+                    <div class="mt-6">
                         <div
                             class="relative isolate overflow-hidden px-6 py-12 text-center shadow-lg shadow-primary/5 sm:rounded-3xl sm:px-16 bg-white">
                             <h2 class="text-2xl font-semibold tracking-tight text-balance text-primary sm:text-3xl">
@@ -184,7 +224,7 @@ const showMore = ref(false)
                                     nuestro servicio</NuxtLink>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -204,10 +244,10 @@ const showMore = ref(false)
 
     <!-- <div class="container mx-auto">
             <h6 class="mt-12 text-xl font-semibold tracking-tight text-pretty text-secondary leading-tight sm:text-2xl"
-               >
+                v-/2148392254.jpg>
                 Otros servicios relacionadas
             </h6>
-            <SliderServicesRelated class="pb-16" />
+            <SliderServicesRelated class="pb-16" v-/2148392254.jpg />
         </div> -->
 
 </template>
