@@ -1,18 +1,19 @@
 <script setup>
 const store = useMainStore();
 const servicesDropdown = ref(false);
+const openMenu = ref(true);
 </script>
 
 <template>
     <header class="bg-white fixed inset-x-0 top-0 z-20">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <nav class="mx-auto flex container items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1">
                 <NuxtLink to="/" class="-m-1.5 p-1.5">
                     <span class="sr-only">ConTuHogar</span>
-                    <Logo class="h-12 w-auto" />
+                    <Logo class="h-10 xl:h-12 w-auto" />
                 </NuxtLink>
             </div>
-            <div class="hidden lg:flex lg:gap-x-12">
+            <div class="hidden xl:flex gap-x-6 xl:gap-x-12">
                 <NuxtLink to="/nosotros" @click.native="servicesDropdown = false"
                     class="text-base font-semibold text-gray-600 hover:text-secondary">Sobre nosotros</NuxtLink>
 
@@ -87,12 +88,13 @@ const servicesDropdown = ref(false);
                     class="text-base font-semibold text-gray-600 hover:text-secondary">Blog</NuxtLink>
                 <!-- <NuxtLink to="/noticias" class="text-base font-semibold text-gray-600 hover:text-secondary">Noticias</NuxtLink> -->
             </div>
+
             <div class="flex flex-1 items-center justify-end gap-x-6">
                 <NuxtLink to="/contacto" @click.native="servicesDropdown = false" class="hidden md:flex btn secondary"
                     v-umami="{ name: 'contact-button-header-desktop' }">Contáctanos</NuxtLink>
 
-                <button type="button"
-                    class="-m-2.5 inline-flex lg:hidden items-center justify-center rounded-md p-2.5 text-gray-700">
+                <button type="button" @click.prevent="openMenu = true"
+                    class="-m-2.5 inline-flex xl:hidden items-center justify-center rounded-md p-2.5 text-gray-700">
                     <span class="sr-only">Open main menu</span>
                     <svg class="size-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                         aria-hidden="true" data-slot="icon">
@@ -101,128 +103,70 @@ const servicesDropdown = ref(false);
                     </svg>
                 </button>
             </div>
+
         </nav>
+
         <!-- Mobile menu, show/hide based on menu open state. -->
-        <div class="lg:hidden hidden" role="dialog" aria-modal="true">
+        <div v-if="openMenu" class="xl:hidden" role="dialog" aria-modal="true">
             <!-- Background backdrop, show/hide based on slide-over state. -->
-            <div class="fixed inset-0 z-10"></div>
+            <div class="fixed inset-0 z-10 bg-primary/50"></div>
             <div
                 class="fixed inset-y-0 right-0 z-10 flex w-full flex-col justify-between overflow-y-auto bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-600/10">
                 <div class="p-6">
                     <div class="flex items-center justify-between">
-                        <a href="#" class="-m-1.5 p-1.5">
+                        <!-- <a href="#" class="-m-1.5 p-1.5">
                             <span class="sr-only">Your Company</span>
                             <img class="h-8 w-auto"
                                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
                                 alt="">
-                        </a>
-                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                        </a> -->
+                        <span></span>
+                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700"
+                            @click.prevent="openMenu = false">
                             <span class="sr-only">Close menu</span>
-                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                aria-hidden="true" data-slot="icon">
+                            <svg class="size-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" aria-hidden="true" data-slot="icon">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-500/10">
-                            <div class="space-y-2 py-6">
-                                <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
-                                    <div
-                                        class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                        <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
-                                        </svg>
-                                    </div>
-                                    Analytics
-                                </a>
-                                <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
-                                    <div
-                                        class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                        <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
-                                        </svg>
-                                    </div>
-                                    Engagement
-                                </a>
-                                <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
-                                    <div
-                                        class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                        <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
-                                        </svg>
-                                    </div>
-                                    Security
-                                </a>
-                                <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
-                                    <div
-                                        class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                        <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
-                                        </svg>
-                                    </div>
-                                    Integrations
-                                </a>
-                                <a href="#"
-                                    class="group -mx-3 flex items-center gap-x-6 rounded-lg p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
-                                    <div
-                                        class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                        <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                            aria-hidden="true" data-slot="icon">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                                        </svg>
-                                    </div>
-                                    Automations
-                                </a>
-                            </div>
-                            <div class="space-y-2 py-6">
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Features</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Marketplace</a>
 
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">About
-                                    us</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Careers</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Support</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Blog</a>
+                            <div class="space-y-2 py-6 text-center">
+                                <NuxtLink to="/nosotros" @click.native="openMenu = false"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
+                                    Sobre nosotros</NuxtLink>
+
+                                <NuxtLink to="/faqs" @click.native="openMenu = false"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
+                                    Preguntas frecuentes</NuxtLink>
+
+                                <NuxtLink :to="`/servicios${s.href}`" v-for="(s, index) in store.services" :key="index" @click.native="openMenu = false"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
+                                    {{ s.title }}
+                                </NuxtLink>
+
+                                <NuxtLink to="/blog" @click.native="openMenu = false"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
+                                    Blog</NuxtLink>
                             </div>
                             <div class="py-6">
-                                <a href="#"
+
+                                <NuxtLink to="/contacto" @click.native="openMenu = false"
+                                    class="flex btn secondary items-center justify-center text-center">Contáctanos
+                                </NuxtLink>
+                                <!-- <a href="#"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Log
-                                    in</a>
+                                    in</a> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50 text-center">
+                <!-- <div class="sticky bottom-0 grid grid-cols-2 divide-x divide-gray-600/5 bg-gray-50 text-center">
                     <a href="#" class="p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-100">Watch demo</a>
                     <a href="#" class="p-3 text-base/7 font-semibold text-gray-600 hover:bg-gray-100">Contact sales</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </header>
