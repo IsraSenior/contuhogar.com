@@ -70,7 +70,7 @@ const carouselConfig = {
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
                 <div class="w-2/3">
-                    <span class="w-full font-bold text-base">Banco BBVA</span>
+                    <span class="w-full font-bold text-xs lg:text-base">Banco BBVA</span>
                 </div>
                 <div v-for="(client, index) in store.logos" :key="index" class="w-1/3">
                     <img class="h-full w-full object-contain max-h-12" :src="client" alt="">
@@ -117,10 +117,10 @@ const carouselConfig = {
 
                                     Asesoría personalizada
                                 </dt>
-                                <dd class="inline text-base">No todos tienen las mismas metas ni oportunidades. Por
+                                <dd class="inline text-base">no todos tienen las mismas metas ni oportunidades. Por
                                     eso,
                                     diseñamos un plan a tu medida: analizamos tu perfil, tus necesidades y te
-                                    guiamos paso a paso para que compres, inviertas o financies tu propiedad en
+                                    guiamos paso a paso para que inviertas y financies tu propiedad en
                                     Colombia sin sorpresas ni trámites innecesarios.
                                 </dd>
                             </div>
@@ -135,9 +135,8 @@ const carouselConfig = {
 
                                     Aliados confiables
                                 </dt>
-                                <dd class="inline text-base">Trabajamos con bancos, constructoras y expertos legales
-                                    en
-                                    Colombia para garantizarte opciones seguras, tasas competitivas y transparencia
+                                <dd class="inline text-base">trabajamos con bancos, constructoras y expertos legales
+                                    en Colombia para garantizarte opciones seguras, tasas de interés competitivas y transparencia
                                     en cada proceso. Tu patrimonio está respaldado por los mejores.</dd>
                             </div>
                             <div class="relative pl-9">
@@ -148,11 +147,10 @@ const carouselConfig = {
                                             d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                                     </svg>
 
-                                    Facilidad de trámites desde el exterior
+                                    Facilidad de trámites desde el exterior:
                                 </dt>
-                                <dd class="inline text-base">Digitalizamos todo el proceso: firmas electrónicas,
-                                    videollamadas
-                                    y gestión remota. Sin filas, sin viajes y con actualizaciones en tiempo real.
+                                <dd class="inline text-base"> digitalizamos todo el proceso, firmas electrónicas, videollamadas
+                                    y gestión remota; Sin filas, sin viajes y con actualizaciones en tiempo real.
                                 </dd>
                             </div>
                         </dl>

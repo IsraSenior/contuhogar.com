@@ -55,9 +55,9 @@ export const useMainStore = defineStore('index', {
             },
         ],
         logos: [
-            "https://www.bancounion.com/wps/wcm/connect/bancounion/af747ad5-c387-42b8-9504-1138245e5f31/BU-logo-desktop-2023.png?MOD=AJPERES&CACHEID=ROOTWORKSPACE.Z18_JG94HO40NGHTC068N5QRH11000-af747ad5-c387-42b8-9504-1138245e5f31-ooEdamZ",
-            "https://www.bancodeoccidente.com.co/documents/33634/406709/Banco+de+Occidente.png/a8e7e079-bff9-9a05-7d00-25cac54cad32?version=1.0&t=1747756786004",
-            "/logo-bolivar_scroll.svg",
+            "/logos/banco-union.png",
+            "/logos/banco-occidental.png",
+            "/logos/logo-bolivar_scroll.svg",
             "https://amarilo.com.co/images/logo.svg",
             "https://constructoracolpatria.com/site/assets/img/constructora-colpatria.png",
             "https://marval.com.co/wp-content/uploads/2022/03/Grupo-429.png"
