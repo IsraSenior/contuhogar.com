@@ -25,21 +25,21 @@ const content = ref([
     `<ol class="list-decimal list-inside">
         <li>Los plazos van desde los 5 hasta los 20 años.</li>
         <li>La tasa de interés será la vigente en el momento del desembolso. ¡Pregúntenos!</li>
-        <li>Financiación en crédito hipotecario:
+        <li><small class="font-bold">(Si es crédito hipotecario)</small> financiación en crédito hipotecario:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 70 % sobre el valor comercial del inmueble.</li>
                 <li>En proyectos financiados hasta el 85 %.</li>
             </ol>
         </li>
 
-        <li>Financiación en leasing habitacional familiar o no familiar:
+       <li><small class="font-bold">(Si es leasing habitacional)</small> financiación en leasing habitacional familiar o no familiar:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 85 % sobre el valor comercial del inmueble.</li>
                 <li>En proyectos financiados podría estar hasta en el 90 %.   </li>
             </ol>    
         </li>
 
-        <li>Financiación en crédito de remodelación:
+        <li><small class="font-bold">(Si es crédito de remodelación)</small>  financiación en crédito de remodelación:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 50 % sobre el valor comercial del inmueble.</li>
             </ol>    
@@ -47,8 +47,8 @@ const content = ref([
     </ol>`,
 
     `<ol class="list-decimal list-inside">
-        <li>Colombianos residentes en el exterior interesados en comprar vivienda nueva o usada en cualquier parte Colombia, dentro del casco urbano, no rural.</li>
-        <li>Colombianos residentes en el exterior interesados en mejorar las condiciones actuales de su préstamo de vivienda o del inmueble mediante adecuaciones.</li>
+        <li><small class="font-bold">(Si es crédito hipotecario o leasing habitacional)</small>  colombianos residentes en el exterior interesados en comprar vivienda nueva o usada en cualquier parte Colombia, dentro del casco urbano, no rural.</li>
+        <li><small class="font-bold">(Si es compra de cartera o crédito de remodelación)</small> colombianos residentes en el exterior interesados en mejorar las condiciones actuales de tu préstamo de vivienda o del inmueble mediante adecuaciones.</li>
         <li>Extranjeros casados con colombiano (a) que se pueda evidenciar y así consolidar ingresos para acceder al préstamo.</li>
         <li>Edades entre 18 y 74 años.</li>
         <li>Este crédito no va dirigido a personas interesadas en compra de locales, lotes, fincas o construcción.</li>
@@ -56,38 +56,38 @@ const content = ref([
 
     `<ol class="list-decimal list-inside">
         <li>Vigencia del crédito por seis (6) meses, una vez aprobado el estudio. Tiempo ideal para que defina la compra que realizará o la mejora que desea obtener.</li>
-        <li>El producto permite realizar abonos parciales para disminuir el periodo de su obligación o cancelar la deuda en cualquier momento, sin ningún tipo de sanción.</li>
-        <li>Usted puede obtener uno o más créditos en Colombia, dependiendo de su capacidad de pago.</li>
-        <li>En cuanto a su historial crediticio usted toma el crédito en Colombia y no afecta su capacidad de pago en el país actual de residencia.</li>
+        <li>El producto permite realizar abonos parciales para disminuir el periodo de tu obligación o cancelar la deuda en cualquier momento, sin ningún tipo de sanción.</li>
+        <li>Podrías obtener uno o más créditos en Colombia, dependiendo de tu capacidad de pago.</li>
+        <li>En cuanto a tu historial crediticio tomas el crédito en Colombia y no afecta tu capacidad de pago en el país actual de residencia.</li>
         <li>Cuota fija en pesos durante la vida del crédito.</li>
         <li>Apertura de una cuenta de ahorros para el desembolso.</li>
-        <li>Usted puede aplicar a esta línea de crédito y tener un cupo aprobado incluso sin tener la compra definida.</li>
+        <li>Podrías aplicar a esta línea de crédito y tener un cupo aprobado incluso sin tener la compra definida.</li>
     </ol>`,
 
     `<ol class="list-decimal list-inside">
-        <li>Tener estatus migratorio definido y debidamente soportado con su residencia o visa de trabajo o naturalización.</li>
+        <li>Tener estatus migratorio definido y debidamente soportado con tu residencia o visa de trabajo o naturalización.</li>
         <li>Contar con una permanencia mínima de trabajo entre uno y dos años.</li>
-        <li>Los ingresos provenientes de su actividad laboral deben estar debidamente soportados.</li>
-        <li>No tener reportes negativos en las Centrales de Riesgo en Colombia; asimismo, se revisará su endeudamiento actual y su comportamiento en el exterior.</li>
-        <li>Si desea aumentar su capacidad de pago podrá aplicar con un familiar en Colombia o en el exterior.</li>
-        <li>Contar con una persona de su entera confianza en Colombia como apoderado.</li>
+        <li>Los ingresos provenientes de tu actividad laboral deben estar debidamente soportados.</li>
+        <li>No tener reportes negativos en las centrales de riesgo en Colombia; asimismo, se revisará tu endeudamiento actual y tu comportamiento crediticio en el exterior.</li>
+        <li>Si desea aumentar tu capacidad de pago podrás aplicar con un familiar en Colombia o en el exterior.</li>
+        <li>Contar con una persona de tu entera confianza en Colombia como apoderado.</li>
     </ol>`,
 
     `<ul class="list-disc list-inside">
         <li>Certificación laboral vigente (90 días).</li>
         <li>Comprobantes de pago de nómina correspondientes a los tres (3) últimos meses.</li>
-        <li>Extractos bancarios de los últimos tres (3) meses de la cuenta donde le consignan su salario.</li>
+        <li>Extractos bancarios de los últimos tres (3) meses de la cuenta donde te consignan tu salario.</li>
         <li>Declaración de renta del anterior año fiscal y/o certificado de ingresos y retenciones.</li>
         <li>Reporte vigente de crédito con buen hábito de pago (30 días).</li>
-        <li>Fotocopia de la cédula vigente colombiana al 150%.</li>
+        <li>Ampliación de la cédula vigente colombiana al 150 %.</li>
         <li>Fotocopia del documento en el exterior: residencia, visa o ciudadanía, vigente.</li>
         <li>Cualquier otro ingreso demostrado: pensión, arriendos, contratos como profesional independiente, etc.</li>
-        <li>Es necesario para completar la aplicación a su crédito hipotecario, leer, diligenciar y firmar adecuadamente los formatos que lo requieran.</li>
+        <li>Es necesario para completar la aplicación a tu crédito hipotecario, leer, diligenciar y firmar adecuadamente los formatos que lo requieran.</li>
     </ul>
-    <p class="mt-6">Una vez aprobado su crédito, ContuHogar le brindará un acompañamiento integral en todo el proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el desembolso del dinero por parte de la entidad financiera. También contará con servicio de posventa./p>
+    <p class="mt-6">Una vez aprobado tu crédito de vivienda, ContuHogar le brindará un acompañamiento integral en todo el proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el desembolso del dinero por parte de la entidad financiera. También contarás con servicio de posventa.</p>
     `,
 
-    `<p>Si desea aplicar a este crédito, descargue nuestros formularios, diligenciarlos y enviarlos a <a href="mailto:gerencia@contuhogar.net" class="text-primary hover:text-secondary">gerencia@contuhogar.net</a> o al correo <a href="mailto:gerenciacomercial@contuhogar.net" class="text-primary hover:text-secondary">gerenciacomercial@contuhogar.net</a> o al ejecutivo de crédito que esté llevando su proceso:</p>
+    `<p>Si desea aplicar a este crédito, descarga nuestros formularios, diligenciénsialos y envíalos al ejecutivo de crédito que esté llevando tu proceso: </p>
 
 
     <p class="font-semibold text-lg mt-12">​Formatos BBVA</p>
@@ -98,7 +98,7 @@ const content = ref([
         <li>Informe de visita a clientes - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
     </ul>
 
-    <p class="font-semibold text-lg mt-12">​Formatos Giros y Finanzas</p>
+    <p class="font-semibold text-lg mt-12">​Formatos Banco Unión</p>
     <ul class="list-disc list-inside mt-6">
         <li>Formato de solicitud de vinculación crédito de vivienda exterior - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
         <li>Formato de información apoderado crédito de vivienda exterior - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
@@ -125,11 +125,9 @@ const showMore = ref(false)
                             <p>{{ currentService?.content }}
                             </p>
 
-                            <p>
-                                Una vez aprobado su crédito, ContuHogar le brindará un acompañamiento integral en
-                                todo
-                                el
-                                proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el
+                            <p class="font-bold">
+                                Una vez aprobado tu crédito de vivienda, ContuHogar te brindará un acompañamiento integral en
+                                todo el proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el
                                 desembolso del dinero por parte de la entidad financiera.
                             </p>
 
@@ -152,8 +150,8 @@ const showMore = ref(false)
                                             {
                                                 'rounded-r-md': index === steps.length - 1,
                                                 'rounded-l-md': index === 0,
-                                                '!bg-primary text-white ring-2 ring-primary': currentStep === index,
-                                                'text-primary': currentStep !== index,
+                                                '!bg-secondary text-white ring-2 ring-secondary': currentStep === index,
+                                                'text-secondary': currentStep !== index,
                                                 'hover:bg-muted': currentStep !== index,
                                                 'focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-secondary':
                                                     currentStep !== index

@@ -69,11 +69,23 @@ const carouselConfig = {
     <section class="bg-white py-16 md:py-24">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
-                <div class="w-2/3">
-                    <span class="w-full font-bold text-xs lg:text-base">Banco BBVA</span>
+                <div class="w-1/3 flex items-center justify-center">
+                    <span class="w-full font-bold text-xs lg:text-base text-center">BBVA</span>
                 </div>
-                <div v-for="(client, index) in store.logos" :key="index" class="w-1/3">
-                    <img class="h-full w-full object-contain max-h-12" :src="client" alt="">
+                <div class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-16" :src="store.logos[0]" alt="">
+                </div>
+                <div class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-16" :src="store.logos[1]" alt="">
+                </div>
+                <div class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-10" :src="store.logos[2]" alt="">
+                </div>
+                <div class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-10" :src="store.logos[3]" alt="">
+                </div>
+                <div class="w-1/3">
+                    <img class="h-full w-full object-contain max-h-8" :src="store.logos[4]" alt="">
                 </div>
             </div>
 
@@ -147,10 +159,10 @@ const carouselConfig = {
                                             d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                                     </svg>
 
-                                    Facilidad de trámites desde el exterior:
+                                    Facilidad de trámites desde el exterior
                                 </dt>
                                 <dd class="inline text-base"> digitalizamos todo el proceso, firmas electrónicas, videollamadas
-                                    y gestión remota; Sin filas, sin viajes y con actualizaciones en tiempo real.
+                                    y gestión remota; sin filas, sin viajes y con actualizaciones en tiempo real.
                                 </dd>
                             </div>
                         </dl>

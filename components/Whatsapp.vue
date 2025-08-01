@@ -12,14 +12,14 @@ const phoneDropdown = ref({
     options: dialPhoneOptions,
 })
 
-const submit = function() {
+const submit = function () {
     window.open("https://api.whatsapp.com/send?phone=573150540000");
     open.value = false;
 }
 </script>
 
 <template>
-    <div class="fixed bottom-10 right-10 z-10 flex items-end gap-6">
+    <div class="fixed bottom-10 right-10 z-50 flex items-end gap-6">
         <Transition enter-from-class="translate-x-full translate-y-full opacity-0"
             enter-active-class="transition duration-500 ease-out"
             enter-to-class="translate-x-0 translate-y-0 opacity-100 scale-100"
@@ -64,13 +64,13 @@ const submit = function() {
                                 class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                 <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
                                     option.flag
-                                }} {{ option.code }}</option>
+                                    }} {{ option.code }}</option>
                             </select>
                         </div>
                         <div class="col-span-2">
                             <div class="flex justify-between text-sm/6">
                                 <span></span>
-                                <p id="phone-description" class="text-gray-400 text-sm">Optional</p>
+                                <p id="phone-description" class="text-gray-400 text-sm opacity-0">Optional</p>
                             </div>
                             <div class="mt-2.5">
                                 <input type="tel" name="phone" id="phone" autocomplete="tel"
@@ -78,6 +78,15 @@ const submit = function() {
                                     class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                     required>
                             </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="" class="block text-sm/6 font-semibold text-primary">Interés</label>
+                        <div class="mt-2.5">
+                            <textarea type="text" name="" id="" autocomplete="given-name"
+                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                                required />
                         </div>
                     </div>
 

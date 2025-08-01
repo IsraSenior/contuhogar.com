@@ -1,7 +1,7 @@
 <script setup>
 const store = useMainStore();
 const servicesDropdown = ref(false);
-const openMenu = ref(true);
+const openMenu = ref(false);
 </script>
 
 <template>

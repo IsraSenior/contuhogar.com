@@ -49,15 +49,14 @@ export const useMainStore = defineStore('index', {
                 href: "/conturenta",
                 title: "ConTuRenta",
                 intro: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
-                content: "Es un servicio que en primera medida le permite conocer si usted está o no obligado a declarar renta en Colombia, residiendo en Colombia o en el exterior. Si está obligado a declarar, a través de expertos contables, realizamos su declaración de renta de acuerdo con las leyes colombianas. Pregúntenos cómo.",
+                content: "Es un servicio que en primera medida te permitirá conocer si estás o no obligado a declarar renta en Colombia, bien sea viviendo en Colombia o en el exterior. Si está obligado a declarar, a través de expertos contables, realiza tu declaración de renta de acuerdo con las leyes colombianas.",
                 description: "Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.",
                 image: "https://img.freepik.com/foto-gratis/gente-grabando-su-visita-casa_23-2151139108.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
             },
         ],
         logos: [
-            "/logos/banco-union.png",
             "/logos/banco-occidental.png",
-            "/logos/logo-bolivar_scroll.svg",
+            "/logos/banco-union.png",
             "https://amarilo.com.co/images/logo.svg",
             "https://constructoracolpatria.com/site/assets/img/constructora-colpatria.png",
             "https://marval.com.co/wp-content/uploads/2022/03/Grupo-429.png"
@@ -72,38 +71,38 @@ export const useMainStore = defineStore('index', {
             {
                 name: "Fernando Muñóz Tatar",
                 email: "directorcomercial@contuhogar.net",
-                title: "Director Operativo",
+                title: "Director operativo",
                 image: "/team/fernando-munoz.avif"
             },
             {
                 name: "Marly Sierra",
                 email: "creditodevivienda05@contuhogar.net",
-                title: "Ejecutiva de Crédito",
+                title: "Ejecutiva de crédito",
                 image: "/team/marly-sierra.avif"
             },
             {
                 name: "Yeison Chaves",
                 email: "ejecutivocomercial@contuhogar.net",
-                title: "Ejecutiva de Crédito",
+                title: "Ejecutiva de crédito",
                 image: "/team/yeison-chaves.jpeg"
             },
             {
                 name: "Carlos Garzón",
                 email: "analistadecredito@contuhogar.net",
-                title: "Analista de Crédito",
+                title: "Analista de crédito",
                 image: "/team/carlos-garzon.jpeg"
-            },
-            {
-                name: "Catalina Romero",
-                email: "gestionhumana@contuhogar.net",
-                title: "Directora de Gestión Humana",
-                image: "/team/catalina-romero.avif"
             },
             {
                 name: "Kelly Johanna Rojas",
                 email: "asistentedegerencia@contuhogar.net",
-                title: "Asistente de Gerencia",
+                title: "Asistente de gerencia",
                 image: "/team/kelly-rojas.jpeg"
+            },
+            {
+                name: "Catalina Romero",
+                email: "gestionhumana@contuhogar.net",
+                title: "Directora de gestión humana",
+                image: "/team/catalina-romero.avif"
             },
             {
                 name: "Diego Roojas",

@@ -12,7 +12,7 @@ const phoneDropdown = ref({
 </script>
 
 <template>
-    <div class="relative bg-muted lg:h-screen">
+    <div class="relative bg-muted lg:min-h-screen">
         <div class="lg:absolute lg:inset-0 lg:left-1/2">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7952.869193792473!2d-74.06811201548074!3d4.694301983112287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9ac51b077c03%3A0x6647e2ae857d89e7!2zQ3JhLiA1NCAjIDEwNS0yMCwgU3ViYSwgQm9nb3TDoSwgRC5DLiwgQm9nb3TDoSwgQm9nb3TDoSwgRC5DLiwgQ29sb21iaWE!5e0!3m2!1sen!2sdo!4v1753368565906!5m2!1sen!2sdo"
@@ -62,7 +62,7 @@ const phoneDropdown = ref({
                                         class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                         <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
                                             option.flag
-                                            }} {{ option.code }}</option>
+                                        }} {{ option.code }}</option>
                                     </select>
                                 </div>
                                 <div class="col-span-2">
@@ -110,37 +110,38 @@ const phoneDropdown = ref({
                     <div>
                         <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary">Póngase en contacto
                         </h2>
-                        <p class="mt-4 text-base/7 text-gray-500">Quam nunc nunc eu sed. Sed rhoncus quis ultricies ac
-                            pellentesque.</p>
+                        <!-- <p class="mt-4 text-base/7 text-gray-500">Quam nunc nunc eu sed. Sed rhoncus quis ultricies ac
+                            pellentesque.</p> -->
 
                         <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
-                            src="https://img.freepik.com/foto-gratis/vista-lateral-mujer-hablando-telefono_23-2149476697.jpg" alt="">
+                            src="https://img.freepik.com/foto-gratis/vista-lateral-mujer-hablando-telefono_23-2149476697.jpg"
+                            alt="">
                     </div>
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
-                        <div class="rounded-2xl bg-gray-50 p-10">
-                            <h3 class="text-base/7 font-semibold text-primary">Ubicación</h3>
-                            <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
-                                Cl. 81 #11-68 Of. 304 <br>
-                                Edificio Centro Ejecutivo 2, Barrio El Retiro <br>
-                                Bogotá - Colombia
-                            </dl>
-                        </div>
+                        
                         <div class="rounded-2xl bg-gray-50 p-10">
                             <h3 class="text-base/7 font-semibold text-primary">Teléfonos</h3>
                             <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
                                 <div>
                                     <dt class="sr-only">Teléfonos</dt>
-                                    <dd>Móvil <a class="font-semibold text-primary hover:text-secondary"
+                                    <dd>Colombia <a class="font-semibold text-primary hover:text-secondary"
                                             href="tel:+573208033672">(+57) 320
                                             8033672</a></dd>
-                                    <dd>Fijo <a class="font-semibold text-primary hover:text-secondary"
-                                            href="tel:+5718053353">(+57) (1) 805
-                                            3353</a></dd>
+                                    <dd>EE. UU. <a class="font-semibold text-primary hover:text-secondary"
+                                            href="tel:+17185214701">(+1) 718 521 4701</a></dd>
+                                    <dd>España <a class="font-semibold text-primary hover:text-secondary"
+                                            href="tel:+34910602499">(+34) 910 602 499</a></dd>
                                 </div>
                             </dl>
                         </div>
                         <div class="rounded-2xl bg-gray-50 p-10">
-                            <h3 class="text-base/7 font-semibold text-primary">Correos</h3>
+                            <h3 class="text-base/7 font-semibold text-primary">Ubicación</h3>
+                            <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
+                                Cra. 54 # 105-20, <br> Bogotá, D.C., Colombia
+                            </dl>
+                        </div>
+                        <div class="rounded-2xl bg-gray-50 p-10">
+                            <h3 class="text-base/7 font-semibold text-primary">Correos electrónicos</h3>
                             <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
                                 <div>
                                     <dt class="sr-only">Correos</dt>
@@ -152,7 +153,7 @@ const phoneDropdown = ref({
                                 </div>
                             </dl>
                         </div>
-                        <div class="rounded-2xl bg-gray-50 p-10">
+                        <!-- <div class="rounded-2xl bg-gray-50 p-10">
                             <h3 class="text-base/7 font-semibold text-primary">Skype</h3>
                             <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
                                 <div>
@@ -161,7 +162,7 @@ const phoneDropdown = ref({
                                             href="#">ConTuHogar</a></dd>
                                 </div>
                             </dl>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ const store = useMainStore();
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra historia
                 </h2>
                 <div class="mt-6 flex flex-col gap-x-8 gap-20 lg:flex-row">
-                    <div class="lg:w-full lg:max-w-4xl lg:flex-auto">
+                    <div class="lg:w-full lg:max-w-4xl lg:flex-auto text-justify">
                         <p class="font-bold text-secondary">ContuHogar es una empresa con amplia experiencia y
                             trayectoria en la prestación de
                             servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los
