@@ -68,9 +68,10 @@ const phoneDropdown = ref({
                                 <div class="col-span-2">
                                     <div class="flex justify-between text-sm/6">
                                         <span></span>
-                                        <p id="phone-description" class="text-gray-400 text-sm">Optional</p>
+                                        <span></span>
+                                        <!-- <p id="phone-description" class="text-gray-400 text-sm">Optional</p> -->
                                     </div>
-                                    <div class="mt-2.5">
+                                    <div class="mt-8">
                                         <input type="tel" name="phone" id="phone" autocomplete="tel"
                                             aria-describedby="phone-description"
                                             class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
