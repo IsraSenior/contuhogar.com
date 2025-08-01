@@ -83,7 +83,7 @@ export const useMainStore = defineStore('index', {
             {
                 name: "Yeison Chaves",
                 email: "ejecutivocomercial@contuhogar.net",
-                title: "Ejecutiva de crédito",
+                title: "Ejecutivo de crédito",
                 image: "/team/yeison-chaves.jpeg"
             },
             {
@@ -105,7 +105,7 @@ export const useMainStore = defineStore('index', {
                 image: "/team/catalina-romero.avif"
             },
             {
-                name: "Diego Roojas",
+                name: "Diego Rojas",
                 email: "contabilidad@contuhogar.net",
                 title: "Contatador",
                 image: "/team/diego-rojas.avif"
