@@ -107,7 +107,7 @@ export const useMainStore = defineStore('index', {
             {
                 name: "Diego Rojas",
                 email: "contabilidad@contuhogar.net",
-                title: "Contatador",
+                title: "Contador",
                 image: "/team/diego-rojas.avif"
             },
         ],
