@@ -35,8 +35,8 @@ const openMenu = ref(false);
                         leave-active-class="transition ease-in duration-150"
                         leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
                         <div v-if="servicesDropdown"
-                            class="absolute top-full -left-8 z-10 mt-5 w-screen max-w-3xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
-                            <div class="p-4">
+                            class="absolute top-full -left-1/2 z-10 mt-5 w-screen max-w-3xl overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-600/5">
+                            <div class="p-4 overflow-y-scroll max-h-[75vh]">
                                 <div v-for="(s, index) in store.services" :key="index"
                                     class="group relative flex gap-x-6 rounded-lg p-4 text-base hover:bg-gray-50">
                                     <div

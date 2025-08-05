@@ -4,8 +4,8 @@ const carouselConfig = {
     itemsToShow: 4,
     gap: 5,
     autoplay: 2000,
-    snapAlign: "start",
-    wrapAround: false,
+    snapAlign: "center",
+    wrapAround: true,
     pauseAutoplayOnHover: true,
     breakpointMode: 'carousel',
 
@@ -44,7 +44,7 @@ const carouselConfig = {
                         </div>
                     </div>
                     <h1
-                        class="md:mt-24 text-3xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-6xl">
+                        class="md:mt-24 text-3xl font-semibold tracking-tight text-pretty text-primary sm:mt-10 sm:text-4xl xl:text-5xl">
                         Tu crédito de vivienda en
                         Colombia empieza aquí, estés donde estés</h1>
                     <p class="mt-8">Más de 16 años
@@ -114,7 +114,7 @@ const carouselConfig = {
                         <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">
                             Tu oportunidad está a un paso</p>
                         <p class="mt-6">Desde 2009, conectamos a colombianos en el exterior
-                            con oportunidades inmobiliarias y financieras en su país. Te asesoramos paso a paso para
+                            con oportunidades inmobiliarias y financieras en tu país. Te asesoramos paso a paso para
                             que inviertas desde cualquier lugar del mundo.</p>
                         <dl class="mt-10 max-w-xl space-y-8 text-base/7 lg:max-w-none">
                             <div class="relative pl-9">

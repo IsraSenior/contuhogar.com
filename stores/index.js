@@ -39,7 +39,7 @@ export const useMainStore = defineStore('index', {
                 href: "/compra-de-cartera",
                 title: "Compra de Cartera",
                 intro: "Renueva, remodela o restaura tu casa ya. No esperes más para hacer de tu vivienda en Colombia la más linda y valorizada en el tiempo.",
-                content: "Es una línea hipotecaria diseñada para ofrecer mejores condiciones financieras que las que actualmente un cliente tiene con su banco. Al trasladar el crédito a otra entidad financiera, se reduce el valor de la cuota mensual y se optimiza el flujo de caja. Gracias a la Ley 546 de 1999, los deudores hipotecarios tienen la posibilidad de cambiar de entidad financiera en cualquier momento, siempre que la nueva entidad ofrezca una tasa de interés más baja.",
+                content: "Es una línea hipotecaria diseñada para ofrecer mejores condiciones financieras que las que actualmente un cliente tiene con tu banco. Al trasladar el crédito a otra entidad financiera, se reduce el valor de la cuota mensual y se optimiza el flujo de caja. Gracias a la Ley 546 de 1999, los deudores hipotecarios tienen la posibilidad de cambiar de entidad financiera en cualquier momento, siempre que la nueva entidad ofrezca una tasa de interés más baja.",
                 description: "Reduce tu cuota hipotecaria y vive con mayor tranquilidad. Haz que tu vivienda cueste menos en el tiempo. ¡Proyecta gratis con nosotros tu nueva cuota!",
                 image: "https://img.freepik.com/foto-gratis/gente-negocios-dandose-mano-terminando-reunion_1150-37745.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
             },
@@ -114,19 +114,19 @@ export const useMainStore = defineStore('index', {
         questions: [
             {
                 question: "¿Qué es un bróker?",
-                answer: `Es el canal de contacto entre usted y las entidades financieras para la obtención de un crédito de vivienda en Colombia desde el exterior.`
+                answer: `Es el canal de contacto que te conecta con las entidades financieras para la obtención de un crédito de vivienda en Colombia desde el exterior.`
             },
             {
                 question: "¿Puedo pedir un préstamo de vivienda en Colombia a pesar de vivir en el exterior?",
-                answer: `Sí. Toda vez que cumpla con los requisitos que exige la entidad financiera, usted podrá presentar la documentación que justifique su estabilidad tanto laboral como económica, entre otros.`
+                answer: `Sí. Toda vez que cumplas con los requisitos que exige la entidad financiera, podrás presentar la documentación que justifique tu estabilidad tanto laboral como económico, entre otros.`
             },
             {
                 question: "¿Cuál es la función de ContuHogar en mi solicitud de crédito?",
-                answer: `Nos encargamos de asesorarle, recibir su documentación, filtrar sus posibilidades, verificar la información y acompañarle durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, podrá resultar en el desembolso del crédito.`
+                answer: `Nos encargamos de asesorarte, recibir tu documentación, filtrar tus posibilidades, verificar la información y acompañarte durante todo el proceso hasta asegurar la radicación que, en caso de ser aprobada, podrá resultar en el desembolso del crédito.`
             },
             {
                 question: "¿Si tengo reportes negativos en Colombia o en el exterior puedo aplicar a un préstamo?",
-                answer: `Depende. Para cualquiera de los dos casos usted debe presentar paz y salvo de la deuda, dependiendo del tipo de reporte y la cuantía, requerirá una excepción especial. En caso de un reporte castigado, deberá estudiarse individualmente su situación.`
+                answer: `Depende. Para cualquiera de los dos casos deberás presentar el paz y salvo de la deuda y, dependiendo del tipo de reporte y la cuantía, requerirá una excepción especial. En caso de un reporte castigado, deberá estudiarse individualmente tu situación.`
             },
             {
                 question: "¿Mi crédito en el exterior se verá afectado con el préstamo que haga en Colombia?",
@@ -134,19 +134,19 @@ export const useMainStore = defineStore('index', {
             },
             {
                 question: "Mi pareja es extranjero, ¿él puede pedir un préstamo conmigo para la compra de vivienda en Colombia?",
-                answer: `Si usted ha validado esta unión mediante un documento legal podrá consolidar ingresos con su cónyuge. Él como extranjero se deberá presentar con el pasaporte.`
+                answer: `Si has validado esta unión mediante un documento legal podrás consolidar ingresos con tu cónyuge. Él como extranjero se deberá presentar con el pasaporte.`
             },
             {
                 question: "¿Debo tener definida la compra de la vivienda para aplicar al crédito?",
-                answer: `No. Se recomienda que usted inicie el proceso de estudio de crédito y una vez cuente con la aprobación pueda tranquilamente negociar la compra de su inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
+                answer: `No. Se recomienda que inicies el proceso de estudio de crédito y una vez cuentes con la aprobación puedas tranquilamente negociar la compra de tu inmueble nuevo o usado, incluso sobre planos, asegurando de esta forma estos recursos.`
             },
             {
                 question: "¿Cuánto dinero me pueden prestar?",
-                answer: `En cuanto al monto a solicitar no existe un límite. Usted puede aplicar a uno o más cupos de crédito, todo depende de su capacidad de pago. Validaremos sus ingresos frente a sus gastos. De no aplicar al valor que requiere se sugiere un cupo viable.`
+                answer: `En cuanto al monto a solicitar no existe un límite. Puedes aplicar a uno o más cupos de crédito, todo depende de tu capacidad de pago. Validaremos tus ingresos frente a tus gastos. De no aplicar al valor que requieres te sugeriremos un cupo viable.`
             },
             {
                 question: "Si no cuento con los requisitos y condiciones para aplicar, ¿qué podría hacer?",
-                answer: `Nosotros estamos en capacidad de asesorarle certeramente para que en un futuro cumpla con los requerimientos y condiciones del banco. Nuestra asesoría es integral y nuestro afán es suplir su necesidad sea en el momento o a futuro.`
+                answer: `Nosotros estamos en capacidad de asesorarte certeramente para que en un futuro cumplas con los requerimientos y condiciones del banco. Nuestra asesoría es integral y nuestro afán es suplir tu necesidad sea en el momento o a futuro.`
             }
         ]
     }),

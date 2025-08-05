@@ -25,21 +25,21 @@ const content = ref([
     `<ol class="list-decimal list-inside">
         <li>Los plazos van desde los 5 hasta los 20 años.</li>
         <li>La tasa de interés será la vigente en el momento del desembolso. ¡Pregúntenos!</li>
-        <li><small class="font-bold">(Si es crédito hipotecario)</small> financiación en crédito hipotecario:
+        <li><small class="font-bold hidden">(Si es crédito hipotecario)</small> Financiación en crédito hipotecario:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 70 % sobre el valor comercial del inmueble.</li>
                 <li>En proyectos financiados hasta el 85 %.</li>
             </ol>
         </li>
 
-       <li><small class="font-bold">(Si es leasing habitacional)</small> financiación en leasing habitacional familiar o no familiar:
+       <li><small class="font-bold hidden">(Si es leasing habitacional)</small> Financiación en leasing habitacional familiar o no familiar:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 85 % sobre el valor comercial del inmueble.</li>
                 <li>En proyectos financiados podría estar hasta en el 90 %.   </li>
             </ol>    
         </li>
 
-        <li><small class="font-bold">(Si es crédito de remodelación)</small>  financiación en crédito de remodelación:
+        <li><small class="font-bold hidden">(Si es crédito de remodelación)</small> Financiación en crédito de remodelación:
             <ol class="list-disc list-inside pl-5">
                 <li>Hasta el 50 % sobre el valor comercial del inmueble.</li>
             </ol>    
@@ -47,9 +47,9 @@ const content = ref([
     </ol>`,
 
     `<ol class="list-decimal list-inside">
-        <li><small class="font-bold">(Si es crédito hipotecario o leasing habitacional)</small>  colombianos residentes en el exterior interesados en comprar vivienda nueva o usada en cualquier parte Colombia, dentro del casco urbano, no rural.</li>
-        <li><small class="font-bold">(Si es compra de cartera o crédito de remodelación)</small> colombianos residentes en el exterior interesados en mejorar las condiciones actuales de tu préstamo de vivienda o del inmueble mediante adecuaciones.</li>
-        <li>Extranjeros casados con colombiano (a) que se pueda evidenciar y así consolidar ingresos para acceder al préstamo.</li>
+        <li><small class="font-bold hidden">(Si es crédito hipotecario o leasing habitacional)</small> Colombianos residentes en el exterior interesados en comprar vivienda nueva o usada en cualquier parte Colombia, dentro del casco urbano, no rural.</li>
+        <li><small class="font-bold hidden">(Si es compra de cartera o crédito de remodelación)</small> Colombianos residentes en el exterior interesados en mejorar las condiciones actuales de tu préstamo de vivienda o del inmueble mediante adecuaciones.</li>
+        <li>Extranjero casado con colombiana o con unión marital de hecho comprobable, que quieran consolidar ingresos y aplicar ambos al préstamo.</li>
         <li>Edades entre 18 y 74 años.</li>
         <li>Este crédito no va dirigido a personas interesadas en compra de locales, lotes, fincas o construcción.</li>
     </ol>`,
@@ -90,20 +90,28 @@ const content = ref([
     `<p>Si desea aplicar a este crédito, descarga nuestros formularios, diligenciénsialos y envíalos al ejecutivo de crédito que esté llevando tu proceso: </p>
 
 
-    <p class="font-semibold text-lg mt-12">​Formatos BBVA</p>
-    <ul class="list-disc list-inside mt-6">
-        <li>Autorización Centrales de Riesgo - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-        <li>Solicitud de Vinculación BBVA - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-        <li>Información sobre contacto en Colombia y Cuota Inicial - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-        <li>Informe de visita a clientes - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-    </ul>
+    <p class="font-semibold text-lg mt-12">Formatos BBVA</p>
+    <ol class="list-decimal list-inside mt-6">
+        <li>Autorización para consulta en Centrales de Riesgos (Registro para un solo cliente) - <a href="/docs/formatos-bbva/1.-autorizacion-para-consulta-en-centrales-de-riesgos-registro-para-un-solo-cliente.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Solicitud de vinculación y contratación de productos persona natural - <a href="/docs/formatos-bbva/2-solicitud-de-vinculacion-y-contratacion-de-productos-persona-natural.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Información sobre contacto en Colombia y cuota inicial. - <a href="/docs/formatos-bbva/3-informacion-sobre-contacto-en-colombia-y-cuota-inicial..pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Informe de visita a clientes - <a href="/docs/formatos-bbva/4-informe-de-visita-a-clientes.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Formato para solicitar reintegros automáticos - <a href="/docs/formatos-bbva/5-formato-para-solicitar-reintegros-automaticos.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+    </ol>
 
-    <p class="font-semibold text-lg mt-12">​Formatos Banco Unión</p>
-    <ul class="list-disc list-inside mt-6">
-        <li>Formato de solicitud de vinculación crédito de vivienda exterior - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-        <li>Formato de información apoderado crédito de vivienda exterior - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-        <li>Formato de asegurabilidad Vida Allianz - <a href="#" class="text-primary hover:text-secondary">Descargar</a></li>
-    </ul>
+    <p class="font-semibold text-lg mt-12">Formatos Banco Unión</p>
+    <ol class="list-decimal list-inside mt-6">
+        <li>Solicitud de vinculación persona natural - <a href="/docs/formatos-banco-union/1-solicitud-de-vinculacion-persona-natural.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Formato individual de información para el apoderado de crédito de vivienda - <a href="/docs/formatos-banco-union/2-formato-individual-de-informacion-para-el-apoderado-de-credito-de-vivienda.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Solicitud individual seguro vida grupo deudores - vivienda - <a href="/docs/formatos-banco-union/3-solicitud-individual-seguro-vida-grupo-deudores-vivienda.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+    </ol>
+
+    <p class="font-semibold text-lg mt-12">Formatos Banco de Occidente</p>
+    <ol class="list-decimal list-inside mt-6">
+        <li>Solicitud de productos persona natural - <a href="/docs/formatos-banco-de-occidente/1-solicitud-de-productos-persona-natural.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Solicitud de vinculación persona natural - <a href="/docs/formatos-banco-de-occidente/2-solicitud-de-vinculacion-persona-natural.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+        <li>Solicitud individual para seguro de vida grupo deudores - <a href="/docs/formatos-banco-de-occidente/3-solicitud-individual-para-seguro-de-vida-grupo-deudores.pdf" class="text-primary hover:text-secondary" download="" target="_blank">Descargar</a></li>
+    </ol>
     `
 ])
 
@@ -111,13 +119,13 @@ const showMore = ref(false)
 </script>
 
 <template>
-    <div class="relative isolate overflow-hidden bg-muted px-6 py-24 sm:pt-32 lg:overflow-visible lg:px-0">
-        <div class="container mx-auto">
+    <div class="relative isolate overflow-hidden bg-muted px-6 py-24 lg:overflow-visible lg:px-0">
+        <div class="container mx-auto px-5">
             <div class="grid lg:grid-cols-5 gap-16">
                 <div class="lg:col-span-3">
                     <div>
                         <h1
-                            class="text-4xl font-semibold tracking-tight text-pretty text-primary leading-tight sm:text-5xl">
+                            class="text-4xl font-semibold tracking-tight text-pretty text-primary leading-tight md:text-4xl lg:text-5xl">
                             {{ currentService?.title }}
                         </h1>
                         <div class="mt-6 text-base/7 text-gris-aluminio font-normal space-y-6">
@@ -125,7 +133,7 @@ const showMore = ref(false)
                             <p>{{ currentService?.content }}
                             </p>
 
-                            <p class="font-bold">
+                            <p>
                                 Una vez aprobado tu crédito de vivienda, ContuHogar te brindará un acompañamiento integral en
                                 todo el proceso de legalización, incluyendo elaboración y envío del poder especial, hasta el
                                 desembolso del dinero por parte de la entidad financiera.
@@ -170,42 +178,8 @@ const showMore = ref(false)
                 <div class=" pb-16 px-5 lg:col-span-2 relative">
                     <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-center object-cover"
                         :src="currentService?.image" :alt="currentService?.title">
-
-                    <!-- <div class="mt-6">
-                        <div
-                            class="relative isolate overflow-hidden px-6 py-12 text-center shadow-lg shadow-primary/5 sm:rounded-3xl sm:px-16 bg-white">
-                            <h2 class="text-2xl font-semibold tracking-tight text-balance text-primary sm:text-3xl">
-                                Aumente su productividad hoy mismo</h2>
-                            <div class="mt-10 flex items-center justify-center gap-x-6">
-                                <NuxtLink to="/contacto" class="btn primary">
-                                    Solicita
-                                    nuestro servicio</NuxtLink>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <!-- <div class="relative overflow-hidden">
-            <div class="mx-auto container px-5">
-                <img class="mb-[-12%] w-full rounded-xl shadow-2xl ring-1 ring-primary/5"
-                    src="/2148392254.jpg" alt="">
-                <div class="relative" aria-hidden="true">
-                    <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t from-white pt-[7%]"></div>
-                </div>
-            </div>
-        </div> -->
-
-    <!-- <div class="container mx-auto">
-            <h6 class="mt-12 text-xl font-semibold tracking-tight text-pretty text-secondary leading-tight sm:text-2xl"
-               >
-                Otros servicios relacionadas
-            </h6>
-            <SliderServicesRelated class="pb-16" />
-        </div> -->
-
 </template>

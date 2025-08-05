@@ -40,7 +40,7 @@
                     antecedentes disciplinarios de la Procuraduría), en gacetas y boletines oficiales y en
                     sentencias judiciales ejecutoriadas que no estén sometidas a reserva.</p>
                 <p><b>Dato Sensible:</b> son aquellos que afectan la intimidad del Titular o cuyo uso indebido
-                    puede generar su discriminación, tales como aquellos que revelen el origen racial o
+                    puede generar tu discriminación, tales como aquellos que revelen el origen racial o
                     étnico, la orientación política, las convicciones religiosas o filosóficas, la pertenencia a
                     sindicatos, organizaciones sociales, de derechos humanos o que promueva intereses
                     de cualquier partido político o que garanticen los derechos y garantías de partidos
@@ -56,7 +56,7 @@
                     entidades públicas y privadas.</p>
 
                 <p><b>Ley de Protección de Datos Personales:</b> es la Ley 1581 de 2012 (Ley de Protección
-                    de Datos Personales) y sus Decretos Reglamentarios o las normas que los
+                    de Datos Personales) y tus Decretos Reglamentarios o las normas que los
                     modifiquen, complementen o sustituyan, en adelante &quot;Ley de Protección de Datos&quot;.</p>
 
                 <p><b>Responsable del Tratamiento:</b> persona natural o jurídica, pública o privada, que por
@@ -70,8 +70,8 @@
 
 
                 <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">4. PRÓLOGO</h2>
-                <p>PRÓLOGO CONTUHOGAR S.A.S, (en adelante “CONTUHOGAR”), recopila, trata y
-                    almacena información personal a través de la web de su
+                <p>PRÓLOGO CONTUHOGAR S.A.S, (en adelante “CONTUHOGAR”), recopila, trata y
+                    almacena información personal a través de la web de tu
                     propiedad: https://www.contuhogar.com/. diferentes redes sociales como lo es
                     Facebook, Instagram, YouTube, WhatsApp, etc., y formatos impresos, digitales,
                     visuales, sonoros o de cualquier otra tecnología. La información se recopilará, tratará
@@ -84,7 +84,7 @@
                 <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">5. RESPONSABLES</h2>
                 <p>El Representante Legal es la persona registrada ante la Superintendencia de Industria
                     y Comercio para el Registro Nacional de Bases de Datos – RNBD –: Myriam Caicedo
-                    de Pérez, calle 81 # 11-68, ofc. 304 de Bogotá D. C., gerencia@contuhogar.net,
+                    de Pérez, calle 81 # 11-68, ofc. 304 de Bogotá D. C., gerencia@contuhogar.net,
                     teléfono 8053353.</p>
 
                 <p>El director de operaciones es el responsable de recopilar, actualizar, divulgar,
@@ -128,14 +128,14 @@
                     comprobable y comprensible.</p>
 
                 <p><b>Transparencia</b>:debe garantizarse el derecho del Titular a obtener información sobre
-                    sus datos en cualquier momento y sin restricciones.</p>
+                    tus datos en cualquier momento y sin restricciones.</p>
 
                 <p><b>Acceso y circulación restringida</b>:el Tratamiento sólo podrá hacerse por personas
                     autorizadas por el Titular o por las personas previstas en la Ley.
                 </p>
 
                 <p><b>Seguridad</b>:la información debe manejarse con las medidas necesarias para otorgar
-                    seguridad a los registros y evitar su adulteración, pérdida, consulta, uso o acceso no
+                    seguridad a los registros y evitar tu adulteración, pérdida, consulta, uso o acceso no
                     autorizado o fraudulento.
                 </p>
                 <p><b>Confidencialidad</b>:la información debe ser tratada con la máxima reserva, incluso
@@ -151,7 +151,7 @@
 
                 <p><b>El Titular de los Datos Personales tiene derecho a:</b></p>
 
-                <p>Conocer, actualizar y rectificar sus datos personales frente a los Responsables del
+                <p>Conocer, actualizar y rectificar tus datos personales frente a los Responsables del
                     Tratamiento o Encargados del Tratamiento. Este derecho se podrá ejercer, entre
                     otros frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a
                     error, o aquellos cuyo Tratamiento esté expresamente prohibido o no haya sido
@@ -160,7 +160,7 @@
                     cuando expresamente se exceptúe como requisito para el Tratamiento o así lo
                     establezcan las normas aplicables.</p>
                 <p>Ser informado por el Responsable del Tratamiento o el Encargado del Tratamiento,
-                    previa solicitud, respecto del uso que le ha dado a sus datos personales.</p>
+                    previa solicitud, respecto del uso que le ha dado a tus datos personales.</p>
                 <p>Presentar ante la Superintendencia de Industria y Comercio quejas por infracciones a
                     la Ley de Protección de Datos o aquellas que la modifiquen, adicionen o
                     complementen.</p>
@@ -171,7 +171,7 @@
                     ordenamiento; y/o (ii) Así lo solicite voluntariamente, salvo que exista obligación legal
                     o contractual que le imponga el deber de permanecer en la base de datos.</p>
 
-                <p>Acceder en forma gratuita a sus datos personales que hayan sido objeto de
+                <p>Acceder en forma gratuita a tus datos personales que hayan sido objeto de
                     Tratamiento.</p>
 
                 <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.2. Deberes de CONTUHOGAR
@@ -187,7 +187,7 @@
                     <li>Solicitar la Autorización al Titular informándole:
                         <br>
                         <ul class="list-disc list-inside pl-5">
-                            <li>El Tratamiento al cual serán sometidos sus datos personales y la finalidad del
+                            <li>El Tratamiento al cual serán sometidos tus datos personales y la finalidad del
                                 mismo.</li>
                             <li>El carácter facultativo de la respuesta a las preguntas que le sean hechas,
                                 cuando estas versen sobre datos sensibles o sobre los datos de las niñas,
@@ -201,9 +201,9 @@
                     <li>Entregar copia de la Autorización cuando el Titular o quien esté autorizado la
                         solicite.</li>
                     <li>Informar al Titular sobre la finalidad de la recolección y los derechos que le
-                        asisten con ocasión de su Autorización.</li>
+                        asisten con ocasión de tu Autorización.</li>
                     <li>Conservar la información bajo las condiciones de seguridad necesarias para
-                        impedir su adulteración, pérdida, consulta, uso o acceso no autorizado o
+                        impedir tu adulteración, pérdida, consulta, uso o acceso no autorizado o
                         fraudulento.</li>
                     <li>Garantizar que la información que se suministre al Encargado del Tratamiento
                         sea veraz, completa, exacta, actualizada, comprobable y comprensible.</li>
@@ -221,7 +221,7 @@
                     <li>Informar al Encargado del Tratamiento cuando determinada información se
                         encuentra en discusión por parte del Titular, una vez se haya presentado la
                         reclamación y no haya finalizado el trámite respectivo.</li>
-                    <li>Informar a solicitud del Titular sobre el uso dado a sus datos.</li>
+                    <li>Informar a solicitud del Titular sobre el uso dado a tus datos.</li>
                     <li>Cumplir las instrucciones y requerimientos de la Superintendencia de Industria
                         y Comercio.</li>
                 </ol>
@@ -237,11 +237,11 @@
                     <li>Garantizar al Titular, en todo tiempo, el pleno y efectivo ejercicio del derecho de
                         habeas data.</li>
                     <li>Conservar la información bajo las condiciones de seguridad necesarias para
-                        impedir su adulteración, pérdida, consulta, uso o acceso no autorizado o
+                        impedir tu adulteración, pérdida, consulta, uso o acceso no autorizado o
                         fraudulento.</li>
                     <li>Realizar oportunamente la actualización, rectificación o supresión de los datos.</li>
                     <li>Actualizar la información reportada por los Responsables del Tratamiento
-                        dentro de los cinco (5) días hábiles contados a partir de su recibo.</li>
+                        dentro de los cinco (5) días hábiles contados a partir de tu recibo.</li>
                     <li>Tramitar las consultas y los reclamos formulados por los Titulares.</li>
                     <li>Mediante el presente documento CONTUHOGAR S.A.S. cuenta con un manual
                         interno de políticas y procedimientos para garantizar el adecuado cumplimiento
@@ -262,11 +262,11 @@
                     la información del Titular.</h3>
 
                 <p>CONTUHOGAR S.A.S. entregará la información sobre los Datos del Titular a las
-                    siguientes personas, siempre que acrediten su calidad:</p>
+                    siguientes personas, siempre que acrediten tu calidad:</p>
 
                 <ol class="list-decimal list-inside pl-5">
-                    <li>Los Titulares, sus causahabientes, sus representantes legales o apoderados.</li>
-                    <li>Las entidades públicas o administrativas en ejercicio de sus funciones legales
+                    <li>Los Titulares, tus causahabientes, tus representantes legales o apoderados.</li>
+                    <li>Las entidades públicas o administrativas en ejercicio de tus funciones legales
                         o por orden judicial.</li>
                     <li>Los terceros autorizados por el Titular o por la Ley.</li>
                     <li>Quien haya estipulado a favor o para el Titular.</li>
@@ -291,7 +291,7 @@
                     <li>Conocer la información personal del Titular que repose en CONTUHOGAR
                         S.A.S.</li>
                     <li>Solicitar copia de la autorización otorgada por el Titular a CONTUHOGAR
-                        S.A.S. para tratar sus Datos Personales.</li>
+                        S.A.S. para tratar tus Datos Personales.</li>
                 </ol>
 
                 <p>El procedimiento para la atención de las consultas sobre los datos personales del
@@ -316,7 +316,7 @@
                         contados a partir de la fecha de recibo de esta.</li>
                     <li>Cuando no fuere posible atender la consulta dentro del término antes indicado,
                         CONTUHOGAR S.A.S. lo informará al interesado, expresando los motivos y
-                        señalando la fecha en que se atenderá su consulta, a más tardar dentro de los
+                        señalando la fecha en que se atenderá tu consulta, a más tardar dentro de los
                         cinco (5) días hábiles siguientes al vencimiento del primer término.</li>
                 </ol>
 
@@ -342,7 +342,7 @@
                         modifiquen.</li>
                 </ol>
 
-                <p>El Titular podrá revocar la autorización y solicitar la supresión de sus datos cuando:</p>
+                <p>El Titular podrá revocar la autorización y solicitar la supresión de tus datos cuando:</p>
                 <ol class="list-decimal list-inside pl-5">
                     <li>No se respeten los principios, derechos y garantías constitucionales y legales,
                         siempre y cuando la Superintendencia de Industria y Comercio haya
@@ -355,7 +355,7 @@
 
                 <p>Lo anterior, sin perjuicio de las normas que CONTUHOGAR S.A.S. debe cumplir en
                     materia de retención documental. En consecuencia, CONTUHOGAR S.A.S. suprimirá
-                    los datos o suspenderá su uso cuando a ello haya lugar, respetando las normas sobre
+                    los datos o suspenderá tu uso cuando a ello haya lugar, respetando las normas sobre
                     conservación documental que le son aplicables.</p>
 
                 <p>El procedimiento para la atención de los reclamos sobre los datos personales del
@@ -381,7 +381,7 @@
                     <li>El reclamo del interesado debe contener: la identificación del Titular (nombres y
                         apellidos, tipo y número de documento de identidad, dirección y teléfono de
                         contacto y el e-mail (opcional)), la descripción de los hechos que dan lugar al
-                        reclamo, los documentos que soporten su reclamación.  En caso de no contar
+                        reclamo, los documentos que soporten tu reclamación.  En caso de no contar
                         con la anterior información, se entenderá que el reclamo no se encuentra
                         completo.</li>
                     <li>Si el reclamo está incompleto, CONTUHOGAR S.A.S. solicitará al interesado
@@ -391,11 +391,11 @@
                         solicitante presente la información requerida, se entenderá que ha desistido del
                         reclamo.</li>
                     <li>CONTUHOGAR S.A.S. atenderá el reclamo en un término máximo de quince
-                        (15) días hábiles contados a partir del día siguiente a la fecha de su recibo.</li>
+                        (15) días hábiles contados a partir del día siguiente a la fecha de tu recibo.</li>
                     <li>Cuando no fuere posible atender el reclamo dentro del término antes
                         mencionado, el (las) área(s) responsables de dar respuesta al interior de
                         CONTUHOGAR S.A.S., informará(n) al interesado con copia al director
-                        administrativo los motivos de la demora y la fecha en que se atenderá su
+                        administrativo los motivos de la demora y la fecha en que se atenderá tu
                         reclamo, la cual no podrá superar los diez (10) días hábiles siguientes al
                         vencimiento del primer término.</li>
                 </ol>
@@ -405,8 +405,8 @@
                     consultas y reclamos.</h3>
 
                 <p>La dirección operaciones de CONTUHOGAR S.A.S. es la encargada de recibir las
-                    peticiones, consultas y reclamos del Titular relacionados con sus derechos a conocer,
-                    actualizar, rectificar y suprimir el dato personal y revocar la Autorización.  Asimismo,
+                    peticiones, consultas y reclamos del Titular relacionados con tus derechos a conocer,
+                    actualizar, rectificar y suprimir el dato personal y revocar la Autorización. Asimismo,
                     velará por la oportuna y adecuada respuesta que emita cada una de las áreas de
                     CONTUHOGAR S.A.S. a las solicitudes, consultas y reclamos de los Titulares de los
                     Datos.</p>
@@ -428,7 +428,7 @@
                     países, y/o a la Dirección de Impuestos y Aduanas Nacionales de Colombia (DIAN),
                     en los términos de las normas aplicables.</p>
 
-                <p>CONTUHOGAR S.A.S. tratará los datos de sus clientes como Titulares de Datos
+                <p>CONTUHOGAR S.A.S. tratará los datos de tus clientes como Titulares de Datos
                     Personales para realizar operaciones sobre los mismos, como recolección,
                     almacenamiento, uso, circulación, transferencia o transmisión, informando los
                     derechos que les asisten, en especial, conocer, actualizar, rectificar y solicitar la
@@ -440,10 +440,10 @@
                     fuera del territorio nacional, especialmente lo referente al uso de información
                     relacionada con la contratación de pólizas de seguros, transporte urbano, nacional e
                     internacional, comercio exterior y los necesarios para el desarrollo de la relación
-                    comercial entre CONTUHOGAR S.A.S. y sus clientes.</p>
+                    comercial entre CONTUHOGAR S.A.S. y tus clientes.</p>
 
                 <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes,
-                    CONTUHOGAR S.A.S. solicitará al Titular su autorización explícita para ello,
+                    CONTUHOGAR S.A.S. solicitará al Titular tu autorización explícita para ello,
                     indicando al Titular el carácter facultativo de las preguntas sobre estos datos.</p>
 
                 <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.6.2. Tratamiento de datos de
@@ -466,7 +466,7 @@
                     Impuestos y Aduanas Nacionales de Colombia (DIAN), en los términos de las normas
                     aplicables.</p>
 
-                <p>CONTUHOGAR S.A.S. tratará los datos de sus empleados o candidatos para ser
+                <p>CONTUHOGAR S.A.S. tratará los datos de tus empleados o candidatos para ser
                     empleados como Titulares de Datos Personales para realizar operaciones sobre los
                     mismos, como recolección, almacenamiento, uso, circulación, transferencia o
                     transmisión, informando los derechos que les asisten, en especial, conocer, actualizar,
@@ -478,7 +478,7 @@
                     encargados ubicados dentro y fuera del territorio nacional.</p>
                 <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes cuyos
                     representantes sean los empleados o candidatos, CONTUHOGAR S.A.S. solicitará al
-                    Titular su autorización explícita para ello, indicando al Titular el carácter facultativo de
+                    Titular tu autorización explícita para ello, indicando al Titular el carácter facultativo de
                     las preguntas sobre estos datos.</p>
 
 
@@ -491,7 +491,7 @@
                     vinculados, realización de encuestas y otros fines comerciales, financieros o
                     publicitarios a través de mensajes de texto, correo electrónico, SMS, entre otros; (iv)
                     De seguridad y/o de prueba ante una autoridad judicial o administrativa; (v) Conocer
-                    su comportamiento comercial y financiero; (vi) Fines estadísticos, de consulta,
+                    tu comportamiento comercial y financiero; (vi) Fines estadísticos, de consulta,
                     gremiales y técnico-actuariales; (vii) Fines tributarios, incluido el envío de información
                     a autoridades tributarias de otros países, tal como la de posibles sujetos de tributación
                     en los Estados Unidos al Internal Revenue Service (IRS) y/o a la Dirección de
@@ -499,7 +499,7 @@
                     Account Tax Compliance Act (FATCA) o las normas que lo modifiquen y las
                     reglamentaciones aplicables.</p>
 
-                <p>CONTUHOGAR S.A.S. tratará los datos de sus proveedores como Titulares de Datos
+                <p>CONTUHOGAR S.A.S. tratará los datos de tus proveedores como Titulares de Datos
                     Personales para realizar operaciones sobre los mismos, como recolección,
                     almacenamiento, uso, circulación, transferencia o transmisión, informando los
                     derechos que les asisten, en especial, conocer, actualizar, rectificar y solicitar la
@@ -511,7 +511,7 @@
                     nacional.</p>
 
                 <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes,
-                    CONTUHOGAR S.A.S. solicitará al Titular su autorización explícita para ello,
+                    CONTUHOGAR S.A.S. solicitará al Titular tu autorización explícita para ello,
                     indicando al Titular el carácter facultativo de las preguntas sobre estos datos.</p>
 
                 <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.7. Datos de los responsables

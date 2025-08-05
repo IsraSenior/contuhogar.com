@@ -35,7 +35,7 @@ const store = useMainStore();
                                 <dd class="text-5xl font-semibold tracking-tight text-primary">$119 MM</dd>
                             </div>
                             <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base/7 text-gray-500">Colombianos invitirtiendo en su país</dt>
+                                <dt class="text-base/7 text-gray-500">Colombianos invitirtiendo en tu país</dt>
                                 <dd class="text-5xl font-semibold tracking-tight text-primary">2,000</dd>
                             </div>
                         </dl>

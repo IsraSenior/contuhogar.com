@@ -105,8 +105,8 @@ const services = [
                     </div>
                 </div>
                 <div class="mt-10 xl:mt-0">
-                    <h3 class="text-sm font-semibold text-white">Suscríbase a nuestro boletín</h3>
-                    <p class="mt-2 text-sm text-white">Las últimas noticias, artículos y recursos, enviados a su
+                    <h3 class="text-sm font-semibold text-white">Suscríbete a nuestro boletín</h3>
+                    <p class="mt-2 text-sm text-white">Las últimas noticias, artículos y recursos, enviados a tu
                         bandeja de entrada mensualmente.</p>
                     <form class="mt-6 sm:flex sm:max-w-md">
                         <label for="email-address" class="sr-only">Correo electrónico</label>
@@ -114,7 +114,7 @@ const services = [
                             class="w-full min-w-0 rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-white focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:w-64 sm:text-sm/6 xl:w-full"
                             placeholder="Ingresa tu correo electrónico">
                         <div class="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
-                            <button type="submit" class="btn secondary">Suscríbase</button>
+                            <button type="submit" class="btn secondary">Suscríbete</button>
                         </div>
                     </form>
                 </div>

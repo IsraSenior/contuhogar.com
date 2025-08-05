@@ -12,8 +12,8 @@ const current = ref(0);
                         <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary sm:text-4xl">
                             Preguntas más frecuentes
                         </h2>
-                        <p class="mt-4 text-base/7 text-pretty text-gray-500">¿No encuentra la respuesta que busca?
-                            Póngase en contacto con <a href="#"
+                        <p class="mt-4 text-base/7 text-pretty text-gray-500">¿No encuentras la respuesta que buscas?
+                            Ponte en contacto con <a href="#"
                                 class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.
                         </p>
                         <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
