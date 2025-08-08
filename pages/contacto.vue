@@ -109,7 +109,8 @@ const phoneDropdown = ref({
             <div class="mx-auto max-w-2xl divide-y divide-gray-100 lg:mx-0 lg:max-w-none">
                 <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-3">
                     <div>
-                        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary">Ponte en contacto
+                        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary">
+                            ¡Ponte en contacto <br> con nosotros!
                         </h2>
                         <!-- <p class="mt-4 text-base/7 text-gray-500">Quam nunc nunc eu sed. Sed rhoncus quis ultricies ac
                             pellentesque.</p> -->
