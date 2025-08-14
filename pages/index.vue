@@ -32,7 +32,7 @@ const carouselConfig = {
     <section class="relative bg-white">
         <div class="mx-auto container lg:grid lg:grid-cols-12 lg:gap-x-20 lg:px-8">
             <div
-                class="px-5 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 xl:col-span-6 h-[75vh] flex items-center justify-center">
+                class="px-5 pb-16 md:pb-24 lg:col-span-7 lg:px-0 xl:col-span-6 lg:h-[75vh] flex items-center justify-center">
                 <div class="mx-auto max-w-2xl lg:mx-0 mt-16">
                     <div class="hidden lg:block max-w-md">
                         <div
@@ -58,8 +58,9 @@ const carouselConfig = {
                     </div>
                 </div>
             </div>
+
             <div
-                class="relative lg:col-span-5 sm:rounded-bl-3xl overflow-hidden lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
+                class="relative lg:col-span-5 rounded-3xl sm:rounded-bl-3xl overflow-hidden lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
                 <img class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
                     src="/2148392254.jpg" alt="">
             </div>
@@ -69,22 +70,22 @@ const carouselConfig = {
     <section class="bg-white py-16 md:py-24">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-lg sm:max-w-2xl flex gap-10 items-center justify-center">
-                <div class="w-1/3 flex items-center justify-center">
+                <div class="w-1/2 md:w-1/3 flex items-center justify-center">
                     <span class="w-full font-bold text-xs lg:text-base text-center">BBVA</span>
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 md:w-1/3">
                     <img class="h-full w-full object-contain max-h-16" :src="store.logos[0]" alt="">
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 md:w-1/3">
                     <img class="h-full w-full object-contain max-h-16" :src="store.logos[1]" alt="">
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 md:w-1/3">
                     <img class="h-full w-full object-contain max-h-10" :src="store.logos[2]" alt="">
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 md:w-1/3">
                     <img class="h-full w-full object-contain max-h-10" :src="store.logos[3]" alt="">
                 </div>
-                <div class="w-1/3">
+                <div class="w-1/2 md:w-1/3">
                     <img class="h-full w-full object-contain max-h-8" :src="store.logos[4]" alt="">
                 </div>
             </div>

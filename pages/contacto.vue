@@ -12,15 +12,9 @@ const phoneDropdown = ref({
 </script>
 
 <template>
-    <div class="relative bg-muted lg:min-h-screen">
-        <div class="lg:absolute lg:inset-0 lg:left-1/2">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7952.869193792473!2d-74.06811201548074!3d4.694301983112287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9ac51b077c03%3A0x6647e2ae857d89e7!2zQ3JhLiA1NCAjIDEwNS0yMCwgU3ViYSwgQm9nb3TDoSwgRC5DLiwgQm9nb3TDoSwgQm9nb3TDoSwgRC5DLiwgQ29sb21iaWE!5e0!3m2!1sen!2sdo!4v1753368565906!5m2!1sen!2sdo"
-                style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                class="h-64 w-full bg-gray-50 object-cover sm:h-80 lg:absolute lg:h-full"></iframe>
-        </div>
-        <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:pt-32">
-            <div class="px-6 lg:px-8">
+    <div class="relative bg-muted min-h-[calc(100vh-88px)] lg:min-h-[calc(100vh-92px)] flex flex-col md:flex-row items- justify-between">
+        <div class="w-full md:w-1/2 flex items-center justify-center">
+            <div class="px-6 py-16">
                 <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
                     <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">
                         ¡Hablemos!
@@ -101,6 +95,15 @@ const phoneDropdown = ref({
                 </div>
             </div>
         </div>
+
+        <div class="relative w-full md:w-1/2 bg-primary order-1 lg:order-none">
+            <div class="h-96 md:h-full">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7952.869193792473!2d-74.06811201548074!3d4.694301983112287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9ac51b077c03%3A0x6647e2ae857d89e7!2zQ3JhLiA1NCAjIDEwNS0yMCwgU3ViYSwgQm9nb3TDoSwgRC5DLiwgQm9nb3TDoSwgQm9nb3TDoSwgRC5DLiwgQ29sb21iaWE!5e0!3m2!1sen!2sdo!4v1753368565906!5m2!1sen!2sdo"
+                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    class="h-full w-full"></iframe>
+            </div>
+        </div>
     </div>
 
 
@@ -119,8 +122,9 @@ const phoneDropdown = ref({
                             src="https://img.freepik.com/foto-gratis/vista-lateral-mujer-hablando-telefono_23-2149476697.jpg"
                             alt="">
                     </div>
+
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
-                        
+
                         <div class="rounded-2xl bg-gray-50 p-10">
                             <h3 class="text-base/7 font-semibold text-primary">Teléfonos</h3>
                             <dl class="mt-3 space-y-1 text-sm/6 text-gray-500">
