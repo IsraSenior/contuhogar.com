@@ -90,8 +90,7 @@ const openMenu = ref(false);
             </div>
 
             <div class="flex flex-1 items-center justify-end gap-x-6">
-                <NuxtLink to="/contacto" @click.native="servicesDropdown = false" class="hidden md:flex btn secondary"
-                    v-umami="{ name: 'contact-button-header-desktop' }">Contáctanos</NuxtLink>
+                <NuxtLink to="/contacto" @click.native="servicesDropdown = false" class="hidden md:flex btn secondary">Contáctanos</NuxtLink>
 
                 <button type="button" @click.prevent="openMenu = true"
                     class="-m-2.5 inline-flex xl:hidden items-center justify-center rounded-md p-2.5 text-gray-700">
