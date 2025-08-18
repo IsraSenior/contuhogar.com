@@ -13,6 +13,7 @@
     "@pinia/nuxt": "0.11.2",
     "@tailwindcss/vite": "^4.1.5",
     "nuxt": "^3.16.2",
+    "nuxt-gtag": "3.0.3",
     "pinia": "^3.0.3",
     "resend": "^6.0.1",
     "tailwindcss": "^4.1.5",
