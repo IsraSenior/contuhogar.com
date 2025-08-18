@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   //   pageTransition: { name: "page", mode: "out-in" },
   // },
 
-  modules: ["vue3-carousel-nuxt", "@pinia/nuxt", "nuxt-gtag"],
+  modules: ["vue3-carousel-nuxt", "@pinia/nuxt", "nuxt-gtag", "@zadigetvoltaire/nuxt-gtm"],
 
   gtag: {
     enabled: process.env.NODE_ENV === 'production',
@@ -23,5 +23,12 @@ export default defineNuxtConfig({
     // Additional configuration for this tag ID
     config: {
     },
+  },
+
+  gtm: {
+    id: 'GTM-WMQV4M3F',
+    enabled: process.env.NODE_ENV === 'production',
+    enableRouterSync: true,  // auto pageviews en SPA
+    debug: false,            // útil en dev
   }
 });
