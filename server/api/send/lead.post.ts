@@ -26,7 +26,16 @@ export default defineEventHandler(async (event) => {
   try {
     const sent = await resend.emails.send({
       from: "ConTuHogar · Lead <admin@contuhogar.com>",
-      to: "gerenciacomercial@contuhogar.com",
+      to: [
+        {
+          email: "gerenciacomercial@contuhogar.com",
+          name: "Gerencia Comercial",
+        },
+      ],
+       cc: [
+        { email: "admin@contuhogar.com", name: "Administrador" },
+        { email: "israsenior.dev@gmail.com", name: "Israel Senior" },
+      ],
       subject: `Nuevo mensaje de contacto [${body.firstName} ${body.lastName}]`,
       html: `
 <!DOCTYPE html>
