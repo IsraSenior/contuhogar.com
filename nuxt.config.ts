@@ -6,6 +6,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
 
+  runtimeConfig: {
+    DIRECTUS_URL: process.env.DIRECTUS_URL,
+    DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    public: {
+      DIRECTUS_URL: process.env.DIRECTUS_URL,
+      DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN
+    }
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

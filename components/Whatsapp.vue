@@ -1,5 +1,6 @@
-<script setup>
+<script setup lang="ts">
 const open = ref(false)
+const route = useRoute();
 
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
@@ -10,11 +11,74 @@ const phoneDropdown = ref({
         "code": "+57"
     },
     options: dialPhoneOptions,
+});
+
+const form = ref({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    dial: phoneDropdown.value.selected,
+    message: '',
+    source_page: route.fullPath,
+    website: '' // honeypot (debe quedar vacío)
 })
 
-const submit = function () {
-    window.open("https://api.whatsapp.com/send?phone=573150540000");
-    open.value = false;
+const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
+const errorMsg = ref('')
+
+const onSubmit = async () => {
+    state.value = 'loading'
+    errorMsg.value = ''
+    try {
+        const res = await $fetch('/api/contact', {
+            method: 'POST',
+            body: form.value
+        })
+        if ((res as any)?.ok) {
+
+            const sendRes = await $fetch('/api/send/lead', {
+                method: 'POST',
+                body: form.value
+            })
+
+            if ((sendRes as any)?.ok) {
+                state.value = 'success'
+
+                const phone = "573150540000";
+                const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
+Correo: *${form.value.email}*
+Teléfono: *${form.value.phone}*
+Desde: *${form.value.source_page}*
+
+${form.value.message}
+                `;
+                window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`);
+
+                // Limpia el form
+                form.value.firstName = ''
+                form.value.lastName = ''
+                form.value.email = ''
+                form.value.phone = ''
+                form.value.message = ''
+
+                // (Opcional) dataLayer para GA4/GTM
+                // if (process.client) {
+                //     ; (window as any).dataLayer = (window as any).dataLayer || []
+                //         ; (window as any).dataLayer.push({
+                //             event: 'submit_contact',
+                //             contact_source: form.value.source_page
+                //         })
+                // }
+            }
+
+        } else {
+            throw new Error('Respuesta inválida del servidor')
+        }
+    } catch (e: any) {
+        state.value = 'error'
+        errorMsg.value = e?.data?.statusMessage || e?.message || 'Error al enviar'
+    }
 }
 </script>
 
@@ -34,7 +98,8 @@ const submit = function () {
                 { 'w-screen h-full lg:auto lg:w-full lg:max-w-96 bg-white shadow-2xl shadow-primary/5 lg:rounded-3xl  py-12 px-6 relative': open },
                 { '': !open }
             ]">
-                <button class="absolute right-5 top-3 md:top-5 text-primary hover:text-secondary cursor-pointer" @click.prevent="open = false">
+                <button class="absolute right-5 top-3 md:top-5 text-primary hover:text-secondary cursor-pointer"
+                    @click.prevent="open = false">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                         stroke="currentColor" class="size-10">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,37 +107,44 @@ const submit = function () {
                     </svg>
                 </button>
 
-                <form @submit.prevent="submit" class="grid grid-cols-1 gap-6">
+                <form @submit.prevent="onSubmit" class="grid grid-cols-1 gap-x-8 gap-y-6">
+                    <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1"
+                        autocomplete="off" />
+
                     <div>
-                        <label for="" class="block text-sm/6 font-semibold text-primary">Nombres</label>
+                        <label for="first-name" class="block text-sm/6 font-semibold text-primary">Nombres</label>
                         <div class="mt-2.5">
-                            <input type="text" name="" id="" autocomplete="given-name"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
-                                required>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="" class="block text-sm/6 font-semibold text-primary">Apellidos</label>
-                        <div class="mt-2.5">
-                            <input type="text" name="" id="" autocomplete="given-name"
+                            <input type="text" name="first-name" id="first-name" v-model="form.firstName"
+                                autocomplete="given-name"
                                 class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                 required>
                         </div>
                     </div>
 
                     <div>
-                        <label for="" class="block text-sm/6 font-semibold text-primary">Correo electrónico</label>
+                        <label for="last-name" class="block text-sm/6 font-semibold text-primary">Apellidos</label>
                         <div class="mt-2.5">
-                            <input type="text" name="" id="" autocomplete="given-name"
+                            <input type="text" name="last-name" id="last-name" v-model="form.lastName"
+                                autocomplete="family-name"
                                 class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                 required>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-x-2">
+                    <div>
+                        <label for="email" class="block text-sm/6 font-semibold text-primary">Correo
+                            electrónico</label>
+                        <div class="mt-2.5">
+                            <input id="email" name="email" type="email" v-model="form.email" autocomplete="email"
+                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-x-2 gap-y-6">
                         <div class="col-span-1">
                             <label for="phone" class="block font-semibold text-primary">Teléfono</label>
-                            <select v-model="phoneDropdown.selected" name="dial" required id="dial"
+                            <select v-model="form.dial" name="dial" id="dial" required
                                 class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                 <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
                                     option.flag
@@ -82,10 +154,11 @@ const submit = function () {
                         <div class="col-span-2">
                             <div class="flex justify-between text-sm/6">
                                 <span></span>
-                                <!-- <p id="phone-description" class="text-gray-400 text-sm opacity-0">Optional</p> -->
+                                <span></span>
+                                <!-- <p id="phone-description" class="text-gray-400 text-sm">Optional</p> -->
                             </div>
                             <div class="mt-8">
-                                <input type="tel" name="phone" id="phone" autocomplete="tel"
+                                <input type="tel" name="phone" id="phone" v-model="form.phone" autocomplete="tel"
                                     aria-describedby="phone-description"
                                     class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                     required>
@@ -94,19 +167,28 @@ const submit = function () {
                     </div>
 
                     <div>
-                        <label for="" class="block text-sm/6 font-semibold text-primary">Interés</label>
+                        <div class="flex justify-between text-sm/6">
+                            <label for="message" class="block text-sm/6 font-semibold text-primary">
+                                Mensaje</label>
+                            <p id="message-description" class="text-gray-400 text-sm">Max. 500 caracteres</p>
+                        </div>
                         <div class="mt-2.5">
-                            <textarea type="text" name="" id="" autocomplete="given-name"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
-                                required />
+                            <textarea id="message" name="message" v-model="form.message" rows="4"
+                                aria-describedby="message-description"
+                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
                         </div>
                     </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit" class="btn primary w-full">
-                            Contactar
+                    <div class="w-full flex justify-end">
+                        <button type="submit" class="btn primary w-full" :disabled="state === 'loading'">
+                            <span v-if="state === 'loading'">Enviando…</span>
+                            <span v-else>Enviar</span>
                         </button>
                     </div>
+
+                    <p v-if="state === 'success'" class="text-[green]">¡Gracias! Te contactaremos pronto.
+                    </p>
+                    <p v-else-if="state === 'error'" class="text-[red]">{{ errorMsg }}</p>
                 </form>
             </div>
         </Transition>

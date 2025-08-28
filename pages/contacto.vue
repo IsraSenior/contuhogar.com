@@ -1,4 +1,6 @@
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
+const route = useRoute();
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
 const phoneDropdown = ref({
@@ -8,11 +10,80 @@ const phoneDropdown = ref({
         "code": "+57"
     },
     options: dialPhoneOptions,
+});
+
+const form = ref({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    dial: phoneDropdown.value.selected,
+    message: '',
+    source_page: route.fullPath,
+    website: '' // honeypot (debe quedar vacío)
 })
+
+const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
+const errorMsg = ref('')
+
+const onSubmit = async () => {
+    state.value = 'loading'
+    errorMsg.value = ''
+    try {
+        const res = await $fetch('/api/contact', {
+            method: 'POST',
+            body: form.value
+        })
+        if ((res as any)?.ok) {
+
+            const sendRes = await $fetch('/api/send/lead', {
+                method: 'POST',
+                body: form.value
+            })
+
+            if ((sendRes as any)?.ok) {
+                state.value = 'success'
+
+                const phone = "573150540000";
+                const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
+Correo: *${form.value.email}*
+Teléfono: *${form.value.phone}*
+Desde: *${form.value.source_page}*
+
+${form.value.message}
+                `;
+                window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`);
+
+                // Limpia el form
+                form.value.firstName = ''
+                form.value.lastName = ''
+                form.value.email = ''
+                form.value.phone = ''
+                form.value.message = ''
+
+                // (Opcional) dataLayer para GA4/GTM
+                // if (process.client) {
+                //     ; (window as any).dataLayer = (window as any).dataLayer || []
+                //         ; (window as any).dataLayer.push({
+                //             event: 'submit_contact',
+                //             contact_source: form.value.source_page
+                //         })
+                // }
+            }
+
+        } else {
+            throw new Error('Respuesta inválida del servidor')
+        }
+    } catch (e: any) {
+        state.value = 'error'
+        errorMsg.value = e?.data?.statusMessage || e?.message || 'Error al enviar'
+    }
+}
 </script>
 
 <template>
-    <div class="relative bg-muted min-h-[calc(100vh-88px)] lg:min-h-[calc(100vh-92px)] flex flex-col md:flex-row items- justify-between">
+    <div
+        class="relative bg-muted min-h-[calc(100vh-88px)] lg:min-h-[calc(100vh-92px)] flex flex-col md:flex-row items- justify-between">
         <div class="w-full md:w-1/2 flex items-center justify-center">
             <div class="px-6 py-16">
                 <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
@@ -20,13 +91,17 @@ const phoneDropdown = ref({
                         ¡Hablemos!
                     </h2>
                     <p class="mt-2 text-lg/8 text-gray-500">Estamos listos para ayudarte desde donde estés.</p>
-                    <form action="#" method="POST" class="mt-16">
+                    <form @submit.prevent="onSubmit" class="mt-16">
                         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                            <!-- Honeypot oculto -->
+                            <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1"
+                                autocomplete="off" />
                             <div>
                                 <label for="first-name"
                                     class="block text-sm/6 font-semibold text-primary">Nombres</label>
                                 <div class="mt-2.5">
-                                    <input type="text" name="first-name" id="first-name" autocomplete="given-name"
+                                    <input type="text" name="first-name" id="first-name" v-model="form.firstName"
+                                        autocomplete="given-name"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         required>
                                 </div>
@@ -35,7 +110,8 @@ const phoneDropdown = ref({
                                 <label for="last-name"
                                     class="block text-sm/6 font-semibold text-primary">Apellidos</label>
                                 <div class="mt-2.5">
-                                    <input type="text" name="last-name" id="last-name" autocomplete="family-name"
+                                    <input type="text" name="last-name" id="last-name" v-model="form.lastName"
+                                        autocomplete="family-name"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         required>
                                 </div>
@@ -44,7 +120,8 @@ const phoneDropdown = ref({
                                 <label for="email" class="block text-sm/6 font-semibold text-primary">Correo
                                     electrónico</label>
                                 <div class="mt-2.5">
-                                    <input id="email" name="email" type="email" autocomplete="email"
+                                    <input id="email" name="email" type="email" v-model="form.email"
+                                        autocomplete="email"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         required>
                                 </div>
@@ -52,11 +129,11 @@ const phoneDropdown = ref({
                             <div class="sm:col-span-2 grid grid-cols-3 gap-x-2 gap-y-6">
                                 <div class="col-span-1">
                                     <label for="phone" class="block font-semibold text-primary">Teléfono</label>
-                                    <select v-model="phoneDropdown.selected" name="dial" required id="dial"
+                                    <select v-model="form.dial" name="dial" id="dial" required
                                         class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                         <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
                                             option.flag
-                                        }} {{ option.code }}</option>
+                                            }} {{ option.code }}</option>
                                     </select>
                                 </div>
                                 <div class="col-span-2">
@@ -66,8 +143,8 @@ const phoneDropdown = ref({
                                         <!-- <p id="phone-description" class="text-gray-400 text-sm">Optional</p> -->
                                     </div>
                                     <div class="mt-8">
-                                        <input type="tel" name="phone" id="phone" autocomplete="tel"
-                                            aria-describedby="phone-description"
+                                        <input type="tel" name="phone" id="phone" v-model="form.phone"
+                                            autocomplete="tel" aria-describedby="phone-description"
                                             class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                             required>
                                     </div>
@@ -80,16 +157,21 @@ const phoneDropdown = ref({
                                     <p id="message-description" class="text-gray-400 text-sm">Max. 500 caracteres</p>
                                 </div>
                                 <div class="mt-2.5">
-                                    <textarea id="message" name="message" rows="4"
+                                    <textarea id="message" name="message" v-model="form.message" rows="4"
                                         aria-describedby="message-description"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-10 flex justify-end border-t border-primary/10 pt-8">
-                            <button type="submit" class="btn primary">
-                                Enviar
+                            <button type="submit" class="btn primary" :disabled="state === 'loading'">
+                                <span v-if="state === 'loading'">Enviando…</span>
+                                <span v-else>Enviar</span>
                             </button>
+
+                            <p v-if="state === 'success'" class="mt-4 text-[green]">¡Gracias! Te contactaremos pronto.
+                            </p>
+                            <p v-else-if="state === 'error'" class="mt-4 text-[red]">{{ errorMsg }}</p>
                         </div>
                     </form>
                 </div>
@@ -174,6 +256,4 @@ const phoneDropdown = ref({
             </div>
         </div>
     </div>
-
-
 </template>
