@@ -22,12 +22,11 @@ export default defineEventHandler(async (event) => {
   }
 
   const resend = new Resend(resendApi);
-  // gerenciacomercial@contuhogar.com
 
   try {
     const sent = await resend.emails.send({
       from: "ConTuHogar · Lead <admin@contuhogar.com>",
-      to: "israsenior.dev@gmail.com",
+      to: "gerenciacomercial@contuhogar.com",
       subject: `Nuevo mensaje de contacto [${body.firstName} ${body.lastName}]`,
       html: `
 <!DOCTYPE html>
