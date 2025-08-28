@@ -1,14 +1,24 @@
 <script setup>
 const store = useMainStore();
 const route = useRoute();
-const slug = computed(() => {
-    return route.params.slug;
-})
 
 const currentService = computed(() => {
-    const service = store.services.filter(x => x.slug === route.params.slug[0])
+    const service = store.services.filter(x => x.slug === route.params.slug)
 
     return service?.[0]
+})
+
+useSeoMeta({
+    title: () => currentService?.title ?? "ConTuHogar | Servicio",
+    description: () => currentService.content ?? "",
+    ogTitle: () => currentService?.title ?? "ConTuHogar | Servicio",
+    ogDescription: () => currentService.content ?? "",
+    // ogImage: '[og:image]',
+    ogUrl: "https://contuhogar.com",
+    twitterTitle: () => currentService?.title ?? "ConTuHogar | Servicio",
+    twitterDescription: () => currentService.content ?? "",
+    // twitterImage: '[twitter:image]',
+    twitterCard: 'summary'
 })
 
 const currentStep = ref(0);

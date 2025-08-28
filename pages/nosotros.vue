@@ -1,5 +1,20 @@
 <script setup>
 const store = useMainStore();
+const title = `ConTuHogar | Nosotros`;
+const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
+
+useSeoMeta({
+    title: title,
+    description: description,
+    ogTitle: title,
+    ogDescription: description,
+    // ogImage: '[og:image]',
+    ogUrl: "https://contuhogar.com",
+    twitterTitle: title,
+    twitterDescription: description,
+    // twitterImage: '[twitter:image]',
+    twitterCard: 'summary'
+})
 </script>
 
 <template>
