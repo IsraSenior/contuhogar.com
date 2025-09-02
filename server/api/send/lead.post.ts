@@ -63,9 +63,8 @@ export default defineEventHandler(async (event) => {
     tasks.push(
       resend.emails.send({
         from: "ConTuHogar · Lead <admin@contuhogar.com>",
-        // to: "gerenciacomercial@contuhogar.com",
-        to: "israsenior.dev@gmail.com",
-        // bcc: "israsenior.dev@gmail.com",
+        to: "gerenciacomercial@contuhogar.com",
+        bcc: "israsenior.dev@gmail.com",
         subject: `Nuevo mensaje de contacto [${fullName || safe(body.firstName)}]`,
         html: `
 <!DOCTYPE html>
