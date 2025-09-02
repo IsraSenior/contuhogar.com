@@ -7,6 +7,8 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   runtimeConfig: {
+    TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+    TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
     DIRECTUS_URL: process.env.DIRECTUS_URL,
     DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,

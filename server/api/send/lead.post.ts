@@ -1,9 +1,24 @@
+// server/api/contact.post.ts (o donde tengas tu handler)
 import { Resend } from "resend";
+
+type Body = {
+  firstName: string;
+  lastName?: string;
+  email: string;
+  phone?: string;
+  dial?: { code?: string };
+  message?: string;
+  source_page?: string;
+};
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
 
-  const resendApi = config.RESEND_API_KEY;
+  const resendApi = config.RESEND_API_KEY as string | undefined;
+
+  // Opcionales para Telegram (si no están, simplemente no se envía por TG)
+  const tgToken = config.TELEGRAM_BOT_TOKEN as string | undefined;
+  const tgChatId = config.TELEGRAM_CHAT_ID as string | number | undefined;
 
   if (!resendApi) {
     throw createError({
@@ -23,13 +38,36 @@ export default defineEventHandler(async (event) => {
 
   const resend = new Resend(resendApi);
 
+  // Helpers
+  const safe = (v?: string) => (v ?? "").toString().trim();
+  const tel = `${safe(body.dial?.code)} ${safe(body.phone)}`.trim();
+  const source = safe(body.source_page) || "/contact";
+  const fullName = [safe(body.firstName), safe(body.lastName)].filter(Boolean).join(" ");
+  const msg = safe(body.message);
+
+  // Construimos el texto para Telegram (sin parse_mode para evitar problemas de escape)
+  const tgText =
+    [
+      "🆕 Nuevo lead",
+      `Nombre: ${fullName || "N/D"}`,
+      `Email: ${safe(body.email)}`,
+      `Tel: ${tel || "N/D"}`,
+      `Origen: ${source}`,
+      msg ? `Mensaje:\n${msg}` : ""
+    ].filter(Boolean).join("\n");
+
   try {
-    const sent = await resend.emails.send({
-      from: "ConTuHogar · Lead <admin@contuhogar.com>",
-      to: "gerenciacomercial@contuhogar.com",
-      cc: "israsenior.dev@gmail.com",
-      subject: `Nuevo mensaje de contacto [${body.firstName} ${body.lastName}]`,
-      html: `
+    // Disparamos **en paralelo**: email y (si aplica) Telegram
+    const tasks: Promise<any>[] = [];
+
+    tasks.push(
+      resend.emails.send({
+        from: "ConTuHogar · Lead <admin@contuhogar.com>",
+        // to: "gerenciacomercial@contuhogar.com",
+        to: "israsenior.dev@gmail.com",
+        // bcc: "israsenior.dev@gmail.com",
+        subject: `Nuevo mensaje de contacto [${fullName || safe(body.firstName)}]`,
+        html: `
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,8 +77,6 @@ export default defineEventHandler(async (event) => {
   <style>
     body { margin:0; padding:0; background:#f6f8fb; }
     .container { max-width:640px; margin:0 auto; background:#ffffff; font-family:Arial,Helvetica,sans-serif; color:#111827; }
-    .header { padding:20px 24px; border-bottom:1px solid #e5e7eb; }
-    .title { margin:0; font-size:18px; }
     .content { padding:16px 24px 8px; }
     .row { display:flex; gap:12px; margin:0 0 10px; }
     .label { width:160px; font-weight:bold; color:#374151; }
@@ -53,48 +89,62 @@ export default defineEventHandler(async (event) => {
 <body>
   <div class="container">
     <div class="content">
-      <div class="row">
-        <div class="label">Nombre</div>
-        <div class="value">${body.firstName}</div>
-      </div>
-      <div class="row">
-        <div class="label">Apellido</div>
-        <div class="value">${body.lastName}</div>
-      </div>
-      <div class="row">
-        <div class="label">Email</div>
-        <div class="value">${body.email}</div>
-      </div>
-      <div class="row">
-        <div class="label">Teléfono</div>
-        <div class="value">${body.dial.code} ${body.phone}</div>
-      </div>
-      <div class="row">
-        <div class="label">Página de origen</div>
-        <div class="value">${body.source_page}</div>
-      </div>
-
-      <div class="row" style="margin-top:14px;">
-        <div class="label">Mensaje</div>
-        <div class="value message">${body.message}</div>
-      </div>
+      <div class="row"><div class="label">Nombre</div><div class="value">${fullName || safe(body.firstName)}</div></div>
+      <div class="row"><div class="label">Email</div><div class="value">${safe(body.email)}</div></div>
+      <div class="row"><div class="label">Teléfono</div><div class="value">${tel || "N/D"}</div></div>
+      <div class="row"><div class="label">Página de origen</div><div class="value">${source}</div></div>
+      ${msg ? `<div class="row" style="margin-top:14px;"><div class="label">Mensaje</div><div class="value message">${msg.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div></div>` : ""}
     </div>
-
-    <div class="footer">
-      Este correo fue generado automáticamente desde el formulario de contacto.
-    </div>
+    <div class="footer">Este correo fue generado automáticamente desde el formulario de contacto.</div>
   </div>
 </body>
 </html>
 `,
-    });
-    // console.log(sent)
+      })
+    );
+
+    if (tgToken && tgChatId) {
+      // Envío Telegram
+      tasks.push(
+        fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: tgChatId, // puede ser "-100xxxx" o "@MiCanal" o tu ID numérico
+            text: tgText,
+            disable_web_page_preview: true
+          }),
+        }).then(async (r) => {
+          if (!r.ok) {
+            const errText = await r.text().catch(() => "");
+            throw new Error(`Telegram error ${r.status}: ${errText}`);
+          }
+          return r.json();
+        })
+      );
+    }
+
+    // Ejecuta todo en paralelo; si falla Telegram, lo registramos pero no rompemos la respuesta
+    const results = await Promise.allSettled(tasks);
+
+    // Si el email falló, elevamos el error
+    const emailResult = results[0];
+    if (emailResult.status === "rejected") {
+      throw emailResult.reason;
+    }
+
+    // Loguea si Telegram falló
+    const tgResult = results[1];
+    if (tgResult && tgResult.status === "rejected") {
+      console.error("[Telegram] envío fallido:", tgResult.reason);
+    }
+
     return { ok: true };
   } catch (e: any) {
-    console.error("Directus error:", e?.message || e);
+    console.error("Contact handler error:", e?.message || e);
     throw createError({
       statusCode: 500,
-      statusMessage: "No se pudo guardar el mensaje",
+      statusMessage: "No se pudo procesar el mensaje",
     });
   }
 });
