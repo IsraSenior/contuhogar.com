@@ -12,6 +12,7 @@ const phoneDropdown = ref({
     },
     options: dialPhoneOptions,
 });
+const fullPath = computed(() => route.fullPath)
 
 const form = ref({
     firstName: '',
@@ -20,7 +21,7 @@ const form = ref({
     phone: '',
     dial: phoneDropdown.value.selected,
     message: '',
-    source_page: route.fullPath,
+    source_page: '',
     website: '' // honeypot (debe quedar vacío)
 })
 
@@ -30,6 +31,8 @@ const errorMsg = ref('')
 const onSubmit = async () => {
     state.value = 'loading'
     errorMsg.value = ''
+    form.value.source_page = fullPath.value
+
     try {
         const res = await $fetch('/api/contact', {
             method: 'POST',
@@ -148,7 +151,7 @@ ${form.value.message}
                                 class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                 <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
                                     option.flag
-                                    }} {{ option.code }}</option>
+                                }} {{ option.code }}</option>
                             </select>
                         </div>
                         <div class="col-span-2">
