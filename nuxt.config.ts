@@ -6,6 +6,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
 
+  app: {
+    head: {
+      meta: [
+        {
+          name: "facebook-domain-verification",
+          content: "laxxnwfhgho03ihik0ayykj7ds2xk6"
+        }
+      ]
+    }
+  },
+
   runtimeConfig: {
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
