@@ -6,16 +6,20 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
 
-  // app: {
-  //   head: {
-  //     meta: [
-  //       {
-  //         name: "facebook-domain-verification",
-  //         content: "laxxnwfhgho03ihik0ayykj7ds2xk6"
-  //       }
-  //     ]
-  //   }
-  // },
+  app: {
+    head: {
+      link: [
+        { rel: "preconnect", href: "https://contuhogar.com" },
+        { rel: "dns-prefetch", href: "https://contuhogar.com" },
+      ],
+      //     meta: [
+      //       {
+      //         name: "facebook-domain-verification",
+      //         content: "laxxnwfhgho03ihik0ayykj7ds2xk6"
+      //       }
+      //     ]
+    },
+  },
 
   runtimeConfig: {
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
@@ -25,8 +29,8 @@ export default defineNuxtConfig({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     public: {
       DIRECTUS_URL: process.env.DIRECTUS_URL,
-      DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN
-    }
+      DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
+    },
   },
 
   vite: {
@@ -37,21 +41,25 @@ export default defineNuxtConfig({
   //   pageTransition: { name: "page", mode: "out-in" },
   // },
 
-  modules: ["vue3-carousel-nuxt", "@pinia/nuxt", "nuxt-gtag", "@zadigetvoltaire/nuxt-gtm"],
+  modules: [
+    "vue3-carousel-nuxt",
+    "@pinia/nuxt",
+    "nuxt-gtag",
+    "@zadigetvoltaire/nuxt-gtm",
+  ],
 
   gtag: {
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: process.env.NODE_ENV === "production",
     // Your primary Google tag ID
-    id: 'G-1182NP1Z0D',
+    id: "G-1182NP1Z0D",
     // Additional configuration for this tag ID
-    config: {
-    },
+    config: {},
   },
 
   gtm: {
-    id: 'GTM-WMQV4M3F',
-    enabled: process.env.NODE_ENV === 'production',
-    enableRouterSync: true,  // auto pageviews en SPA
-    debug: false,            // útil en dev
-  }
+    id: "GTM-WMQV4M3F",
+    enabled: process.env.NODE_ENV === "production",
+    enableRouterSync: true, // auto pageviews en SPA
+    debug: false, // útil en dev
+  },
 });
