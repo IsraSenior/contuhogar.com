@@ -12,12 +12,6 @@ export default defineNuxtConfig({
         { rel: "preconnect", href: "https://contuhogar.com" },
         { rel: "dns-prefetch", href: "https://contuhogar.com" },
       ],
-      meta: [
-        {
-          name: "facebook-domain-verification",
-          content: "laxxnwfhgho03ihik0ayykj7ds2xk6",
-        },
-      ],
     },
   },
 
