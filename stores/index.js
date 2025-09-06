@@ -58,8 +58,8 @@ export const useMainStore = defineStore('index', {
             "/logos/banco-occidental.png",
             "/logos/banco-union.png",
             "https://amarilo.com.co/images/logo.svg",
-            "https://constructoracolpatria.com/site/assets/img/constructora-colpatria.png",
-            "https://marval.com.co/wp-content/uploads/2022/03/Grupo-429.png"
+            "/logos/colpatria-logo.png",
+            "/logos/marval-logo.png"
         ],
         team: [
             {
