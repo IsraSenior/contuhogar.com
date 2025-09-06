@@ -31,7 +31,7 @@ export const useMainStore = defineStore('index', {
                 intro: "Convierte tu casa en el hogar que siempre soñaste, con el respaldo y la flexibilidad del crédito de remodelación.",
                 content: "Se trata de una línea de crédito con garantía hipotecaria, dirigida a financiar mejoras, reparaciones o remodelaciones en una vivienda. El inmueble puede estar totalmente libre de deuda o aún tener una hipoteca vigente. En ambos casos, este crédito funciona de manera similar a un crédito de libre inversión, pero con condiciones más favorables en plazo, tasas de interés, entre otras, gracias a la garantía hipotecaria.",
                 description: "Renueva, remodela o restaura tu casa ya, sin sacrificar tus ahorros. Haz hoy todas las mejoras y paga mañana, y de paso aumenta tu patrimonio viviendo más feliz.",
-                image: "/credito-de-remodelacion"
+                image: "/credito-de-remodelacion.avif"
             },
             {
                 icon: "💳",
