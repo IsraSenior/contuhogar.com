@@ -112,7 +112,7 @@ export const useMainStore = defineStore('index', {
             },
             {
                 name: "Juan David Medrano",
-                email: "ejecutivocomercial@contuhogar.net",
+                email: "ejecutivo.juanm@contuhogar.net",
                 title: "Ejecutivo de crédito",
                 image: "/team/juan-david-medrano.webp"
             },
