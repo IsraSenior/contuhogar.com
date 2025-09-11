@@ -110,6 +110,12 @@ export const useMainStore = defineStore('index', {
                 title: "Contador",
                 image: "/team/diego-rojas.avif"
             },
+            {
+                name: "Juan David Medrano",
+                email: "ejecutivocomercial@contuhogar.net",
+                title: "Ejecutivo de crédito",
+                image: "/team/juan-david-medrano.webp"
+            },
         ],
         questions: [
             {
