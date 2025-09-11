@@ -110,7 +110,7 @@ useSeoMeta({
             <ul role="list"
                 class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
                 <li v-for="(staff, index) in store.team" :key="index">
-                    <img class="aspect-14/13 w-full rounded-2xl object-cover bg-muted" :src="staff?.image"
+                    <img class="aspect-14/13 w-full rounded-2xl object-cover object-top bg-muted" :src="staff?.image"
                         :alt="staff?.name">
                     <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}</h3>
                     <p class="text-base/7 text-gray-500">{{ staff?.title }}</p>
