@@ -16,14 +16,18 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    // Variables privadas del servidor (NO expuestas al cliente)
     TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
     DIRECTUS_URL: process.env.DIRECTUS_URL,
     DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+
+    // Variables públicas (expuestas al cliente)
     public: {
       DIRECTUS_URL: process.env.DIRECTUS_URL,
-      DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
+      // ⚠️ IMPORTANTE: Usar un token de SOLO LECTURA para el cliente
+      DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_PUBLIC_TOKEN,
     },
   },
 
