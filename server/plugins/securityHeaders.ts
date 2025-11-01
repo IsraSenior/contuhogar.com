@@ -39,12 +39,12 @@ export default defineNitroPlugin((nitroApp) => {
       "default-src 'self'",
       // Scripts: 'self', Google Analytics, GTM, inline scripts necesarios
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com",
-      // Estilos: 'self', inline styles (necesario para Tailwind/Vue)
-      "style-src 'self' 'unsafe-inline'",
+      // Estilos: 'self', inline styles, Google Fonts
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       // Imágenes: 'self', data URIs, Directus, Freepik, Wikipedia
       "img-src 'self' data: https: http:",
-      // Fonts: 'self', data URIs
-      "font-src 'self' data:",
+      // Fonts: 'self', data URIs, Google Fonts
+      "font-src 'self' data: https://fonts.gstatic.com",
       // Conexiones: API propias, Directus, Google Analytics, Telegram
       "connect-src 'self' https://contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org",
       // Frames: solo mismo origen (previene clickjacking)
