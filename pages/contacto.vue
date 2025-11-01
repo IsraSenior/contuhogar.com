@@ -4,20 +4,17 @@ const route = useRoute();
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
 const title = `ConTuHogar | Contacto`;
-const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
+const description = "Contáctanos para obtener asesoría especializada en crédito hipotecario, leasing habitacional y financiamiento de vivienda en Colombia. Atención personalizada para colombianos en el exterior."
 
-useSeoMeta({
+// SEO optimizado
+useSeo({
     title: title,
     description: description,
-    ogTitle: title,
-    ogDescription: description,
-    // ogImage: '[og:image]',
-    ogUrl: "https://contuhogar.com",
-    twitterTitle: title,
-    twitterDescription: description,
-    // twitterImage: '[twitter:image]',
-    twitterCard: 'summary'
+    type: 'website'
 })
+
+// Structured data para contacto
+useLocalBusinessSchema()
 
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()

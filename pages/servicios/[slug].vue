@@ -8,17 +8,23 @@ const currentService = computed(() => {
     return service?.[0]
 })
 
-useSeoMeta({
-    title: () => currentService?.title ?? "ConTuHogar | Servicio",
-    description: () => currentService.content ?? "",
-    ogTitle: () => currentService?.title ?? "ConTuHogar | Servicio",
-    ogDescription: () => currentService.content ?? "",
-    // ogImage: '[og:image]',
-    ogUrl: "https://contuhogar.com",
-    twitterTitle: () => currentService?.title ?? "ConTuHogar | Servicio",
-    twitterDescription: () => currentService.content ?? "",
-    // twitterImage: '[twitter:image]',
-    twitterCard: 'summary'
+// SEO optimizado con datos del servicio
+watchEffect(() => {
+    if (currentService.value) {
+        useSeo({
+            title: currentService.value.title,
+            description: currentService.value.description,
+            image: `https://contuhogar.com${currentService.value.image}`,
+            type: 'website'
+        })
+
+        // Breadcrumb para mejor SEO
+        useBreadcrumbSchema([
+            { name: 'Inicio', url: 'https://contuhogar.com' },
+            { name: 'Servicios', url: 'https://contuhogar.com/servicios' },
+            { name: currentService.value.title, url: `https://contuhogar.com/servicios/${currentService.value.slug}` }
+        ])
+    }
 })
 
 const currentStep = ref(0);

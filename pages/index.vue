@@ -3,18 +3,15 @@ const store = useMainStore();
 const title = `ConTuHogar | Inicio`;
 const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
 
-useSeoMeta({
+// SEO optimizado
+useSeo({
     title: title,
     description: description,
-    ogTitle: title,
-    ogDescription: description,
-    // ogImage: '[og:image]',
-    ogUrl: "https://contuhogar.com",
-    twitterTitle: title,
-    twitterDescription: description,
-    // twitterImage: '[twitter:image]',
-    twitterCard: 'summary'
+    type: 'website'
 })
+
+// Structured data para la página principal
+useLocalBusinessSchema()
 
 const carouselConfig = {
     itemsToShow: 4,
