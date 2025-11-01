@@ -4,6 +4,9 @@ const route = useRoute();
 
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
+// GTM/GA4 tracking
+const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError, trackWhatsAppClick } = useTracking()
+
 const phoneDropdown = ref({
     status: true,
     selected: {
@@ -27,11 +30,33 @@ const form = ref({
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const errorMsg = ref('')
+const hasTrackedStart = ref(false)
+
+// Track when WhatsApp widget is opened
+watch(open, (newVal) => {
+    if (newVal) {
+        trackWhatsAppClick('floating_widget')
+    }
+})
+
+// Track form start when user interacts with any field
+const onFormInteraction = () => {
+    if (!hasTrackedStart.value) {
+        trackFormStart('whatsapp_widget_form', fullPath.value)
+        hasTrackedStart.value = true
+    }
+}
 
 const onSubmit = async () => {
     state.value = 'loading'
     errorMsg.value = ''
     form.value.source_page = fullPath.value
+
+    // Track form submit
+    trackFormSubmit('whatsapp_widget_form', form.value.source_page, {
+        has_message: !!form.value.message,
+        phone_country: form.value.dial.code,
+    })
 
     try {
         const res = await $fetch('/api/contact', {
@@ -47,6 +72,9 @@ const onSubmit = async () => {
 
             if ((sendRes as any)?.ok) {
                 state.value = 'success'
+
+                // Track successful form submission
+                trackFormSuccess('whatsapp_widget_form', form.value.source_page, (res as any)?.id)
 
                 const phone = "573150540000";
                 const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
@@ -65,14 +93,8 @@ ${form.value.message}
                 form.value.phone = ''
                 form.value.message = ''
 
-                // (Opcional) dataLayer para GA4/GTM
-                // if (process.client) {
-                //     ; (window as any).dataLayer = (window as any).dataLayer || []
-                //         ; (window as any).dataLayer.push({
-                //             event: 'submit_contact',
-                //             contact_source: form.value.source_page
-                //         })
-                // }
+                // Reset tracking flag
+                hasTrackedStart.value = false
             }
 
         } else {
@@ -81,6 +103,9 @@ ${form.value.message}
     } catch (e: any) {
         state.value = 'error'
         errorMsg.value = e?.data?.statusMessage || e?.message || 'Error al enviar'
+
+        // Track form error
+        trackFormError('whatsapp_widget_form', form.value.source_page, 'submit_failed', errorMsg.value)
     }
 }
 </script>
@@ -119,6 +144,7 @@ ${form.value.message}
                         <div class="mt-2.5">
                             <input type="text" name="first-name" id="first-name" v-model="form.firstName"
                                 autocomplete="given-name"
+                                @focus="onFormInteraction"
                                 class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                 required>
                         </div>

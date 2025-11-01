@@ -19,6 +19,9 @@ useSeoMeta({
     twitterCard: 'summary'
 })
 
+// GTM/GA4 tracking
+const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()
+
 const phoneDropdown = ref({
     status: true,
     selected: {
@@ -41,10 +44,37 @@ const form = ref({
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
 const errorMsg = ref('')
+const hasTrackedStart = ref(false)
+
+// Track form start when user interacts with any field
+const onFormInteraction = () => {
+    if (!hasTrackedStart.value) {
+        trackFormStart('contact_form', route.fullPath)
+        hasTrackedStart.value = true
+    }
+}
+
+// Track phone and email clicks
+const { trackPhoneClick, trackEmailClick } = useTracking()
+
+const onPhoneClick = (phoneNumber: string) => {
+    trackPhoneClick(phoneNumber, 'contact_page')
+}
+
+const onEmailClick = (emailAddress: string) => {
+    trackEmailClick(emailAddress, 'contact_page')
+}
 
 const onSubmit = async () => {
     state.value = 'loading'
     errorMsg.value = ''
+
+    // Track form submit
+    trackFormSubmit('contact_form', form.value.source_page, {
+        has_message: !!form.value.message,
+        phone_country: form.value.dial.code,
+    })
+
     try {
         const res = await $fetch('/api/contact', {
             method: 'POST',
@@ -59,6 +89,9 @@ const onSubmit = async () => {
 
             if ((sendRes as any)?.ok) {
                 state.value = 'success'
+
+                // Track successful form submission
+                trackFormSuccess('contact_form', form.value.source_page, (res as any)?.id)
 
                 const phone = "573150540000";
                 const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
@@ -77,14 +110,8 @@ ${form.value.message}
                 form.value.phone = ''
                 form.value.message = ''
 
-                // (Opcional) dataLayer para GA4/GTM
-                // if (process.client) {
-                //     ; (window as any).dataLayer = (window as any).dataLayer || []
-                //         ; (window as any).dataLayer.push({
-                //             event: 'submit_contact',
-                //             contact_source: form.value.source_page
-                //         })
-                // }
+                // Reset tracking flag
+                hasTrackedStart.value = false
             }
 
         } else {
@@ -93,6 +120,9 @@ ${form.value.message}
     } catch (e: any) {
         state.value = 'error'
         errorMsg.value = e?.data?.statusMessage || e?.message || 'Error al enviar'
+
+        // Track form error
+        trackFormError('contact_form', form.value.source_page, 'submit_failed', errorMsg.value)
     }
 }
 </script>
@@ -118,6 +148,7 @@ ${form.value.message}
                                 <div class="mt-2.5">
                                     <input type="text" name="first-name" id="first-name" v-model="form.firstName"
                                         autocomplete="given-name"
+                                        @focus="onFormInteraction"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         required>
                                 </div>
@@ -233,12 +264,15 @@ ${form.value.message}
                                 <div>
                                     <dt class="sr-only">Teléfonos</dt>
                                     <dd>Colombia <a class="font-semibold text-primary hover:text-secondary"
-                                            href="tel:+573208033672">(+57) 320
+                                            href="tel:+573208033672"
+                                            @click="onPhoneClick('+573208033672')">(+57) 320
                                             8033672</a></dd>
                                     <dd>EE. UU. <a class="font-semibold text-primary hover:text-secondary"
-                                            href="tel:+17185214701">(+1) 718 521 4701</a></dd>
+                                            href="tel:+17185214701"
+                                            @click="onPhoneClick('+17185214701')">(+1) 718 521 4701</a></dd>
                                     <dd>España <a class="font-semibold text-primary hover:text-secondary"
-                                            href="tel:+34910602499">(+34) 910 602 499</a></dd>
+                                            href="tel:+34910602499"
+                                            @click="onPhoneClick('+34910602499')">(+34) 910 602 499</a></dd>
                                 </div>
                             </dl>
                         </div>
@@ -254,9 +288,11 @@ ${form.value.message}
                                 <div>
                                     <dt class="sr-only">Correos</dt>
                                     <dd><a class="font-semibold text-primary hover:text-secondary"
-                                            href="mailto:gerencia@contuhogar.net">gerencia@contuhogar.net</a></dd>
+                                            href="mailto:gerencia@contuhogar.net"
+                                            @click="onEmailClick('gerencia@contuhogar.net')">gerencia@contuhogar.net</a></dd>
                                     <dd><a class="font-semibold text-primary hover:text-secondary"
-                                            href="mailto:gerenciacomercial@contuhogar.net">gerenciacomercial@contuhogar.net</a>
+                                            href="mailto:gerenciacomercial@contuhogar.net"
+                                            @click="onEmailClick('gerenciacomercial@contuhogar.net')">gerenciacomercial@contuhogar.net</a>
                                     </dd>
                                 </div>
                             </dl>
