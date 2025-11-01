@@ -216,9 +216,13 @@ ${form.value.message}
                         <!-- <p class="mt-4 text-base/7 text-gray-500">Quam nunc nunc eu sed. Sed rhoncus quis ultricies ac
                             pellentesque.</p> -->
 
-                        <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
+                        <NuxtImg class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
                             src="https://img.freepik.com/foto-gratis/vista-lateral-mujer-hablando-telefono_23-2149476697.jpg"
-                            alt="">
+                            alt="Mujer hablando por teléfono"
+                            format="webp"
+                            quality="80"
+                            sizes="sm:100vw lg:400px"
+                            loading="lazy" />
                     </div>
 
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">

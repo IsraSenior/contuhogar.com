@@ -31,9 +31,14 @@ useSeoMeta({
         <div class="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
           <article class="relative isolate flex flex-col gap-8 lg:flex-row bg-muted hover:bg-white p-5 rounded-3xl">
             <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
-              <img
+              <NuxtImg
                 src="https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg"
-                alt="" class="absolute inset-0 size-full rounded-2xl bg-primary object-cover">
+                alt="Crecimiento financiero con monedas" class="absolute inset-0 size-full rounded-2xl bg-primary object-cover"
+                format="webp"
+                quality="80"
+                sizes="sm:100vw lg:256px"
+                loading="eager"
+                fetchpriority="high" />
               <div class="absolute inset-0 rounded-2xl ring-1 ring-primary/10 ring-inset"></div>
             </div>
             <div class="">
@@ -55,9 +60,13 @@ useSeoMeta({
               </div>
               <div class="mt-6 flex border-t borderprimary/5 pt-6">
                 <div class="relative flex items-center gap-x-4">
-                  <img
+                  <NuxtImg
                     src="/team/alejandra-perez.avif"
-                    alt="" class="size-10 rounded-full bg-gray-50">
+                    alt="Alejandra Pérez C." class="size-10 rounded-full bg-gray-50"
+                    format="webp"
+                    quality="75"
+                    sizes="40px"
+                    loading="lazy" />
                   <div class="text-sm/6">
                     <p class="font-semibold text-primary">
                       <a href="#">
@@ -94,10 +103,14 @@ useSeoMeta({
           </div>
         </div>
         <div class="relative mt-16 h-full lg:mt-8">
-          <img
+          <NuxtImg
             class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
             src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-            alt="">
+            alt="Familia feliz celebrando compra de casa"
+            format="webp"
+            quality="80"
+            sizes="sm:100vw lg:736px"
+            loading="lazy" />
         </div>
       </div>
     </div>

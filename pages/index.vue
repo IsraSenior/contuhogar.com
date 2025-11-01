@@ -77,8 +77,16 @@ const carouselConfig = {
 
             <div
                 class="relative lg:col-span-5 rounded-3xl sm:rounded-bl-3xl overflow-hidden lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0">
-                <img class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-                    src="/2148392254.jpg" alt="">
+                <NuxtImg
+                    src="/2148392254.jpg"
+                    alt="Familia feliz con las llaves de su nueva casa"
+                    class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+                    format="webp"
+                    quality="85"
+                    sizes="sm:100vw md:50vw lg:640px"
+                    loading="eager"
+                    fetchpriority="high"
+                />
             </div>
         </div>
     </section>
@@ -90,19 +98,19 @@ const carouselConfig = {
                     <span class="w-full font-bold text-xs lg:text-base text-center">BBVA</span>
                 </div>
                 <div class="w-1/2 md:w-1/3">
-                    <img class="h-full w-full object-contain max-h-16" :src="store.logos[0]" alt="">
+                    <NuxtImg class="h-full w-full object-contain max-h-16" :src="store.logos[0]" alt="Logo banco" format="webp" quality="75" sizes="150px" loading="lazy" />
                 </div>
                 <div class="w-1/2 md:w-1/3">
-                    <img class="h-full w-full object-contain max-h-16" :src="store.logos[1]" alt="">
+                    <NuxtImg class="h-full w-full object-contain max-h-16" :src="store.logos[1]" alt="Logo banco" format="webp" quality="75" sizes="150px" loading="lazy" />
                 </div>
                 <div class="w-1/2 md:w-1/3">
-                    <img class="h-full w-full object-contain max-h-10" :src="store.logos[2]" alt="">
+                    <NuxtImg class="h-full w-full object-contain max-h-10" :src="store.logos[2]" alt="Logo constructora" format="webp" quality="75" sizes="120px" loading="lazy" />
                 </div>
                 <div class="w-1/2 md:w-1/3">
-                    <img class="h-full w-full object-contain max-h-10" :src="store.logos[3]" alt="">
+                    <NuxtImg class="h-full w-full object-contain max-h-10" :src="store.logos[3]" alt="Logo constructora" format="webp" quality="75" sizes="120px" loading="lazy" />
                 </div>
                 <div class="w-1/2 md:w-1/3">
-                    <img class="h-full w-full object-contain max-h-8" :src="store.logos[4]" alt="">
+                    <NuxtImg class="h-full w-full object-contain max-h-8" :src="store.logos[4]" alt="Logo constructora" format="webp" quality="75" sizes="100px" loading="lazy" />
                 </div>
             </div>
 
@@ -188,12 +196,16 @@ const carouselConfig = {
                 <div class="lg:pr-4 flex items-center">
                     <div
                         class="relative overflow-hidden rounded-3xl bg-primary px-6 pt-64 pb-9 shadow-2xl shadow-primary/5 sm:px-12 lg:px-8 lg:pb-8 xl:px-10 xl:pb-10 h-full w-full">
-                        <!-- <img class="absolute inset-0 size-full object-cover brightness-125 saturate-0"
+                        <!-- <NuxtImg class="absolute inset-0 size-full object-cover brightness-125 saturate-0"
                             src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg?w=2000"
                             alt=""> -->
-                        <img class="absolute inset-0 size-full object-cover"
+                        <NuxtImg class="absolute inset-0 size-full object-cover"
                             src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg"
-                            alt="">
+                            alt="Familia con llaves de su nueva casa"
+                            format="webp"
+                            quality="85"
+                            sizes="sm:100vw lg:600px"
+                            loading="lazy" />
                         <!-- <div class="absolute inset-0 bg-primary mix-blend-multiply"></div>
                         <div class="absolute top-1/2 left-1/2 -ml-16 -translate-x-1/2 -translate-y-1/2 transform-gpu blur-3xl"
                             aria-hidden="true">
@@ -235,7 +247,7 @@ const carouselConfig = {
         <Carousel v-bind="carouselConfig" class="mt-16">
             <Slide v-for="(n, index) in store.services" :key="index" class="pb-8 px-1 md:px-0">
                 <div class="max-w-sm rounded-3xl overflow-hidden shadow-lg shadow-primary/5">
-                    <img class="w-full h-52 object-center object-cover" :src="n.image" alt="">
+                    <NuxtImg class="w-full h-52 object-center object-cover" :src="n.image" :alt="n.title" format="webp" quality="80" sizes="sm:100vw md:400px" loading="lazy" />
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2 text-primary">{{ n.title }}</div>
                         <p class="text-base line-clamp-3">{{ n.intro }}</p>
@@ -265,9 +277,13 @@ const carouselConfig = {
                 class="mx-auto flex max-w-2xl mt-16 flex-col items-start justify-around gap-16 lg:mx-0 lg:max-w-none lg:flex-row">
                 <div class="w-full lg:max-w-xl lg:flex-auto">
 
-                    <img src="https://img.freepik.com/fotos-premium/gente-sentada-acera-texto-fondo_1048944-7461820.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt=""
-                        class="aspect-6/5 w-full rounded-2xl bg-gray-50 object-cover object-right lg:aspect-auto lg:h-[34.5rem]">
+                    <NuxtImg src="https://img.freepik.com/fotos-premium/gente-sentada-acera-texto-fondo_1048944-7461820.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
+                        alt="Personas leyendo información sobre inversiones"
+                        class="aspect-6/5 w-full rounded-2xl bg-gray-50 object-cover object-right lg:aspect-auto lg:h-[34.5rem]"
+                        format="webp"
+                        quality="80"
+                        sizes="sm:100vw lg:600px"
+                        loading="lazy" />
                 </div>
                 <div class="w-full lg:max-w-2xl">
                     <h3 class="sr-only">Artículos</h3>
@@ -326,9 +342,13 @@ const carouselConfig = {
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
-                    <img class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
+                    <NuxtImg class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
                         src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt="App screenshot">
+                        alt="Familia feliz celebrando compra de casa"
+                        format="webp"
+                        quality="80"
+                        sizes="sm:100vw lg:736px"
+                        loading="lazy" />
                 </div>
             </div>
         </div>
@@ -353,13 +373,13 @@ const carouselConfig = {
                     </blockquote>
                     <figcaption
                         class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-primary/10 px-6 py-4 sm:flex-nowrap">
-                        <img class="size-10 flex-none rounded-full bg-gray-50" src="/testimonials/juancamilolave.jpeg"
-                            alt="Ingrid Yurley Fajardo Contreras">
+                        <NuxtImg class="size-10 flex-none rounded-full bg-gray-50" src="/testimonials/juancamilolave.jpeg"
+                            alt="Juan Camilo Manrique Olave" format="webp" quality="75" sizes="40px" loading="lazy" />
                         <div class="flex-auto">
                             <div class="font-semibold">Juan Camilo Manrique Olave</div>
                             <div class="text-gray-500">@juancamilolave</div>
                         </div>
-                        <!-- <img class="h-10 w-auto flex-none"
+                        <!-- <NuxtImg class="h-10 w-auto flex-none"
                             src="/testimonials/ingrid-yurley.jpeg" alt="Ingrid Yurley Fajardo Contreras"> -->
                     </figcaption>
                 </figure>
@@ -373,7 +393,7 @@ const carouselConfig = {
                                     y confiable.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/nafyc_moda.jpeg" alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/nafyc_moda.jpeg" alt="Ingrid Yurley Fajardo Contreras" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">Ingrid Yurley Fajardo Contreras</div>
                                     <div class="text-gray-500">@nafyc_moda</div>
@@ -388,7 +408,7 @@ const carouselConfig = {
                                     agradecida, ¡100 de 10!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/bibiana.jpeg" alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/bibiana.jpeg" alt="Bibiana Patricia Velásquez Velásquez" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">Bibiana Patricia Velásquez Velásquez</div>
                                     <!-- <div class="text-gray-500">@Gecortes92</div> -->
@@ -408,7 +428,7 @@ const carouselConfig = {
                                     complicaciones. ¡Muy feliz con el resultado y los recomiendo totalmente!”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/Gecortes92.jpeg" alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/Gecortes92.jpeg" alt="German Enrique Cortés Hernández" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">German Enrique Cortés Hernández</div>
                                     <div class="text-gray-500">@Gecortes92</div>
@@ -429,8 +449,8 @@ const carouselConfig = {
                                     gracias por la excelencia que tuvieron con mi caso.⭐️”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/milufitoficial.jpeg"
-                                    alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/milufitoficial.jpeg"
+                                    alt="Cindy Sánchez" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">Cindy Sánchez</div>
                                     <div class="text-gray-500">@milufitoficial</div>
@@ -466,7 +486,7 @@ const carouselConfig = {
                                     Gracias mil veces por su apoyo incondicional.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/dmilenep.jpeg" alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/dmilenep.jpeg" alt="Diana Piedrahíta" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">Diana Piedrahíta</div>
                                     <div class="text-gray-500">@leonardkrasner</div>
@@ -483,7 +503,7 @@ const carouselConfig = {
                                     y muy profesionales, los recomiendo.”</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
-                                <img class="size-10 rounded-full bg-gray-50" src="/testimonials/Elena.jpeg" alt="">
+                                <NuxtImg class="size-10 rounded-full bg-gray-50" src="/testimonials/Elena.jpeg" alt="Elena Marcela Quiroga Imparato" format="webp" quality="75" sizes="40px" loading="lazy" />
                                 <div>
                                     <div class="font-semibold">Elena Marcela Quiroga Imparato</div>
                                     <!-- <div class="text-gray-500">@leonardkrasner</div> -->

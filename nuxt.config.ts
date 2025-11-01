@@ -47,7 +47,25 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-gtag",
     "@saslavik/nuxt-gtm",
+    "@nuxt/image",
   ],
+
+  // Configuración de @nuxt/image
+  image: {
+    // Formatos de salida optimizados
+    format: ['webp', 'avif'],
+    // Calidad por defecto
+    quality: 80,
+    // Tamaños responsivos
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+  },
 
   gtag: {
     enabled: process.env.NODE_ENV === "production",

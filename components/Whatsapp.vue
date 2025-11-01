@@ -200,8 +200,8 @@ ${form.value.message}
             'w-16 h-16',
             { 'hidden lg:block': open }
         ]" @click.prevent="open = !open">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                class="h-full w-full object-center object-cover" alt="">
+            <NuxtImg src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                class="h-full w-full object-center object-cover" alt="WhatsApp" format="webp" quality="85" sizes="64px" loading="lazy" />
         </button>
     </div>
 </template>
