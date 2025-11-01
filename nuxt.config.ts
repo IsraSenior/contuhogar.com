@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     "vue3-carousel-nuxt",
     "@pinia/nuxt",
     "nuxt-gtag",
-    "@zadigetvoltaire/nuxt-gtm",
+    "@saslavik/nuxt-gtm",
   ],
 
   gtag: {
