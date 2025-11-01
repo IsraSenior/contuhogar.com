@@ -56,9 +56,13 @@ useSeoMeta({
                         </dl>
                     </div> -->
                     <div class="relative w-full">
-                        <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-top object-cover max-h-[400px]"
+                        <NuxtImg class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-top object-cover max-h-[400px]"
                             src="https://img.freepik.com/foto-gratis/retrato-nina-linda-que-pone-dinero-alcancia-rosa-ahorrar-juguete-nuevo-ella-su-hermano-pequeno_662251-568.jpg"
-                            alt="">
+                            alt="Niña ahorrando dinero en alcancía"
+                            format="webp"
+                            quality="80"
+                            sizes="sm:100vw md:50vw lg:400px"
+                            loading="lazy" />
                     </div>
                 </div>
 
@@ -110,8 +114,12 @@ useSeoMeta({
             <ul role="list"
                 class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
                 <li v-for="(staff, index) in store.team" :key="index">
-                    <img class="aspect-14/13 w-full rounded-2xl object-cover object-top bg-muted" :src="staff?.image"
-                        :alt="staff?.name">
+                    <NuxtImg class="aspect-14/13 w-full rounded-2xl object-cover object-top bg-muted" :src="staff?.image"
+                        :alt="staff?.name"
+                        format="webp"
+                        quality="75"
+                        sizes="sm:100vw md:50vw lg:300px"
+                        loading="lazy" />
                     <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}</h3>
                     <p class="text-base/7 text-gray-500">{{ staff?.title }}</p>
                     <!-- <p class="text-sm/6 text-gray-500">Toronto, Canada</p> -->
@@ -138,9 +146,13 @@ useSeoMeta({
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
-                    <img class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
+                    <NuxtImg class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
                         src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt="App screenshot">
+                        alt="Familia feliz celebrando compra de casa"
+                        format="webp"
+                        quality="80"
+                        sizes="sm:100vw lg:736px"
+                        loading="lazy" />
                 </div>
             </div>
         </div>

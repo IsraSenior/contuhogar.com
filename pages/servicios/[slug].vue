@@ -186,8 +186,8 @@ const showMore = ref(false)
                 </div>
 
                 <div class=" pb-16 px-5 lg:col-span-2 relative">
-                    <img class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-center object-cover"
-                        :src="currentService?.image" :alt="currentService?.title">
+                    <NuxtImg class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-center object-cover"
+                        :src="currentService?.image" :alt="currentService?.title" format="webp" quality="80" sizes="sm:100vw lg:600px" loading="lazy" />
                 </div>
             </div>
         </div>

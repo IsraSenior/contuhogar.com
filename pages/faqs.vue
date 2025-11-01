@@ -32,9 +32,13 @@ useSeoMeta({
                             Ponte en contacto con <a href="#"
                                 class="font-semibold text-secondary hover:text-primary">nuestro equipo de soporte</a>.
                         </p>
-                        <img class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
+                        <NuxtImg class="aspect-square w-full bg-gray-50 object-cover mt-10 rounded-3xl"
                             src="https://img.freepik.com/foto-gratis/colegas-trabajando-juntos-oficina_23-2148738270.jpg"
-                            alt="">
+                            alt="Equipo trabajando en oficina"
+                            format="webp"
+                            quality="80"
+                            sizes="sm:100vw lg:500px"
+                            loading="lazy" />
                     </div>
                 </div>
                 <div class="mt-10 lg:col-span-7 lg:mt-0">
@@ -81,9 +85,13 @@ useSeoMeta({
                     </div>
                 </div>
                 <div class="relative mt-16 h-full lg:mt-8">
-                    <img class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
+                    <NuxtImg class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
                         src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt="">
+                        alt="Familia feliz celebrando compra de casa"
+                        format="webp"
+                        quality="80"
+                        sizes="sm:100vw lg:736px"
+                        loading="lazy" />
                 </div>
             </div>
         </div>
