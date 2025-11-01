@@ -24,6 +24,13 @@ const schema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  // Rate limiting: máximo 3 requests por 2 minutos (120 segundos)
+  await rateLimit(event, {
+    maxRequests: 3,
+    windowSeconds: 120,
+    message: "Has enviado demasiados mensajes. Por favor, espera un momento antes de intentarlo de nuevo.",
+  });
+
   const body = await readBody(event);
 
   // Rechaza si el payload es muy grande (spam/bot)
@@ -43,19 +50,6 @@ export default defineEventHandler(async (event) => {
       message: "Errores de validación en el formulario", // descripción larga
       data: data.error.flatten(), // detalle de errores
     });
-  }
-
-  // Rate-limit simple por IP con header cf-connecting-ip / x-forwarded-for
-  const ip =
-    getRequestHeader(event, "cf-connecting-ip") ||
-    getRequestHeader(event, "x-forwarded-for") ||
-    getRequestHeader(event, "x-real-ip") ||
-    "0.0.0.0";
-
-  // (Opcional) Puedes implementar un pequeño bucket en memoria/redis.
-  // Aquí solo comprobamos que exista IP.
-  if (!ip) {
-    throw createError({ statusCode: 400, statusMessage: "Solicitud inválida" });
   }
 
   const config = useRuntimeConfig();

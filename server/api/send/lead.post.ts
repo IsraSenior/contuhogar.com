@@ -12,6 +12,13 @@ type Body = {
 };
 
 export default defineEventHandler(async (event) => {
+  // Rate limiting: máximo 5 requests por 5 minutos (300 segundos)
+  await rateLimit(event, {
+    maxRequests: 5,
+    windowSeconds: 300,
+    message: "Has enviado demasiados mensajes. Por favor, espera un momento antes de intentarlo de nuevo.",
+  });
+
   const config = useRuntimeConfig();
 
   const resendApi = config.RESEND_API_KEY as string | undefined;
