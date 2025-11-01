@@ -7,7 +7,12 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "directus:schema": "npx tsx scripts/directus-schema-export.ts",
+    "directus:types": "npx tsx scripts/directus-generate-types.ts",
+    "directus:snapshot": "npx tsx scripts/directus-snapshot.ts",
+    "directus:snapshot:create": "npx tsx scripts/directus-snapshot.ts create",
+    "directus:snapshot:list": "npx tsx scripts/directus-snapshot.ts list"
   },
   "dependencies": {
     "@directus/sdk": "20.1.0",

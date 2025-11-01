@@ -22,3 +22,9 @@ logs
 .env
 .env.*
 !.env.example
+
+# Directus
+directus/schema.json
+# Pero sí incluir snapshots y tipos
+!directus/snapshots/
+!directus/README.md
