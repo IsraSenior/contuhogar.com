@@ -1,18 +1,12 @@
 <script setup>
-const title = `ConTuHogar | Términos y condiciones`;
-const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
+const title = `Términos y Condiciones | ConTuHogar`;
+const description = "Lee los términos y condiciones de uso de los servicios de asesoría financiera e inmobiliaria de ConTuHogar. Conoce tus derechos y obligaciones."
 
-useSeoMeta({
+// SEO optimizado
+useSeo({
     title: title,
     description: description,
-    ogTitle: title,
-    ogDescription: description,
-    // ogImage: '[og:image]',
-    ogUrl: "https://contuhogar.com",
-    twitterTitle: title,
-    twitterDescription: description,
-    // twitterImage: '[twitter:image]',
-    twitterCard: 'summary'
+    type: 'website'
 })
 </script>
 

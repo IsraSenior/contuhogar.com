@@ -1,19 +1,48 @@
 <script setup>
-const title = `ConTuHogar | Blog`;
-const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
+const route = useRoute()
 
-useSeoMeta({
-    title: title,
-    description: description,
-    ogTitle: title,
-    ogDescription: description,
-    // ogImage: '[og:image]',
-    ogUrl: "https://contuhogar.com",
-    twitterTitle: title,
-    twitterDescription: description,
-    // twitterImage: '[twitter:image]',
-    twitterCard: 'summary'
+// Datos del artículo (en el futuro vendrán de Directus o CMS)
+const articleData = {
+    title: 'Aprovecha el poder de las tasas de cambio a tu favor',
+    subtitle: 'El momento es ahora',
+    description: 'Descubre cómo los colombianos en el exterior pueden aprovechar las tasas de cambio para invertir en vivienda propia en Colombia con mejores condiciones.',
+    author: 'Alejandra Pérez C.',
+    publishedDate: '2024-01-15',
+    modifiedDate: '2024-01-15',
+    slug: route.params.slug
+}
+
+// SEO optimizado para artículo
+useSeo({
+    title: `${articleData.title} | Blog ConTuHogar`,
+    description: articleData.description,
+    type: 'article',
+    article: {
+        publishedTime: articleData.publishedDate,
+        modifiedTime: articleData.modifiedDate,
+        author: articleData.author,
+        section: 'Inversión Inmobiliaria',
+        tags: ['Inversión', 'Vivienda', 'Tasas de Cambio', 'Colombianos en el Exterior']
+    }
 })
+
+// Structured data para artículo
+useArticleSchema({
+    title: articleData.title,
+    description: articleData.description,
+    image: 'https://contuhogar.com/og-image.jpg', // Agregar imagen específica del artículo
+    datePublished: articleData.publishedDate,
+    dateModified: articleData.modifiedDate,
+    author: articleData.author,
+    url: `https://contuhogar.com/blog/${articleData.slug}`
+})
+
+// Breadcrumb para mejor SEO
+useBreadcrumbSchema([
+    { name: 'Inicio', url: 'https://contuhogar.com' },
+    { name: 'Blog', url: 'https://contuhogar.com/blog' },
+    { name: articleData.title, url: `https://contuhogar.com/blog/${articleData.slug}` }
+])
 </script>
 
 <template>
