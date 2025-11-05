@@ -29,11 +29,11 @@ const schema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
-  // Rate limiting: máximo 3 requests por 2 minutos (120 segundos)
+  // Rate limiting: máximo 5 requests por 5 minutos (300 segundos)
   await rateLimit(event, {
-    maxRequests: 3,
-    windowSeconds: 120,
-    message: "Has enviado demasiados mensajes. Por favor, espera un momento antes de intentarlo de nuevo.",
+    maxRequests: 5,
+    windowSeconds: 300,
+    message: "Has alcanzado el límite de envíos. Por favor, espera unos minutos antes de intentarlo de nuevo.",
   });
 
   const body = await readBody(event);
