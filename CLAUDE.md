@@ -9,20 +9,20 @@ This is a Nuxt 3 application for ConTuHogar, a financial services company specia
 ## Development Commands
 
 ```bash
-# Install dependencies (using Yarn - see packageManager in package.json)
-yarn install
+# Install dependencies (using pnpm - see packageManager in package.json)
+pnpm install
 
 # Start development server (runs on http://localhost:3000)
-yarn dev
+pnpm dev
 
 # Build for production
-yarn build
+pnpm build
 
 # Preview production build locally
-yarn preview
+pnpm preview
 
 # Prepare Nuxt (runs automatically after install)
-yarn postinstall
+pnpm postinstall
 ```
 
 ## Architecture Overview
@@ -192,8 +192,8 @@ Components in `components/` directory are auto-imported - no need for manual imp
 
 ## Important Notes
 
-- The package manager is **Yarn 1.22.22** (specified in `package.json`)
-- Store file is `.js` (not TypeScript) - maintain JavaScript for this file
+- The package manager is **pnpm 9.15.0** (specified in `package.json`)
+- Store file migrated to TypeScript (`stores/index.ts`)
 - Analytics/GTM only enabled in production (`NODE_ENV === "production"`)
 - Email sender is "admin@contuhogar.com" with BCC to developer email
 - Website targets Colombian market and Colombians living abroad
