@@ -20,7 +20,20 @@ useLocalBusinessSchema()
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()
 
 // CAPTCHA
-const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha } = useCaptcha()
+const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha, generateCaptcha } = useCaptcha()
+const captchaQuestion = ref<string>('')
+
+// Generate initial CAPTCHA question
+onMounted(() => {
+    const { question } = generateCaptcha()
+    captchaQuestion.value = question
+})
+
+// Handle CAPTCHA refresh
+const handleCaptchaRefresh = () => {
+    const { question } = resetCaptcha()
+    captchaQuestion.value = question
+}
 
 const phoneDropdown = ref({
     status: true,
@@ -123,7 +136,8 @@ ${form.value.message}
                 form.value.message = ''
 
                 // Reset CAPTCHA y tracking
-                resetCaptcha()
+                const { question } = resetCaptcha()
+                captchaQuestion.value = question
                 hasTrackedStart.value = false
             }
 
@@ -135,7 +149,8 @@ ${form.value.message}
         errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
 
         // Reset CAPTCHA en caso de error
-        resetCaptcha()
+        const { question } = resetCaptcha()
+        captchaQuestion.value = question
 
         // Track form error
         trackFormError('contact_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -232,7 +247,7 @@ ${form.value.message}
 
                             <!-- CAPTCHA -->
                             <div class="sm:col-span-2">
-                                <SimpleCaptcha v-model="captchaUserAnswer" :error="captchaError" @refresh="resetCaptcha" />
+                                <SimpleCaptcha v-model="captchaUserAnswer" :question="captchaQuestion" :error="captchaError" @refresh="handleCaptchaRefresh" />
                             </div>
                         </div>
                         <div class="mt-10 flex justify-end border-t border-primary/10 pt-8">

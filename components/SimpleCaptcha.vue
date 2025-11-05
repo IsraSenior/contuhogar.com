@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 const props = defineProps<{
   modelValue: string
   error?: string
+  question: string
 }>()
 
 const emit = defineEmits<{
@@ -11,22 +12,13 @@ const emit = defineEmits<{
   'refresh': []
 }>()
 
-const { generateCaptcha } = useCaptcha()
-const captchaQuestion = ref<string>('')
-
-onMounted(() => {
-  refreshCaptcha()
-})
-
-const refreshCaptcha = () => {
-  const { question } = generateCaptcha()
-  captchaQuestion.value = question
-  emit('refresh')
-}
-
 const updateValue = (event: Event) => {
   const target = event.target as HTMLInputElement
   emit('update:modelValue', target.value)
+}
+
+const handleRefresh = () => {
+  emit('refresh')
 }
 </script>
 
@@ -39,13 +31,13 @@ const updateValue = (event: Event) => {
     <div class="flex items-center gap-2">
       <!-- Pregunta del CAPTCHA -->
       <div class="flex-1 bg-gray-100 rounded-md px-4 py-3 border border-gray-300">
-        <p class="text-base font-medium text-primary">{{ captchaQuestion }}</p>
+        <p class="text-base font-medium text-primary">{{ question }}</p>
       </div>
 
       <!-- Botón de refrescar -->
       <button
         type="button"
-        @click="refreshCaptcha"
+        @click="handleRefresh"
         class="p-3 rounded-md bg-gray-100 border border-gray-300 hover:bg-gray-200 transition-colors"
         title="Generar nueva pregunta"
       >

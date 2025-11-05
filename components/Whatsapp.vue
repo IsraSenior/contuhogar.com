@@ -10,7 +10,20 @@ import dialPhoneOptions from "@/db/tlf-dial.json";
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError, trackWhatsAppClick } = useTracking()
 
 // CAPTCHA
-const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha } = useCaptcha()
+const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha, generateCaptcha } = useCaptcha()
+const captchaQuestion = ref<string>('')
+
+// Generate initial CAPTCHA question
+onMounted(() => {
+    const { question } = generateCaptcha()
+    captchaQuestion.value = question
+})
+
+// Handle CAPTCHA refresh
+const handleCaptchaRefresh = () => {
+    const { question } = resetCaptcha()
+    captchaQuestion.value = question
+}
 
 const phoneDropdown = ref({
     status: true,
@@ -139,7 +152,8 @@ ${form.value.message}
                 form.value.message = ''
 
                 // Reset CAPTCHA, tracking y step
-                resetCaptcha()
+                const { question } = resetCaptcha()
+                captchaQuestion.value = question
                 hasTrackedStart.value = false
                 currentStep.value = 1
             }
@@ -152,7 +166,8 @@ ${form.value.message}
         errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
 
         // Reset CAPTCHA en caso de error
-        resetCaptcha()
+        const { question } = resetCaptcha()
+        captchaQuestion.value = question
 
         // Track form error
         trackFormError('whatsapp_widget_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -181,7 +196,7 @@ const stepTitles = [
             leave-to-class="translate-x-full translate-y-full opacity-0 scale-0">
             <div v-if="open" class="w-screen h-screen lg:h-auto lg:w-full lg:max-w-md bg-white shadow-2xl lg:rounded-3xl relative flex flex-col">
                 <!-- Header -->
-                <div class="relative bg-gradient-to-r from-primary to-secondary text-white px-6 py-6 lg:rounded-t-3xl">
+                <div class="relative bg-primary text-white px-6 py-6 lg:rounded-t-3xl">
                     <button class="absolute right-4 top-4 text-white hover:text-gray-200 transition-colors"
                         @click.prevent="open = false">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -288,7 +303,7 @@ const stepTitles = [
 
                     <!-- Step 4: CAPTCHA -->
                     <div v-show="currentStep === 4" class="space-y-4">
-                        <SimpleCaptcha v-model="captchaUserAnswer" :error="captchaError" @refresh="resetCaptcha" />
+                        <SimpleCaptcha v-model="captchaUserAnswer" :question="captchaQuestion" :error="captchaError" @refresh="handleCaptchaRefresh" />
 
                         <div v-if="state === 'success'" class="p-4 bg-green-50 border border-green-200 rounded-lg">
                             <p class="text-green-700 text-sm">¡Gracias! Te contactaremos pronto.</p>
