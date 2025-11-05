@@ -13,6 +13,9 @@ const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError, track
 const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha, generateCaptcha } = useCaptcha()
 const captchaQuestion = ref<string>('')
 
+// Rate limiting info
+const { remainingAttemptsMessage, isNearLimit } = useRateLimit()
+
 // Generate initial CAPTCHA question
 onMounted(() => {
     const { question } = generateCaptcha()
@@ -163,7 +166,15 @@ ${form.value.message}
         }
     } catch (e: any) {
         state.value = 'error'
-        errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
+
+        // Manejo especial para rate limiting (429)
+        if (e?.statusCode === 429) {
+            const retryAfter = e?.data?.retryAfter
+            const minutes = retryAfter ? Math.ceil(retryAfter / 60) : 5
+            errorMsg.value = `Has alcanzado el límite de intentos. Por favor, espera ${minutes} minuto${minutes > 1 ? 's' : ''} antes de intentarlo de nuevo.`
+        } else {
+            errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
+        }
 
         // Reset CAPTCHA en caso de error
         const { question } = resetCaptcha()
@@ -304,6 +315,11 @@ const stepTitles = [
                     <!-- Step 4: CAPTCHA -->
                     <div v-show="currentStep === 4" class="space-y-4">
                         <SimpleCaptcha v-model="captchaUserAnswer" :question="captchaQuestion" :error="captchaError" @refresh="handleCaptchaRefresh" />
+
+                        <!-- Rate limit warning -->
+                        <div v-if="remainingAttemptsMessage && isNearLimit" class="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                            <p class="text-orange-700 text-sm font-medium">⚠️ {{ remainingAttemptsMessage }}</p>
+                        </div>
 
                         <div v-if="state === 'success'" class="p-4 bg-green-50 border border-green-200 rounded-lg">
                             <p class="text-green-700 text-sm">¡Gracias! Te contactaremos pronto.</p>
