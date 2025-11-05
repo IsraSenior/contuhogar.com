@@ -7,6 +7,9 @@ import dialPhoneOptions from "@/db/tlf-dial.json";
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError, trackWhatsAppClick } = useTracking()
 
+// CAPTCHA
+const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha } = useCaptcha()
+
 const phoneDropdown = ref({
     status: true,
     selected: {
@@ -51,6 +54,11 @@ const onFormInteraction = () => {
 }
 
 const onSubmit = async () => {
+    // Validar CAPTCHA primero
+    if (!validateCaptcha()) {
+        return
+    }
+
     state.value = 'loading'
     errorMsg.value = ''
     form.value.source_page = fullPath.value
@@ -64,7 +72,11 @@ const onSubmit = async () => {
     try {
         const res = await $fetch('/api/contact', {
             method: 'POST',
-            body: form.value
+            body: {
+                ...form.value,
+                _captchaAnswer: captchaAnswer.value,
+                _captchaUserAnswer: parseInt(captchaUserAnswer.value)
+            }
         })
         if ((res as any)?.ok) {
 
@@ -96,7 +108,8 @@ ${form.value.message}
                 form.value.phone = ''
                 form.value.message = ''
 
-                // Reset tracking flag
+                // Reset CAPTCHA y tracking
+                resetCaptcha()
                 hasTrackedStart.value = false
             }
 
@@ -105,7 +118,10 @@ ${form.value.message}
         }
     } catch (e: any) {
         state.value = 'error'
-        errorMsg.value = e?.data?.statusMessage || e?.message || 'Error al enviar'
+        errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
+
+        // Reset CAPTCHA en caso de error
+        resetCaptcha()
 
         // Track form error
         trackFormError('whatsapp_widget_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -209,6 +225,11 @@ ${form.value.message}
                                 aria-describedby="message-description"
                                 class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
                         </div>
+                    </div>
+
+                    <!-- CAPTCHA -->
+                    <div>
+                        <SimpleCaptcha v-model="captchaUserAnswer" :error="captchaError" @refresh="resetCaptcha" />
                     </div>
 
                     <div class="w-full flex justify-end">
