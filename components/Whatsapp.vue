@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const open = ref(false)
 const route = useRoute();
+const currentStep = ref(1)
+const totalSteps = 4
 
 import dialPhoneOptions from "@/db/tlf-dial.json";
 
@@ -40,6 +42,7 @@ const hasTrackedStart = ref(false)
 watch(open, (newVal) => {
     if (newVal) {
         trackWhatsAppClick('floating_widget')
+        currentStep.value = 1 // Reset to step 1 when opening
     }
 })
 
@@ -52,6 +55,33 @@ const onFormInteraction = () => {
         form.value._formStartTime = Date.now()
     }
 }
+
+// Step navigation
+const nextStep = () => {
+    if (currentStep.value < totalSteps) {
+        currentStep.value++
+    }
+}
+
+const prevStep = () => {
+    if (currentStep.value > 1) {
+        currentStep.value--
+    }
+}
+
+// Step validation
+const canProceedFromStep1 = computed(() => {
+    return form.value.firstName.trim().length >= 2 && form.value.lastName.trim().length >= 2
+})
+
+const canProceedFromStep2 = computed(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(form.value.email) && form.value.phone.trim().length >= 5
+})
+
+const canProceedFromStep3 = computed(() => {
+    return form.value.message.trim().length >= 10
+})
 
 const onSubmit = async () => {
     // Validar CAPTCHA primero
@@ -108,9 +138,10 @@ ${form.value.message}
                 form.value.phone = ''
                 form.value.message = ''
 
-                // Reset CAPTCHA y tracking
+                // Reset CAPTCHA, tracking y step
                 resetCaptcha()
                 hasTrackedStart.value = false
+                currentStep.value = 1
             }
 
         } else {
@@ -127,6 +158,13 @@ ${form.value.message}
         trackFormError('whatsapp_widget_form', form.value.source_page, 'submit_failed', errorMsg.value)
     }
 }
+
+const stepTitles = [
+    '¿Cómo te llamas?',
+    'Datos de contacto',
+    'Cuéntanos más',
+    'Verificación'
+]
 </script>
 
 <template>
@@ -141,89 +179,106 @@ ${form.value.message}
             leave-from-class="translate-x-0 translate-y-0 opacity-100"
             leave-active-class="transition duration-500 ease-in"
             leave-to-class="translate-x-full translate-y-full opacity-0 scale-0">
-            <div v-if="open" :class="[
-                { 'w-screen h-full lg:auto lg:w-full lg:max-w-96 bg-white shadow-2xl shadow-primary/5 lg:rounded-3xl  py-12 px-6 relative': open },
-                { '': !open }
-            ]">
-                <button class="absolute right-5 top-3 md:top-5 text-primary hover:text-secondary cursor-pointer"
-                    @click.prevent="open = false">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
-                        stroke="currentColor" class="size-10">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </button>
+            <div v-if="open" class="w-screen h-screen lg:h-auto lg:w-full lg:max-w-md bg-white shadow-2xl lg:rounded-3xl relative flex flex-col">
+                <!-- Header -->
+                <div class="relative bg-gradient-to-r from-primary to-secondary text-white px-6 py-6 lg:rounded-t-3xl">
+                    <button class="absolute right-4 top-4 text-white hover:text-gray-200 transition-colors"
+                        @click.prevent="open = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
 
-                <form @submit.prevent="onSubmit" class="grid grid-cols-1 gap-x-8 gap-y-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <NuxtImg src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                            class="w-10 h-10" alt="WhatsApp" format="webp" quality="85" sizes="40px" />
+                        <div>
+                            <h3 class="text-lg font-semibold">Contáctanos</h3>
+                            <p class="text-sm text-white/90">Te responderemos pronto</p>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div class="flex gap-1">
+                        <div v-for="step in totalSteps" :key="step"
+                             class="flex-1 h-1 rounded-full transition-all duration-300"
+                             :class="step <= currentStep ? 'bg-white' : 'bg-white/30'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Content -->
+                <div class="flex-1 overflow-y-auto px-6 py-6">
+                    <!-- Honeypot -->
                     <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1"
                         autocomplete="off" />
 
-                    <div>
-                        <label for="first-name" class="block text-sm/6 font-semibold text-primary">Nombres</label>
-                        <div class="mt-2.5">
+                    <!-- Step indicator -->
+                    <div class="mb-6">
+                        <p class="text-sm text-gray-500">Paso {{ currentStep }} de {{ totalSteps }}</p>
+                        <h4 class="text-xl font-semibold text-primary mt-1">{{ stepTitles[currentStep - 1] }}</h4>
+                    </div>
+
+                    <!-- Step 1: Name -->
+                    <div v-show="currentStep === 1" class="space-y-4">
+                        <div>
+                            <label for="first-name" class="block text-sm font-semibold text-primary mb-2">Nombres</label>
                             <input type="text" name="first-name" id="first-name" v-model="form.firstName"
                                 autocomplete="given-name"
                                 @focus="onFormInteraction"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                                placeholder="Ej: Juan"
+                                class="block w-full rounded-lg bg-gray-50 px-4 py-3 text-base text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all"
                                 required>
                         </div>
-                    </div>
-
-                    <div>
-                        <label for="last-name" class="block text-sm/6 font-semibold text-primary">Apellidos</label>
-                        <div class="mt-2.5">
+                        <div>
+                            <label for="last-name" class="block text-sm font-semibold text-primary mb-2">Apellidos</label>
                             <input type="text" name="last-name" id="last-name" v-model="form.lastName"
                                 autocomplete="family-name"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                                placeholder="Ej: Pérez"
+                                class="block w-full rounded-lg bg-gray-50 px-4 py-3 text-base text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all"
                                 required>
                         </div>
                     </div>
 
-                    <div>
-                        <label for="email" class="block text-sm/6 font-semibold text-primary">Correo
-                            electrónico</label>
-                        <div class="mt-2.5">
-                            <input id="email" name="email" type="email" v-model="form.email" autocomplete="email"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                    <!-- Step 2: Contact -->
+                    <div v-show="currentStep === 2" class="space-y-4">
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-primary mb-2">Correo electrónico</label>
+                            <input id="email" name="email" type="email" v-model="form.email"
+                                autocomplete="email"
+                                placeholder="tu@email.com"
+                                class="block w-full rounded-lg bg-gray-50 px-4 py-3 text-base text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all"
                                 required>
                         </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-x-2 gap-y-6">
-                        <div class="col-span-1">
-                            <label for="phone" class="block font-semibold text-primary">Teléfono</label>
-                            <select v-model="form.dial" name="dial" id="dial" required
-                                class="block w-full rounded-md bg-white px-3.5 mt-2 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
-                                <option v-for="(option, index) in phoneDropdown.options" :value="option">{{
-                                    option.flag
-                                }} {{ option.code }}</option>
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <div class="flex justify-between text-sm/6">
-                                <span></span>
-                                <span></span>
-                                <!-- <p id="phone-description" class="text-gray-400 text-sm">Optional</p> -->
-                            </div>
-                            <div class="mt-8">
-                                <input type="tel" name="phone" id="phone" v-model="form.phone" autocomplete="tel"
-                                    aria-describedby="phone-description"
-                                    class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
+                        <div>
+                            <label class="block text-sm font-semibold text-primary mb-2">Teléfono</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <select v-model="form.dial" name="dial" id="dial" required
+                                    class="col-span-1 rounded-lg bg-gray-50 px-3 py-3 text-sm text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all">
+                                    <option v-for="(option, index) in phoneDropdown.options" :value="option">
+                                        {{ option.flag }} {{ option.code }}
+                                    </option>
+                                </select>
+                                <input type="tel" name="phone" id="phone" v-model="form.phone"
+                                    autocomplete="tel"
+                                    placeholder="3001234567"
+                                    class="col-span-2 rounded-lg bg-gray-50 px-4 py-3 text-base text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all"
                                     required>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="flex justify-between text-sm/6">
-                            <label for="message" class="block text-sm/6 font-semibold text-primary">
-                                Mensaje</label>
-                        </div>
-                        <div class="mt-2.5 relative">
-                            <textarea id="message" name="message" v-model="form.message" rows="4"
+                    <!-- Step 3: Message -->
+                    <div v-show="currentStep === 3" class="space-y-4">
+                        <div class="relative">
+                            <label for="message" class="block text-sm font-semibold text-primary mb-2">
+                                ¿En qué podemos ayudarte?
+                            </label>
+                            <textarea id="message" name="message" v-model="form.message" rows="6"
                                 maxlength="500"
-                                aria-describedby="message-description"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 pb-8 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
+                                placeholder="Cuéntanos sobre tu proyecto..."
+                                class="block w-full rounded-lg bg-gray-50 px-4 py-3 pb-8 text-base text-primary border-2 border-transparent focus:border-primary focus:bg-white transition-all resize-none"></textarea>
                             <div class="absolute bottom-2 right-3 text-xs"
                                  :class="form.message.length > 500 ? 'text-red-600 font-semibold' : form.message.length > 450 ? 'text-orange-600' : 'text-gray-400'">
                                 {{ form.message.length }}/500
@@ -231,27 +286,74 @@ ${form.value.message}
                         </div>
                     </div>
 
-                    <!-- CAPTCHA -->
-                    <div>
+                    <!-- Step 4: CAPTCHA -->
+                    <div v-show="currentStep === 4" class="space-y-4">
                         <SimpleCaptcha v-model="captchaUserAnswer" :error="captchaError" @refresh="resetCaptcha" />
-                    </div>
 
-                    <div class="w-full flex justify-end">
-                        <button type="submit" class="btn primary w-full" :disabled="state === 'loading'">
-                            <span v-if="state === 'loading'">Enviando…</span>
-                            <span v-else>Enviar</span>
+                        <div v-if="state === 'success'" class="p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <p class="text-green-700 text-sm">¡Gracias! Te contactaremos pronto.</p>
+                        </div>
+                        <div v-else-if="state === 'error'" class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <p class="text-red-700 text-sm">{{ errorMsg }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer with navigation -->
+                <div class="px-6 py-4 border-t border-gray-100 lg:rounded-b-3xl bg-gray-50">
+                    <div class="flex gap-3">
+                        <button v-if="currentStep > 1 && currentStep < totalSteps"
+                                type="button"
+                                @click="prevStep"
+                                class="px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:border-gray-400 transition-all">
+                            Atrás
+                        </button>
+
+                        <button v-if="currentStep === 1"
+                                type="button"
+                                @click="nextStep"
+                                :disabled="!canProceedFromStep1"
+                                class="flex-1 px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                :class="canProceedFromStep1 ? 'bg-primary text-white hover:bg-primary/90' : 'bg-gray-300 text-gray-500'">
+                            Continuar
+                        </button>
+
+                        <button v-else-if="currentStep === 2"
+                                type="button"
+                                @click="nextStep"
+                                :disabled="!canProceedFromStep2"
+                                class="flex-1 px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                :class="canProceedFromStep2 ? 'bg-primary text-white hover:bg-primary/90' : 'bg-gray-300 text-gray-500'">
+                            Continuar
+                        </button>
+
+                        <button v-else-if="currentStep === 3"
+                                type="button"
+                                @click="nextStep"
+                                :disabled="!canProceedFromStep3"
+                                class="flex-1 px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                :class="canProceedFromStep3 ? 'bg-primary text-white hover:bg-primary/90' : 'bg-gray-300 text-gray-500'">
+                            Continuar
+                        </button>
+
+                        <button v-else-if="currentStep === 4"
+                                type="button"
+                                @click="onSubmit"
+                                :disabled="state === 'loading'"
+                                class="flex-1 px-6 py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                            <svg v-if="state === 'loading'" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>{{ state === 'loading' ? 'Enviando...' : 'Enviar por WhatsApp' }}</span>
                         </button>
                     </div>
-
-                    <p v-if="state === 'success'" class="text-[green]">¡Gracias! Te contactaremos pronto.
-                    </p>
-                    <p v-else-if="state === 'error'" class="text-[red]">{{ errorMsg }}</p>
-                </form>
+                </div>
             </div>
         </Transition>
 
         <button :class="[
-            'w-16 h-16',
+            'w-16 h-16 shadow-lg hover:scale-110 transition-transform duration-300',
             { 'hidden lg:block': open }
         ]" @click.prevent="open = !open">
             <NuxtImg src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
