@@ -9,18 +9,20 @@ import {
 import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
 
 const schema = z.object({
-  firstName: z.string().min(2).max(60),
-  lastName: z.string().min(2).max(60),
-  email: z.string().email(),
+  firstName: z.string().min(2).max(60).trim(),
+  lastName: z.string().min(2).max(60).trim(),
+  email: z.string().email().toLowerCase(),
   dial: z.object({
     flag: z.string().min(1),
     code: z.string().min(1).max(6),
   }),
-  phone: z.string().min(5).max(25),
-  message: z.string().min(10).max(500),
+  phone: z.string().min(5).max(25).trim(),
+  message: z.string().min(10).max(500).trim().optional(),
   source_page: z.string().optional(),
   // Honeypot (debe venir vacío)
   website: z.string().max(0).optional().or(z.literal("")),
+  // Timestamp para validar tiempo mínimo de envío
+  _formStartTime: z.number().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -50,6 +52,31 @@ export default defineEventHandler(async (event) => {
       message: "Errores de validación en el formulario", // descripción larga
       data: data.error.flatten(), // detalle de errores
     });
+  }
+
+  // Honeypot validation - si tiene contenido, es spam/bot
+  if (data.data.website && data.data.website.length > 0) {
+    console.warn("Honeypot triggered - potential spam/bot detected");
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+    });
+  }
+
+  // Validación de tiempo mínimo (anti-bot): al menos 3 segundos
+  if (data.data._formStartTime) {
+    const now = Date.now();
+    const timeDiff = now - data.data._formStartTime;
+    const MIN_FORM_TIME = 3000; // 3 segundos
+
+    if (timeDiff < MIN_FORM_TIME) {
+      console.warn(`Form submitted too fast (${timeDiff}ms) - potential bot detected`);
+      throw createError({
+        statusCode: 400,
+        statusMessage: "Bad Request",
+        message: "Por favor, tómate un momento para completar el formulario.",
+      });
+    }
   }
 
   const config = useRuntimeConfig();

@@ -36,7 +36,8 @@ const form = ref({
     dial: phoneDropdown.value.selected,
     message: '',
     source_page: route.fullPath,
-    website: '' // honeypot (debe quedar vacío)
+    website: '', // honeypot (debe quedar vacío)
+    _formStartTime: 0 // timestamp para validación anti-bot
 })
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -48,6 +49,8 @@ const onFormInteraction = () => {
     if (!hasTrackedStart.value) {
         trackFormStart('contact_form', route.fullPath)
         hasTrackedStart.value = true
+        // Registrar timestamp de inicio del formulario
+        form.value._formStartTime = Date.now()
     }
 }
 
