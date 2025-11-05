@@ -23,6 +23,9 @@ const schema = z.object({
   website: z.string().max(0).optional().or(z.literal("")),
   // Timestamp para validar tiempo mínimo de envío
   _formStartTime: z.number().optional(),
+  // CAPTCHA validation
+  _captchaAnswer: z.number(),
+  _captchaUserAnswer: z.number(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -77,6 +80,16 @@ export default defineEventHandler(async (event) => {
         message: "Por favor, tómate un momento para completar el formulario.",
       });
     }
+  }
+
+  // CAPTCHA validation
+  if (data.data._captchaAnswer !== data.data._captchaUserAnswer) {
+    console.warn("CAPTCHA validation failed");
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Verificación anti-spam incorrecta. Por favor, intenta de nuevo.",
+    });
   }
 
   const config = useRuntimeConfig();
