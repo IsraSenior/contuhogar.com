@@ -218,12 +218,16 @@ ${form.value.message}
                         <div class="flex justify-between text-sm/6">
                             <label for="message" class="block text-sm/6 font-semibold text-primary">
                                 Mensaje</label>
-                            <p id="message-description" class="text-gray-400 text-sm">Max. 500 caracteres</p>
                         </div>
-                        <div class="mt-2.5">
+                        <div class="mt-2.5 relative">
                             <textarea id="message" name="message" v-model="form.message" rows="4"
+                                maxlength="500"
                                 aria-describedby="message-description"
-                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
+                                class="block w-full rounded-md bg-white px-3.5 py-2 pb-8 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
+                            <div class="absolute bottom-2 right-3 text-xs"
+                                 :class="form.message.length > 500 ? 'text-red-600 font-semibold' : form.message.length > 450 ? 'text-orange-600' : 'text-gray-400'">
+                                {{ form.message.length }}/500
+                            </div>
                         </div>
                     </div>
 
