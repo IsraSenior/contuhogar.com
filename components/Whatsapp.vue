@@ -25,7 +25,8 @@ const form = ref({
     dial: phoneDropdown.value.selected,
     message: '',
     source_page: '',
-    website: '' // honeypot (debe quedar vacío)
+    website: '', // honeypot (debe quedar vacío)
+    _formStartTime: 0 // timestamp para validación anti-bot
 })
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -44,6 +45,8 @@ const onFormInteraction = () => {
     if (!hasTrackedStart.value) {
         trackFormStart('whatsapp_widget_form', fullPath.value)
         hasTrackedStart.value = true
+        // Registrar timestamp de inicio del formulario
+        form.value._formStartTime = Date.now()
     }
 }
 
