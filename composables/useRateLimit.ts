@@ -1,52 +1,80 @@
 // composables/useRateLimit.ts
 import { ref, computed } from 'vue'
 
-export interface RateLimitInfo {
-  limit: number
-  remaining: number
-  resetTime: string | null
-}
+const RATE_LIMIT_MAX = 5 // Debe coincidir con el servidor
+const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000 // 5 minutos en milisegundos
+
+// Estado global compartido entre instancias del composable
+const globalAttempts = ref<Array<{ timestamp: number }>>([])
+const globalResetTime = ref<number | null>(null)
 
 /**
- * Composable para rastrear información de rate limiting
- * Extrae headers de las respuestas HTTP para mostrar intentos restantes
+ * Composable para rastrear información de rate limiting del lado del cliente
+ * Rastrea intentos fallidos para mostrar advertencias proactivas
  */
 export const useRateLimit = () => {
-  const rateLimitInfo = ref<RateLimitInfo>({
-    limit: 5,
-    remaining: 5,
-    resetTime: null
-  })
+  /**
+   * Limpia intentos antiguos fuera de la ventana de tiempo
+   */
+  const cleanOldAttempts = () => {
+    const now = Date.now()
+    globalAttempts.value = globalAttempts.value.filter(
+      attempt => now - attempt.timestamp < RATE_LIMIT_WINDOW_MS
+    )
+
+    // Si no hay intentos, resetear el tiempo
+    if (globalAttempts.value.length === 0) {
+      globalResetTime.value = null
+    }
+  }
 
   /**
-   * Extrae información de rate limiting de los headers de respuesta
+   * Registra un intento de envío de formulario
    */
-  const extractRateLimitFromResponse = (response: Response) => {
-    const limit = response.headers.get('X-RateLimit-Limit')
-    const remaining = response.headers.get('X-RateLimit-Remaining')
-    const reset = response.headers.get('X-RateLimit-Reset')
+  const recordAttempt = () => {
+    const now = Date.now()
+    cleanOldAttempts()
 
-    if (limit) rateLimitInfo.value.limit = parseInt(limit)
-    if (remaining) rateLimitInfo.value.remaining = parseInt(remaining)
-    if (reset) rateLimitInfo.value.resetTime = reset
+    globalAttempts.value.push({ timestamp: now })
+
+    // Establecer tiempo de reset si es el primer intento
+    if (globalAttempts.value.length === 1) {
+      globalResetTime.value = now + RATE_LIMIT_WINDOW_MS
+    }
   }
+
+  /**
+   * Resetea el contador de intentos (útil después de éxito)
+   */
+  const resetAttempts = () => {
+    globalAttempts.value = []
+    globalResetTime.value = null
+  }
+
+  /**
+   * Número de intentos restantes
+   */
+  const remaining = computed(() => {
+    cleanOldAttempts()
+    return Math.max(0, RATE_LIMIT_MAX - globalAttempts.value.length)
+  })
 
   /**
    * Mensaje informativo sobre intentos restantes
    */
   const remainingAttemptsMessage = computed(() => {
-    const remaining = rateLimitInfo.value.remaining
+    const rem = remaining.value
 
-    if (remaining === 0) {
+    if (rem === 0) {
       return 'Has alcanzado el límite de intentos'
     }
 
-    if (remaining === 1) {
+    if (rem === 1) {
       return 'Te queda 1 intento'
     }
 
-    if (remaining <= 2) {
-      return `Te quedan ${remaining} intentos`
+    if (rem === 2) {
+      return 'Te quedan 2 intentos'
     }
 
     return null // No mostrar mensaje si tiene 3+ intentos
@@ -56,21 +84,22 @@ export const useRateLimit = () => {
    * Indica si el usuario está cerca del límite (<=2 intentos)
    */
   const isNearLimit = computed(() => {
-    return rateLimitInfo.value.remaining <= 2
+    return remaining.value <= 2 && remaining.value > 0
   })
 
   /**
    * Indica si el usuario alcanzó el límite
    */
   const isAtLimit = computed(() => {
-    return rateLimitInfo.value.remaining === 0
+    return remaining.value === 0
   })
 
   return {
-    rateLimitInfo,
+    remaining,
     remainingAttemptsMessage,
     isNearLimit,
     isAtLimit,
-    extractRateLimitFromResponse
+    recordAttempt,
+    resetAttempts
   }
 }

@@ -14,7 +14,7 @@ const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCapt
 const captchaQuestion = ref<string>('')
 
 // Rate limiting info
-const { remainingAttemptsMessage, isNearLimit } = useRateLimit()
+const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
 
 // Generate initial CAPTCHA question
 onMounted(() => {
@@ -109,6 +109,9 @@ const onSubmit = async () => {
     errorMsg.value = ''
     form.value.source_page = fullPath.value
 
+    // Registrar intento para rate limiting
+    recordAttempt()
+
     // Track form submit
     trackFormSubmit('whatsapp_widget_form', form.value.source_page, {
         has_message: !!form.value.message,
@@ -159,6 +162,7 @@ ${form.value.message}
                 captchaQuestion.value = question
                 hasTrackedStart.value = false
                 currentStep.value = 1
+                resetAttempts() // Reset rate limit counter on success
             }
 
         } else {
@@ -384,7 +388,7 @@ const stepTitles = [
         </Transition>
 
         <button :class="[
-            'w-16 h-16 shadow-lg hover:scale-110 transition-transform duration-300',
+            'w-16 h-16 drop-shadow-2xl hover:scale-110 transition-transform duration-300',
             { 'hidden lg:block': open }
         ]" @click.prevent="open = !open">
             <NuxtImg src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"

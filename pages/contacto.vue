@@ -24,7 +24,7 @@ const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCapt
 const captchaQuestion = ref<string>('')
 
 // Rate limiting info
-const { remainingAttemptsMessage, isNearLimit } = useRateLimit()
+const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
 
 // Generate initial CAPTCHA question
 onMounted(() => {
@@ -93,6 +93,9 @@ const onSubmit = async () => {
     state.value = 'loading'
     errorMsg.value = ''
 
+    // Registrar intento para rate limiting
+    recordAttempt()
+
     // Track form submit
     trackFormSubmit('contact_form', form.value.source_page, {
         has_message: !!form.value.message,
@@ -138,10 +141,11 @@ ${form.value.message}
                 form.value.phone = ''
                 form.value.message = ''
 
-                // Reset CAPTCHA y tracking
+                // Reset CAPTCHA, tracking y rate limit counter
                 const { question } = resetCaptcha()
                 captchaQuestion.value = question
                 hasTrackedStart.value = false
+                resetAttempts() // Reset rate limit counter on success
             }
 
         } else {
