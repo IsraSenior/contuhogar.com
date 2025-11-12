@@ -1,7 +1,20 @@
 <script setup>
+import SimuladorModal from './simulador/SimuladorModal.vue';
+
 const store = useMainStore();
 const servicesDropdown = ref(false);
 const openMenu = ref(false);
+const simuladorModalOpen = ref(false);
+
+const openSimulador = () => {
+  simuladorModalOpen.value = true;
+  servicesDropdown.value = false;
+  openMenu.value = false;
+};
+
+const closeSimulador = () => {
+  simuladorModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -89,8 +102,21 @@ const openMenu = ref(false);
                 <!-- <NuxtLink to="/noticias" class="text-base font-semibold text-gray-600 hover:text-secondary">Noticias</NuxtLink> -->
             </div>
 
-            <div class="flex flex-1 items-center justify-end gap-x-6">
+            <div class="flex flex-1 items-center justify-end gap-x-3 md:gap-x-4">
+                <!-- Botón Contáctanos (Desktop) -->
                 <NuxtLink to="/contacto" @click.native="servicesDropdown = false" class="hidden md:flex btn secondary">Contáctanos</NuxtLink>
+
+                <!-- Botón Simular Crédito (Desktop) -->
+                <button
+                    type="button"
+                    @click="openSimulador"
+                    class="hidden md:flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-sm hover:shadow-md"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <span>Simular Crédito</span>
+                </button>
 
                 <button type="button" @click.prevent="openMenu = true"
                     class="-m-2.5 inline-flex xl:hidden items-center justify-center rounded-md p-2.5 text-gray-700">
@@ -150,11 +176,23 @@ const openMenu = ref(false);
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">
                                     Blog</NuxtLink>
                             </div>
-                            <div class="py-6">
-
+                            <div class="py-6 space-y-3">
+                                <!-- Botón Contáctanos (Mobile) -->
                                 <NuxtLink to="/contacto" @click.native="openMenu = false"
                                     class="flex btn secondary items-center justify-center text-center">Contáctanos
                                 </NuxtLink>
+
+                                <!-- Botón Simular Crédito (Mobile) -->
+                                <button
+                                    type="button"
+                                    @click="openSimulador"
+                                    class="flex w-full items-center justify-center gap-2 px-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-sm"
+                                >
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                    <span>Simular Crédito</span>
+                                </button>
                                 <!-- <a href="#"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-600 hover:bg-gray-50">Log
                                     in</a> -->
@@ -168,5 +206,8 @@ const openMenu = ref(false);
                 </div> -->
             </div>
         </div>
+
+        <!-- Modal del Simulador -->
+        <SimuladorModal :is-open="simuladorModalOpen" @close="closeSimulador" />
     </header>
 </template>
