@@ -44,10 +44,12 @@ ConTuHogar.com es una plataforma web diseñada para conectar a colombianos que v
 - ✅ Gestión de declaración de renta (ConTuRenta)
 - ✅ Blog informativo sobre el mercado inmobiliario colombiano
 - ✅ Sistema de contacto y generación de leads
+- ✅ **Simulador de crédito interactivo** con evaluación en 5 pasos
 
 ### Funcionalidades Principales
 
-- **Formularios de Contacto**: Sistema robusto con validación Zod, honeypot anti-spam y notificaciones vía email (Resend) y Telegram
+- **Simulador de Crédito**: Wizard interactivo de 5 pasos para evaluar elegibilidad crediticia con cálculos financieros en tiempo real (cuota mensual, DTI ratio, LTV, edad final)
+- **Formularios de Contacto Optimizados**: Sistema con validación Zod, honeypot anti-spam, detección automática de país por IP, formato de teléfono dinámico según país, y notificaciones vía email (Resend) y Telegram
 - **CMS Headless**: Integración con Directus para gestión de contenido dinámico
 - **SEO Optimizado**: Meta tags configurables, sitemap generado, robots.txt
 - **Analytics**: Google Analytics 4 y Google Tag Manager integrados
@@ -228,9 +230,27 @@ contuhogar.com/
 │   ├── Header.vue        # Header principal con navegación
 │   ├── Footer.vue        # Footer con links
 │   ├── Logo.vue          # Componente de logo
-│   └── Whatsapp.vue      # Botón flotante de WhatsApp
+│   ├── Whatsapp.vue      # Botón flotante de WhatsApp
+│   ├── PhoneCountryCombobox.vue  # Selector de país con búsqueda
+│   └── simulador/        # Componentes del simulador
+│       ├── SimuladorModal.vue     # Modal del simulador
+│       ├── SimuladorWizard.vue    # Wizard principal
+│       ├── steps/
+│       │   ├── StepPersonalInfo.vue   # Paso 1: Datos personales
+│       │   ├── StepPropertyInfo.vue   # Paso 2: Datos del bien
+│       │   ├── StepIncomeInfo.vue     # Paso 3: Ingresos y gastos
+│       │   ├── StepElegibility.vue    # Paso 4: Elegibilidad
+│       │   └── StepResults.vue        # Paso 5: Resultados
+│       └── ui/
+│           ├── ProgressBar.vue         # Barra de progreso
+│           ├── StepNavigation.vue      # Navegación entre pasos
+│           ├── ValidationMessage.vue   # Mensajes de validación
+│           └── VerticalStepper.vue     # Indicador de pasos
 ├── composables/          # Composables de Vue
-│   └── useDirectus.ts    # Helper para fetch de Directus
+│   ├── useDirectus.ts    # Helper para fetch de Directus
+│   ├── useGeoLocation.ts # Detección de país por IP
+│   ├── useSimuladorStore.ts          # Store del simulador
+│   └── useSimuladorCalculations.ts   # Cálculos financieros
 ├── layouts/              # Layouts de página
 │   └── default.vue       # Layout por defecto
 ├── pages/                # Páginas (file-based routing)
@@ -242,9 +262,11 @@ contuhogar.com/
 │   ├── blog/
 │   │   ├── index.vue     # Lista de artículos
 │   │   └── [slug].vue    # Artículo individual
-│   └── servicios/
-│       ├── index.vue     # Lista de servicios
-│       └── [slug].vue    # Servicio individual
+│   ├── servicios/
+│   │   ├── index.vue     # Lista de servicios
+│   │   └── [slug].vue    # Servicio individual
+│   └── simulador/
+│       └── index.vue     # Simulador de crédito
 ├── plugins/              # Plugins de Nuxt
 │   ├── directus.client.ts # Cliente Directus (navegador)
 │   └── directus.server.ts # Servidor Directus (SSR)
@@ -262,6 +284,13 @@ contuhogar.com/
 │           └── lead.post.ts     # Endpoint para enviar emails
 ├── stores/               # Stores de Pinia
 │   └── index.js         # Store principal con datos
+├── types/                # Definiciones de TypeScript
+│   └── simulador.ts     # Tipos del simulador
+├── utils/                # Utilidades
+│   ├── formatters.ts    # Formateadores de moneda/números
+│   └── phoneFormats.ts  # Formatos de teléfono por país
+├── db/                   # Datos estáticos JSON
+│   └── tlf-dial.json    # Códigos de país (30+ países)
 ├── .env                 # Variables de entorno (NO commit)
 ├── .env.example         # Template de variables de entorno
 ├── .gitignore           # Archivos ignorados por Git
@@ -281,6 +310,7 @@ Nuxt utiliza file-based routing. Cada archivo `.vue` en `pages/` se convierte au
 |---------|------|
 | `pages/index.vue` | `/` |
 | `pages/contacto.vue` | `/contacto` |
+| `pages/simulador/index.vue` | `/simulador` |
 | `pages/blog/index.vue` | `/blog` |
 | `pages/blog/[slug].vue` | `/blog/:slug` |
 | `pages/servicios/[slug].vue` | `/servicios/:slug` |
@@ -379,6 +409,147 @@ Interesado en crédito hipotecario...
 - **Google Analytics 4** (`G-1182NP1Z0D`): Tracking de eventos y pageviews
 - **Google Tag Manager** (`GTM-WMQV4M3F`): Gestión de tags y conversiones
 - Solo activos en `NODE_ENV=production`
+
+---
+
+## 💳 Simulador de Crédito
+
+### Descripción
+
+El simulador de crédito es un wizard interactivo de 5 pasos que permite a los usuarios evaluar su elegibilidad para créditos hipotecarios y leasing habitacional. Incluye validaciones en tiempo real y cálculos financieros precisos.
+
+### Características
+
+- **Wizard Multi-Paso**: Navegación fluida entre 5 pasos con validación progresiva
+- **Cálculos Financieros**: Fórmula PMT para cuota mensual, ratios DTI y LTV
+- **Validaciones Inteligentes**:
+  - Edad + plazo ≤ 84 años
+  - Capacidad de pago ≤ 30% de ingresos netos
+  - Financiación: 70% (hipotecario) / 80% (leasing)
+- **Persistencia**: Estado guardado en localStorage
+- **Responsive**: Diseño adaptativo para móvil y desktop
+- **Resultados Detallados**: Aprobado, Rechazado o Advertencia con recomendaciones
+
+### Pasos del Simulador
+
+1. **Información Personal**: Edad y tipo de crédito (hipotecario/leasing)
+2. **Información del Bien**: Valor del bien, monto solicitado, plazo
+3. **Ingresos y Gastos**: Ingresos fijos/variables, deducciones, obligaciones
+4. **Elegibilidad**: Status migratorio, reportes crediticios
+5. **Resultados**: Evaluación completa con cuota mensual y recomendaciones
+
+### Estructura de Archivos
+
+```typescript
+components/simulador/
+├── SimuladorModal.vue        // Modal contenedor
+├── SimuladorWizard.vue       // Lógica principal del wizard
+├── steps/                    // Componentes de cada paso
+│   ├── StepPersonalInfo.vue
+│   ├── StepPropertyInfo.vue
+│   ├── StepIncomeInfo.vue
+│   ├── StepElegibility.vue
+│   └── StepResults.vue
+└── ui/                       // Componentes de UI reutilizables
+    ├── ProgressBar.vue
+    ├── StepNavigation.vue
+    ├── ValidationMessage.vue
+    └── VerticalStepper.vue
+
+composables/
+├── useSimuladorStore.ts           // Store Pinia con estado del simulador
+└── useSimuladorCalculations.ts   // Lógica de cálculos financieros
+
+types/
+└── simulador.ts              // Tipos TypeScript
+
+utils/
+└── formatters.ts             // Helpers para formateo de moneda
+```
+
+### Ejemplo de Uso
+
+```typescript
+// En cualquier componente
+import { useSimuladorStore } from '~/composables/useSimuladorStore'
+
+const store = useSimuladorStore()
+
+// Acceder al resultado
+const resultado = store.resultado // 'aprobado' | 'rechazado' | 'advertencia'
+
+// Resetear simulador
+store.resetSimulador()
+```
+
+### Constantes Financieras
+
+```typescript
+TASA_EA = 14%                          // Tasa Efectiva Anual
+TASA_MENSUAL = 1.0975%                 // Calculada de EA
+EDAD_FINAL_MAXIMA = 84 años
+PLAZO_MINIMO = 12 meses (1 año)
+PLAZO_MAXIMO = 240 meses (20 años)
+PORCENTAJE_COMPROMISO_MAXIMO = 30%    // DTI Ratio
+FINANCIACION_HIPOTECARIO = 70%        // LTV
+FINANCIACION_LEASING = 80%            // LTV
+```
+
+---
+
+## 📞 Optimizaciones del Formulario de Contacto
+
+### Detección Automática de País
+
+El formulario detecta automáticamente el país del usuario usando su dirección IP:
+
+```typescript
+// composables/useGeoLocation.ts
+const { detectCountry } = useGeoLocation()
+
+onMounted(async () => {
+  const country = await detectCountry() // "CO", "US", "ES", etc.
+  // Pre-selecciona el código de país correspondiente
+})
+```
+
+### Formato de Teléfono Dinámico
+
+Los números de teléfono se formatean automáticamente según el país seleccionado:
+
+```typescript
+// utils/phoneFormats.ts
+const phoneFormats: Record<string, PhoneFormat> = {
+  '+57': { format: 'XXX XXX XXXX', placeholder: '300 123 4567', mask: '### ### ####' },
+  '+1': { format: '(XXX) XXX-XXXX', placeholder: '(555) 123-4567', mask: '(###) ###-####' },
+  '+34': { format: 'XXX XX XX XX', placeholder: '612 34 56 78', mask: '### ## ## ##' },
+  // ... 30+ países más
+}
+```
+
+**Características**:
+- Formateo en tiempo real mientras el usuario escribe
+- Placeholder dinámico según país seleccionado
+- Soporte para países con múltiples códigos de área (República Dominicana: +1809, +1829, +1849)
+- Preservación de posición del cursor
+
+### Selector de País Mejorado
+
+Componente **PhoneCountryCombobox.vue** con:
+- Búsqueda interna por nombre de país o código
+- Navegación por teclado (↑↓, Enter, Esc)
+- Display de formato de teléfono en cada opción
+- Manejo de países con múltiples códigos de área
+
+### API Consolidada
+
+El endpoint `/api/contact` ahora maneja:
+1. Validación con Zod
+2. Guardado en Directus
+3. Envío de email (Resend)
+4. Notificación Telegram (opcional)
+
+Todo en una sola llamada, con ejecución en paralelo de notificaciones usando `Promise.allSettled()`.
 
 ---
 
@@ -499,6 +670,68 @@ Ve a GitHub y crea un Pull Request describiendo:
 ---
 
 ## 📝 Changelog
+
+### [2.1.0] - 2025-01-12
+
+#### ✨ Nuevas Funcionalidades
+
+- **Simulador de Crédito Completo**: Wizard interactivo de 5 pasos con cálculos financieros en tiempo real
+  - Evaluación de elegibilidad para crédito hipotecario y leasing
+  - Validación de edad + plazo, capacidad de pago (DTI), y porcentaje de financiación (LTV)
+  - Cálculo de cuota mensual usando fórmula PMT
+  - Resultados detallados: Aprobado, Rechazado o Advertencia con recomendaciones personalizadas
+  - Persistencia de estado en localStorage
+  - 17 nuevos componentes y archivos (3292+ líneas de código)
+
+- **Optimizaciones del Formulario de Contacto**:
+  - Detección automática de país por IP usando geojs.io API
+  - Formato de teléfono dinámico en tiempo real (30+ países soportados)
+  - Selector de país mejorado con búsqueda interna (PhoneCountryCombobox)
+  - Soporte para países con múltiples códigos de área (RD: +1809/+1829/+1849, PR: +1787/+1939)
+  - Placeholder dinámico según país seleccionado
+  - API consolidada: guardado + notificaciones en un solo endpoint
+
+#### 📦 Nuevos Archivos
+
+**Componentes**:
+- `components/PhoneCountryCombobox.vue` - Selector de país con búsqueda
+- `components/simulador/SimuladorModal.vue` - Modal del simulador
+- `components/simulador/SimuladorWizard.vue` - Wizard principal (6163 bytes)
+- `components/simulador/steps/` - 5 componentes de pasos
+- `components/simulador/ui/` - 4 componentes de UI
+
+**Composables**:
+- `composables/useGeoLocation.ts` - Detección de país por IP
+- `composables/useSimuladorStore.ts` - Store Pinia del simulador
+- `composables/useSimuladorCalculations.ts` - Cálculos financieros
+
+**Tipos y Utilidades**:
+- `types/simulador.ts` - Definiciones TypeScript
+- `utils/formatters.ts` - Formateadores de moneda/números
+- `utils/phoneFormats.ts` - Formatos de teléfono por país
+
+**Páginas**:
+- `pages/simulador/index.vue` - Página del simulador
+
+**Datos**:
+- `db/tlf-dial.json` - Códigos de país actualizados (múltiples códigos para RD y PR)
+
+#### 🔧 Modificaciones
+
+- `components/Header.vue`: Agregado botón "Simular Crédito" que abre modal
+- `server/api/contact.post.ts`:
+  - Campos lastName y message ahora opcionales
+  - Rate limit aumentado de 3 a 8 requests/5min
+  - Integración de notificaciones (Resend + Telegram) en endpoint consolidado
+  - Ejecución paralela de notificaciones con `Promise.allSettled()`
+
+#### 📚 Documentación
+
+- Actualización completa de README.md con:
+  - Documentación del simulador de crédito
+  - Guía de optimizaciones del formulario de contacto
+  - Estructura de archivos actualizada
+  - Nuevas rutas en tabla de routing
 
 ### [2.0.0] - 2025-01-11
 
