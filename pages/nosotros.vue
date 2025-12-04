@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 const store = useMainStore();
 const title = `ConTuHogar | Nosotros`;
-const description = "ContuHogar es una empresa con amplia experiencia y trayectoria en la prestación de servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los mercados, principalmente a residentes en el exterior."
+const description = "Conoce a ConTuHogar: más de 16 años ayudando a colombianos en el exterior a invertir en vivienda en Colombia. Aliados con los principales bancos del país."
 
 // SEO optimizado
 useSeo({
@@ -9,146 +9,224 @@ useSeo({
     description: description,
     type: 'website'
 })
+
+// Structured data
+useLocalBusinessSchema()
+
+// Estadísticas de la empresa
+const stats = [
+    { value: '16+', label: 'Años de experiencia', description: 'en el mercado colombiano' },
+    { value: '1,500+', label: 'Familias', description: 'cumplieron su sueño' },
+    { value: '6', label: 'Bancos aliados', description: 'para mejores tasas' },
+    { value: '24h', label: 'Respuesta', description: 'en pre-aprobación' }
+]
+
+// Valores de la empresa con iconos SVG
+const valores = [
+    {
+        icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+        title: 'Compromiso',
+        description: 'Cada cliente es único. Nos comprometemos a encontrar la mejor solución para tu situación específica.'
+    },
+    {
+        icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
+        title: 'Confianza',
+        description: 'Transparencia total en cada paso del proceso. Sin letra pequeña, sin sorpresas.'
+    },
+    {
+        icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+        title: 'Agilidad',
+        description: 'Procesos digitalizados para que gestiones tu crédito sin salir de tu país de residencia.'
+    },
+    {
+        icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
+        title: 'Excelencia',
+        description: 'Más del 85% de nuestros clientes nos recomiendan. Tu satisfacción es nuestra meta.'
+    }
+]
 </script>
 
 <template>
-    <div class="bg-muted py-16 md:py-24">
-        <div class="mx-auto container lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Nuestra historia
-                </h2>
-                <div class="mt-6 flex flex-col gap-x-8 gap-20 lg:flex-row">
-                    <div class="lg:w-full lg:max-w-4xl lg:flex-auto text-justify">
-                        <p class="font-bold text-secondary">ContuHogar es una empresa con amplia experiencia y
-                            trayectoria en la prestación de
-                            servicios de asesoría en el sector financiero e inmobiliario, dirigido a todos los
-                            mercados, principalmente a residentes en el exterior.</p>
-                        <div class="mt-6 space-y-6 max-w-3xl">
-                            <p>Desde su creación en el 2009, ContuHogar ha sido una empresa que se esfuerza por
-                                ofrecer una alternativa única en incentivar a los clientes a creer en nuestro país e
-                                invertir en finca raíz, asegurando desde ya un sitio donde vivir en Colombia, bien sea
-                                en el corto o largo plazo, para apoyar a sus familias e incluso como inversión.</p>
-                            <p>Trabajamos de la mano con varias entidades financieras como BBVA Colombia,
-                                Banco de Occidente y Banco Unión, al igual que con varias constructoras e
-                                inmobiliarias en toda Colombia.</p>
-                        </div>
+    <!-- Hero Section -->
+    <HeroSection
+        badge="Desde 2009 conectando colombianos con su hogar"
+        badge-icon
+        title="Tu sueño de vivienda en Colombia, nuestra misión"
+        subtitle="Más de 16 años de experiencia asesorando a colombianos en el exterior para que inviertan de forma segura en su país. Somos el puente entre tú y tu hogar."
+    />
+
+    <!-- Stats Section -->
+    <StatsSection :stats="stats" variant="white" />
+
+    <!-- Nuestra Historia -->
+    <section class="bg-gray-50 py-16 lg:py-24">
+        <div class="mx-auto container px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-base font-semibold text-secondary mb-2">Nuestra historia</h2>
+                    <p class="text-3xl lg:text-4xl font-bold text-primary mb-6">
+                        16 años construyendo el camino a tu hogar
+                    </p>
+
+                    <div class="space-y-6 text-gray-600">
+                        <p class="text-lg font-medium text-secondary">
+                            ContuHogar nació en 2009 con una misión clara: ayudar a los colombianos en el exterior a invertir en su país de manera segura y confiable.
+                        </p>
+                        <p>
+                            Desde entonces, hemos acompañado a más de 1,500 familias a cumplir su sueño de tener vivienda propia en Colombia. Entendemos las dificultades de gestionar un crédito desde el exterior: la distancia, los trámites, la desconfianza.
+                        </p>
+                        <p>
+                            Por eso, hemos construido alianzas estratégicas con los principales bancos de Colombia como BBVA, Banco de Occidente, Banco de Bogotá y Colpatria, para ofrecerte las mejores condiciones del mercado.
+                        </p>
                     </div>
-                    <!-- <div class="lg:flex lg:flex-auto lg:justify-center">
-                        <dl class="w-64 space-y-8 xl:w-80">
-                            <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base/7 text-gray-500">Transacciones cada año</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-primary">1,000</dd>
-                            </div>
-                            <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base/7 text-gray-500">En créditos aprobados</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-primary">$119 MM</dd>
-                            </div>
-                            <div class="flex flex-col-reverse gap-y-4">
-                                <dt class="text-base/7 text-gray-500">Colombianos invitirtiendo en tu país</dt>
-                                <dd class="text-5xl font-semibold tracking-tight text-primary">2,000</dd>
-                            </div>
-                        </dl>
-                    </div> -->
-                    <div class="relative w-full">
-                        <NuxtImg class="w-full max-w-none rounded-xl bg-primary shadow-xl shadow-primary/5 aspect-square object-top object-cover max-h-[400px]"
-                            src="https://img.freepik.com/foto-gratis/retrato-nina-linda-que-pone-dinero-alcancia-rosa-ahorrar-juguete-nuevo-ella-su-hermano-pequeno_662251-568.jpg"
-                            alt="Niña ahorrando dinero en alcancía"
+
+                    <div class="mt-8 flex items-center gap-4">
+                        <NuxtLink
+                            to="/contacto"
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all"
+                        >
+                            Conoce a tu asesor
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </NuxtLink>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="bg-primary rounded-2xl p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Propósito</h3>
+                            <p class="text-sm text-white/80">
+                                Ayudar a las personas a cumplir su sueño de tener vivienda propia en Colombia, aunque vivan en el exterior.
+                            </p>
+                        </div>
+                        <NuxtImg
+                            src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg"
+                            alt="Familia con llaves de su casa"
+                            class="rounded-2xl w-full h-48 object-cover"
                             format="webp"
                             quality="80"
-                            sizes="sm:100vw md:50vw lg:400px"
-                            loading="lazy" />
+                            loading="lazy"
+                        />
                     </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16">
-
-                    <div class="block p-6 rounded-lg shadow-sm  bg-gray-900">
-
-                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-white">Propósito</h5>
-                        <p class="font-normal text-white">Ayudar a las personas a cumplir su sueño
-                            de tener vivienda propia en Colombia,
-                            aunque vivan en el exterior. Brindar otros servicios relacionados con este tipo de
-                            inversión para presentarles una oferta integral..</p>
+                    <div class="space-y-4 pt-8">
+                        <NuxtImg
+                            src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
+                            alt="Pareja celebrando compra de casa"
+                            class="rounded-2xl w-full h-48 object-cover"
+                            format="webp"
+                            quality="80"
+                            loading="lazy"
+                        />
+                        <div class="bg-secondary rounded-2xl p-6 text-white">
+                            <h3 class="text-xl font-bold mb-2">Misión</h3>
+                            <p class="text-sm text-white/80">
+                                Asesorar y ayudar a obtener financiación para finca raíz en Colombia desde el exterior de forma oportuna, ágil y eficiente.
+                            </p>
+                        </div>
                     </div>
-
-                    <div class="block p-6 rounded-lg shadow-sm  bg-white">
-
-                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-primary">Misión</h5>
-                        <p class="font-normal text-primary">Asesorar y ayudar a las personas a
-                            obtener financiación para finca raíz en Colombia
-                            desde el exterior de forma oportuna, ágil y eficiente, así como en otros servicios
-                            propios a esta inversión.</p>
-                    </div>
-
-                    <div class="block p-6 rounded-lg shadow-sm  bg-gray-900">
-
-                        <h5 class="mb-6 text-2xl font-bold tracking-tight text-white">Visión</h5>
-                        <p class="font-normal text-white">Posicionarnos como una de las empresas
-                            más influyentes y preferidas como bróker
-                            inmobiliario, asegurando el manejo correcto de las inversiones de vivienda de
-                            nuestros clientes y todo lo referente a los servicios que lo complementen.</p>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="bg-gray-900 py-16 md:py-24">
-        <div class="mx-auto container lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
-                    Respaldados por los mejores
-                </h2>
-                <p class="mt-6 text-white">
-                    Somos un grupo dinámico de personas apasionadas por lo que hacemos y dedicadas a ofrecer los mejores
-                    resultados a nuestros clientes.
+    <!-- Nuestros Valores -->
+    <section class="bg-white py-16 lg:py-24">
+        <div class="mx-auto container px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-base font-semibold text-secondary mb-2">Por qué elegirnos</h2>
+                <p class="text-3xl lg:text-4xl font-bold text-primary">
+                    Lo que nos hace diferentes
                 </p>
             </div>
-            <ul role="list"
-                class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
-                <li v-for="(staff, index) in store.team" :key="index">
-                    <NuxtImg class="aspect-14/13 w-full rounded-2xl object-cover object-top bg-muted" :src="staff?.image"
-                        :alt="staff?.name"
-                        format="webp"
-                        quality="75"
-                        sizes="sm:100vw md:50vw lg:300px"
-                        loading="lazy" />
-                    <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">{{ staff?.name }}</h3>
-                    <p class="text-base/7 text-gray-500">{{ staff?.title }}</p>
-                    <!-- <p class="text-sm/6 text-gray-500">Toronto, Canada</p> -->
-                </li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="bg-white">
-        <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
-            <div
-                class="relative isolate overflow-hidden bg-secondary px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-                <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                    <h2 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">¿Listo
-                        para invertir en tu futuro en Colombia?</h2>
-                    <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
-                        orientarte y ayudarte a tomar la mejor decisión.</p>
-                    <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-                        <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
-                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
-                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
-                        <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
-                            Conocer más <span aria-hidden="true">→</span></NuxtLink>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div v-for="(valor, index) in valores" :key="index" class="group">
+                    <div class="bg-gray-50 rounded-2xl p-6 h-full hover:bg-primary hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-primary/10 group-hover:bg-white/20 flex items-center justify-center mb-4 transition-colors">
+                            <svg class="w-6 h-6 text-primary group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="valor.icon" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-primary group-hover:text-white mb-2 transition-colors">
+                            {{ valor.title }}
+                        </h3>
+                        <p class="text-sm text-gray-600 group-hover:text-white/80 transition-colors">
+                            {{ valor.description }}
+                        </p>
                     </div>
-                </div>
-                <div class="relative mt-16 h-full lg:mt-8">
-                    <NuxtImg class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-                        src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-                        alt="Familia feliz celebrando compra de casa"
-                        format="webp"
-                        quality="80"
-                        sizes="sm:100vw lg:736px"
-                        loading="lazy" />
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Bancos y Aliados -->
+    <BankLogosSection
+        title="Respaldados por los mejores"
+        subtitle="Nuestras alianzas con los principales bancos de Colombia nos permiten ofrecerte las mejores tasas y condiciones del mercado."
+        trust-message="Aliados estratégicos que garantizan seguridad y confianza en tu inversión"
+    />
+
+    <!-- Equipo -->
+    <section class="bg-gray-900 py-16 lg:py-24">
+        <div class="mx-auto container px-6 lg:px-8">
+            <div class="text-center mb-12">
+
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg text-sm font-medium mb-6 text-white">
+                    Nuestro equipo
+                </div>
+                <p class="text-3xl lg:text-4xl font-bold text-white mb-4">
+                    Expertos dedicados a tu sueño
+                </p>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Un equipo de profesionales apasionados por ayudarte a conseguir tu vivienda en Colombia. Cada uno con experiencia y dedicación para guiarte en cada paso.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div v-for="(staff, index) in store.team" :key="index" class="group">
+                    <div class="bg-gray-800 rounded-2xl overflow-hidden hover:bg-gray-700 transition-all">
+                        <NuxtImg
+                            class="w-full aspect-square object-cover object-top"
+                            :src="staff?.image"
+                            :alt="staff?.name"
+                            format="webp"
+                            quality="75"
+                            loading="lazy"
+                        />
+                        <div class="p-4">
+                            <h3 class="font-semibold text-white">{{ staff?.name }}</h3>
+                            <p class="text-sm text-gray-400">{{ staff?.title }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA dentro del equipo -->
+            <div class="mt-12 text-center">
+                <p class="text-gray-400 mb-4">¿Listo para conocer a tu asesor personalizado?</p>
+                <NuxtLink
+                    to="/contacto"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-xl font-semibold hover:bg-secondary/90 transition-all"
+                >
+                    Agenda tu consulta gratuita
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </NuxtLink>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <CTASection
+        title="Tu hogar en Colombia te esta esperando"
+        description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
+        :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
+        :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+        :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+        image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
+        image-alt="Familia feliz con su nueva casa"
+    />
 </template>
