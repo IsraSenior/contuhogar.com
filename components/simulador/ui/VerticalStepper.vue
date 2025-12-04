@@ -15,7 +15,7 @@
     >
       <!-- Icono -->
       <div
-        class="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300"
+        class="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300"
         :class="{
           'bg-primary text-white': currentStep === step.number || currentStep > step.number,
           'bg-gray-100 text-gray-400': currentStep < step.number
@@ -44,7 +44,7 @@
       <!-- Check mark (completado) -->
       <div
         v-if="currentStep > step.number"
-        class="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center"
+        class="shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center"
       >
         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
           <path
@@ -119,19 +119,19 @@ const ChartIcon = () => h('svg', { fill: 'none', stroke: 'currentColor', viewBox
 const steps = [
   {
     number: 1,
-    title: 'Información Personal',
+    title: 'Información personal',
     description: 'Edad y tipo de crédito',
     icon: UserIcon
   },
   {
     number: 2,
-    title: 'Información del Bien',
+    title: 'Información del inmueble',
     description: 'Valor, monto y plazo',
     icon: HomeIcon
   },
   {
     number: 3,
-    title: 'Ingresos y Gastos',
+    title: 'Ingresos y gastos',
     description: 'Situación financiera',
     icon: CashIcon
   },

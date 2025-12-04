@@ -73,9 +73,9 @@ const emit = defineEmits<{
 }>();
 
 const steps = [
-  { number: 1, title: 'Información Personal' },
-  { number: 2, title: 'Información del Bien' },
-  { number: 3, title: 'Ingresos y Gastos' },
+  { number: 1, title: 'Información personal' },
+  { number: 2, title: 'Información del inmueble' },
+  { number: 3, title: 'Ingresos y gastos' },
   { number: 4, title: 'Elegibilidad' },
   { number: 5, title: 'Resultados' }
 ];

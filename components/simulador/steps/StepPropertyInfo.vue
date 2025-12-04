@@ -14,21 +14,14 @@
       <label for="valorBien" class="block text-sm font-semibold text-gray-700 mb-2">
         Valor del inmueble <span class="text-red-500">*</span>
       </label>
-      <div class="relative">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-          $
-        </span>
-        <input
-          id="valorBien"
-          v-model.number="localValorBien"
-          type="number"
-          min="0"
-          step="1000000"
-          placeholder="200000000"
-          class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-          @input="calculatePorcentaje"
-        />
-      </div>
+      <CurrencyInput
+        id="valorBien"
+        v-model="localValorBien"
+        placeholder="200.000.000"
+        :min="0"
+        :step="1000000"
+        @update:model-value="calculatePorcentaje"
+      />
       <p class="mt-2 text-sm text-gray-500">
         Valor total del inmueble que deseas adquirir
       </p>
@@ -37,23 +30,16 @@
     <!-- Monto Solicitado -->
     <div>
       <label for="montoSolicitado" class="block text-sm font-semibold text-gray-700 mb-2">
-        Monto a solicitar <span class="text-red-500">*</span>
+        Monto que quieres financiar <span class="text-red-500">*</span>
       </label>
-      <div class="relative">
-        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-          $
-        </span>
-        <input
-          id="montoSolicitado"
-          v-model.number="localMontoSolicitado"
-          type="number"
-          min="0"
-          step="1000000"
-          placeholder="120000000"
-          class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-          @input="calculatePorcentaje"
-        />
-      </div>
+      <CurrencyInput
+        id="montoSolicitado"
+        v-model="localMontoSolicitado"
+        placeholder="120.000.000"
+        :min="0"
+        :step="1000000"
+        @update:model-value="calculatePorcentaje"
+      />
       <p class="mt-2 text-sm text-gray-500">
         Monto que solicitas financiar
       </p>
@@ -110,28 +96,21 @@
       <label for="plazo" class="block text-sm font-semibold text-gray-700 mb-2">
         Plazo del crédito (en meses) <span class="text-red-500">*</span>
       </label>
-      <input
-        id="plazo"
-        v-model.number="localPlazoMeses"
-        type="range"
-        :min="PLAZO_MINIMO"
-        :max="plazoMaximoDisponible"
-        step="12"
-        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
-        @input="validatePlazo"
-      />
-      <div class="flex justify-between items-center mt-3">
-        <div class="text-center">
+      <div class="flex items-center gap-4">
+        <input
+          id="plazo"
+          v-model.number="localPlazoMeses"
+          type="range"
+          :min="PLAZO_MINIMO"
+          :max="plazoMaximoDisponible"
+          step="12"
+          class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+          @input="validatePlazo"
+        />
+        <div class="shrink-0 text-right min-w-[180px]">
           <p class="text-2xl font-bold text-primary">
-            {{ localPlazoMeses }}
+            {{ localPlazoMeses }} meses <span class="text-lg text-gray-600">({{ Math.floor(localPlazoMeses / 12) }} años)</span>
           </p>
-          <p class="text-sm text-gray-500">meses</p>
-        </div>
-        <div class="text-center">
-          <p class="text-2xl font-bold text-primary">
-            {{ Math.floor(localPlazoMeses / 12) }}
-          </p>
-          <p class="text-sm text-gray-500">años</p>
         </div>
       </div>
       <p class="mt-2 text-sm text-gray-500">

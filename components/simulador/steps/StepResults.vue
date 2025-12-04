@@ -7,383 +7,294 @@
     </div>
 
     <!-- RESULTADO: APROBADO -->
-    <div v-else-if="resultado?.resultado === 'aprobado'" class="animate-fade-in space-y-8">
-      <!-- Header Simple y Limpio -->
-      <div class="text-center py-6">
-        <div class="text-6xl mb-4">🎉</div>
-        <h2 class="text-3xl font-bold text-green-600 mb-2">
-          ¡Felicitaciones!
-        </h2>
-        <p class="text-lg text-gray-600">
-          Cumples con los requisitos iniciales para el crédito
-        </p>
-      </div>
+    <div v-else-if="resultado?.resultado === 'aprobado'" class="animate-fade-in">
 
-      <!-- CTA Principal -->
-      <div class="py-6 border-y border-gray-200">
-        <div class="flex items-start gap-4">
-          <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+      <!-- Header con resultado -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
           </svg>
-          <div class="flex-1">
-            <p class="text-sm text-gray-600 mb-4">
-              Este es un resultado preliminar. <strong class="text-gray-900">Un asesor especializado revisará tu caso en detalle</strong> y te ayudará a completar tu solicitud.
-            </p>
-            <div class="flex flex-wrap gap-3">
-              <NuxtLink
-                to="/contacto"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                Hablar con Asesor
-              </NuxtLink>
-              <a
-                href="https://wa.me/573204955434?text=Hola,%20acabo%20de%20completar%20el%20simulador%20de%20crédito%20y%20me%20gustaría%20más%20información"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition-all"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                WhatsApp
-              </a>
-            </div>
+
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-1">
+          ¡Pre-aprobado!
+        </h2>
+        <p class="text-gray-500">
+          Cumples con los requisitos iniciales
+        </p>
+      </div>
+
+      <!-- Card principal con cifras destacadas -->
+      <div class="bg-primary rounded-2xl p-6 mb-6">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-center">
+            <p class="text-xs text-white/70 uppercase tracking-wide mb-1">Monto pre-aprobado</p>
+            <p class="text-2xl font-bold text-white">{{ formatCurrency(store.datosBien.montoSolicitado!) }}</p>
+          </div>
+          <div class="text-center border-l border-white/20">
+            <p class="text-xs text-white/70 uppercase tracking-wide mb-1">Cuota mensual</p>
+            <p class="text-2xl font-bold text-white">{{ formatCurrency(resultado.cuotaMensual) }}</p>
           </div>
         </div>
       </div>
 
-      <!-- Tu Cuota Mensual (destacada) -->
-      <div class="text-center py-4">
-        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
-          Tu Cuota Mensual Estimada
-        </p>
-        <p class="text-5xl font-bold text-primary mb-1">
-          {{ formatCurrency(resultado.cuotaMensual) }}
-        </p>
-        <p class="text-sm text-gray-500">
-          Tasa {{ formatPercentage(resultado.tasaEA * 100) }} E.A.
-        </p>
-      </div>
-
-      <!-- Detalles Limpios -->
-      <div class="space-y-4">
-        <h3 class="text-lg font-bold text-gray-800">
-          Detalles de tu Simulación
-        </h3>
-
-        <div class="space-y-3">
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Monto solicitado</span>
-            <span class="text-lg font-semibold text-gray-900">
-              {{ formatCurrency(store.datosBien.montoSolicitado!) }}
-            </span>
-          </div>
-
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Plazo</span>
-            <span class="text-lg font-semibold text-gray-900">
-              {{ store.datosBien.plazoMeses }} meses ({{ Math.floor(store.datosBien.plazoMeses / 12) }} años)
-            </span>
-          </div>
-
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Financiación del bien</span>
-            <span class="text-lg font-semibold text-gray-900">
-              {{ formatPercentage(resultado.porcentajeFinanciacion) }}
-            </span>
-          </div>
-
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Compromiso de ingresos</span>
-            <span class="text-lg font-semibold text-green-600">
-              {{ formatPercentage(resultado.porcentajeCompromiso) }}
-            </span>
-          </div>
+      <!-- Tabla de detalles -->
+      <div class="bg-gray-50 rounded-xl overflow-hidden mb-6">
+        <div class="px-4 py-3 bg-gray-100 border-b border-gray-200">
+          <h3 class="text-sm font-semibold text-gray-700">Detalles del crédito</h3>
         </div>
+        <table class="w-full">
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 py-3 text-sm text-gray-600">Plazo</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-900 text-right">
+                {{ store.datosBien.plazoMeses }} meses ({{ Math.floor(store.datosBien.plazoMeses / 12) }} años)
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm text-gray-600">Tasa de interés (E.A.)</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-900 text-right">
+                {{ formatPercentage(resultado.tasaEA * 100) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm text-gray-600">Financiación del inmueble</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-900 text-right">
+                {{ formatPercentageUp(resultado.porcentajeFinanciacion, 0) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm text-gray-600">Compromiso de ingresos</td>
+              <td class="px-4 py-3 text-sm font-medium text-right">
+                <span class="inline-flex items-center gap-1 text-green-600">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ formatPercentageUp(resultado.porcentajeCompromiso, 0) }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- Análisis Inline -->
-      <div class="flex items-start gap-3 py-4">
-        <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fill-rule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        <div>
-          <p class="text-sm font-semibold text-gray-800 mb-1">Análisis de Capacidad</p>
-          <p class="text-sm text-gray-600">
-            Tu cuota mensual de <strong class="text-gray-900">{{ formatCurrency(resultado.cuotaMensual) }}</strong>
-            más tus obligaciones actuales representan
-            <strong class="text-green-600">{{ formatPercentage(resultado.porcentajeCompromiso) }}</strong>
-            de tus ingresos netos, lo cual está dentro del rango saludable (máximo 30%).
-          </p>
-        </div>
-      </div>
-
-      <!-- CTA Final -->
-      <div class="text-center py-8 border-t border-gray-200">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">
-          ¿Listo para hacer realidad tu proyecto?
-        </h3>
-        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Nuestros asesores especializados te guiarán en el proceso completo de solicitud y resolverán todas tus dudas.
+      <!-- Análisis breve -->
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8">
+        <p class="text-sm text-blue-800">
+          <strong>Tu capacidad de pago es saludable.</strong> La cuota representa el
+          <strong>{{ formatPercentageUp(resultado.porcentajeCompromiso, 0) }}</strong> de tus ingresos,
+          dentro del límite recomendado del 30%.
         </p>
-        <NuxtLink
-          to="/contacto"
-          class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all hover:scale-105"
+      </div>
+
+      <!-- CTA Section -->
+      <div class="border-t border-gray-200 pt-6">
+        <p class="text-sm text-gray-600 mb-4 text-center">
+          Este es un resultado preliminar. Un asesor revisará tu caso y te ayudará a completar la solicitud.
+        </p>
+
+        <!-- Botones principales: PDF primero en mobile, lado a lado en desktop -->
+        <div class="flex flex-col-reverse sm:flex-row gap-3 mb-4">
+          <button
+            @click="handleContactClick"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            Hablar con un asesor
+          </button>
+          <button
+            v-if="canGeneratePDF(resultado)"
+            @click="handleDownloadPDF"
+            :disabled="isGenerating"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-gray-200"
+          >
+            <svg v-if="isGenerating" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            {{ isGenerating ? 'Generando...' : 'Descargar tu pre-aprobación' }}
+          </button>
+        </div>
+
+        <!-- WhatsApp -->
+        <button
+          @click="handleWhatsAppClick(whatsAppUrlAprobado)"
+          class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition-all"
         >
-          Iniciar mi Solicitud →
-        </NuxtLink>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Contactar por WhatsApp
+        </button>
       </div>
     </div>
 
     <!-- RESULTADO: RECHAZADO -->
-    <div v-else-if="resultado?.resultado === 'rechazado'" class="animate-fade-in space-y-8">
-      <!-- Header Simple -->
-      <div class="text-center py-6">
-        <div class="text-6xl mb-4">😔</div>
-        <h2 class="text-3xl font-bold text-red-600 mb-2">
-          Lo sentimos
+    <div v-else-if="resultado?.resultado === 'rechazado'" class="animate-fade-in">
+
+      <!-- Header con resultado -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-1">
+          No cumples los requisitos
         </h2>
-        <p class="text-lg text-gray-600">
-          Actualmente no cumples con algunos requisitos
+        <p class="text-gray-500">
+          Pero hay opciones que podemos explorar
         </p>
       </div>
 
-      <!-- CTA Asesor -->
-      <div class="py-6 border-y border-gray-200">
-        <div class="flex items-start gap-4">
-          <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-          </svg>
-          <div class="flex-1">
-            <p class="text-sm text-gray-600 mb-4">
-              <strong class="text-gray-900">No te preocupes.</strong> Un asesor puede revisar tu caso, ofrecerte alternativas personalizadas y ayudarte a mejorar tu perfil crediticio.
-            </p>
-            <div class="flex flex-wrap gap-3">
-              <NuxtLink
-                to="/contacto"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                Consultar con Asesor
-              </NuxtLink>
-              <a
-                href="https://wa.me/573204955434?text=Hola,%20completé%20el%20simulador%20pero%20no%20cumplí%20con%20algunos%20requisitos.%20¿Pueden%20ayudarme?"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition-all"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
+      <!-- Motivo del rechazo -->
+      <div class="bg-red-50 border border-red-100 rounded-xl p-4 mb-6">
+        <p class="text-sm font-semibold text-red-800 mb-1">Motivo</p>
+        <p class="text-sm text-red-700">{{ resultado.motivoRechazo }}</p>
       </div>
 
-      <!-- Motivo del Rechazo Inline -->
-      <div class="flex items-start gap-3 py-4">
-        <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        <div>
-          <p class="text-sm font-semibold text-gray-800 mb-1">Motivo del rechazo</p>
-          <p class="text-sm text-gray-600">
-            {{ resultado.motivoRechazo }}
-          </p>
-        </div>
-      </div>
-
-      <!-- Recomendaciones Limpias -->
-      <div v-if="resultado.recomendaciones && resultado.recomendaciones.length > 0" class="space-y-3">
-        <h3 class="text-lg font-bold text-gray-800">
-          Qué puedes hacer
-        </h3>
-        <ul class="space-y-3">
-          <li v-for="(rec, index) in resultado.recomendaciones" :key="index" class="flex items-start gap-3 py-2">
-            <span class="text-gray-400 font-bold flex-shrink-0">•</span>
-            <span class="text-gray-700">{{ rec }}</span>
+      <!-- Recomendaciones -->
+      <div v-if="resultado.recomendaciones && resultado.recomendaciones.length > 0" class="bg-gray-50 rounded-xl p-4 mb-8">
+        <p class="text-sm font-semibold text-gray-700 mb-3">Qué puedes hacer</p>
+        <ul class="space-y-2">
+          <li v-for="(rec, index) in resultado.recomendaciones" :key="index" class="flex items-start gap-2 text-sm text-gray-600">
+            <svg class="w-4 h-4 text-gray-400 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ rec }}</span>
           </li>
         </ul>
       </div>
 
-      <!-- CTA Final -->
-      <div class="text-center py-8 border-t border-gray-200">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">
-          ¿Quieres explorar otras opciones?
-        </h3>
-        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Nuestros asesores conocen alternativas y pueden ayudarte a mejorar tu perfil crediticio.
+      <!-- CTA Section -->
+      <div class="border-t border-gray-200 pt-6">
+        <p class="text-sm text-gray-600 mb-4 text-center">
+          Un asesor puede revisar tu caso y ofrecerte alternativas personalizadas.
         </p>
-        <NuxtLink
-          to="/contacto"
-          class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all hover:scale-105"
-        >
-          Agendar Asesoría Gratuita →
-        </NuxtLink>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            @click="handleContactClick"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            Consultar con un asesor
+          </button>
+          <button
+            @click="handleWhatsAppClick(whatsAppUrlRechazado)"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition-all"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- RESULTADO: ADVERTENCIA -->
-    <div v-else-if="resultado?.resultado === 'advertencia'" class="animate-fade-in space-y-8">
-      <!-- Header Simple -->
-      <div class="text-center py-6">
-        <div class="text-6xl mb-4">⚠️</div>
-        <h2 class="text-3xl font-bold text-orange-600 mb-2">
-          Ajuste Necesario
+    <div v-else-if="resultado?.resultado === 'advertencia'" class="animate-fade-in">
+
+      <!-- Header con resultado -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+          <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-1">
+          Ajuste necesario
         </h2>
-        <p class="text-lg text-gray-600">
-          El monto solicitado supera tu capacidad de pago recomendada
+        <p class="text-gray-500">
+          El monto supera tu capacidad de pago recomendada
         </p>
       </div>
 
-      <!-- CTA Asesor -->
-      <div class="py-6 border-y border-gray-200">
-        <div class="flex items-start gap-4">
-          <svg class="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-          </svg>
-          <div class="flex-1">
-            <p class="text-sm text-gray-600 mb-4">
-              <strong class="text-gray-900">Un asesor puede ayudarte a ajustar los parámetros</strong> de tu solicitud y encontrar la mejor solución según tu capacidad de pago.
-            </p>
-            <div class="flex flex-wrap gap-3">
-              <NuxtLink
-                to="/contacto"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                Hablar con Asesor
-              </NuxtLink>
-              <a
-                href="https://wa.me/573204955434?text=Hola,%20necesito%20ayuda%20para%20ajustar%20mi%20solicitud%20de%20crédito"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition-all"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Análisis Limpio -->
-      <div class="space-y-4">
-        <h3 class="text-lg font-bold text-gray-800">
-          Análisis de tu Solicitud
-        </h3>
-
-        <div class="space-y-3">
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Cuota mensual calculada</span>
-            <span class="text-lg font-semibold text-gray-900">
-              {{ formatCurrency(resultado.cuotaMensual) }}
-            </span>
-          </div>
-
-          <div class="flex justify-between items-center py-3 border-b border-gray-200">
-            <span class="text-gray-600">Tus ingresos netos</span>
-            <span class="text-lg font-semibold text-gray-900">
-              {{ formatCurrency(resultado.ingresosNetos) }}
-            </span>
-          </div>
-
-          <div class="flex justify-between items-center py-3 border-b border-orange-300">
-            <span class="text-gray-700 font-medium">Compromiso de ingresos</span>
-            <span class="text-2xl font-bold text-orange-600">
-              {{ formatPercentage(resultado.porcentajeCompromiso) }}
-            </span>
-          </div>
-        </div>
-
-        <!-- Problema Inline -->
-        <div class="flex items-start gap-3 py-4">
-          <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-              clip-rule="evenodd"
-            />
-          </svg>
+      <!-- Card con problema -->
+      <div class="bg-orange-50 border border-orange-100 rounded-2xl p-5 mb-6">
+        <div class="grid grid-cols-3 gap-4 text-center">
           <div>
-            <p class="text-sm font-semibold text-gray-800 mb-1">¿Por qué necesitas ajustar?</p>
-            <p class="text-sm text-gray-600">
-              El compromiso supera el <strong>30% recomendado</strong> para mantener estabilidad financiera.
-              Te sugerimos reducir el monto o aumentar el plazo.
-            </p>
+            <p class="text-xs text-orange-700/70 uppercase tracking-wide mb-1">Cuota</p>
+            <p class="text-lg font-bold text-orange-800">{{ formatCurrency(resultado.cuotaMensual) }}</p>
+          </div>
+          <div class="border-x border-orange-200">
+            <p class="text-xs text-orange-700/70 uppercase tracking-wide mb-1">Ingresos</p>
+            <p class="text-lg font-bold text-orange-800">{{ formatCurrency(resultado.ingresosNetos) }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-orange-700/70 uppercase tracking-wide mb-1">Compromiso</p>
+            <p class="text-lg font-bold text-orange-600">{{ formatPercentageUp(resultado.porcentajeCompromiso, 0) }}</p>
           </div>
         </div>
+        <p class="text-xs text-orange-700 text-center mt-3 pt-3 border-t border-orange-200">
+          El compromiso supera el <strong>30% recomendado</strong> para estabilidad financiera
+        </p>
       </div>
 
-      <!-- Monto Máximo Viable Destacado -->
-      <div v-if="resultado.montoMaximoViable" class="text-center py-6">
-        <div class="flex items-center justify-center gap-2 mb-2">
-          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clip-rule="evenodd"
-            />
+      <!-- Monto máximo recomendado -->
+      <div v-if="resultado.montoMaximoViable" class="bg-green-50 border border-green-100 rounded-xl p-4 mb-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-green-700/70 uppercase tracking-wide mb-1">Monto máximo recomendado</p>
+            <p class="text-xl font-bold text-green-700">{{ formatCurrency(resultado.montoMaximoViable) }}</p>
+          </div>
+          <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
           </svg>
-          <p class="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-            Monto Máximo Recomendado
-          </p>
         </div>
-        <p class="text-4xl font-bold text-green-600 mb-2">
-          {{ formatCurrency(resultado.montoMaximoViable) }}
-        </p>
-        <p class="text-sm text-gray-600 max-w-md mx-auto">
-          Con este monto, tu cuota se ajustaría al 30% de tus ingresos, garantizando estabilidad financiera.
+        <p class="text-xs text-green-700 mt-2">
+          Con este monto tu cuota se ajustaría al 30% de tus ingresos
         </p>
       </div>
 
-      <!-- Recomendaciones Limpias -->
-      <div v-if="resultado.recomendaciones" class="space-y-3">
-        <h3 class="text-lg font-bold text-gray-800">
-          ¿Qué puedes hacer?
-        </h3>
-        <ul class="space-y-3">
-          <li v-for="(rec, index) in resultado.recomendaciones" :key="index" class="flex items-start gap-3 py-2">
-            <span class="text-gray-400 font-bold flex-shrink-0">•</span>
-            <span class="text-gray-700">{{ rec }}</span>
+      <!-- Recomendaciones -->
+      <div v-if="resultado.recomendaciones" class="bg-gray-50 rounded-xl p-4 mb-8">
+        <p class="text-sm font-semibold text-gray-700 mb-3">Opciones disponibles</p>
+        <ul class="space-y-2">
+          <li v-for="(rec, index) in resultado.recomendaciones" :key="index" class="flex items-start gap-2 text-sm text-gray-600">
+            <svg class="w-4 h-4 text-gray-400 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ rec }}</span>
           </li>
         </ul>
       </div>
 
-      <!-- CTA Final -->
-      <div class="text-center py-8 border-t border-gray-200">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">
-          ¿Necesitas ayuda personalizada?
-        </h3>
-        <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Nuestros asesores pueden revisar tu caso y ayudarte a encontrar la mejor configuración para tu crédito.
+      <!-- CTA Section -->
+      <div class="border-t border-gray-200 pt-6">
+        <p class="text-sm text-gray-600 mb-4 text-center">
+          Un asesor puede ayudarte a ajustar los parámetros y encontrar la mejor solución.
         </p>
-        <NuxtLink
-          to="/contacto"
-          class="inline-block bg-secondary text-white px-8 py-4 rounded-lg font-bold hover:bg-secondary/90 transition-all hover:scale-105"
-        >
-          Ajustar con un Asesor →
-        </NuxtLink>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            @click="handleContactClick"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            Ajustar con un asesor
+          </button>
+          <button
+            @click="handleWhatsAppClick(whatsAppUrlAdvertencia)"
+            class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-green-600 text-white rounded-xl text-sm font-semibold hover:bg-green-700 transition-all"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </button>
+        </div>
       </div>
     </div>
 
@@ -401,9 +312,16 @@
     </div>
 
     <!-- Disclaimer Legal -->
-    <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg text-xs text-gray-600">
-      <p>
-        <strong>Nota importante:</strong> Este simulador es de carácter educativo e informativo.
+    <div class="flex items-start gap-3 py-4 border-t border-gray-200">
+      <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+        <path
+          fill-rule="evenodd"
+          d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <p class="text-sm text-gray-600">
+        <strong class="text-gray-800">Nota importante:</strong> Este simulador es de carácter educativo e informativo.
         Los resultados son una estimación preliminar y no constituyen una oferta de crédito ni un
         compromiso por parte de ConTuHogar. La aprobación final está sujeta a evaluación detallada
         de documentos y análisis crediticio completo.
@@ -413,14 +331,133 @@
 </template>
 
 <script setup lang="ts">
-import { formatCurrency, formatPercentage } from '~/utils/formatters';
+import { formatCurrency, formatPercentage, formatPercentageUp } from '~/utils/formatters';
 import type { ResultadoCalculo } from '~/types/simulador';
+import { usePreApprovalPDF } from '~/composables/usePreApprovalPDF';
 
 const store = useSimuladorStore();
+const mainStore = useMainStore();
+const router = useRouter();
+const { generatePDF, canGeneratePDF, isGenerating } = usePreApprovalPDF();
 const { calculate } = useSimuladorCalculations();
 
 const loading = ref(true);
 const resultado = ref<ResultadoCalculo | null>(null);
+
+// Número de WhatsApp de ConTuHogar
+const WHATSAPP_NUMBER = '573012418074';
+
+// Notificar lead al servidor (Telegram)
+const notifySimulatorLead = async (action: 'whatsapp' | 'pdf' | 'contact') => {
+  try {
+    await $fetch('/api/send/simulator-lead', {
+      method: 'POST',
+      body: {
+        action,
+        datosPersonales: store.datosPersonales,
+        datosBien: store.datosBien,
+        resultado: resultado.value
+      }
+    });
+  } catch (error) {
+    console.error('Error notifying simulator lead:', error);
+  }
+};
+
+// Construir mensaje de WhatsApp con detalles del simulador
+const buildWhatsAppMessage = (tipo: 'aprobado' | 'rechazado' | 'advertencia'): string => {
+  const { datosPersonales, datosBien } = store;
+  const res = resultado.value;
+  const fullName = [datosPersonales.nombres, datosPersonales.apellidos].filter(Boolean).join(' ');
+  const tipoCredito = datosPersonales.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+
+  let message = `Hola, soy *${fullName}*.
+
+Acabo de completar el simulador de crédito:
+
+📋 *Datos de la simulación:*
+• Tipo: ${tipoCredito}
+• Valor inmueble: ${formatCurrency(datosBien.valorBien || 0)}
+• Monto solicitado: ${formatCurrency(datosBien.montoSolicitado || 0)}
+• Plazo: ${datosBien.plazoMeses} meses (${Math.floor(datosBien.plazoMeses / 12)} años)
+`;
+
+  if (tipo === 'aprobado' && res) {
+    message += `
+✅ *Resultado: PRE-APROBADO*
+• Cuota mensual: ${formatCurrency(res.cuotaMensual)}
+• Tasa EA: ${(res.tasaEA * 100).toFixed(2)}%
+• Financiación: ${Math.ceil(res.porcentajeFinanciacion)}%
+• Compromiso: ${Math.ceil(res.porcentajeCompromiso)}%
+
+Me gustaría continuar con el proceso.`;
+  } else if (tipo === 'rechazado' && res) {
+    message += `
+❌ *Resultado: No cumplí los requisitos*
+Motivo: ${res.motivoRechazo || 'N/A'}
+
+¿Pueden ayudarme a encontrar alternativas?`;
+  } else if (tipo === 'advertencia' && res) {
+    message += `
+⚠️ *Resultado: Ajuste necesario*
+• Cuota: ${formatCurrency(res.cuotaMensual)}
+• Compromiso: ${Math.ceil(res.porcentajeCompromiso)}%
+${res.montoMaximoViable ? `• Monto máx. viable: ${formatCurrency(res.montoMaximoViable)}` : ''}
+
+Necesito ayuda para ajustar mi solicitud.`;
+  }
+
+  const tel = datosPersonales.telefono ? `${datosPersonales.telefonoCodigo?.code || ''} ${datosPersonales.telefono}`.trim() : '';
+  message += `
+
+📞 *Mi contacto:*
+• Email: ${datosPersonales.correo || 'N/A'}${tel ? `\n• Tel: ${tel}` : ''}`;
+
+  return encodeURIComponent(message);
+};
+
+// URLs de WhatsApp según el resultado
+const whatsAppUrlAprobado = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage('aprobado')}`);
+const whatsAppUrlRechazado = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage('rechazado')}`);
+const whatsAppUrlAdvertencia = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage('advertencia')}`);
+
+// Handler para click en WhatsApp
+const handleWhatsAppClick = (url: string) => {
+  notifySimulatorLead('whatsapp');
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
+// Handler para descargar PDF
+const handleDownloadPDF = async () => {
+  notifySimulatorLead('pdf');
+  await generatePDF(store.$state);
+};
+
+// Handler para ir a contacto con datos pre-llenados
+const handleContactClick = () => {
+  notifySimulatorLead('contact');
+
+  // Guardar datos en el store principal (no expuestos en URL)
+  mainStore.setContactPrefill({
+    source: 'simulador',
+    nombres: store.datosPersonales.nombres || '',
+    apellidos: store.datosPersonales.apellidos || '',
+    email: store.datosPersonales.correo || '',
+    telefono: store.datosPersonales.telefono || '',
+    telefonoCodigo: store.datosPersonales.telefonoCodigo?.code || '+57',
+    simulador: {
+      tipoCredito: store.datosPersonales.tipoCredito || undefined,
+      valorBien: store.datosBien.valorBien || undefined,
+      montoSolicitado: store.datosBien.montoSolicitado || undefined,
+      plazoMeses: store.datosBien.plazoMeses,
+      resultado: resultado.value?.resultado,
+      cuotaMensual: resultado.value?.cuotaMensual,
+      porcentajeCompromiso: resultado.value?.porcentajeCompromiso
+    }
+  });
+
+  router.push('/contacto');
+};
 
 const calcularResultado = () => {
   loading.value = true;

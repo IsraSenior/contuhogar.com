@@ -1,11 +1,22 @@
 <template>
-  <div class="h-screen flex flex-col lg:flex-row">
+  <div class="relative h-screen flex flex-col lg:flex-row">
+    <!-- Botón Cerrar (redirige al home) -->
+    <NuxtLink
+      to="/"
+      class="absolute top-4 right-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+      title="Volver al inicio"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </NuxtLink>
+
     <!-- Sidebar con Stepper (Desktop) -->
     <aside class="hidden lg:flex lg:w-[400px] xl:w-[450px] bg-gray-50 p-8 flex-col">
-      <!-- Logo o Título -->
+      <!-- Título -->
       <div class="mb-8">
         <h1 class="text-2xl font-bold text-gray-900 mb-2">
-          Simulador de Crédito
+          Simulador de crédito
         </h1>
         <p class="text-sm text-gray-600">
           Completa cada paso para conocer tu pre-aprobación
@@ -21,11 +32,42 @@
         />
       </div>
 
-      <!-- Info adicional -->
-      <div class="mt-auto pt-6 border-t border-gray-200">
-        <p class="text-xs text-gray-500">
+      <!-- Logos de bancos y aliados -->
+      <!-- <div class="pt-6 border-t border-gray-200">
+        <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-3">Respaldado por</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <template v-for="logo in mainStore.logos" :key="logo.name">
+            <span
+              v-if="logo.type === 'text'"
+              class="text-xs font-bold text-gray-400"
+            >
+              {{ logo.value }}
+            </span>
+            <NuxtImg
+              v-else
+              :src="logo.value"
+              :alt="logo.name"
+              class="h-5 w-auto grayscale opacity-50"
+              loading="lazy"
+            />
+          </template>
+        </div>
+      </div> -->
+
+      <!-- Info adicional y créditos -->
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <p class="text-xs text-gray-500 mb-4">
           Tu información es confidencial y segura. Este simulador es solo para fines informativos.
         </p>
+        <!-- Logo y copyright -->
+        <div class="flex items-center gap-3">
+          <NuxtLink to="/" class="opacity-40 hover:opacity-60 transition-opacity">
+            <Logo class="w-24 h-auto" />
+          </NuxtLink>
+          <p class="text-[10px] text-gray-400">
+            &copy; {{ new Date().getFullYear() }} Todos los derechos reservados.
+          </p>
+        </div>
       </div>
     </aside>
 
@@ -33,6 +75,12 @@
     <main class="flex-1 flex flex-col overflow-hidden">
       <!-- Header Mobile (solo en mobile) -->
       <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-4">
+        <!-- Logo en Mobile -->
+        <div class="mb-3">
+          <NuxtLink to="/" class="inline-block">
+            <Logo class="w-32 h-auto" />
+          </NuxtLink>
+        </div>
         <h2 class="text-lg font-bold text-primary">
           Paso {{ store.pasoActual }} de 5: {{ currentStepTitle }}
         </h2>
@@ -64,7 +112,7 @@
             :can-go-next="canAdvance"
             :can-go-previous="store.pasoActual > 1"
             :show-previous="store.pasoActual > 1"
-            :next-button-text="store.pasoActual === 4 ? 'Ver Resultados' : 'Siguiente'"
+            :next-button-text="store.pasoActual === 4 ? 'Ver resultados' : 'Siguiente'"
             @next="handleNext"
             @prev="handlePrev"
           />
@@ -75,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import VerticalStepper from './ui/VerticalStepper.vue';
 import StepNavigation from './ui/StepNavigation.vue';
 import StepPersonalInfo from './steps/StepPersonalInfo.vue';
@@ -83,9 +131,12 @@ import StepPropertyInfo from './steps/StepPropertyInfo.vue';
 import StepIncomeInfo from './steps/StepIncomeInfo.vue';
 import StepElegibility from './steps/StepElegibility.vue';
 import StepResults from './steps/StepResults.vue';
+import { useSimuladorStore } from '~/stores/simulador';
+import { useMainStore } from '~/stores/index';
 
 const store = useSimuladorStore();
-const transitionName = ref<'slide-left' | 'slide-right'>('slide-left');
+const mainStore = useMainStore();
+const transitionName = ref('slide-left');
 
 // Componente del paso actual
 const currentStepComponent = computed(() => {
@@ -108,9 +159,9 @@ const currentStepComponent = computed(() => {
 // Título del paso actual (para mobile)
 const currentStepTitle = computed(() => {
   const titles = [
-    'Información Personal',
+    'Información personal',
     'Información del inmueble',
-    'Ingresos y Gastos',
+    'Ingresos y gastos',
     'Elegibilidad',
     'Resultados'
   ];
@@ -142,8 +193,8 @@ const handleNext = () => {
     store.nextStep();
 
     // Track analytics event
-    if (typeof window !== 'undefined' && (window as any).dataLayer) {
-      (window as any).dataLayer.push({
+    if (typeof window !== 'undefined' && window.dataLayer) {
+      window.dataLayer.push({
         event: 'simulador_step_completed',
         step: store.pasoActual - 1,
         step_name: getStepName(store.pasoActual - 1)
@@ -162,7 +213,7 @@ const handleGoToStep = (step: number) => {
   store.goToStep(step);
 };
 
-const getStepName = (step: number): string => {
+const getStepName = (step: number) => {
   const names = [
     'informacion_personal',
     'informacion_bien',
@@ -178,8 +229,8 @@ onMounted(() => {
   store.loadFromLocalStorage();
 
   // Track inicio del simulador
-  if (typeof window !== 'undefined' && (window as any).dataLayer) {
-    (window as any).dataLayer.push({
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
       event: 'simulador_started'
     });
   }
