@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div>
       <h2 class="text-2xl font-bold text-gray-800 mb-2">
-        Preguntas de Elegibilidad
+        Preguntas de elegibilidad
       </h2>
       <p class="text-gray-600">
         Estas preguntas son cruciales para determinar si puedes aplicar al crédito.
@@ -30,7 +30,7 @@
               <div class="flex items-center gap-3">
                 <!-- Status Icon -->
                 <div
-                  class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                   :class="{
                     'bg-green-500 text-white': localStatusMigratorio === true,
                     'bg-red-500 text-white': localStatusMigratorio === false,
@@ -62,7 +62,7 @@
             </div>
             <!-- Chevron Icon -->
             <svg
-              class="w-5 h-5 text-gray-500 transition-transform duration-200 flex-shrink-0 ml-3"
+              class="w-5 h-5 text-gray-500 transition-transform duration-200 shrink-0 ml-3"
               :class="{ 'rotate-180': openQuestion === 1 }"
               fill="none"
               stroke="currentColor"
@@ -134,7 +134,7 @@
 
             <!-- Blocked Message Inline -->
             <div v-if="localStatusMigratorio === false" class="mt-4 flex items-start gap-3 py-3">
-              <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
               </svg>
               <div class="flex-1">
@@ -180,7 +180,7 @@
               <div class="flex items-center gap-3">
                 <!-- Status Icon -->
                 <div
-                  class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                   :class="{
                     'bg-green-500 text-white': localReportesNegativos === false,
                     'bg-red-500 text-white': localReportesNegativos === true,
@@ -212,7 +212,7 @@
             </div>
             <!-- Chevron Icon -->
             <svg
-              class="w-5 h-5 text-gray-500 transition-transform duration-200 flex-shrink-0 ml-3"
+              class="w-5 h-5 text-gray-500 transition-transform duration-200 shrink-0 ml-3"
               :class="{ 'rotate-180': openQuestion === 2 }"
               fill="none"
               stroke="currentColor"
@@ -284,7 +284,7 @@
 
             <!-- Blocked Message Inline -->
             <div v-if="localReportesNegativos === true" class="mt-4 flex items-start gap-3 py-3">
-              <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
               </svg>
               <div class="flex-1">
@@ -312,7 +312,7 @@
 
     <!-- Help Message Inline -->
     <div v-if="hasBlockingIssue" class="flex items-start gap-3 py-4 border-t border-gray-200 mt-6 pt-6">
-      <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+      <svg class="w-6 h-6 text-yellow-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
       </svg>
       <div>
@@ -346,7 +346,7 @@
 
     <!-- Info Message Inline -->
     <div v-else class="flex items-start gap-3 py-4 border-t border-gray-200 mt-6 pt-6">
-      <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+      <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
         <path
           fill-rule="evenodd"
           d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
