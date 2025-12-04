@@ -4,110 +4,311 @@ const description = "Explora artículos sobre inversión inmobiliaria, crédito 
 
 // SEO optimizado
 useSeo({
-    title: title,
-    description: description,
-    type: 'website'
+  title: title,
+  description: description,
+  type: 'website'
+})
+
+// Artículos del blog (hardcoded por ahora - en el futuro podría venir de Directus)
+const articles = ref([
+  {
+    slug: 'el-momento-es-ahora',
+    title: 'Aprovecha el poder de las tasas de cambio a tu favor',
+    excerpt: 'En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado o a través de créditos hipotecarios.',
+    image: 'https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg',
+    date: 'Junio 25, 2025',
+    datetime: '2025-06-25',
+    category: 'Inversión',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  },
+  {
+    slug: 'credito-hipotecario-desde-exterior',
+    title: 'Cómo obtener crédito hipotecario desde el exterior',
+    excerpt: 'Guía completa para colombianos residentes en el exterior que desean solicitar un crédito hipotecario en Colombia. Conoce los requisitos, documentos necesarios y el proceso paso a paso.',
+    image: 'https://img.freepik.com/foto-gratis/casa-modelo-madera-llave-sobre-plano_23-2148780574.jpg',
+    date: 'Mayo 15, 2025',
+    datetime: '2025-05-15',
+    category: 'Guías',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  },
+  {
+    slug: 'leasing-vs-credito-hipotecario',
+    title: 'Leasing vs Crédito Hipotecario: ¿Cuál elegir?',
+    excerpt: 'Análisis comparativo entre leasing habitacional y crédito hipotecario tradicional. Descubre cuál se adapta mejor a tu situación financiera y objetivos a largo plazo.',
+    image: 'https://img.freepik.com/foto-gratis/concepto-casa-diagrama-finanzas_23-2148780568.jpg',
+    date: 'Abril 20, 2025',
+    datetime: '2025-04-20',
+    category: 'Comparativas',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  },
+  {
+    slug: 'errores-comunes-compra-vivienda',
+    title: '5 Errores comunes al comprar vivienda desde el exterior',
+    excerpt: 'Evita los errores más frecuentes que cometen los colombianos en el exterior al comprar propiedad en Colombia. Aprende de la experiencia de otros y protege tu inversión.',
+    image: 'https://img.freepik.com/foto-gratis/agente-bienes-raices-dando-casa-cliente_23-2148780556.jpg',
+    date: 'Marzo 10, 2025',
+    datetime: '2025-03-10',
+    category: 'Consejos',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  },
+  {
+    slug: 'tendencias-mercado-inmobiliario-2025',
+    title: 'Tendencias del mercado inmobiliario colombiano 2025',
+    excerpt: 'Análisis de las principales tendencias del mercado inmobiliario en Colombia para 2025. Descubre las mejores zonas para invertir y las proyecciones de valorización.',
+    image: 'https://img.freepik.com/foto-gratis/grafico-negocios-crecimiento-estadisticas_23-2148780545.jpg',
+    date: 'Febrero 5, 2025',
+    datetime: '2025-02-05',
+    category: 'Análisis',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  },
+  {
+    slug: 'documentos-necesarios-credito',
+    title: 'Documentos necesarios para solicitar tu crédito',
+    excerpt: 'Lista completa y detallada de todos los documentos que necesitas preparar para solicitar un crédito hipotecario o leasing habitacional desde el exterior.',
+    image: 'https://img.freepik.com/foto-gratis/documentos-papeles-escritorio_23-2148780590.jpg',
+    date: 'Enero 18, 2025',
+    datetime: '2025-01-18',
+    category: 'Guías',
+    author: {
+      name: 'Alejandra Pérez C.',
+      avatar: '/team/alejandra-perez.avif',
+      role: 'Gerente'
+    }
+  }
+])
+
+// Estados
+const searchQuery = ref('')
+const selectedCategory = ref('all')
+const currentPage = ref(1)
+const itemsPerPage = 6
+const minSearchLength = 3 // Mínimo de caracteres para iniciar búsqueda
+
+// Extraer categorías únicas
+const categories = computed(() => {
+  const uniqueCategories = [...new Set(articles.value.map(a => a.category))]
+  const categoryCounts = {}
+
+  uniqueCategories.forEach(cat => {
+    categoryCounts[cat] = articles.value.filter(a => a.category === cat).length
+  })
+
+  return [
+    { id: 'all', label: 'Todas', count: articles.value.length },
+    ...uniqueCategories.map(cat => ({
+      id: cat.toLowerCase(),
+      label: cat,
+      count: categoryCounts[cat]
+    }))
+  ]
+})
+
+// Filtrar artículos
+const filteredArticles = computed(() => {
+  let filtered = articles.value
+
+  // Filtrar por categoría
+  if (selectedCategory.value !== 'all') {
+    filtered = filtered.filter(a => a.category.toLowerCase() === selectedCategory.value)
+  }
+
+  // Filtrar por búsqueda (solo si hay al menos 3 caracteres)
+  const trimmedQuery = searchQuery.value.trim()
+  if (trimmedQuery.length >= minSearchLength) {
+    const query = trimmedQuery.toLowerCase()
+    filtered = filtered.filter(a =>
+      a.title.toLowerCase().includes(query) ||
+      a.excerpt.toLowerCase().includes(query) ||
+      a.category.toLowerCase().includes(query)
+    )
+  }
+
+  return filtered
+})
+
+// Paginación
+const totalPages = computed(() => {
+  return Math.ceil(filteredArticles.value.length / itemsPerPage)
+})
+
+const paginatedArticles = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredArticles.value.slice(start, end)
+})
+
+// Artículo destacado (el más reciente)
+const featuredArticle = computed(() => filteredArticles.value[0])
+
+// Resetear página cuando cambian los filtros
+watch([searchQuery, selectedCategory], () => {
+  currentPage.value = 1
+})
+
+// Funciones de paginación
+const goToPage = (page) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page
+    const blogGrid = document.querySelector('.blog-grid')
+    if (blogGrid) {
+      blogGrid.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+}
+
+// Estado sin resultados (solo cuando hay búsqueda real con mínimo de caracteres)
+const hasNoResults = computed(() => {
+  const trimmedQuery = searchQuery.value.trim()
+  return trimmedQuery.length >= minSearchLength && filteredArticles.value.length === 0
 })
 </script>
 
 <template>
-  <div class="bg-muted py-24 sm:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="">
-        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Explora. Infórmate.
-          Invierte con seguridad.</h2>
-        <p class="mt-2 text-lg/8 text-gray-500 max-w-5xl">En nuestro blog encontrarás contenido útil, claro y
-          actualizado sobre todo lo que necesitas saber para invertir con confianza en finca raíz desde cualquier lugar
-          del mundo. Te compartimos consejos, novedades del sector, historias reales y respuestas a las preguntas que
-          muchos colombianos en el exterior se hacen al momento de comprar vivienda, financiarla o planear tu regreso.
-        </p>
+  <div>
+    <!-- Hero Section -->
+    <HeroSection
+      badge="Más de 1,500 colombianos confían en nosotros"
+      badge-icon
+      title="Explora. Infórmate. Invierte con seguridad."
+      subtitle="En nuestro blog encontrarás contenido útil, claro y actualizado sobre todo lo que necesitas saber para invertir con confianza en finca raíz desde cualquier lugar del mundo."
+    />
 
-        <div class="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
-          <article class="relative isolate flex flex-col gap-8 lg:flex-row bg-muted hover:bg-white p-5 rounded-3xl">
-            <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
-              <NuxtImg
-                src="https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg"
-                alt="Crecimiento financiero con monedas" class="absolute inset-0 size-full rounded-2xl bg-primary object-cover"
-                format="webp"
-                quality="80"
-                sizes="sm:100vw lg:256px"
-                loading="eager"
-                fetchpriority="high" />
-              <div class="absolute inset-0 rounded-2xl ring-1 ring-primary/10 ring-inset"></div>
-            </div>
-            <div class="">
-              <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500">Junio 25, 2025</time>
-                <!-- <a href="#"
-                  class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-500 hover:bg-gray-100">Broker</a> -->
-              </div>
-              <div class="group relative max-w-2xl">
-                <h3 class="mt-3 text-lg/6 font-semibold text-primary group-hover:text-gray-500">
-                  <NuxtLink to="/blog/el-momento-es-ahora">
-                    <span class="absolute inset-0"></span>
-                    Aprovecha el poder de las tasas de cambio a tu favor
-                  </NuxtLink>
-                </h3>
-                <p class="mt-5 text-gray-500">En los últimos años, la devaluación del peso colombiano ha dificultado que
-                  muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado
-                  o a través de créditos hipotecarios.</p>
-              </div>
-              <div class="mt-6 flex border-t borderprimary/5 pt-6">
-                <div class="relative flex items-center gap-x-4">
-                  <NuxtImg
-                    src="/team/alejandra-perez.avif"
-                    alt="Alejandra Pérez C." class="size-10 rounded-full bg-gray-50"
-                    format="webp"
-                    quality="75"
-                    sizes="40px"
-                    loading="lazy" />
-                  <div class="text-sm/6">
-                    <p class="font-semibold text-primary">
-                      <a href="#">
-                        <span class="absolute inset-0"></span>
-                        Alejandra Pérez C.
-                      </a>
-                    </p>
-                    <p class="text-gray-500">Gerente</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
+    <!-- Categorías y Buscador -->
+    <CategoryPills
+      v-model="selectedCategory"
+      v-model:searchQuery="searchQuery"
+      v-model:hasNoResults="hasNoResults"
+      :categories="categories"
+      :show-search="true"
+      search-placeholder="Buscar artículos..."
+      @no-results-click="$router.push('/contacto')"
+    />
+
+    <!-- Contenido principal -->
+    <div class="bg-muted py-16">
+      <div class="mx-auto container px-6 lg:px-8">
+        <!-- Artículo destacado -->
+        <div v-if="featuredArticle && selectedCategory === 'all' && searchQuery.trim().length < minSearchLength" class="mb-16">
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Artículo destacado</h2>
+          </div>
+          <BlogCard :article="featuredArticle" :featured="true" />
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="bg-white">
-    <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
-      <div
-        class="relative isolate overflow-hidden bg-secondary px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-        <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-          <h2 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">¿Listo
-            para invertir en tu futuro en Colombia?</h2>
-          <p class="mt-6 text-lg/8 text-pretty text-white"> Nuestro equipo está listo para escucharte,
-            orientarte y ayudarte a tomar la mejor decisión.</p>
-          <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-            <NuxtLink to="/contacto" class=" rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-primary shadow-xs
-                            shadow-primary/5 hover:bg-primary hover:text-white focus-visible:outline-2
-                            focus-visible:outline-offset-2 focus-visible:outline-white">Contáctanos</NuxtLink>
-            <NuxtLink to="/nosotros" class="text-sm/6 font-semibold text-white hover:text-primary">
-              Conocer más <span aria-hidden="true">→</span></NuxtLink>
+        <!-- Grid de artículos -->
+        <div v-if="paginatedArticles.length > 0" class="blog-grid">
+          <div class="mb-6 flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-gray-900">
+              {{ selectedCategory === 'all' && searchQuery.trim().length < minSearchLength ? 'Más artículos' : 'Artículos' }}
+            </h2>
+            <p class="text-sm text-gray-500">
+              {{ filteredArticles.length }} {{ filteredArticles.length === 1 ? 'artículo' : 'artículos' }}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <BlogCard
+              v-for="article in paginatedArticles"
+              :key="article.slug"
+              :article="article"
+            />
+          </div>
+
+          <!-- Paginación -->
+          <div v-if="totalPages > 1" class="mt-12 flex items-center justify-center gap-2">
+            <!-- Botón anterior -->
+            <button
+              @click="goToPage(currentPage - 1)"
+              :disabled="currentPage === 1"
+              class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+
+            <!-- Números de página -->
+            <div class="flex gap-2">
+              <button
+                v-for="page in totalPages"
+                :key="page"
+                @click="goToPage(page)"
+                :class="[
+                  'px-4 py-2 rounded-lg font-medium transition-colors',
+                  currentPage === page
+                    ? 'bg-primary text-white'
+                    : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                ]"
+              >
+                {{ page }}
+              </button>
+            </div>
+
+            <!-- Botón siguiente -->
+            <button
+              @click="goToPage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+              class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Contador de resultados -->
+          <div v-if="filteredArticles.length > 0" class="mt-4 text-center text-sm text-gray-500">
+            Mostrando {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredArticles.length) }} de {{ filteredArticles.length }} artículos
           </div>
         </div>
-        <div class="relative mt-16 h-full lg:mt-8">
-          <NuxtImg
-            class="absolute top-0 left-0 w-[46rem] max-w-none object-center object-cover rounded-md bg-white/5 ring-1 ring-white/10"
-            src="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg?ga=GA1.1.369728013.1746707732&semt=ais_hybrid&w=740"
-            alt="Familia feliz celebrando compra de casa"
-            format="webp"
-            quality="80"
-            sizes="sm:100vw lg:736px"
-            loading="lazy" />
+
+        <!-- Estado vacío -->
+        <div v-else class="text-center py-16">
+          <svg class="mx-auto h-16 w-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <h3 class="mt-4 text-lg font-semibold text-gray-900">No encontramos artículos</h3>
+          <p class="mt-2 text-sm text-gray-500">Intenta con otra búsqueda o explora todas las categorías</p>
+          <button
+            @click="searchQuery = ''; selectedCategory = 'all'"
+            class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Ver todos los artículos
+          </button>
         </div>
       </div>
     </div>
-  </div>
 
+    <!-- Bancos Aliados -->
+    <BankLogosSection />
+
+    <!-- CTA Final -->
+    <CTASection
+      title="Tu hogar en Colombia te esta esperando"
+      description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
+      :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
+      :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+      :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+    />
+  </div>
 </template>

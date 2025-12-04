@@ -16,7 +16,7 @@ useHead({
 <template>
     <div>
         <Header />
-        <main class="mt-[84px]">
+        <main class="mt-[73px]">
             <NuxtPage />
         </main>
         <Footer />

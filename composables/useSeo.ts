@@ -153,7 +153,7 @@ export const useLocalBusinessSchema = () => {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Crédito Hipotecario',
+            name: 'Crédito hipotecario',
             description: 'Préstamo destinado a la compra de vivienda en Colombia'
           }
         },
@@ -161,7 +161,7 @@ export const useLocalBusinessSchema = () => {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Leasing Habitacional',
+            name: 'Leasing habitacional',
             description: 'Alternativa de financiamiento para adquirir vivienda'
           }
         },
@@ -169,7 +169,7 @@ export const useLocalBusinessSchema = () => {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Crédito de Remodelación',
+            name: 'Crédito de remodelación',
             description: 'Línea de crédito para mejoras y remodelaciones'
           }
         },
@@ -177,7 +177,7 @@ export const useLocalBusinessSchema = () => {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Compra de Cartera',
+            name: 'Compra de cartera',
             description: 'Traslado de crédito hipotecario con mejores condiciones'
           }
         }

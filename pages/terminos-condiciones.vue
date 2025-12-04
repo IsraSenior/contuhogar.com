@@ -12,7 +12,7 @@ useSeo({
 
 <template>
     <div class="bg-muted px-6 py-32 lg:px-8">
-        <div class="mx-auto max-w-5xl text-base/7 text-gray-500">
+        <div class="mx-auto container px-6 lg:px-8 text-base/7 text-gray-500">
             <p class="text-base/7 font-semibold text-secondary">Legal</p>
             <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Términos y
                 condiciones</h1>

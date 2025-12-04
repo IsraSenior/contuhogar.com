@@ -37,18 +37,18 @@ export default defineNitroPlugin((nitroApp) => {
     // Política de seguridad de contenido - la más importante
     const cspDirectives = [
       "default-src 'self'",
-      // Scripts: 'self', Google Analytics, GTM, inline scripts necesarios
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com",
+      // Scripts: 'self', Google Analytics, GTM, Cloudflare Turnstile, inline scripts necesarios
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com https://challenges.cloudflare.com",
       // Estilos: 'self', inline styles, Google Fonts
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       // Imágenes: 'self', data URIs, Directus, Freepik, Wikipedia
       "img-src 'self' data: https: http:",
       // Fonts: 'self', data URIs, Google Fonts
       "font-src 'self' data: https://fonts.gstatic.com",
-      // Conexiones: API propias, Directus, Google Analytics, Telegram
-      "connect-src 'self' https://contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org",
-      // Frames: solo mismo origen (previene clickjacking)
-      "frame-src 'self' https://www.google.com https://www.googletagmanager.com",
+      // Conexiones: API propias, Directus, Google Analytics, Telegram, GeoJS
+      "connect-src 'self' https://contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org https://get.geojs.io",
+      // Frames: solo mismo origen, Google, Cloudflare Turnstile (previene clickjacking)
+      "frame-src 'self' https://www.google.com https://www.googletagmanager.com https://challenges.cloudflare.com",
       // Frame ancestors: DENY (equivalente a X-Frame-Options)
       "frame-ancestors 'none'",
       // Object/Embed: ninguno (previene Flash/plugins antiguos)

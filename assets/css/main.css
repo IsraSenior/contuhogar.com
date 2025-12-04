@@ -18,6 +18,37 @@
     --color-gray-900: oklch(0.208 0.042 265.755);
     --color-gray-950: oklch(0.129 0.042 264.695);
 
+    /* Green colors (WhatsApp button) */
+    --color-green-500: oklch(0.723 0.191 142.51);
+    --color-green-600: oklch(0.627 0.194 142.5);
+    --color-green-700: oklch(0.527 0.154 150.06);
+
+    /* Blue colors (info boxes) */
+    --color-blue-50: oklch(0.97 0.014 254.6);
+    --color-blue-100: oklch(0.932 0.032 255.6);
+    --color-blue-800: oklch(0.424 0.199 265.6);
+
+    /* Red colors (error states) */
+    --color-red-50: oklch(0.971 0.013 17.38);
+    --color-red-100: oklch(0.936 0.032 17.72);
+    --color-red-600: oklch(0.577 0.245 27.32);
+    --color-red-700: oklch(0.505 0.213 27.52);
+    --color-red-800: oklch(0.444 0.177 26.9);
+
+    /* Orange colors (warning states) */
+    --color-orange-50: oklch(0.98 0.016 73.68);
+    --color-orange-100: oklch(0.954 0.038 75.16);
+    --color-orange-200: oklch(0.901 0.076 70.7);
+    --color-orange-600: oklch(0.646 0.222 41.1);
+    --color-orange-700: oklch(0.553 0.195 38.4);
+    --color-orange-800: oklch(0.469 0.163 38.1);
+
+    /* Amber colors (highlights) */
+    --color-amber-50: oklch(0.987 0.022 95.28);
+    --color-amber-100: oklch(0.962 0.059 95.62);
+    --color-amber-200: oklch(0.924 0.12 95.75);
+    --color-amber-600: oklch(0.666 0.179 58.32);
+
     /* --color-primary: #204491; */
     --color-primary: oklch(0.208 0.042 265.755);
     --color-secondary: #ec6e07;
@@ -68,4 +99,132 @@
 
 @utility container {
     @apply px-2.5 lg:px-0 mx-auto;
+}
+
+/* Estilos personalizados para v-calendar */
+.vc-container {
+  font-family: var(--font-roboto);
+  min-width: 320px;
+}
+
+/* Header del calendario */
+.vc-header {
+  @apply px-6 py-4 pb-2;
+}
+
+.vc-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+
+/* Botones de navegación (flechas) */
+.vc-arrow {
+  @apply w-10 h-10 flex items-center justify-center rounded-lg transition-colors;
+  @apply hover:bg-gray-100 text-gray-700;
+}
+
+.vc-arrow svg {
+  @apply w-5 h-5;
+}
+
+/* Contenedor de semanas */
+.vc-weeks {
+  @apply px-6 pb-6 !pt-10;
+}
+
+/* Encabezados de días de la semana */
+.vc-weekday {
+  @apply text-sm font-semibold text-gray-600 py-3;
+}
+
+/* Celdas de días */
+.vc-day {
+  @apply transition-all;
+}
+
+.vc-day-content {
+  @apply w-10 h-10 flex items-center justify-center rounded-lg text-base font-medium;
+}
+
+/* Hover en días habilitados */
+.vc-day:not(.is-not-in-month) .vc-day-content:hover {
+  @apply bg-gray-100 text-gray-900;
+}
+
+/* Días del mes actual */
+.vc-day:not(.is-not-in-month) .vc-day-content {
+  @apply text-gray-900;
+}
+
+/* Días fuera del mes actual */
+.vc-day.is-not-in-month .vc-day-content {
+  @apply text-gray-400;
+}
+
+/* Días deshabilitados */
+.vc-day-content.is-disabled {
+  @apply text-gray-300 cursor-not-allowed;
+}
+
+.vc-day-content.is-disabled:hover {
+  @apply bg-transparent;
+}
+
+/* Día de hoy (outline) */
+.vc-highlight-bg-outline {
+  @apply bg-transparent;
+}
+
+.vc-day.is-today .vc-highlights {
+  @apply rounded-lg;
+}
+
+.vc-day.is-today .vc-day-content {
+  @apply border-2 border-primary text-primary font-bold;
+}
+
+/* Día seleccionado */
+.vc-highlight-bg-solid {
+  @apply rounded-lg;
+  background-color: var(--color-primary) !important;
+}
+
+.vc-day.is-highlight .vc-day-content,
+.vc-day .vc-highlights + .vc-day-content {
+  @apply text-white font-bold;
+}
+
+/* Ajustar el contenedor de highlights */
+.vc-highlights {
+  @apply rounded-lg;
+}
+
+/* Estilos para FAQs page */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.prose {
+  @apply text-gray-600;
+}
+
+.prose p {
+  @apply mb-3;
+}
+
+.prose ul,
+.prose ol {
+  @apply ml-5 mb-3;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose a {
+  @apply text-primary hover:text-secondary font-medium underline;
 }
