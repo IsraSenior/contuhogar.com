@@ -4,7 +4,6 @@ import { defineStore } from 'pinia'
  * Interfaz para servicios financieros
  */
 export interface Service {
-  icon: string
   slug: string
   href: string
   title: string
@@ -33,27 +32,62 @@ export interface Question {
 }
 
 /**
+ * Interfaz para logos de bancos y aliados
+ */
+export interface PartnerLogo {
+  type: 'image' | 'text'
+  category: 'banco' | 'constructora'
+  value: string
+  name: string
+}
+
+/**
+ * Interfaz para datos pre-llenados de contacto
+ * Se usa para pasar datos entre páginas sin exponerlos en URL
+ */
+export interface ContactPrefill {
+  source: 'simulador' | 'servicio' | null
+  nombres?: string
+  apellidos?: string
+  email?: string
+  telefono?: string
+  telefonoCodigo?: string
+  servicioSlug?: string
+  servicioNombre?: string
+  simulador?: {
+    tipoCredito?: string
+    valorBien?: number
+    montoSolicitado?: number
+    plazoMeses?: number
+    resultado?: string
+    cuotaMensual?: number
+    porcentajeCompromiso?: number
+  }
+}
+
+/**
  * Interfaz del estado del store principal
  */
 export interface MainStoreState {
   services: Service[]
-  logos: string[]
+  logos: PartnerLogo[]
   team: TeamMember[]
   questions: Question[]
+  contactPrefill: ContactPrefill | null
 }
 
 /**
  * Store principal de la aplicación
  * Contiene servicios, equipo, logos de partners y FAQs
  */
-export const useMainStore = defineStore('index', {
+export const useMainStore = defineStore('main', {
   state: (): MainStoreState => ({
+    contactPrefill: null,
     services: [
       {
-        icon: '🏦',
         slug: 'credito-hipotecario',
         href: '/credito-hipotecario',
-        title: 'Crédito Hipotecario',
+        title: 'Crédito hipotecario',
         intro:
           'Haz la mejor inversión en tu país para toda una vida. Recuerda, tu lugar está donde esté tu hogar, haz realidad tu sueño de tener vivienda propia en Colombia o para tu familia.',
         content:
@@ -63,10 +97,9 @@ export const useMainStore = defineStore('index', {
         image: '/credito-hipotecario.avif',
       },
       {
-        icon: '🏘️',
         slug: 'leasing-habitacional',
         href: '/leasing-habitacional',
-        title: 'Leasing Habitacional',
+        title: 'Leasing habitacional',
         intro:
           'El leasing habitacional une la comodidad del arriendo con el beneficio de convertirte en propietario. Es una alternativa moderna, flexible y más accesible para tener vivienda propia.',
         content:
@@ -76,10 +109,9 @@ export const useMainStore = defineStore('index', {
         image: '/leasing-habitacional.avif',
       },
       {
-        icon: '🛠️',
         slug: 'credito-de-remodelacion',
         href: '/credito-de-remodelacion',
-        title: 'Crédito de Remodelación',
+        title: 'Crédito de remodelación',
         intro:
           'Convierte tu casa en el hogar que siempre soñaste, con el respaldo y la flexibilidad del crédito de remodelación.',
         content:
@@ -89,10 +121,9 @@ export const useMainStore = defineStore('index', {
         image: '/credito-de-remodelacion.avif',
       },
       {
-        icon: '💳',
         slug: 'compra-de-cartera',
         href: '/compra-de-cartera',
-        title: 'Compra de Cartera',
+        title: 'Compra de cartera',
         intro:
           'Renueva, remodela o restaura tu casa ya. No esperes más para hacer de tu vivienda en Colombia la más linda y valorizada en el tiempo.',
         content:
@@ -102,7 +133,6 @@ export const useMainStore = defineStore('index', {
         image: '/compra-de-cartera.avif',
       },
       {
-        icon: '🏡',
         slug: 'conturenta',
         href: '/conturenta',
         title: 'ConTuRenta',
@@ -116,11 +146,12 @@ export const useMainStore = defineStore('index', {
       },
     ],
     logos: [
-      '/logos/banco-occidental.png',
-      '/logos/banco-union.png',
-      'https://amarilo.com.co/images/logo.svg',
-      '/logos/colpatria-logo.png',
-      '/logos/marval-logo.png',
+      { type: 'text', category: 'banco', value: 'BBVA', name: 'BBVA Colombia' },
+      { type: 'image', category: 'banco',  value: '/logos/banco-occidental.webp', name: 'Banco de Occidente' },
+      { type: 'image', category: 'banco',  value: '/logos/logo-banco-de-bogota.webp', name: 'Banco de Bogotá' },
+      { type: 'image', category: 'banco',  value: '/logos/banco-union.webp', name: 'Banco Unión' },
+      { type: 'image', category: 'constructora',  value: '/logos/colpatria-logo.webp', name: 'Colpatria' },
+      { type: 'image', category: 'constructora',  value: '/logos/amarilo-logo.webp', name: 'Amarilo' },
     ],
     team: [
       {
@@ -171,12 +202,12 @@ export const useMainStore = defineStore('index', {
         title: 'Contador',
         image: '/team/diego-rojas.avif',
       },
-      {
-        name: 'Juan David Medrano',
-        email: 'ejecutivo.juanm@contuhogar.net',
-        title: 'Ejecutivo de crédito',
-        image: '/team/juan-david-medrano.webp',
-      },
+      // {
+      //   name: 'Juan David Medrano',
+      //   email: 'ejecutivo.juanm@contuhogar.net',
+      //   title: 'Ejecutivo de crédito',
+      //   image: '/team/juan-david-medrano.webp',
+      // },
     ],
     questions: [
       {
@@ -271,6 +302,29 @@ export const useMainStore = defineStore('index', {
     questionsCount: (state): number => {
       return state.questions.length
     },
+
+    /**
+     * Obtiene logos filtrados por categoría
+     */
+    getLogosByCategory: (state) => {
+      return (category: 'banco' | 'constructora'): PartnerLogo[] => {
+        return state.logos.filter((logo) => logo.category === category)
+      }
+    },
+
+    /**
+     * Obtiene solo logos de bancos
+     */
+    bankLogos: (state): PartnerLogo[] => {
+      return state.logos.filter((logo) => logo.category === 'banco')
+    },
+
+    /**
+     * Obtiene solo logos de constructoras
+     */
+    constructoraLogos: (state): PartnerLogo[] => {
+      return state.logos.filter((logo) => logo.category === 'constructora')
+    },
   },
 
   actions: {
@@ -326,6 +380,22 @@ export const useMainStore = defineStore('index', {
           service.description.toLowerCase().includes(term) ||
           service.content.toLowerCase().includes(term)
       )
+    },
+
+    /**
+     * Establece los datos pre-llenados para la página de contacto
+     * Usado para pasar datos entre páginas sin exponer en URL
+     */
+    setContactPrefill(data: ContactPrefill) {
+      this.contactPrefill = data
+    },
+
+    /**
+     * Limpia los datos pre-llenados de contacto
+     * Debe llamarse después de usar los datos
+     */
+    clearContactPrefill() {
+      this.contactPrefill = null
     },
   },
 })
