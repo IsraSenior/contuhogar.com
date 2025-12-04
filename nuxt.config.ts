@@ -22,6 +22,9 @@ export default defineNuxtConfig({
     DIRECTUS_URL: process.env.DIRECTUS_URL,
     DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    turnstile: {
+      secretKey: process.env.TURNSTILE_SECRET_KEY,
+    },
 
     // Variables públicas (expuestas al cliente)
     public: {
@@ -48,7 +51,21 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "@saslavik/nuxt-gtm",
     "@nuxt/image",
+    "@nuxtjs/turnstile",
   ],
+
+  // Configuración de componentes - sin prefijo de subdirectorio
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+
+  // Cloudflare Turnstile - Anti-spam invisible
+  turnstile: {
+    siteKey: process.env.TURNSTILE_SITE_KEY,
+  },
 
   // Configuración de @nuxt/image
   image: {
