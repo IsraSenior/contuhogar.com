@@ -20,6 +20,15 @@ export const formatPercentage = (value: number, decimals: number = 1): string =>
 };
 
 /**
+ * Formatea un número como porcentaje redondeando hacia arriba
+ */
+export const formatPercentageUp = (value: number, decimals: number = 1): string => {
+  const multiplier = Math.pow(10, decimals);
+  const roundedUp = Math.ceil(value * multiplier) / multiplier;
+  return `${roundedUp.toFixed(decimals)}%`;
+};
+
+/**
  * Formatea un número con separadores de miles
  */
 export const formatNumber = (value: number): string => {
