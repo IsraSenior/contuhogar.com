@@ -117,7 +117,7 @@ Two analytics services are configured in `nuxt.config.ts`:
   - Secondary color for accents
 - Custom page transitions defined in `layouts/default.vue`:
   - Fade + blur effect (0.4s duration)
-- Main content has `mt-[84px]` to account for fixed header height
+- Main content has `mt-[73px]` to account for fixed header height
 
 ### Third-Party Integrations
 
