@@ -2,7 +2,8 @@
 import type {
   SimuladorState,
   ResultadoCalculo,
-  ValidacionResult
+  ValidacionResult,
+  ObligacionFinanciera
 } from '~/types/simulador';
 
 export const useSimuladorCalculations = () => {
@@ -19,6 +20,32 @@ export const useSimuladorCalculations = () => {
   const PORCENTAJE_COMPROMISO_MAXIMO = 30; // 30% de ingresos
   const PORCENTAJE_FINANCIACION_HIPOTECARIO = 70; // 70% del valor del bien
   const PORCENTAJE_FINANCIACION_LEASING = 80; // 80% del valor del bien
+
+  /**
+   * Calcula el monto mensual de una obligación según su tipo
+   */
+  const calcularMontoMensualObligacion = (obligacion: ObligacionFinanciera): number => {
+    switch (obligacion.tipo) {
+      case 'tarjeta_credito':
+        // Para tarjetas de crédito, se considera el 3% del cupo utilizado
+        return obligacion.monto * 0.03;
+      case 'hipotecaria_arriendo':
+      case 'otra':
+        // Para hipotecaria, arriendo u otra, se considera el monto completo
+        return obligacion.monto;
+      default:
+        return obligacion.monto;
+    }
+  };
+
+  /**
+   * Calcula el total de obligaciones mensuales
+   */
+  const calcularTotalObligacionesMensuales = (obligaciones: ObligacionFinanciera[]): number => {
+    return obligaciones.reduce((total, obligacion) => {
+      return total + calcularMontoMensualObligacion(obligacion);
+    }, 0);
+  };
 
   /**
    * Calcula la cuota mensual usando la fórmula PMT
@@ -221,21 +248,26 @@ export const useSimuladorCalculations = () => {
       datosIngresos.ingresosVariables -
       datosIngresos.deducciones;
 
+    // Calcular total de obligaciones financieras mensuales
+    const totalObligacionesMensuales = calcularTotalObligacionesMensuales(
+      datosIngresos.obligacionesFinancieras
+    );
+
     // Validar capacidad de pago
-    const totalObligaciones = cuotaMensual + datosIngresos.otrasObligaciones;
+    const totalObligaciones = cuotaMensual + totalObligacionesMensuales;
     const porcentajeCompromiso = (totalObligaciones / ingresosNetos) * 100;
 
     const validacionCapacidad = validarCapacidadPago(
       cuotaMensual,
       ingresosNetos,
-      datosIngresos.otrasObligaciones
+      totalObligacionesMensuales
     );
 
     if (!validacionCapacidad.valido) {
       // Calcular monto máximo viable
       const montoMaximo = calcularMontoMaximo(
         ingresosNetos,
-        datosIngresos.otrasObligaciones,
+        totalObligacionesMensuales,
         datosBien.plazoMeses
       );
 
@@ -285,6 +317,8 @@ export const useSimuladorCalculations = () => {
     PORCENTAJE_FINANCIACION_LEASING,
     calcularCuota,
     calcularMontoMaximo,
+    calcularMontoMensualObligacion,
+    calcularTotalObligacionesMensuales,
     validarEdadPlazo,
     validarFinanciacion,
     validarCapacidadPago,
