@@ -5,8 +5,18 @@ import dialPhoneOptions from "@/db/tlf-dial.json";
 import { useMainStore } from '@/stores/index'
 import { getPhoneFormat, getDialCodeFromCountry } from '@/utils/phoneFormats'
 import { useGeoLocation } from '@/composables/useGeoLocation'
+import { formatCurrency } from '~/utils/formatters'
 
 const store = useMainStore()
+
+// Datos pre-llenados desde el store (simulador o servicio)
+const prefillData = ref(store.contactPrefill)
+
+// Verificar si viene del simulador
+const isFromSimulador = computed(() => prefillData.value?.source === 'simulador')
+
+// Verificar si viene de un servicio
+const isFromServicio = computed(() => prefillData.value?.source === 'servicio')
 
 const title = `ConTuHogar | Contacto`;
 const description = "Contáctanos para obtener asesoría especializada en crédito hipotecario, leasing habitacional y financiamiento de vivienda en Colombia. Atención personalizada para colombianos en el exterior."
@@ -24,9 +34,8 @@ useLocalBusinessSchema()
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()
 
-// CAPTCHA
-const { captchaAnswer, userAnswer: captchaUserAnswer, captchaError, validateCaptcha, resetCaptcha, generateCaptcha } = useCaptcha()
-const captchaQuestion = ref<string>('')
+// Cloudflare Turnstile (invisible)
+const turnstileToken = ref('')
 
 // Rate limiting info
 const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
@@ -89,12 +98,72 @@ const formatPhoneInput = (event: Event) => {
     checkFormProgress()
 }
 
-// Generate initial CAPTCHA question y auto-detectar país
+// Auto-detectar país al montar
 onMounted(async () => {
-    const { question } = generateCaptcha()
-    captchaQuestion.value = question
+    // Verificar si hay datos pre-llenados desde el store
+    if (prefillData.value) {
+        const data = prefillData.value
 
-    // Auto-detectar país del usuario
+        // Pre-llenar campos del formulario si vienen del simulador
+        if (data.source === 'simulador') {
+            if (data.nombres) form.value.firstName = data.nombres
+            if (data.apellidos) form.value.lastName = data.apellidos
+            if (data.email) form.value.email = data.email
+            if (data.telefono) form.value.phone = data.telefono
+
+            // Si viene con código de teléfono, buscar el país correspondiente
+            if (data.telefonoCodigo) {
+                const countryOption = dialPhoneOptions.find(opt => opt.code === data.telefonoCodigo)
+                if (countryOption) {
+                    form.value.dial = countryOption
+                    phoneDropdown.value.selected = countryOption
+                }
+            }
+
+            // Guardar datos del simulador en campo oculto
+            if (data.simulador) {
+                form.value.simuladorInfo = JSON.stringify(data.simulador)
+
+                // Generar mensaje automático con resumen del simulador
+                const sim = data.simulador
+                const tipoCredito = sim.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional'
+                const resultadoText = sim.resultado === 'aprobado' ? 'Pre-aprobado ✅' :
+                                      sim.resultado === 'rechazado' ? 'No cumple requisitos ❌' :
+                                      'Ajuste necesario ⚠️'
+
+                form.value.message = `Vengo del simulador de crédito.
+
+📋 Resumen de mi simulación:
+• Tipo: ${tipoCredito}
+• Valor inmueble: ${formatCurrency(sim.valorBien || 0)}
+• Monto solicitado: ${formatCurrency(sim.montoSolicitado || 0)}
+• Plazo: ${sim.plazoMeses || 0} meses (${Math.floor((sim.plazoMeses || 0) / 12)} años)
+• Resultado: ${resultadoText}
+${sim.cuotaMensual ? `• Cuota estimada: ${formatCurrency(sim.cuotaMensual)}` : ''}
+
+Me gustaría continuar con el proceso y recibir asesoría personalizada.`
+            }
+        }
+
+        // Pre-llenar mensaje si viene de un servicio
+        if (data.source === 'servicio' && data.servicioNombre) {
+            form.value.message = `Me interesa el servicio: ${data.servicioNombre}
+
+Me gustaría recibir más información y asesoría personalizada.`
+        }
+
+        // Marcar como interacción iniciada
+        hasTrackedStart.value = true
+        form.value._formStartTime = Date.now()
+
+        // Limpiar los datos del store después de usarlos
+        store.clearContactPrefill()
+
+        // No hacer detección de país si ya viene con código
+        if (data.telefonoCodigo) return
+    }
+
+    // Auto-detectar país del usuario (solo si no viene con datos pre-llenados)
     try {
         const detectedCountry = await detectCountry()
 
@@ -117,12 +186,6 @@ onMounted(async () => {
     }
 })
 
-// Handle CAPTCHA refresh
-const handleCaptchaRefresh = () => {
-    const { question } = resetCaptcha()
-    captchaQuestion.value = question
-}
-
 const phoneDropdown = ref({
     status: true,
     selected: {
@@ -141,7 +204,8 @@ const form = ref({
     message: '',
     source_page: route.fullPath,
     website: '', // honeypot (debe quedar vacío)
-    _formStartTime: 0 // timestamp para validación anti-bot
+    _formStartTime: 0, // timestamp para validación anti-bot
+    simuladorInfo: '' // campo oculto con datos del simulador (JSON)
 })
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -152,20 +216,9 @@ const hasTrackedStart = ref(false)
 const emailError = ref('')
 const phoneError = ref('')
 
-// CAPTCHA condicional - solo se muestra cuando hay interacción significativa
-const showCaptcha = ref(false)
-
-// Verificar si los campos básicos están completos para mostrar CAPTCHA
+// Verificar progreso del formulario (para tracking)
 const checkFormProgress = () => {
-    if (!showCaptcha.value) {
-        const hasName = form.value.firstName.length >= 2
-        const hasEmail = form.value.email.length >= 5
-        const hasPhone = form.value.phone.length >= 5
-
-        if (hasName && hasEmail && hasPhone) {
-            showCaptcha.value = true
-        }
-    }
+    // Tracking de progreso del formulario si es necesario
 }
 
 // Validar email en tiempo real
@@ -212,14 +265,9 @@ const onEmailClick = (emailAddress: string) => {
 }
 
 const onSubmit = async () => {
-    // Si el CAPTCHA no se ha mostrado aún, mostrarlo ahora
-    if (!showCaptcha.value) {
-        showCaptcha.value = true
-        return
-    }
-
-    // Validar CAPTCHA primero
-    if (!validateCaptcha()) {
+    // Validar que Turnstile se haya completado
+    if (!turnstileToken.value) {
+        errorMsg.value = 'Por favor, espera a que se complete la verificación de seguridad'
         return
     }
 
@@ -240,8 +288,7 @@ const onSubmit = async () => {
             method: 'POST',
             body: {
                 ...form.value,
-                _captchaAnswer: captchaAnswer.value,
-                _captchaUserAnswer: parseInt(captchaUserAnswer.value)
+                _turnstileToken: turnstileToken.value
             }
         })
 
@@ -268,9 +315,8 @@ ${form.value.message}
             form.value.phone = ''
             form.value.message = ''
 
-            // Reset CAPTCHA, tracking y rate limit counter
-            const { question } = resetCaptcha()
-            captchaQuestion.value = question
+            // Reset Turnstile, tracking y rate limit counter
+            turnstileToken.value = ''
             hasTrackedStart.value = false
             resetAttempts() // Reset rate limit counter on success
         } else {
@@ -288,9 +334,8 @@ ${form.value.message}
             errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
         }
 
-        // Reset CAPTCHA en caso de error
-        const { question } = resetCaptcha()
-        captchaQuestion.value = question
+        // Reset Turnstile en caso de error
+        turnstileToken.value = ''
 
         // Track form error
         trackFormError('contact_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -301,17 +346,29 @@ ${form.value.message}
 <template>
     <!-- Layout optimizado: dos columnas (info + formulario) -->
     <div class="relative bg-muted min-h-screen">
-        <div class="mx-auto max-w-7xl py-16 lg:px-0 px-5">
+        <div class="mx-auto container px-6 lg:px-8 py-16">
             <!-- Grid de dos columnas -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                 <!-- COLUMNA IZQUIERDA: Información y contenido de valor -->
                 <div class="col-span-7">
-                    <h2 class="text-4xl font-bold tracking-tight text-pretty text-primary sm:text-5xl lg:text-6xl">
-                        Recibe tu Pre-Aprobación en 24 Horas
-                    </h2>
-                    <p class="mt-4 text-base text-gray-600">Completa el formulario y recibe:</p>
-                    <ul class="mt-3 space-y-2 text-sm text-gray-600">
+                    <!-- Badge de respuesta rápida -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 text-secondary rounded-lg text-sm font-medium mb-6 border border-white/20">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Respuesta en menos de 24 horas
+                    </div>
+
+                    <h1 class="text-4xl font-bold tracking-tight text-pretty text-primary sm:text-5xl lg:text-6xl max-w-2xl">
+                        Recibe tu Pre-aprobación en 24 Horas
+                    </h1>
+
+                    <p class="mt-6 text-lg text-gray-600 leading-relaxed">
+                        Completa el formulario y nuestro equipo de expertos analizará tu perfil para brindarte la mejor opción de financiamiento.
+                    </p>
+
+                    <ul class="mt-6 space-y-3 text-base text-gray-600">
                         <li class="flex items-start gap-2">
                             <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -332,45 +389,51 @@ ${form.value.message}
                         </li>
                     </ul>
 
-                    <!-- Badge de respuesta rápida -->
-                    <div class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Respuesta en menos de 24 horas
-                    </div>
-
-                    <!-- Social Proof y Bancos Aliados -->
+                    <!-- Bancos Aliados -->
                     <div class="mt-8 pt-6 border-t border-gray-200">
-                        <!-- Contador Social -->
-                        <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                            <p><span class="font-semibold text-primary">Más de 1,500 colombianos</span> han cumplido su sueño con nosotros</p>
-                        </div>
-
-                        <!-- Bancos Aliados -->
-                        <div>
-                            <p class="text-xs text-gray-500 mb-2 font-medium">Trabajamos con:</p>
-                            <div class="flex flex-wrap items-center gap-6 opacity-60">
-                                <NuxtImg
-                                    v-for="(logo, idx) in store.logos.slice(0, 4)"
-                                    :key="idx"
-                                    :src="logo"
-                                    :alt="`Banco aliado ${idx + 1}`"
-                                    class="h-6 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-                                    loading="lazy"
-                                />
+                        <p class="text-sm text-gray-500 mb-3 font-medium">Trabajamos con los principales bancos:</p>
+                            <div class="flex flex-wrap items-center gap-8 opacity-60">
+                                <template v-for="(logo, idx) in store.logos" :key="idx">
+                                    <span
+                                        v-if="logo.type === 'text'"
+                                        class="text-sm font-bold text-gray-500"
+                                    >
+                                        {{ logo.value }}
+                                    </span>
+                                    <NuxtImg
+                                        v-else
+                                        :src="logo.value"
+                                        :alt="logo.name"
+                                        class="h-6 w-auto object-contain grayscale hover:grayscale-0 transition-all"
+                                        loading="lazy"
+                                    />
+                                </template>
                             </div>
-                        </div>
                     </div>
                 </div>
 
                 <!-- COLUMNA DERECHA: Formulario -->
                 <div class="col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
+                    <!-- Banner indicando que viene del simulador -->
+                    <div v-if="isFromSimulador" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            <div>
+                                <p class="text-green-800 font-semibold">¡Datos pre-cargados del simulador!</p>
+                                <p class="text-green-700 text-sm mt-1">Hemos llenado el formulario con tu información. Revisa los datos y envía tu solicitud.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <form @submit.prevent="onSubmit">
                         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                             <!-- Honeypot oculto -->
                             <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1"
                                 autocomplete="off" />
+                            <!-- Campo oculto con datos del simulador -->
+                            <input type="hidden" name="simuladorInfo" v-model="form.simuladorInfo" />
                             <div>
                                 <label for="first-name"
                                     class="block text-sm/6 font-semibold text-primary">Nombres</label>
@@ -456,16 +519,13 @@ ${form.value.message}
                                 </div>
                             </div>
 
-                            <!-- CAPTCHA - solo se muestra cuando hay progreso significativo -->
-                            <div v-if="showCaptcha" class="sm:col-span-2">
-                                <!-- Transición suave -->
-                                <div class="animate-fade-in">
-                                    <SimpleCaptcha v-model="captchaUserAnswer" :question="captchaQuestion" :error="captchaError" @refresh="handleCaptchaRefresh" />
+                            <!-- Cloudflare Turnstile (invisible) -->
+                            <div class="sm:col-span-2">
+                                <NuxtTurnstile v-model="turnstileToken" />
 
-                                    <!-- Rate limit warning -->
-                                    <div v-if="remainingAttemptsMessage && isNearLimit" class="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                                        <p class="text-orange-700 text-sm font-medium">⚠️ {{ remainingAttemptsMessage }}</p>
-                                    </div>
+                                <!-- Rate limit warning -->
+                                <div v-if="remainingAttemptsMessage && isNearLimit" class="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                                    <p class="text-orange-700 text-sm font-medium">{{ remainingAttemptsMessage }}</p>
                                 </div>
                             </div>
                         </div>
@@ -497,7 +557,7 @@ ${form.value.message}
 
     <!-- Sección de información de contacto y mapa -->
     <div class="bg-white py-12 sm:py-20">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto container px-6 lg:px-8">
             <!-- Header de la sección -->
             <div class="mb-12">
                 <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
