@@ -96,9 +96,18 @@ ConTuHogar.com es una plataforma web diseñada para conectar a colombianos que v
 
 - **[vue3-carousel-nuxt 1.1.6](https://github.com/ismail9k/vue3-carousel)** - Carrusel responsive
 
+### UI & Security
+
+- **[v-calendar 3.1.2](https://vcalendar.io/)** - Date picker component
+- **[@nuxtjs/turnstile 1.1.1](https://github.com/nuxt-modules/turnstile)** - Cloudflare Turnstile CAPTCHA
+
+### Server & PDF
+
+- **[Puppeteer 24.32.0](https://pptr.dev/)** - Headless browser for PDF generation
+
 ### Package Manager
 
-- **[Yarn 1.22.22](https://classic.yarnpkg.com/)** - Gestor de paquetes
+- **[pnpm 9.15.0](https://pnpm.io/)** - Gestor de paquetes rápido y eficiente
 
 ---
 
@@ -107,14 +116,14 @@ ConTuHogar.com es una plataforma web diseñada para conectar a colombianos que v
 Antes de comenzar, asegúrate de tener instalado:
 
 - **Node.js**: v18.0.0 o superior ([descargar](https://nodejs.org/))
-- **Yarn**: v1.22.22 ([instalar](https://classic.yarnpkg.com/en/docs/install))
+- **pnpm**: v9.15.0 ([instalar](https://pnpm.io/installation))
 - **Git**: Para clonar el repositorio
 
 Verificar instalación:
 
 ```bash
 node --version  # Debe ser >= v18.0.0
-yarn --version  # Debe ser 1.22.22
+pnpm --version  # Debe ser 9.15.0
 ```
 
 ---
@@ -131,10 +140,10 @@ cd contuhogar.com
 ### 2. Instalar Dependencias
 
 ```bash
-yarn install
+pnpm install
 ```
 
-Este comando instalará todas las dependencias listadas en `package.json` y ejecutará automáticamente `yarn postinstall` (que ejecuta `nuxt prepare` para generar tipos).
+Este comando instalará todas las dependencias listadas en `package.json` y ejecutará automáticamente `pnpm postinstall` (que ejecuta `nuxt prepare` para generar tipos).
 
 ### 3. Configurar Variables de Entorno
 
@@ -153,7 +162,7 @@ Edita `.env` y configura las variables requeridas (ver sección [Variables de En
 ### Iniciar Servidor de Desarrollo
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 El servidor de desarrollo se iniciará en `http://localhost:3000` con:
@@ -169,7 +178,7 @@ El servidor de desarrollo se iniciará en `http://localhost:3000` con:
 rm -rf .nuxt .output
 
 # Regenerar tipos de TypeScript
-yarn postinstall
+pnpm postinstall
 
 # Verificar tipos de TypeScript
 npx nuxi typecheck
@@ -182,7 +191,7 @@ npx nuxi typecheck
 ### Build para Producción
 
 ```bash
-yarn build
+pnpm build
 ```
 
 Este comando:
@@ -193,7 +202,7 @@ Este comando:
 ### Preview de Build de Producción
 
 ```bash
-yarn preview
+pnpm preview
 ```
 
 Inicia un servidor local para previsualizar el build de producción en `http://localhost:3000`.
@@ -201,7 +210,7 @@ Inicia un servidor local para previsualizar el build de producción en `http://l
 ### Generar Sitio Estático (SSG)
 
 ```bash
-yarn generate
+pnpm generate
 ```
 
 Genera un sitio completamente estático en `.output/public` listo para ser desplegado en cualquier hosting estático.
@@ -231,10 +240,26 @@ contuhogar.com/
 │   ├── Footer.vue        # Footer con links
 │   ├── Logo.vue          # Componente de logo
 │   ├── Whatsapp.vue      # Botón flotante de WhatsApp
-│   ├── PhoneCountryCombobox.vue  # Selector de país con búsqueda
+│   ├── CurrencyInput.vue # Input para cantidades en COP
+│   ├── DatePicker.vue    # Selector de fecha con v-calendar
+│   ├── cards/            # Componentes de tarjetas
+│   │   ├── BlogCard.vue
+│   │   └── ServiceCard.vue
+│   ├── sections/         # Secciones de página
+│   │   ├── BankLogosSection.vue
+│   │   ├── CTASection.vue
+│   │   ├── HeroSection.vue
+│   │   ├── StatsSection.vue
+│   │   └── TestimonialMarquee.vue
+│   ├── sidebar/          # Componentes de sidebar
+│   │   ├── ResourcesList.vue
+│   │   └── SidebarCTA.vue
+│   ├── ui/               # Componentes UI generales
+│   │   ├── Accordion.vue
+│   │   ├── CategoryPills.vue
+│   │   └── SearchBar.vue
 │   └── simulador/        # Componentes del simulador
-│       ├── SimuladorModal.vue     # Modal del simulador
-│       ├── SimuladorWizard.vue    # Wizard principal
+│       ├── SimuladorWizard.vue    # Wizard principal (5 pasos)
 │       ├── steps/
 │       │   ├── StepPersonalInfo.vue   # Paso 1: Datos personales
 │       │   ├── StepPropertyInfo.vue   # Paso 2: Datos del bien
@@ -243,22 +268,22 @@ contuhogar.com/
 │       │   └── StepResults.vue        # Paso 5: Resultados
 │       └── ui/
 │           ├── ProgressBar.vue         # Barra de progreso
-│           ├── StepNavigation.vue      # Navegación entre pasos
-│           ├── ValidationMessage.vue   # Mensajes de validación
 │           └── VerticalStepper.vue     # Indicador de pasos
 ├── composables/          # Composables de Vue
 │   ├── useDirectus.ts    # Helper para fetch de Directus
-│   ├── useGeoLocation.ts # Detección de país por IP
-│   ├── useSimuladorStore.ts          # Store del simulador
-│   └── useSimuladorCalculations.ts   # Cálculos financieros
+│   ├── useSeo.ts         # SEO metadata helpers
+│   ├── useSimuladorCalculations.ts   # Cálculos financieros
+│   └── usePreApprovalPDF.ts          # Generación de PDF
 ├── layouts/              # Layouts de página
-│   └── default.vue       # Layout por defecto
+│   ├── default.vue       # Layout por defecto
+│   └── simulador.vue     # Layout para simulador (sin header/footer)
 ├── pages/                # Páginas (file-based routing)
 │   ├── index.vue         # Homepage
 │   ├── contacto.vue      # Formulario de contacto
 │   ├── nosotros.vue      # Página "Sobre Nosotros"
 │   ├── faqs.vue          # Preguntas frecuentes
 │   ├── terminos-condiciones.vue
+│   ├── politica-privacidad.vue  # Política de privacidad
 │   ├── blog/
 │   │   ├── index.vue     # Lista de artículos
 │   │   └── [slug].vue    # Artículo individual
@@ -266,31 +291,44 @@ contuhogar.com/
 │   │   ├── index.vue     # Lista de servicios
 │   │   └── [slug].vue    # Servicio individual
 │   └── simulador/
-│       └── index.vue     # Simulador de crédito
+│       └── credito/
+│           ├── index.vue           # Simulador de crédito
+│           └── carta-preaprobacion.vue  # Carta de preaprobación
 ├── plugins/              # Plugins de Nuxt
 │   ├── directus.client.ts # Cliente Directus (navegador)
-│   └── directus.server.ts # Servidor Directus (SSR)
+│   ├── directus.server.ts # Servidor Directus (SSR)
+│   └── v-calendar.client.ts # Configuración de v-calendar
 ├── public/               # Assets estáticos
-│   ├── logos/           # Logos de bancos y partners
+│   ├── logos/           # Logos de bancos y partners (WebP)
+│   │   ├── amarilo-logo.webp
+│   │   ├── banco-occidental.webp
+│   │   ├── banco-union.webp
+│   │   ├── colpatria-logo.webp
+│   │   └── logo-banco-de-bogota.webp
 │   ├── team/            # Fotos del equipo
 │   ├── testimonials/    # Fotos de testimonios
 │   ├── docs/            # Documentos PDF
 │   ├── favicon.ico
 │   └── robots.txt
 ├── server/               # API y server routes
-│   └── api/
-│       ├── contact.post.ts      # Endpoint para guardar leads
-│       └── send/
-│           └── lead.post.ts     # Endpoint para enviar emails
+│   ├── api/
+│   │   ├── contact.post.ts      # Endpoint para guardar leads
+│   │   ├── pdf/
+│   │   │   └── pre-approval.post.ts  # Generación de PDF
+│   │   └── send/
+│   │       ├── lead.post.ts           # Envío de emails
+│   │       └── simulator-lead.post.ts # Notificación de simulador
+│   ├── plugins/
+│   │   └── securityHeaders.ts
+│   └── utils/
+│       └── turnstile.ts              # Verificación de Turnstile
 ├── stores/               # Stores de Pinia
-│   └── index.js         # Store principal con datos
+│   ├── index.ts         # Store principal con datos (TypeScript)
+│   └── simulador.ts     # Store del simulador
 ├── types/                # Definiciones de TypeScript
 │   └── simulador.ts     # Tipos del simulador
 ├── utils/                # Utilidades
-│   ├── formatters.ts    # Formateadores de moneda/números
-│   └── phoneFormats.ts  # Formatos de teléfono por país
-├── db/                   # Datos estáticos JSON
-│   └── tlf-dial.json    # Códigos de país (30+ países)
+│   └── formatters.ts    # Formateadores de moneda/números
 ├── .env                 # Variables de entorno (NO commit)
 ├── .env.example         # Template de variables de entorno
 ├── .gitignore           # Archivos ignorados por Git
@@ -299,7 +337,7 @@ contuhogar.com/
 ├── package.json         # Dependencias del proyecto
 ├── README.md            # Este archivo
 ├── tsconfig.json        # Configuración de TypeScript
-└── yarn.lock            # Lock file de Yarn
+└── pnpm-lock.yaml       # Lock file de pnpm
 ```
 
 ### Directorio `pages/`
@@ -310,9 +348,15 @@ Nuxt utiliza file-based routing. Cada archivo `.vue` en `pages/` se convierte au
 |---------|------|
 | `pages/index.vue` | `/` |
 | `pages/contacto.vue` | `/contacto` |
-| `pages/simulador/index.vue` | `/simulador` |
+| `pages/nosotros.vue` | `/nosotros` |
+| `pages/faqs.vue` | `/faqs` |
+| `pages/terminos-condiciones.vue` | `/terminos-condiciones` |
+| `pages/politica-privacidad.vue` | `/politica-privacidad` |
+| `pages/simulador/credito/index.vue` | `/simulador/credito` |
+| `pages/simulador/credito/carta-preaprobacion.vue` | `/simulador/credito/carta-preaprobacion` |
 | `pages/blog/index.vue` | `/blog` |
 | `pages/blog/[slug].vue` | `/blog/:slug` |
+| `pages/servicios/index.vue` | `/servicios` |
 | `pages/servicios/[slug].vue` | `/servicios/:slug` |
 
 ---
@@ -332,6 +376,10 @@ DIRECTUS_PUBLIC_TOKEN=tu_token_publico_aqui
 # Resend (Email)
 RESEND_API_KEY=re_tu_api_key_aqui
 
+# Cloudflare Turnstile (CAPTCHA)
+TURNSTILE_SITE_KEY=tu_site_key_aqui
+TURNSTILE_SECRET_KEY=tu_secret_key_aqui
+
 # Telegram (Opcional)
 TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
 TELEGRAM_CHAT_ID=-1001234567890
@@ -349,6 +397,8 @@ BASE_URL=https://contuhogar.com
 | `DIRECTUS_ADMIN_TOKEN` | Token de admin para operaciones del servidor | ✅ Sí |
 | `DIRECTUS_PUBLIC_TOKEN` | Token público de solo lectura para el cliente | ✅ Sí |
 | `RESEND_API_KEY` | API key de Resend para envío de emails | ✅ Sí |
+| `TURNSTILE_SITE_KEY` | Site key de Cloudflare Turnstile (CAPTCHA invisible) | ✅ Sí |
+| `TURNSTILE_SECRET_KEY` | Secret key de Cloudflare Turnstile | ✅ Sí |
 | `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram | ❌ Opcional |
 | `TELEGRAM_CHAT_ID` | ID del chat/canal de Telegram | ❌ Opcional |
 | `BASE_URL` | URL base del sitio (para meta tags) | ❌ Opcional |
@@ -416,70 +466,136 @@ Interesado en crédito hipotecario...
 
 ### Descripción
 
-El simulador de crédito es un wizard interactivo de 5 pasos que permite a los usuarios evaluar su elegibilidad para créditos hipotecarios y leasing habitacional. Incluye validaciones en tiempo real y cálculos financieros precisos.
+El simulador de crédito es un wizard interactivo de 5 pasos que permite a los usuarios evaluar su elegibilidad para créditos hipotecarios y leasing habitacional. Incluye validaciones en tiempo real, cálculos financieros precisos, y generación de carta de preaprobación en PDF.
 
-### Características
+### Características Principales
 
 - **Wizard Multi-Paso**: Navegación fluida entre 5 pasos con validación progresiva
-- **Cálculos Financieros**: Fórmula PMT para cuota mensual, ratios DTI y LTV
+- **Cálculos Financieros Avanzados**:
+  - Fórmula PMT para cuota mensual
+  - Ratio DTI (Debt-to-Income) - máximo 30%
+  - Ratio LTV (Loan-to-Value) - 70% hipotecario / 80% leasing
+  - Validación de edad al final del plazo (máx. 84 años)
 - **Validaciones Inteligentes**:
   - Edad + plazo ≤ 84 años
   - Capacidad de pago ≤ 30% de ingresos netos
   - Financiación: 70% (hipotecario) / 80% (leasing)
-- **Persistencia**: Estado guardado en localStorage
+  - Status migratorio y reportes crediticios
+- **Generación de PDF**: Carta de preaprobación profesional usando Puppeteer
+- **Persistencia**: Estado guardado en localStorage (sobrevive recargas)
 - **Responsive**: Diseño adaptativo para móvil y desktop
-- **Resultados Detallados**: Aprobado, Rechazado o Advertencia con recomendaciones
+- **Resultados Detallados**: Aprobado ✅, Rechazado ❌ o Advertencia ⚠️ con recomendaciones
+- **Integración con Contacto**: Pre-rellena datos en formulario de contacto
 
 ### Pasos del Simulador
 
-1. **Información Personal**: Edad y tipo de crédito (hipotecario/leasing)
-2. **Información del Bien**: Valor del bien, monto solicitado, plazo
-3. **Ingresos y Gastos**: Ingresos fijos/variables, deducciones, obligaciones
-4. **Elegibilidad**: Status migratorio, reportes crediticios
-5. **Resultados**: Evaluación completa con cuota mensual y recomendaciones
+1. **Información Personal**:
+   - Nombre completo, correo, teléfono con código de país
+   - Fecha de nacimiento (validación de edad 18-74 años)
+   - Tipo de crédito: Hipotecario o Leasing
+
+2. **Información del Inmueble**:
+   - Valor del inmueble (min: $50M, máx: $5.000M COP)
+   - Monto solicitado (validación LTV según tipo)
+   - Plazo en meses (12-240 meses / 1-20 años)
+
+3. **Ingresos y Gastos**:
+   - Ingresos fijos mensuales
+   - Ingresos variables (opcionales)
+   - Deducciones (salud, pensión, etc.)
+   - Obligaciones financieras actuales:
+     - Tarjetas de crédito (se calcula 3% del cupo)
+     - Arriendos, otros créditos, pensiones alimenticias
+
+4. **Elegibilidad**:
+   - Status migratorio válido (cédula extranjería, doble nacionalidad, visa temporal/permanente)
+   - Reportes crediticios negativos en Colombia
+
+5. **Resultados**:
+   - Estado: Aprobado ✅ / Advertencia ⚠️ / Rechazado ❌
+   - Cuota mensual estimada
+   - Tasa de interés EA
+   - Relación cuota/ingreso (DTI ratio)
+   - Recomendaciones personalizadas
+   - Opciones:
+     - Descargar carta de preaprobación (PDF)
+     - Enviar por WhatsApp
+     - Solicitar asesoría (redirige a contacto)
 
 ### Estructura de Archivos
 
-```typescript
+```
+pages/simulador/credito/
+├── index.vue                    // Página principal del simulador
+└── carta-preaprobacion.vue      // Template de carta de preaprobación
+
 components/simulador/
-├── SimuladorModal.vue        // Modal contenedor
-├── SimuladorWizard.vue       // Lógica principal del wizard
-├── steps/                    // Componentes de cada paso
+├── SimuladorWizard.vue          // Lógica principal del wizard
+├── steps/                       // Componentes de cada paso
 │   ├── StepPersonalInfo.vue
 │   ├── StepPropertyInfo.vue
 │   ├── StepIncomeInfo.vue
 │   ├── StepElegibility.vue
 │   └── StepResults.vue
-└── ui/                       // Componentes de UI reutilizables
+└── ui/                          // Componentes de UI reutilizables
     ├── ProgressBar.vue
-    ├── StepNavigation.vue
-    ├── ValidationMessage.vue
     └── VerticalStepper.vue
 
+components/
+├── CurrencyInput.vue            // Input para valores monetarios
+└── DatePicker.vue               // Selector de fecha
+
+stores/
+└── simulador.ts                 // Store Pinia con estado del simulador
+
 composables/
-├── useSimuladorStore.ts           // Store Pinia con estado del simulador
-└── useSimuladorCalculations.ts   // Lógica de cálculos financieros
+├── useSimuladorCalculations.ts  // Lógica de cálculos financieros
+└── usePreApprovalPDF.ts         // Generación de PDF
+
+server/api/
+├── pdf/
+│   └── pre-approval.post.ts     // Endpoint para generar PDF
+└── send/
+    └── simulator-lead.post.ts   // Notificación de simulador
 
 types/
-└── simulador.ts              // Tipos TypeScript
+└── simulador.ts                 // Tipos TypeScript
 
 utils/
-└── formatters.ts             // Helpers para formateo de moneda
+└── formatters.ts                // Helpers para formateo de moneda
 ```
 
 ### Ejemplo de Uso
 
 ```typescript
 // En cualquier componente
-import { useSimuladorStore } from '~/composables/useSimuladorStore'
+import { useSimuladorStore } from '~/stores/simulador'
+import { useSimuladorCalculations } from '~/composables/useSimuladorCalculations'
 
 const store = useSimuladorStore()
+const { calculate } = useSimuladorCalculations()
 
-// Acceder al resultado
-const resultado = store.resultado // 'aprobado' | 'rechazado' | 'advertencia'
+// Calcular resultado
+const resultado = calculate({
+  datosPersonales: store.datosPersonales,
+  datosBien: store.datosBien,
+  datosIngresos: store.datosIngresos,
+  datosElegibilidad: store.datosElegibilidad
+})
+
+// Acceder al resultado almacenado
+const status = store.resultado.estado // 'aprobado' | 'rechazado' | 'advertencia'
+
+// Generar PDF (solo si está aprobado)
+import { usePreApprovalPDF } from '~/composables/usePreApprovalPDF'
+const { generatePDF, isGenerating, canGeneratePDF } = usePreApprovalPDF()
+
+if (canGeneratePDF.value) {
+  await generatePDF()
+}
 
 // Resetear simulador
-store.resetSimulador()
+store.resetearTodo()
 ```
 
 ### Constantes Financieras
@@ -497,59 +613,78 @@ FINANCIACION_LEASING = 80%            // LTV
 
 ---
 
-## 📞 Optimizaciones del Formulario de Contacto
+## 📞 Formulario de Contacto Mejorado
+
+### Características de Seguridad
+
+- **Cloudflare Turnstile**: CAPTCHA invisible que protege contra bots sin afectar UX
+- **Validación de Tiempo**: Mínimo 3 segundos desde que se abre el formulario
+- **Honeypot Field**: Campo oculto para detectar bots
+- **Rate Limiting**: Máximo 8 solicitudes cada 5 minutos por IP
+- **Validación con Zod**: Esquemas TypeScript-first con mensajes claros
 
 ### Detección Automática de País
 
-El formulario detecta automáticamente el país del usuario usando su dirección IP:
+El formulario detecta automáticamente el país del usuario por IP y pre-selecciona el código de teléfono:
 
 ```typescript
-// composables/useGeoLocation.ts
-const { detectCountry } = useGeoLocation()
-
-onMounted(async () => {
-  const country = await detectCountry() // "CO", "US", "ES", etc.
-  // Pre-selecciona el código de país correspondiente
-})
+// Usa servicio geojs.io para geolocalización
+const dialCode = await detectDialCode() // "+57" para Colombia
 ```
 
-### Formato de Teléfono Dinámico
+### Formato de Teléfono Inteligente
 
-Los números de teléfono se formatean automáticamente según el país seleccionado:
+Los números se formatean automáticamente según el país seleccionado con 30+ países soportados:
 
-```typescript
-// utils/phoneFormats.ts
-const phoneFormats: Record<string, PhoneFormat> = {
-  '+57': { format: 'XXX XXX XXXX', placeholder: '300 123 4567', mask: '### ### ####' },
-  '+1': { format: '(XXX) XXX-XXXX', placeholder: '(555) 123-4567', mask: '(###) ###-####' },
-  '+34': { format: 'XXX XX XX XX', placeholder: '612 34 56 78', mask: '### ## ## ##' },
-  // ... 30+ países más
-}
-```
+| País | Código | Formato | Ejemplo |
+|------|--------|---------|---------|
+| Colombia | +57 | XXX XXX XXXX | 300 123 4567 |
+| Estados Unidos | +1 | (XXX) XXX-XXXX | (555) 123-4567 |
+| España | +34 | XXX XX XX XX | 612 34 56 78 |
+| México | +52 | XX XXXX XXXX | 55 1234 5678 |
+| Argentina | +54 | XX XXXX-XXXX | 11 1234-5678 |
 
 **Características**:
-- Formateo en tiempo real mientras el usuario escribe
-- Placeholder dinámico según país seleccionado
-- Soporte para países con múltiples códigos de área (República Dominicana: +1809, +1829, +1849)
+- Formateo en tiempo real mientras se escribe
+- Placeholder dinámico según país
+- Soporte para múltiples códigos (Rep. Dominicana: +1809/+1829/+1849)
 - Preservación de posición del cursor
+- Validación de longitud por país
 
-### Selector de País Mejorado
+### Pre-llenado desde Simulador
 
-Componente **PhoneCountryCombobox.vue** con:
-- Búsqueda interna por nombre de país o código
-- Navegación por teclado (↑↓, Enter, Esc)
-- Display de formato de teléfono en cada opción
-- Manejo de países con múltiples códigos de área
+Cuando el usuario viene del simulador, el formulario se pre-rellena automáticamente con:
+- Nombre completo
+- Email
+- Teléfono con código de país
+- Resumen de simulación en el mensaje
 
-### API Consolidada
+### Integraciones del Endpoint `/api/contact`
 
-El endpoint `/api/contact` ahora maneja:
-1. Validación con Zod
-2. Guardado en Directus
-3. Envío de email (Resend)
-4. Notificación Telegram (opcional)
+El endpoint maneja todo en una sola llamada:
 
-Todo en una sola llamada, con ejecución en paralelo de notificaciones usando `Promise.allSettled()`.
+1. **Verificación de Turnstile** - Valida token de Cloudflare
+2. **Validación de Datos** - Esquema Zod estricto
+3. **Rate Limiting** - Control por IP con headers personalizados
+4. **Guardado en Directus** - Colección `leads` con todos los datos
+5. **Notificaciones Paralelas** (`Promise.allSettled`):
+   - Email via Resend a gerenciacomercial@contuhogar.com
+   - BCC automático a israsenior.dev@gmail.com
+   - Telegram (opcional) con formato emoji-rich
+
+### Campos del Formulario
+
+| Campo | Tipo | Validación | Requerido |
+|-------|------|------------|-----------|
+| firstName | string | Min 2 caracteres | ✅ Sí |
+| lastName | string | Min 2 caracteres | ❌ No |
+| email | string | Email válido | ✅ Sí |
+| dialCode | string | Código válido de país | ✅ Sí |
+| phone | string | Según formato de país | ✅ Sí |
+| message | string | Min 10 caracteres | ❌ No |
+| source_page | string | URL de origen | ❌ No |
+| simuladorInfo | object | Datos del simulador | ❌ No |
+| cf-turnstile-response | string | Token de CAPTCHA | ✅ Sí |
 
 ---
 
@@ -581,13 +716,16 @@ npx nuxi cleanup
 npx nuxi info
 
 # Actualizar dependencias
-yarn upgrade-interactive
+pnpm update --interactive
 
 # Auditoría de seguridad
-yarn audit
+pnpm audit
 
 # Actualizar browserslist
 npx update-browserslist-db@latest
+
+# Ejecutar scripts personalizados
+npx tsx [archivo.ts]
 ```
 
 ---
@@ -611,15 +749,21 @@ npx update-browserslist-db@latest
 - ✅ Compresión gzip/brotli en producción
 - ✅ Lazy loading de imágenes
 - ✅ Preconnect a recursos externos
+- ✅ WebP para imágenes (reducción ~80% vs PNG)
+- ✅ Cloudflare Turnstile para seguridad sin fricción
+- ✅ Rate limiting por IP en endpoints sensibles
+- ✅ Headers de seguridad configurados
+- ✅ TypeScript en stores y composables
+- ✅ Puppeteer con optimizaciones para PDF
 
 ### Mejoras Pendientes (Roadmap)
 
-- 🔄 Migrar `stores/index.js` a TypeScript
-- 🔄 Implementar `@nuxt/image` para optimización de imágenes
+- 🔄 Implementar `@nuxt/image` para optimización automática
 - 🔄 Agregar sitemap dinámico con `@nuxtjs/sitemap`
-- 🔄 Implementar rate limiting con `nuxt-rate-limit`
-- 🔄 Configurar headers de seguridad
-- 🔄 Agregar testing (Vitest)
+- 🔄 Agregar testing (Vitest + Vue Test Utils)
+- 🔄 Implementar PWA con `@vite-pwa/nuxt`
+- 🔄 Mejorar accesibilidad (ARIA labels, navegación por teclado)
+- 🔄 Agregar i18n para inglés con `@nuxtjs/i18n`
 
 ---
 
@@ -675,63 +819,105 @@ Ve a GitHub y crea un Pull Request describiendo:
 
 #### ✨ Nuevas Funcionalidades
 
-- **Simulador de Crédito Completo**: Wizard interactivo de 5 pasos con cálculos financieros en tiempo real
+- **Simulador de Crédito Completo**: Wizard interactivo de 5 pasos con cálculos financieros en tiempo real y generación de PDF
   - Evaluación de elegibilidad para crédito hipotecario y leasing
-  - Validación de edad + plazo, capacidad de pago (DTI), y porcentaje de financiación (LTV)
+  - Validación de edad + plazo (máx. 84 años), capacidad de pago (DTI ≤30%), y LTV (70%/80%)
   - Cálculo de cuota mensual usando fórmula PMT
-  - Resultados detallados: Aprobado, Rechazado o Advertencia con recomendaciones personalizadas
+  - Resultados detallados: Aprobado ✅, Rechazado ❌ o Advertencia ⚠️
+  - **Generación de Carta de Preaprobación en PDF** usando Puppeteer
   - Persistencia de estado en localStorage
-  - 17 nuevos componentes y archivos (3292+ líneas de código)
+  - Pre-relleno de formulario de contacto desde simulador
+  - Integración con Telegram para notificaciones de simulador
+  - 25+ nuevos componentes y archivos (4000+ líneas de código)
 
-- **Optimizaciones del Formulario de Contacto**:
-  - Detección automática de país por IP usando geojs.io API
-  - Formato de teléfono dinámico en tiempo real (30+ países soportados)
-  - Selector de país mejorado con búsqueda interna (PhoneCountryCombobox)
-  - Soporte para países con múltiples códigos de área (RD: +1809/+1829/+1849, PR: +1787/+1939)
-  - Placeholder dinámico según país seleccionado
-  - API consolidada: guardado + notificaciones en un solo endpoint
+- **Formulario de Contacto con Cloudflare Turnstile**:
+  - **CAPTCHA invisible** usando Cloudflare Turnstile (sin fricción UX)
+  - **Validación de tiempo** (mínimo 3 segundos antes de submit)
+  - Detección automática de país por IP
+  - Formato de teléfono dinámico en tiempo real (30+ países)
+  - Rate limiting mejorado (8 requests/5min con feedback visual)
+  - Soporte para múltiples códigos de área por país
+  - API consolidada con ejecución paralela de notificaciones
 
-#### 📦 Nuevos Archivos
+- **Nuevas Páginas**:
+  - `/politica-privacidad` - Política de privacidad (Ley 1581/2012 Colombia)
+  - `/simulador/credito` - Simulador de crédito
+  - `/simulador/credito/carta-preaprobacion` - Template de carta PDF
 
-**Componentes**:
-- `components/PhoneCountryCombobox.vue` - Selector de país con búsqueda
-- `components/simulador/SimuladorModal.vue` - Modal del simulador
-- `components/simulador/SimuladorWizard.vue` - Wizard principal (6163 bytes)
-- `components/simulador/steps/` - 5 componentes de pasos
-- `components/simulador/ui/` - 4 componentes de UI
+- **Componentes de UI Modernos**:
+  - Cards (BlogCard, ServiceCard)
+  - Sections (Hero, CTA, Stats, BankLogos, TestimonialMarquee)
+  - Sidebar (ResourcesList, SidebarCTA)
+  - UI generales (Accordion, SearchBar, CategoryPills)
+  - Inputs especializados (CurrencyInput, DatePicker)
+
+#### 📦 Nuevos Archivos Clave
+
+**Stores (TypeScript)**:
+- `stores/simulador.ts` - Store Pinia del simulador con localStorage
+- `stores/index.ts` - Store principal migrado a TypeScript
 
 **Composables**:
-- `composables/useGeoLocation.ts` - Detección de país por IP
-- `composables/useSimuladorStore.ts` - Store Pinia del simulador
-- `composables/useSimuladorCalculations.ts` - Cálculos financieros
+- `composables/useSimuladorCalculations.ts` - Cálculos financieros avanzados
+- `composables/usePreApprovalPDF.ts` - Generación de PDF
+- `composables/useSeo.ts` - Helpers para SEO
+
+**Server Endpoints**:
+- `server/api/pdf/pre-approval.post.ts` - Generación de PDF con Puppeteer
+- `server/api/send/simulator-lead.post.ts` - Notificaciones de simulador
+- `server/utils/turnstile.ts` - Verificación de Cloudflare Turnstile
 
 **Tipos y Utilidades**:
-- `types/simulador.ts` - Definiciones TypeScript
+- `types/simulador.ts` - Interfaces TypeScript completas
 - `utils/formatters.ts` - Formateadores de moneda/números
-- `utils/phoneFormats.ts` - Formatos de teléfono por país
 
-**Páginas**:
-- `pages/simulador/index.vue` - Página del simulador
+**Layouts**:
+- `layouts/simulador.vue` - Layout sin header/footer para experiencia fullscreen
 
-**Datos**:
-- `db/tlf-dial.json` - Códigos de país actualizados (múltiples códigos para RD y PR)
+**Plugins**:
+- `plugins/v-calendar.client.ts` - Configuración de v-calendar
 
-#### 🔧 Modificaciones
+#### 🔧 Modificaciones Importantes
 
-- `components/Header.vue`: Agregado botón "Simular Crédito" que abre modal
 - `server/api/contact.post.ts`:
-  - Campos lastName y message ahora opcionales
-  - Rate limit aumentado de 3 a 8 requests/5min
-  - Integración de notificaciones (Resend + Telegram) en endpoint consolidado
-  - Ejecución paralela de notificaciones con `Promise.allSettled()`
+  - Integración de **Cloudflare Turnstile**
+  - Validación de tiempo de formulario
+  - Campos opcionales: lastName, message, simuladorInfo
+  - Rate limit: 8 requests/5min (aumentado)
+  - Ejecución paralela de notificaciones
+
+- `components/Header.vue`: Botón CTA para simulador
+- `nuxt.config.ts`: Módulo Turnstile agregado
+- `package.json`: Nuevas dependencias (turnstile, puppeteer, v-calendar)
+- Migración completa a `pnpm 9.15.0`
+
+#### 🗑️ Archivos Eliminados
+
+- `components/SimpleCaptcha.vue` → Reemplazado por Turnstile
+- `components/simulador/SimuladorModal.vue` → Reestructurado
+- `composables/useCaptcha.ts` → Obsoleto
+- `composables/useSimuladorStore.ts` → Movido a `stores/simulador.ts`
+- `pages/simulador/index.vue` → Reorganizado a `/credito/`
+- Logos PNG/SVG → Convertidos a WebP (reducción 80% tamaño)
+
+#### 🎨 Assets Optimizados
+
+**Nuevos Logos WebP**:
+- `amarilo-logo.webp` (11.6 KB)
+- `banco-occidental.webp` (1.8 KB)
+- `banco-union.webp` (3.8 KB)
+- `colpatria-logo.webp` (2.4 KB)
+- `logo-banco-de-bogota.webp` (13.9 KB)
 
 #### 📚 Documentación
 
-- Actualización completa de README.md con:
-  - Documentación del simulador de crédito
-  - Guía de optimizaciones del formulario de contacto
-  - Estructura de archivos actualizada
-  - Nuevas rutas en tabla de routing
+- Actualización masiva de README.md:
+  - Sección completa de Simulador de Crédito
+  - Documentación de Formulario de Contacto mejorado
+  - Estructura de proyecto actualizada
+  - Tabla de rutas completa
+  - Variables de entorno (Turnstile)
+  - Cambio de Yarn a pnpm en todos los comandos
 
 ### [2.0.0] - 2025-01-11
 
