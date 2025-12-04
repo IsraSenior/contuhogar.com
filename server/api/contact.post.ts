@@ -18,16 +18,27 @@ const schema = z.object({
     code: z.string().min(1).max(6),
   }),
   phone: z.string().min(5).max(25).trim(),
-  message: z.string().max(500).trim().optional().or(z.literal("")),
+  message: z.string().max(2000).trim().optional().or(z.literal("")), // Aumentado para incluir datos del simulador
   source_page: z.string().optional(),
   // Honeypot (debe venir vacío)
   website: z.string().max(0).optional().or(z.literal("")),
   // Timestamp para validar tiempo mínimo de envío
   _formStartTime: z.number().optional(),
-  // CAPTCHA validation
-  _captchaAnswer: z.number(),
-  _captchaUserAnswer: z.number(),
+  // Cloudflare Turnstile token
+  _turnstileToken: z.string().min(1, "Verificación de seguridad requerida"),
+  // Campo oculto con datos del simulador (JSON string)
+  simuladorInfo: z.string().optional().or(z.literal("")),
 });
+
+// Helper para formatear moneda
+const formatCurrency = (value: number): string => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(value);
+};
 
 export default defineEventHandler(async (event) => {
   // Rate limiting: máximo 8 requests por 5 minutos (300 segundos) - más permisivo
@@ -83,13 +94,14 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // CAPTCHA validation
-  if (data.data._captchaAnswer !== data.data._captchaUserAnswer) {
-    console.warn("CAPTCHA validation failed");
+  // Cloudflare Turnstile validation
+  const isValidToken = await verifyTurnstileToken(data.data._turnstileToken, event);
+  if (!isValidToken) {
+    console.warn("Turnstile validation failed");
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "Verificación anti-spam incorrecta. Por favor, intenta de nuevo.",
+      message: "Verificación de seguridad fallida. Por favor, recarga la página e intenta de nuevo.",
     });
   }
 
@@ -132,17 +144,69 @@ export default defineEventHandler(async (event) => {
       const fullName = [safe(data.data.firstName), safe(data.data.lastName)].filter(Boolean).join(" ");
       const msg = safe(data.data.message);
 
+      // Parsear datos del simulador si existen
+      let simuladorInfo: any = null;
+      let simuladorText = '';
+      if (data.data.simuladorInfo) {
+        try {
+          simuladorInfo = JSON.parse(data.data.simuladorInfo);
+          const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+          const resultadoEmoji = simuladorInfo.resultado === 'aprobado' ? '✅' :
+                                  simuladorInfo.resultado === 'rechazado' ? '❌' : '⚠️';
+          simuladorText = `
+📊 *DATOS DEL SIMULADOR:*
+   Tipo: ${tipoCredito}
+   Valor inmueble: ${formatCurrency(simuladorInfo.valorBien || 0)}
+   Monto solicitado: ${formatCurrency(simuladorInfo.montoSolicitado || 0)}
+   Plazo: ${simuladorInfo.plazoMeses} meses (${Math.floor(simuladorInfo.plazoMeses / 12)} años)
+   Resultado: ${resultadoEmoji} ${simuladorInfo.resultado?.toUpperCase() || 'N/D'}
+   ${simuladorInfo.cuotaMensual ? `Cuota: ${formatCurrency(simuladorInfo.cuotaMensual)}` : ''}`;
+        } catch (e) {
+          console.warn('Error parsing simuladorInfo:', e);
+        }
+      }
+
       // Construir texto para Telegram
       const tgText = [
-        "🆕 Nuevo lead",
-        `Nombre: ${fullName || "N/D"}`,
-        `Email: ${data.data.email}`,
-        `Tel: ${tel || "N/D"}`,
-        `Origen: ${source}`,
-        msg ? `Mensaje:\n${msg}` : ""
+        simuladorInfo ? "🏠 *LEAD SIMULADOR → CONTACTO*" : "🆕 *Nuevo lead*",
+        "",
+        `👤 *Contacto:*`,
+        `   Nombre: ${fullName || "N/D"}`,
+        `   Email: ${data.data.email}`,
+        `   Tel: ${tel || "N/D"}`,
+        `   Origen: ${source}`,
+        simuladorText,
+        msg ? `\n💬 *Mensaje:*\n${msg}` : ""
       ].filter(Boolean).join("\n");
 
       const tasks: Promise<any>[] = [];
+
+      // Construir sección de simulador para email si existe
+      let simuladorHtml = '';
+      if (simuladorInfo) {
+        const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+        const resultadoColor = simuladorInfo.resultado === 'aprobado' ? '#059669' :
+                               simuladorInfo.resultado === 'rechazado' ? '#dc2626' : '#d97706';
+        const resultadoText = simuladorInfo.resultado === 'aprobado' ? '✅ PRE-APROBADO' :
+                              simuladorInfo.resultado === 'rechazado' ? '❌ NO CUMPLE REQUISITOS' : '⚠️ AJUSTE NECESARIO';
+
+        simuladorHtml = `
+      <div style="margin:16px 0; padding:16px; background:#f0fdf4; border:1px solid #86efac; border-radius:8px;">
+        <div style="font-weight:bold; color:#166534; font-size:14px; margin-bottom:12px;">📊 DATOS DEL SIMULADOR</div>
+        <div class="row"><div class="label">Tipo de crédito</div><div class="value">${tipoCredito}</div></div>
+        <div class="row"><div class="label">Valor del inmueble</div><div class="value">${formatCurrency(simuladorInfo.valorBien || 0)}</div></div>
+        <div class="row"><div class="label">Monto solicitado</div><div class="value">${formatCurrency(simuladorInfo.montoSolicitado || 0)}</div></div>
+        <div class="row"><div class="label">Plazo</div><div class="value">${simuladorInfo.plazoMeses} meses (${Math.floor(simuladorInfo.plazoMeses / 12)} años)</div></div>
+        <div class="row"><div class="label">Resultado</div><div class="value" style="color:${resultadoColor}; font-weight:bold;">${resultadoText}</div></div>
+        ${simuladorInfo.cuotaMensual ? `<div class="row"><div class="label">Cuota estimada</div><div class="value">${formatCurrency(simuladorInfo.cuotaMensual)}</div></div>` : ''}
+        ${simuladorInfo.porcentajeCompromiso ? `<div class="row"><div class="label">Compromiso ingresos</div><div class="value">${Math.ceil(simuladorInfo.porcentajeCompromiso)}%</div></div>` : ''}
+      </div>`;
+      }
+
+      // Determinar asunto del email
+      const emailSubject = simuladorInfo
+        ? `🏠 Lead Simulador → Contacto [${fullName || data.data.firstName}]`
+        : `Nuevo mensaje de contacto [${fullName || data.data.firstName}]`;
 
       // Enviar email
       tasks.push(
@@ -150,7 +214,7 @@ export default defineEventHandler(async (event) => {
           from: "ConTuHogar · Lead <admin@contuhogar.com>",
           to: "gerenciacomercial@contuhogar.com",
           bcc: "israsenior.dev@gmail.com",
-          subject: `Nuevo mensaje de contacto [${fullName || data.data.firstName}]`,
+          subject: emailSubject,
           html: `
 <!DOCTYPE html>
 <html lang="es">
@@ -172,11 +236,13 @@ export default defineEventHandler(async (event) => {
 </head>
 <body>
   <div class="container">
+    ${simuladorInfo ? '<div style="background:#204491; color:white; padding:12px 24px; font-weight:bold;">🏠 Lead desde Simulador de Crédito</div>' : ''}
     <div class="content">
       <div class="row"><div class="label">Nombre</div><div class="value">${fullName || data.data.firstName}</div></div>
       <div class="row"><div class="label">Email</div><div class="value">${data.data.email}</div></div>
       <div class="row"><div class="label">Teléfono</div><div class="value">${tel || "N/D"}</div></div>
       <div class="row"><div class="label">Página de origen</div><div class="value">${source}</div></div>
+      ${simuladorHtml}
       ${msg ? `<div class="row" style="margin-top:14px;"><div class="label">Mensaje</div><div class="value message">${msg.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div></div>` : ""}
     </div>
     <div class="footer">Este correo fue generado automáticamente desde el formulario de contacto.</div>
@@ -196,6 +262,7 @@ export default defineEventHandler(async (event) => {
             body: JSON.stringify({
               chat_id: tgChatId,
               text: tgText,
+              parse_mode: "Markdown",
               disable_web_page_preview: true
             }),
           }).then(async (r) => {
