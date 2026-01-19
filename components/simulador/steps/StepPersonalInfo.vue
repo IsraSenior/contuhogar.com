@@ -159,14 +159,26 @@
         >
           <div class="flex items-start gap-3">
             <div
-              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
+              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
               :class="{
                 'bg-primary':
                   localTipoCredito === 'hipotecario',
                 'bg-gray-100': localTipoCredito !== 'hipotecario'
               }"
             >
-              🏠
+              <!-- Home/House Icon (Heroicons Solid) -->
+              <svg
+                class="w-6 h-6"
+                :class="{
+                  'text-white': localTipoCredito === 'hipotecario',
+                  'text-gray-600': localTipoCredito !== 'hipotecario'
+                }"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+              </svg>
             </div>
             <div class="flex-1">
               <h3
@@ -211,14 +223,25 @@
         >
           <div class="flex items-start gap-3">
             <div
-              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
+              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
               :class="{
                 'bg-primary':
                   localTipoCredito === 'leasing',
                 'bg-gray-100': localTipoCredito !== 'leasing'
               }"
             >
-              🔑
+              <!-- Key Icon (Heroicons Solid) -->
+              <svg
+                class="w-6 h-6"
+                :class="{
+                  'text-white': localTipoCredito === 'leasing',
+                  'text-gray-600': localTipoCredito !== 'leasing'
+                }"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" />
+              </svg>
             </div>
             <div class="flex-1">
               <h3

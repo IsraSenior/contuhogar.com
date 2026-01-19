@@ -1,7 +1,14 @@
-// Server API endpoint para generar PDF de pre-aprobación usando Puppeteer
+// Server API endpoint para generar PDF de preaprobación usando Puppeteer
 // Navega a la página de preview y captura solo el contenedor A4
 import puppeteer from 'puppeteer';
 import { z } from 'zod';
+import {
+  defineEventHandler,
+  readBody,
+  getRequestHost,
+  setResponseHeaders,
+  createError,
+} from 'h3';
 
 // Schema de validación para los datos del PDF
 const PreApprovalDataSchema = z.object({
@@ -45,7 +52,7 @@ const buildPreviewUrl = (data: PreApprovalData, baseUrl: string): string => {
   };
 
   const encodedData = encodeURIComponent(JSON.stringify(queryData));
-  return `${baseUrl}/simulador/carta-preaprobacion?pdf=1&data=${encodedData}`;
+  return `${baseUrl}/simulador/credito/carta-preaprobacion?pdf=1&data=${encodedData}`;
 };
 
 export default defineEventHandler(async (event) => {
@@ -101,7 +108,7 @@ export default defineEventHandler(async (event) => {
 
     await browser.close();
 
-    const fileName = `Pre-Aprobacion_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
 
     setResponseHeaders(event, {
       'Content-Type': 'application/pdf',

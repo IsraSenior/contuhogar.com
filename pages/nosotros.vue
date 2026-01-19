@@ -15,10 +15,10 @@ useLocalBusinessSchema()
 
 // Estadísticas de la empresa
 const stats = [
-    { value: '16+', label: 'Años de experiencia', description: 'en el mercado colombiano' },
-    { value: '1,500+', label: 'Familias', description: 'cumplieron su sueño' },
-    { value: '6', label: 'Bancos aliados', description: 'para mejores tasas' },
-    { value: '24h', label: 'Respuesta', description: 'en pre-aprobación' }
+    { value: '16 +', label: 'Años de experiencia', description: 'en el mercado colombiano' },
+    { value: '3,000 +', label: 'Familias', description: 'cumplieron su sueño' },
+    { value: '4', label: 'Bancos aliados', description: 'para mejores tasas de interés' },
+    { value: '24 h', label: 'Respuesta', description: 'en preaprobación' }
 ]
 
 // Valores de la empresa con iconos SVG
@@ -26,7 +26,7 @@ const valores = [
     {
         icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
         title: 'Compromiso',
-        description: 'Cada cliente es único. Nos comprometemos a encontrar la mejor solución para tu situación específica.'
+        description: 'Cada cliente y cada inversión son únicos. Por eso, nos comprometemos a encontrar la mejor solución, diseñada y evaluada según tu situación específica.'
     },
     {
         icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z',
@@ -36,7 +36,7 @@ const valores = [
     {
         icon: 'M13 10V3L4 14h7v7l9-11h-7z',
         title: 'Agilidad',
-        description: 'Procesos digitalizados para que gestiones tu crédito sin salir de tu país de residencia.'
+        description: 'Procesos digitalizados para que gestiones tu crédito sin salir de tu país de residencia, de forma fácil y rápida.'
     },
     {
         icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z',
@@ -73,10 +73,10 @@ const valores = [
                             ContuHogar nació en 2009 con una misión clara: ayudar a los colombianos en el exterior a invertir en su país de manera segura y confiable.
                         </p>
                         <p>
-                            Desde entonces, hemos acompañado a más de 1,500 familias a cumplir su sueño de tener vivienda propia en Colombia. Entendemos las dificultades de gestionar un crédito desde el exterior: la distancia, los trámites, la desconfianza.
+                            Desde entonces, hemos acompañado a más de 3,000 familias a cumplir su sueño de tener vivienda propia en Colombia. Entendemos las dificultades de gestionar un crédito desde el exterior: la distancia, los trámites, la desconfianza, entre otras.
                         </p>
                         <p>
-                            Por eso, hemos construido alianzas estratégicas con los principales bancos de Colombia como BBVA, Banco de Occidente, Banco de Bogotá y Colpatria, para ofrecerte las mejores condiciones del mercado.
+                            Por eso, hemos construido alianzas estratégicas con los principales bancos de Colombia: BBVA, Banco de Occidente, Banco de Bogotá y Banco Unión, para ofrecerte las mejores condiciones del mercado.
                         </p>
                     </div>
 
@@ -85,7 +85,7 @@ const valores = [
                             to="/contacto"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-all"
                         >
-                            Conoce a tu asesor
+                            Conoce a tu ejecutivo de crédito
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
@@ -135,7 +135,7 @@ const valores = [
     <section class="bg-white py-16 lg:py-24">
         <div class="mx-auto container px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-base font-semibold text-secondary mb-2">Por qué elegirnos</h2>
+                <h2 class="text-base font-semibold text-secondary mb-2">¿Por qué elegirnos?</h2>
                 <p class="text-3xl lg:text-4xl font-bold text-primary">
                     Lo que nos hace diferentes
                 </p>
@@ -164,7 +164,7 @@ const valores = [
     <!-- Bancos y Aliados -->
     <BankLogosSection
         title="Respaldados por los mejores"
-        subtitle="Nuestras alianzas con los principales bancos de Colombia nos permiten ofrecerte las mejores tasas y condiciones del mercado."
+        subtitle="Nuestras alianzas con los principales bancos de Colombia y constructoras nos permiten ofrecerte las mejores tasas de interés y condiciones del mercado."
         trust-message="Aliados estratégicos que garantizan seguridad y confianza en tu inversión"
     />
 
@@ -177,10 +177,10 @@ const valores = [
                     Nuestro equipo
                 </div>
                 <p class="text-3xl lg:text-4xl font-bold text-white mb-4">
-                    Expertos dedicados a tu sueño
+                    Tu sueño, en manos de expertos
                 </p>
                 <p class="text-gray-400 max-w-2xl mx-auto">
-                    Un equipo de profesionales apasionados por ayudarte a conseguir tu vivienda en Colombia. Cada uno con experiencia y dedicación para guiarte en cada paso.
+                    Un equipo de profesionales integrales y apasionados por ayudarte a conseguir tu vivienda en Colombia. Cada uno con gran experiencia y dedicación para guiarte en cada paso.
                 </p>
             </div>
 
@@ -205,7 +205,7 @@ const valores = [
 
             <!-- CTA dentro del equipo -->
             <div class="mt-12 text-center">
-                <p class="text-gray-400 mb-4">¿Listo para conocer a tu asesor personalizado?</p>
+                <p class="text-gray-400 mb-4">¿Listo para conocer a tu ejecutivo de crédito personalizado?</p>
                 <NuxtLink
                     to="/contacto"
                     class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-xl font-semibold hover:bg-secondary/90 transition-all"
@@ -221,10 +221,10 @@ const valores = [
 
     <!-- CTA Final -->
     <CTASection
-        title="Tu hogar en Colombia te esta esperando"
-        description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-        :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-        :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+        title="Tu hogar en Colombia te está esperando"
+        description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+        :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
+        :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
         :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
         image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
         image-alt="Familia feliz con su nueva casa"

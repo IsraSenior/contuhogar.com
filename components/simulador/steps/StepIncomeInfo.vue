@@ -24,9 +24,12 @@
             placeholder="5.000.000"
             :min="0"
             :step="100000"
+            :error="!!errors.ingresosFijos"
+            :error-message="errors.ingresosFijos"
             @update:model-value="calculateNetos"
+            @blur="validateIngresosFijos"
           />
-          <p class="mt-2 text-sm text-gray-500">
+          <p v-if="!errors.ingresosFijos" class="mt-2 text-sm text-gray-500">
             Salario mensual u otros ingresos regulares
           </p>
         </div>
@@ -254,6 +257,11 @@ const nuevaObligacion = ref<{ tipo: TipoObligacion | ''; monto: number | null }>
   monto: null
 });
 
+// Estado de errores para validación visual
+const errors = ref<Record<string, string>>({
+  ingresosFijos: ''
+});
+
 const totalIngresos = computed(() => {
   return (localIngresosFijos.value || 0) + localIngresosVariables.value;
 });
@@ -328,6 +336,17 @@ const removeObligacion = (index: number) => {
 const cancelarObligacion = () => {
   nuevaObligacion.value = { tipo: '', monto: null };
   showObligacionForm.value = false;
+};
+
+/**
+ * Valida los ingresos fijos
+ */
+const validateIngresosFijos = () => {
+  errors.value.ingresosFijos = '';
+
+  if (!localIngresosFijos.value || localIngresosFijos.value === 0) {
+    errors.value.ingresosFijos = 'Los ingresos fijos son requeridos';
+  }
 };
 
 const calculateNetos = () => {

@@ -83,7 +83,7 @@ useSeo({
                     <p class="mb-4">Utilizamos tus datos personales para:</p>
                     <ul class="list-disc list-inside pl-4 space-y-2">
                         <li>Brindarte asesoría personalizada sobre créditos hipotecarios y productos financieros</li>
-                        <li>Gestionar tu solicitud de pre-aprobación de crédito</li>
+                        <li>Gestionar tu solicitud de preaprobación de crédito</li>
                         <li>Comunicarnos contigo sobre el estado de tu solicitud</li>
                         <li>Enviarte información relevante sobre nuestros servicios (con tu consentimiento)</li>
                         <li>Mejorar nuestros servicios y la experiencia del usuario</li>

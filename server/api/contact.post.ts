@@ -8,6 +8,7 @@ import {
 } from "h3";
 import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
 import { Resend } from "resend";
+import { isDuplicateSubmission } from "../utils/duplicateDetection";
 
 const schema = z.object({
   firstName: z.string().min(2).max(60).trim(),
@@ -24,10 +25,27 @@ const schema = z.object({
   website: z.string().max(0).optional().or(z.literal("")),
   // Timestamp para validar tiempo mínimo de envío
   _formStartTime: z.number().optional(),
-  // Cloudflare Turnstile token
-  _turnstileToken: z.string().min(1, "Verificación de seguridad requerida"),
   // Campo oculto con datos del simulador (JSON string)
   simuladorInfo: z.string().optional().or(z.literal("")),
+
+  // === Anti-spam fields (layer 2-4) ===
+  // Bot detection
+  _botDetected: z.boolean().optional(),
+  _botKind: z.string().nullable().optional(),
+  _botDetectionTimestamp: z.number().nullable().optional(),
+
+  // Session tracking
+  _sessionId: z.string().optional(),
+  _fieldInteractions: z.number().optional(),
+  _uniqueFields: z.number().optional(),
+  _interactionDuration: z.number().optional(),
+  _sessionStartTime: z.number().nullable().optional(),
+
+  // Dynamic honeypots
+  _honeypot1Name: z.string().optional(),
+  _honeypot1Value: z.string().max(0).optional().or(z.literal("")),
+  _honeypot2Name: z.string().optional(),
+  _honeypot2Value: z.string().max(0).optional().or(z.literal("")),
 });
 
 // Helper para formatear moneda
@@ -69,12 +87,72 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // === LAYER 1: Original honeypot validation ===
   // Honeypot validation - si tiene contenido, es spam/bot
   if (data.data.website && data.data.website.length > 0) {
-    console.warn("Honeypot triggered - potential spam/bot detected");
+    console.warn("[AntiSpam] Original honeypot triggered - potential spam/bot detected");
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
+    });
+  }
+
+  // === LAYER 2: Dynamic honeypot validation ===
+  // Check dynamic honeypot fields
+  if (data.data._honeypot1Value && data.data._honeypot1Value.length > 0) {
+    console.warn(`[AntiSpam] Dynamic honeypot 1 (${data.data._honeypot1Name}) triggered`);
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+    });
+  }
+  if (data.data._honeypot2Value && data.data._honeypot2Value.length > 0) {
+    console.warn(`[AntiSpam] Dynamic honeypot 2 (${data.data._honeypot2Name}) triggered`);
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+    });
+  }
+
+  // === LAYER 3: Bot detection validation ===
+  // If client-side bot detection flagged this as a bot
+  if (data.data._botDetected === true) {
+    console.warn(`[AntiSpam] Bot detected by client (type: ${data.data._botKind})`);
+    throw createError({
+      statusCode: 403,
+      statusMessage: "Forbidden",
+      message: "Acceso denegado.",
+    });
+  }
+
+  // === LAYER 4: Session/interaction validation ===
+  // Validate minimum field interactions
+  const MIN_FIELD_INTERACTIONS = 3;
+  const MIN_UNIQUE_FIELDS = 2;
+  const MIN_INTERACTION_DURATION = 1500; // 1.5 seconds
+
+  if (data.data._fieldInteractions !== undefined && data.data._fieldInteractions < MIN_FIELD_INTERACTIONS) {
+    console.warn(`[AntiSpam] Insufficient interactions (${data.data._fieldInteractions}/${MIN_FIELD_INTERACTIONS})`);
+    // Log but don't block yet - combined with other signals
+  }
+
+  if (data.data._uniqueFields !== undefined && data.data._uniqueFields < MIN_UNIQUE_FIELDS) {
+    console.warn(`[AntiSpam] Insufficient unique fields (${data.data._uniqueFields}/${MIN_UNIQUE_FIELDS})`);
+    // Log but don't block yet - combined with other signals
+  }
+
+  // Check for very suspicious behavior (all signals combined)
+  const isSuspicious =
+    (data.data._fieldInteractions !== undefined && data.data._fieldInteractions < MIN_FIELD_INTERACTIONS) &&
+    (data.data._uniqueFields !== undefined && data.data._uniqueFields < MIN_UNIQUE_FIELDS) &&
+    (data.data._interactionDuration !== undefined && data.data._interactionDuration < MIN_INTERACTION_DURATION);
+
+  if (isSuspicious) {
+    console.warn("[AntiSpam] Multiple suspicious signals detected - likely bot");
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Por favor, completa el formulario correctamente.",
     });
   }
 
@@ -85,7 +163,7 @@ export default defineEventHandler(async (event) => {
     const MIN_FORM_TIME = 3000; // 3 segundos
 
     if (timeDiff < MIN_FORM_TIME) {
-      console.warn(`Form submitted too fast (${timeDiff}ms) - potential bot detected`);
+      console.warn(`[AntiSpam] Form submitted too fast (${timeDiff}ms) - potential bot detected`);
       throw createError({
         statusCode: 400,
         statusMessage: "Bad Request",
@@ -94,14 +172,27 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Cloudflare Turnstile validation
-  const isValidToken = await verifyTurnstileToken(data.data._turnstileToken, event);
-  if (!isValidToken) {
-    console.warn("Turnstile validation failed");
+  // === LAYER 5: Duplicate submission detection ===
+  if (isDuplicateSubmission(data.data.email, data.data.message)) {
+    console.warn(`[AntiSpam] Duplicate submission detected for ${data.data.email}`);
+    throw createError({
+      statusCode: 429,
+      statusMessage: "Too Many Requests",
+      message: "Ya has enviado esta solicitud recientemente. Por favor, espera antes de intentarlo de nuevo.",
+    });
+  }
+
+  // === LAYER 6: Verificar que tengamos datos anti-spam ===
+  const hasAntiSpamData = data.data._botDetected !== undefined ||
+                          data.data._fieldInteractions !== undefined ||
+                          data.data._sessionId !== undefined;
+
+  if (!hasAntiSpamData) {
+    console.warn("[AntiSpam] No anti-spam data present - suspicious");
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "Verificación de seguridad fallida. Por favor, recarga la página e intenta de nuevo.",
+      message: "Verificación de seguridad requerida.",
     });
   }
 
@@ -119,7 +210,7 @@ export default defineEventHandler(async (event) => {
     phone: `${data.data.dial.code} ${data.data.phone}`,
     message: data.data.message,
     source_page: data.data.source_page,
-    // created_at: new Date().toISOString(),
+    status: "nuevo",
   };
 
   // console.log(payload, "payload_res")
@@ -187,7 +278,7 @@ export default defineEventHandler(async (event) => {
         const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
         const resultadoColor = simuladorInfo.resultado === 'aprobado' ? '#059669' :
                                simuladorInfo.resultado === 'rechazado' ? '#dc2626' : '#d97706';
-        const resultadoText = simuladorInfo.resultado === 'aprobado' ? '✅ PRE-APROBADO' :
+        const resultadoText = simuladorInfo.resultado === 'aprobado' ? '✅ PREAPROBADO' :
                               simuladorInfo.resultado === 'rechazado' ? '❌ NO CUMPLE REQUISITOS' : '⚠️ AJUSTE NECESARIO';
 
         simuladorHtml = `

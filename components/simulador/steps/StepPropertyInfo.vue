@@ -20,9 +20,12 @@
         placeholder="200.000.000"
         :min="0"
         :step="1000000"
+        :error="!!errors.valorBien"
+        :error-message="errors.valorBien"
         @update:model-value="calculatePorcentaje"
+        @blur="validateValorBien"
       />
-      <p class="mt-2 text-sm text-gray-500">
+      <p v-if="!errors.valorBien" class="mt-2 text-sm text-gray-500">
         Valor total del inmueble que deseas adquirir
       </p>
     </div>
@@ -38,9 +41,12 @@
         placeholder="120.000.000"
         :min="0"
         :step="1000000"
+        :error="!!errors.montoSolicitado"
+        :error-message="errors.montoSolicitado"
         @update:model-value="calculatePorcentaje"
+        @blur="validateMontoSolicitado"
       />
-      <p class="mt-2 text-sm text-gray-500">
+      <p v-if="!errors.montoSolicitado" class="mt-2 text-sm text-gray-500">
         Monto que solicitas financiar
       </p>
 
@@ -175,6 +181,12 @@ const porcentajeFinanciacion = ref<number>(0);
 const financiacionError = ref<string[]>([]);
 const plazoError = ref<string[]>([]);
 
+// Estado de errores para validación visual
+const errors = ref<Record<string, string>>({
+  valorBien: '',
+  montoSolicitado: ''
+});
+
 const limiteFinanciacion = computed(() => {
   return store.datosPersonales.tipoCredito === 'hipotecario'
     ? PORCENTAJE_FINANCIACION_HIPOTECARIO
@@ -199,6 +211,28 @@ const plazoMaximoDisponible = computed(() => {
   const plazoMax = Math.floor((EDAD_FINAL_MAXIMA - store.datosPersonales.edad) * 12);
   return Math.min(plazoMax, PLAZO_MAXIMO);
 });
+
+/**
+ * Valida el valor del bien
+ */
+const validateValorBien = () => {
+  errors.value.valorBien = '';
+
+  if (!localValorBien.value || localValorBien.value === 0) {
+    errors.value.valorBien = 'El valor del inmueble es requerido';
+  }
+};
+
+/**
+ * Valida el monto solicitado
+ */
+const validateMontoSolicitado = () => {
+  errors.value.montoSolicitado = '';
+
+  if (!localMontoSolicitado.value || localMontoSolicitado.value === 0) {
+    errors.value.montoSolicitado = 'El monto a financiar es requerido';
+  }
+};
 
 const calculatePorcentaje = () => {
   financiacionError.value = [];

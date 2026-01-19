@@ -64,7 +64,7 @@ function getServiceContent(slug) {
         <p class="mt-4"><strong>Importante:</strong> ConTuHogar te acompaña en todo el proceso de legalización, elaboración de poderes y hasta el desembolso del crédito.</p>`
       },
       {
-        title: '¿Para quién es este crédito?',
+        title: '¿A quién va dirigido el crédito?',
         icon: 'users',
         content: `<p class="mb-4">Este producto financiero está especialmente diseñado para:</p>
         <ul class="list-disc list-inside space-y-2">
@@ -82,7 +82,7 @@ function getServiceContent(slug) {
         content: `<ul class="list-disc list-inside space-y-2">
           <li><strong>Eres propietario desde el día uno:</strong> El inmueble queda a tu nombre con garantía hipotecaria que se levanta al pagar</li>
           <li><strong>Cuota fija en pesos:</strong> Te proteges de la volatilidad del peso colombiano, ideal si tus ingresos son en moneda extranjera</li>
-          <li><strong>Pre-aprobación sin inmueble definido:</strong> Asegura tu cupo y negocia con respaldo financiero</li>
+          <li><strong>preaprobación sin inmueble definido:</strong> Asegura tu cupo y negocia con respaldo financiero</li>
           <li><strong>Flexibilidad de pago:</strong> Realiza abonos anticipados sin penalización y reduce el plazo de tu crédito</li>
           <li><strong>No afecta tu historial en el exterior:</strong> El crédito solo reporta en Colombia bajo la Ley 546 de 1999</li>
           <li><strong>Múltiples créditos posibles:</strong> Adquiere una o más propiedades según tu capacidad de pago</li>
@@ -408,10 +408,24 @@ const accordionItems = computed(() => {
   return getServiceContent(currentService.value.slug)
 })
 
+// Genera el título de la sección "¿Qué es...?" con el artículo correcto (RAE)
+const whatIsTitle = computed(() => {
+  if (!currentService.value) return '¿Qué es?'
+  // Mapeo directo del título formateado según RAE (minúsculas después de artículo)
+  const titles = {
+    'credito-hipotecario': '¿Qué es un crédito hipotecario?',
+    'leasing-habitacional': '¿Qué es el leasing habitacional?',
+    'credito-de-remodelacion': '¿Qué es un crédito de remodelación?',
+    'compra-de-cartera': '¿Qué es la compra de cartera?',
+    'conturenta': '¿Qué es ConTuRenta?'
+  }
+  return titles[currentService.value.slug] ?? '¿Qué es?'
+})
+
 // Recursos útiles para sidebar
 const usefulResources = [
   { label: 'Simulador de crédito', to: '/simulador/credito' },
-  { label: 'Preguntas Frecuentes', to: '/faqs' },
+  { label: 'Preguntas frecuentes', to: '/faqs' },
   { label: 'Blog', to: '/blog' }
 ]
 
@@ -461,7 +475,7 @@ const handleSolicitarServicio = () => {
 
             <!-- Contenido principal -->
             <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm mb-8">
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">¿Qué es?</h2>
+              <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ whatIsTitle }}</h2>
               <div class="prose prose-lg max-w-none text-gray-600">
                 <p>{{ currentService.content }}</p>
               </div>
@@ -479,10 +493,10 @@ const handleSolicitarServicio = () => {
 
             <!-- Información detallada (acordeón siempre visible) -->
             <div>
-              <div class="mb-6">
+              <!-- <div class="mb-6">
                 <h2 class="text-2xl font-bold text-gray-900">Todo lo que necesitas saber</h2>
                 <p class="mt-2 text-gray-600">Explora cada sección para conocer todos los detalles de este servicio</p>
-              </div>
+              </div> -->
 
               <Accordion
                 :items="accordionItems"
@@ -509,9 +523,9 @@ const handleSolicitarServicio = () => {
               <SidebarCTA
                 variant="secondary"
                 icon="question"
-                title="¿Tienes dudas?"
-                description="Nuestros asesores están listos para ayudarte con tu solicitud"
-                cta-text="Hablar con un asesor"
+                title="¿Tienes dudas, preguntas o inquietudes?"
+                description="Nuestros equipo humano está listo para ayudarte con tu solicitud."
+                cta-text="Habla con un ejecutivo de crédito."
                 cta-link="/contacto"
                 badge="Respuesta en menos de 24 horas"
                 :badge-icon="true"
@@ -536,7 +550,7 @@ const handleSolicitarServicio = () => {
       title="Tu hogar en Colombia te esta esperando"
       description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
       :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-      :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+      :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
       :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
     />
   </div>

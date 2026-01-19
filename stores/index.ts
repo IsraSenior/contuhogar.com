@@ -89,7 +89,7 @@ export const useMainStore = defineStore('main', {
         href: '/credito-hipotecario',
         title: 'Crédito hipotecario',
         intro:
-          'Haz la mejor inversión en tu país para toda una vida. Recuerda, tu lugar está donde esté tu hogar, haz realidad tu sueño de tener vivienda propia en Colombia o para tu familia.',
+          'Haz la mejor inversión en tu país para toda la vida. Recuerda: tu lugar está donde esté tu hogar. Haz realidad tu sueño de tener vivienda propia en Colombia, para ti o para tu familia.',
         content:
           'Es un préstamo destinado a la compra de vivienda, sujeto a que el aspirante cumpla con las condiciones y requisitos establecidos por la entidad financiera. Una vez aprobado, la propiedad del inmueble queda a nombre del comprador con una garantía hipotecaria en primer grado a favor del banco, hasta que se cancele la totalidad del crédito.',
         description:
@@ -113,7 +113,7 @@ export const useMainStore = defineStore('main', {
         href: '/credito-de-remodelacion',
         title: 'Crédito de remodelación',
         intro:
-          'Convierte tu casa en el hogar que siempre soñaste, con el respaldo y la flexibilidad del crédito de remodelación.',
+          'Convierte tu casa en el hogar que siempre soñaste, con un préstamo de remodelación respaldado por el banco que mejor se ajuste a tus necesidades, ofreciéndote flexibilidad y apoyo financiero.',
         content:
           'Se trata de una línea de crédito con garantía hipotecaria, dirigida a financiar mejoras, reparaciones o remodelaciones en una vivienda. El inmueble puede estar totalmente libre de deuda o aún tener una hipoteca vigente. En ambos casos, este crédito funciona de manera similar a un crédito de libre inversión, pero con condiciones más favorables en plazo, tasas de interés, entre otras, gracias a la garantía hipotecaria.',
         description:
@@ -137,11 +137,11 @@ export const useMainStore = defineStore('main', {
         href: '/conturenta',
         title: 'ConTuRenta',
         intro:
-          'Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.',
+          'Revisemos y validemos si estás obligado a declarar renta en Colombia por ingresos o patrimonio, y si es el caso, nosotros te decimos cómo resolverlo.',
         content:
           'Es un servicio que en primera medida te permitirá conocer si estás o no obligado a declarar renta en Colombia, bien sea viviendo en Colombia o en el exterior. Si está obligado a declarar, a través de expertos contables, realiza tu declaración de renta de acuerdo con las leyes colombianas.',
         description:
-          'Contamos con presencia en Bogotá y otras ciudades clave, ofreciéndote un catálogo actualizado de inmuebles nuevos y usados.',
+          'Revisemos y validemos si estás obligado a declarar renta en Colombia por ingresos o patrimonio, y si es el caso, nosotros te decimos cómo resolverlo.',
         image: '/conturenta.avif',
       },
     ],

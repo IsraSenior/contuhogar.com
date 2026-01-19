@@ -117,14 +117,18 @@ const goToPage = (page) => {
   }
 }
 
-// Categorías sin emojis para un look más profesional
-const categories = [
-  { id: 'all', label: 'Todas', count: store.questions.length },
-  { id: 'requisitos', label: 'Requisitos', count: computed(() => categorizedQuestions.value.requisitos.length) },
-  { id: 'proceso', label: 'Proceso', count: computed(() => categorizedQuestions.value.proceso.length) },
-  { id: 'tasas', label: 'Tasas', count: computed(() => categorizedQuestions.value.tasas.length) },
-  { id: 'documentos', label: 'Documentos', count: computed(() => categorizedQuestions.value.documentos.length) },
-]
+// Categorías sin emojis para un look más profesional (solo mostrar las que tienen contenido)
+const categories = computed(() => {
+  const allCategories = [
+    { id: 'all', label: 'Todas', count: store.questions.length },
+    { id: 'requisitos', label: 'Requisitos', count: categorizedQuestions.value.requisitos.length },
+    { id: 'proceso', label: 'Proceso', count: categorizedQuestions.value.proceso.length },
+    { id: 'tasas', label: 'Tasas', count: categorizedQuestions.value.tasas.length },
+    { id: 'documentos', label: 'Documentos', count: categorizedQuestions.value.documentos.length },
+  ]
+  // Filtrar: siempre mostrar "Todas", y las demás solo si tienen count > 0
+  return allCategories.filter(cat => cat.id === 'all' || cat.count > 0)
+})
 
 // Estado sin resultados para el buscador (solo cuando hay búsqueda real con mínimo de caracteres)
 const hasNoResults = computed(() => {
@@ -136,9 +140,9 @@ const hasNoResults = computed(() => {
 <template>
     <!-- Hero Section -->
     <HeroSection
-        badge="Más de 1,500 colombianos confían en nosotros"
+        badge="Más de 3,000 colombianos confían en nosotros"
         badge-icon
-        title="¿Tienes dudas sobre tu crédito hipotecario?"
+        title="⁠¿Tienes dudas sobre tu préstamo en Colombia?"
         subtitle="Encuentra respuestas claras y rápidas a tus preguntas. Si no encuentras lo que buscas, nuestro equipo está listo para ayudarte."
     />
 
@@ -282,7 +286,7 @@ const hasNoResults = computed(() => {
                                     to="/contacto"
                                     class="block w-full px-4 py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transition-colors shadow-md"
                                 >
-                                    Hablar con un asesor
+                                    Hablar con un ejecutivo de crédito
                                 </NuxtLink>
                                 <p class="mt-3 text-xs text-gray-500 flex items-center justify-center gap-1">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -353,10 +357,10 @@ const hasNoResults = computed(() => {
 
     <!-- CTA Final -->
     <CTASection
-        title="Tu hogar en Colombia te esta esperando"
-        description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-        :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-        :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+        title="Tu hogar en Colombia te está esperando"
+        description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+        :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
+        :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
         :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
         image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
         image-alt="Familia feliz celebrando compra de casa"

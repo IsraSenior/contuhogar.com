@@ -232,7 +232,7 @@ const usefulResources = [
                 icon="question"
                 title="¿Necesitas asesoría personalizada?"
                 description="Nuestros expertos están listos para ayudarte a tomar la mejor decisión para tu inversión"
-                cta-text="Hablar con un asesor"
+                cta-text="Hablar con un ejecutivo de crédito"
                 cta-link="/contacto"
                 badge="Respuesta en menos de 24 horas"
                 :badge-icon="true"
@@ -267,7 +267,7 @@ const usefulResources = [
       title="Tu hogar en Colombia te esta esperando"
       description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
       :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-      :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+      :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
       :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
     />
   </div>

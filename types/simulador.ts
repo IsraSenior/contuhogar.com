@@ -72,6 +72,10 @@ export interface SimuladorState {
   datosElegibilidad: DatosElegibilidad;
   resultado: ResultadoCalculo | null;
   completado: boolean;
+
+  // Session tracking
+  sessionId: string | null;
+  sessionStarted: boolean;
 }
 
 export interface ValidacionResult {

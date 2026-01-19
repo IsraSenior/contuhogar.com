@@ -1,21 +1,31 @@
 <template>
-  <div class="relative">
-    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-      $
-    </span>
-    <input
-      :id="id"
-      ref="inputRef"
-      v-model="displayValue"
-      type="text"
-      inputmode="numeric"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-      :class="inputClass"
-      @input="handleInput"
-      @blur="handleBlur"
-    />
+  <div>
+    <div class="relative">
+      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
+        $
+      </span>
+      <input
+        :id="id"
+        ref="inputRef"
+        v-model="displayValue"
+        type="text"
+        inputmode="numeric"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        class="w-full pl-8 pr-4 py-3 border rounded-lg focus:ring-2 transition-all outline-none"
+        :class="[
+          inputClass,
+          error
+            ? 'border-red-500 focus:ring-red-500 focus:border-red-500'
+            : 'border-gray-300 focus:ring-primary focus:border-transparent'
+        ]"
+        @input="handleInput"
+        @blur="handleBlur"
+      />
+    </div>
+    <p v-if="errorMessage" class="text-red-500 text-sm mt-1">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
@@ -28,6 +38,8 @@ interface Props {
   step?: number;
   disabled?: boolean;
   inputClass?: string;
+  error?: boolean;
+  errorMessage?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -35,7 +47,9 @@ const props = withDefaults(defineProps<Props>(), {
   step: 1000000,
   disabled: false,
   placeholder: '0',
-  inputClass: ''
+  inputClass: '',
+  error: false,
+  errorMessage: ''
 });
 
 const emit = defineEmits<{

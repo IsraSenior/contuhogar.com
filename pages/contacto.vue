@@ -9,6 +9,19 @@ import { formatCurrency } from '~/utils/formatters'
 
 const store = useMainStore()
 
+// Anti-spam protection
+const { isBot, getBotDetectionPayload } = useBotDetection()
+const {
+  honeypotFieldName1,
+  honeypotFieldName2,
+  honeypot1Value,
+  honeypot2Value,
+  trackInteraction,
+  isLegitimateSession,
+  getAntiSpamPayload,
+  reset: resetAntiSpam
+} = useAntiSpam()
+
 // Datos pre-llenados desde el store (simulador o servicio)
 const prefillData = ref(store.contactPrefill)
 
@@ -33,9 +46,6 @@ useLocalBusinessSchema()
 
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()
-
-// Cloudflare Turnstile (invisible)
-const turnstileToken = ref('')
 
 // Rate limiting info
 const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
@@ -127,7 +137,7 @@ onMounted(async () => {
                 // Generar mensaje automático con resumen del simulador
                 const sim = data.simulador
                 const tipoCredito = sim.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional'
-                const resultadoText = sim.resultado === 'aprobado' ? 'Pre-aprobado ✅' :
+                const resultadoText = sim.resultado === 'aprobado' ? 'Preaprobado ✅' :
                                       sim.resultado === 'rechazado' ? 'No cumple requisitos ❌' :
                                       'Ajuste necesario ⚠️'
 
@@ -242,7 +252,10 @@ const validatePhone = () => {
 }
 
 // Track form start when user interacts with any field
-const onFormInteraction = () => {
+const onFormInteraction = (fieldName: string = 'unknown', eventType: 'focus' | 'blur' | 'input' = 'focus') => {
+    // Track anti-spam interaction
+    trackInteraction(fieldName, eventType)
+
     if (!hasTrackedStart.value) {
         trackFormStart('contact_form', route.fullPath)
         hasTrackedStart.value = true
@@ -265,10 +278,18 @@ const onEmailClick = (emailAddress: string) => {
 }
 
 const onSubmit = async () => {
-    // Validar que Turnstile se haya completado
-    if (!turnstileToken.value) {
-        errorMsg.value = 'Por favor, espera a que se complete la verificación de seguridad'
+    // Block bots detected by BotD
+    if (isBot.value) {
+        console.warn('[AntiSpam] Bot detected, blocking submission')
+        // Silently fail for bots - don't give them feedback
+        state.value = 'success'
         return
+    }
+
+    // Check for insufficient interaction (potential bot)
+    if (!isLegitimateSession.value) {
+        console.warn('[AntiSpam] Insufficient interaction detected')
+        // Don't block, but log for monitoring - server will validate
     }
 
     state.value = 'loading'
@@ -284,11 +305,16 @@ const onSubmit = async () => {
     })
 
     try {
+        // Combine form data with anti-spam payloads
+        const antiSpamPayload = getAntiSpamPayload()
+        const botDetectionPayload = getBotDetectionPayload()
+
         const res = await $fetch('/api/contact', {
             method: 'POST',
             body: {
                 ...form.value,
-                _turnstileToken: turnstileToken.value
+                ...antiSpamPayload,
+                ...botDetectionPayload
             }
         })
 
@@ -315,10 +341,10 @@ ${form.value.message}
             form.value.phone = ''
             form.value.message = ''
 
-            // Reset Turnstile, tracking y rate limit counter
-            turnstileToken.value = ''
+            // Reset tracking, rate limit counter y anti-spam
             hasTrackedStart.value = false
             resetAttempts() // Reset rate limit counter on success
+            resetAntiSpam() // Reset anti-spam state
         } else {
             throw new Error('Respuesta inválida del servidor')
         }
@@ -333,9 +359,6 @@ ${form.value.message}
         } else {
             errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
         }
-
-        // Reset Turnstile en caso de error
-        turnstileToken.value = ''
 
         // Track form error
         trackFormError('contact_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -357,11 +380,11 @@ ${form.value.message}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        Respuesta en menos de 24 horas
+                        Recibe tu preaprobación en 24 horas
                     </div>
 
                     <h1 class="text-4xl font-bold tracking-tight text-pretty text-primary sm:text-5xl lg:text-6xl max-w-2xl">
-                        Recibe tu Pre-aprobación en 24 Horas
+                        Recibe tu preaprobación en 24 Horas
                     </h1>
 
                     <p class="mt-6 text-lg text-gray-600 leading-relaxed">
@@ -373,19 +396,19 @@ ${form.value.message}
                             <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Análisis de tu perfil sin costo ni compromiso</span>
+                            <span>Análisis de tu perfil sin costo inicial ni compromiso.</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Comparativa de tasas personalizadas</span>
+                            <span>Comparativa de tasas de interés personalizadas.</span>
                         </li>
                         <li class="flex items-start gap-2">
                             <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Acompañamiento de expertos de inicio a fin</span>
+                            <span>Acompañamiento de expertos de inicio a fin.</span>
                         </li>
                     </ul>
 
@@ -393,7 +416,7 @@ ${form.value.message}
                     <div class="mt-8 pt-6 border-t border-gray-200">
                         <p class="text-sm text-gray-500 mb-3 font-medium">Trabajamos con los principales bancos:</p>
                             <div class="flex flex-wrap items-center gap-8 opacity-60">
-                                <template v-for="(logo, idx) in store.logos" :key="idx">
+                                <template v-for="(logo, idx) in store.bankLogos" :key="idx">
                                     <span
                                         v-if="logo.type === 'text'"
                                         class="text-sm font-bold text-gray-500"
@@ -429,9 +452,30 @@ ${form.value.message}
 
                     <form @submit.prevent="onSubmit">
                         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                            <!-- Honeypot oculto -->
+                            <!-- Honeypot campos ocultos (anti-bot) - nombres dinámicos -->
+                            <!-- Original honeypot for backwards compatibility -->
                             <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1"
-                                autocomplete="off" />
+                                autocomplete="off" aria-hidden="true" />
+                            <!-- Dynamic honeypot 1 -->
+                            <input
+                                :name="honeypotFieldName1"
+                                v-model="honeypot1Value"
+                                type="text"
+                                class="absolute -left-[9999px] opacity-0 h-0 w-0 pointer-events-none"
+                                tabindex="-1"
+                                autocomplete="off"
+                                aria-hidden="true"
+                            />
+                            <!-- Dynamic honeypot 2 -->
+                            <input
+                                :name="honeypotFieldName2"
+                                v-model="honeypot2Value"
+                                type="url"
+                                class="absolute -left-[9999px] opacity-0 h-0 w-0 pointer-events-none"
+                                tabindex="-1"
+                                autocomplete="off"
+                                aria-hidden="true"
+                            />
                             <!-- Campo oculto con datos del simulador -->
                             <input type="hidden" name="simuladorInfo" v-model="form.simuladorInfo" />
                             <div>
@@ -441,8 +485,9 @@ ${form.value.message}
                                     <input type="text" name="first-name" id="first-name" v-model="form.firstName"
                                         autocomplete="given-name"
                                         placeholder="Ej: Juan Carlos"
-                                        @focus="onFormInteraction"
-                                        @input="checkFormProgress"
+                                        @focus="onFormInteraction('firstName', 'focus')"
+                                        @blur="onFormInteraction('firstName', 'blur')"
+                                        @input="() => { onFormInteraction('firstName', 'input'); checkFormProgress() }"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         required>
                                 </div>
@@ -454,6 +499,9 @@ ${form.value.message}
                                     <input type="text" name="last-name" id="last-name" v-model="form.lastName"
                                         autocomplete="family-name"
                                         placeholder="Ingresa tus apellidos"
+                                        @focus="onFormInteraction('lastName', 'focus')"
+                                        @blur="onFormInteraction('lastName', 'blur')"
+                                        @input="onFormInteraction('lastName', 'input')"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary">
                                 </div>
                             </div>
@@ -464,8 +512,9 @@ ${form.value.message}
                                     <input id="email" name="email" type="email" v-model="form.email"
                                         autocomplete="email"
                                         placeholder="tu.email@ejemplo.com"
-                                        @blur="validateEmail"
-                                        @input="checkFormProgress"
+                                        @focus="onFormInteraction('email', 'focus')"
+                                        @blur="() => { validateEmail(); onFormInteraction('email', 'blur') }"
+                                        @input="() => { onFormInteraction('email', 'input'); checkFormProgress() }"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         :class="{ 'outline-red-500 outline-2': emailError }"
                                         required>
@@ -487,8 +536,9 @@ ${form.value.message}
                                         <input type="tel" name="phone" id="phone" v-model="form.phone"
                                             autocomplete="tel"
                                             :placeholder="`Ej: ${phonePlaceholder}`"
-                                            @blur="validatePhone"
-                                            @input="formatPhoneInput"
+                                            @focus="onFormInteraction('phone', 'focus')"
+                                            @blur="() => { validatePhone(); onFormInteraction('phone', 'blur') }"
+                                            @input="(e) => { formatPhoneInput(e); onFormInteraction('phone', 'input') }"
                                             aria-describedby="phone-description"
                                             class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                             :class="{ 'outline-red-500 outline-2': phoneError }"
@@ -509,8 +559,11 @@ ${form.value.message}
                                 <div class="mt-2.5 relative">
                                     <textarea id="message" name="message" v-model="form.message" rows="4"
                                         maxlength="500"
-                                        placeholder="Cuéntanos cómo podemos ayudarte..."
+                                        placeholder="Cuéntanos, cómo podemos ayudarte..."
                                         aria-describedby="message-description"
+                                        @focus="onFormInteraction('message', 'focus')"
+                                        @blur="onFormInteraction('message', 'blur')"
+                                        @input="onFormInteraction('message', 'input')"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 pb-8 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"></textarea>
                                     <div class="absolute bottom-2 right-3 text-xs"
                                          :class="form.message.length > 500 ? 'text-red-600 font-semibold' : form.message.length > 450 ? 'text-orange-600' : 'text-gray-400'">
@@ -519,11 +572,8 @@ ${form.value.message}
                                 </div>
                             </div>
 
-                            <!-- Cloudflare Turnstile (invisible) -->
+                            <!-- Rate limit warning -->
                             <div class="sm:col-span-2">
-                                <NuxtTurnstile v-model="turnstileToken" />
-
-                                <!-- Rate limit warning -->
                                 <div v-if="remainingAttemptsMessage && isNearLimit" class="mt-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
                                     <p class="text-orange-700 text-sm font-medium">{{ remainingAttemptsMessage }}</p>
                                 </div>
@@ -532,7 +582,7 @@ ${form.value.message}
                         <div class="mt-10 border-t border-primary/10 pt-8">
                             <button type="submit" class="btn primary w-full sm:w-auto" :disabled="state === 'loading'">
                                 <span v-if="state === 'loading'">Procesando solicitud…</span>
-                                <span v-else>Obtener Asesoría Gratuita</span>
+                                <span v-else>Obtener asesoría gratuita</span>
                             </button>
 
                             <p class="mt-3 text-xs text-gray-500 flex items-center gap-1">
@@ -603,11 +653,11 @@ ${form.value.message}
                     </div>
                     <dl class="space-y-2 text-sm text-gray-600">
                         <dd><a class="font-medium text-primary hover:text-secondary transition-colors break-all"
-                                href="mailto:gerencia@contuhogar.net"
-                                @click="onEmailClick('gerencia@contuhogar.net')">gerencia@contuhogar.net</a></dd>
+                                href="mailto:gerenciacomercial@contuhogar.com "
+                                @click="onEmailClick('gerenciacomercial@contuhogar.com ')">gerenciacomercial@contuhogar.com </a></dd>
                         <dd><a class="font-medium text-primary hover:text-secondary transition-colors break-all"
-                                href="mailto:gerenciacomercial@contuhogar.net"
-                                @click="onEmailClick('gerenciacomercial@contuhogar.net')">gerenciacomercial@contuhogar.net</a></dd>
+                                href="mailto:gerencia@contuhogar.com"
+                                @click="onEmailClick('gerencia@contuhogar.com')">gerencia@contuhogar.com</a></dd>
                     </dl>
                 </div>
 
@@ -624,7 +674,7 @@ ${form.value.message}
                     </div>
                     <p class="text-sm text-gray-600">
                         Cra. 54 # 105-20<br>
-                        Suba, Bogotá D.C.<br>
+                        Puente Largo, Bogotá D.C.<br>
                         Colombia
                     </p>
                 </div>
@@ -640,9 +690,8 @@ ${form.value.message}
                         <h3 class="text-lg font-semibold text-primary">Horario</h3>
                     </div>
                     <dl class="space-y-2 text-sm text-gray-600">
-                        <dd><span class="font-medium text-gray-700">Lun - Vie:</span> 9:00 AM - 6:00 PM</dd>
-                        <dd><span class="font-medium text-gray-700">Sábado:</span> 9:00 AM - 1:00 PM</dd>
-                        <dd><span class="font-medium text-gray-700">Domingo:</span> Cerrado</dd>
+                        <dd><span class="font-medium text-gray-700">Lun - Vie:</span> 8:30 AM - 6:30 PM</dd>
+                        <dd><span class="font-medium text-gray-700">Sáb y Dom:</span> Cerrado</dd>
                     </dl>
                 </div>
             </div>
