@@ -25,9 +25,13 @@ logs
 
 # MCP configuration (contains tokens)
 .mcp.json
+.playwright-mcp
 
 # Directus
 directus/schema.json
 # Pero sí incluir snapshots y tipos
 !directus/snapshots/
 !directus/README.md
+
+.claude
+test-simulation-payload.json
