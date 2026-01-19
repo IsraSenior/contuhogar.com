@@ -6,7 +6,7 @@ const store = useMainStore()
 const props = defineProps({
   title: {
     type: String,
-    default: 'Nuestros bancos y aliados estratégicos'
+    default: 'Nuestras alianzas estratégicas nos permiten ofrecerte las mejores opciones de financiamiento, tiempos, solidez y respaldo para la inversión de tu hogar en Colombia.'
   },
   subtitle: {
     type: String,
@@ -14,7 +14,7 @@ const props = defineProps({
   },
   trustMessage: {
     type: String,
-    default: 'Más de 15 años de experiencia conectando colombianos en el exterior con su hogar'
+    default: '2. Más de 16 años de experiencia conectando colombianos en el exterior con su verdadero hogar.'
   },
   logos: {
     type: Array as PropType<PartnerLogo[]>,
@@ -39,11 +39,11 @@ const displayLogos = computed(() => props.logos || store.logos)
       </div>
 
       <!-- Grid de logos -->
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+      <div class="flex flex-wrap justify-center gap-8 items-center">
         <div
           v-for="(logo, idx) in displayLogos"
           :key="idx"
-          class="flex items-center justify-center p-4 bg-white rounded-xl border border-gray-100 hover:border-primary/30 hover:shadow-md transition-all group h-20"
+          class="flex items-center justify-center p-4 bg-white rounded-xl border border-gray-100 hover:border-primary/30 hover:shadow-md transition-all group h-20 w-40"
         >
           <!-- Logo de texto -->
           <span

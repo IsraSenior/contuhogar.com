@@ -3,7 +3,7 @@
     <!-- Controles de preview (ocultos en impresión y modo PDF) -->
     <div v-if="!isPdfMode" class="max-w-4xl mx-auto mb-4 px-4 print:hidden">
       <div class="bg-white rounded-lg shadow p-4 flex items-center justify-between">
-        <h1 class="text-lg font-semibold text-gray-800">Preview: Carta de Pre-aprobación</h1>
+        <h1 class="text-lg font-semibold text-gray-800">Preview: Carta de preaprobación</h1>
         <div class="flex gap-2">
           <button
             @click="handlePrint"
@@ -30,7 +30,7 @@
           <Logo variant="white" class="h-10 w-auto" />
         </a>
         <div class="text-right">
-          <p class="text-[10px] text-white/70 uppercase tracking-wider">Carta de pre-aprobación</p>
+          <p class="text-[10px] text-white/70 uppercase tracking-wider">Carta de preaprobación</p>
           <p class="text-xs font-medium text-white">{{ docNumber }}</p>
           <p class="text-[10px] text-white/70">{{ currentDate }}</p>
         </div>
@@ -42,13 +42,13 @@
         <!-- Título con nombre -->
         <div class="text-center mb-10 mt-5">
           <h1 class="text-3xl font-bold text-primary mb-1">¡Felicitaciones {{ nombreCompleto }}!</h1>
-          <p class="text-gray-500">Has sido pre-aprobado para tu crédito de vivienda en Colombia</p>
+          <p class="text-gray-500">Has sido preaprobado para tu crédito de vivienda en Colombia</p>
         </div>
 
         <!-- Datos principales -->
         <div class="grid grid-cols-2 gap-5 mb-5">
           <div class="bg-primary rounded-lg p-4">
-            <p class="text-xs text-white font-bold uppercase tracking-wide mb-1">Monto pre-aprobado</p>
+            <p class="text-xs text-white font-bold uppercase tracking-wide mb-1">Monto preaprobado</p>
             <p class="text-2xl font-bold text-white">{{ formatCurrency(mockData.montoSolicitado) }}</p>
           </div>
           <div class="bg-secondary rounded-lg p-4">
@@ -60,7 +60,7 @@
         <!-- Tabla de detalles -->
         <div class="bg-muted rounded-lg overflow-hidden mb-10">
           <!-- <div class="bg-primary/90 px-4 py-2 border-b border-white/10">
-            <h3 class="text-white font-semibold text-sm">Detalle de tu pre-aprobación</h3>
+            <h3 class="text-white font-semibold text-sm">Detalle de tu preaprobación</h3>
           </div> -->
           <div class="divide-y divide-primary/10">
             <div class="flex justify-between items-center px-4 py-2">
@@ -169,7 +169,7 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: 'Preview Carta de Pre-aprobación | ConTuHogar',
+  title: 'Preview Carta de preaprobación | ConTuHogar',
   robots: 'noindex, nofollow'
 });
 

@@ -1,4 +1,4 @@
-// Composable para generar carta de pre-aprobación en PDF
+// Composable para generar carta de preaprobación en PDF
 // Usa Puppeteer en el servidor para renderizar HTML con Tailwind
 import type { SimuladorState, ResultadoCalculo } from '~/types/simulador';
 
@@ -7,7 +7,7 @@ export const usePreApprovalPDF = () => {
   const error = ref<string | null>(null);
 
   /**
-   * Genera el PDF de pre-aprobación llamando al API del servidor
+   * Genera el PDF de preaprobación llamando al API del servidor
    */
   const generatePDF = async (state: SimuladorState): Promise<void> => {
     if (!state.resultado || state.resultado.resultado !== 'aprobado') {
@@ -53,7 +53,7 @@ export const usePreApprovalPDF = () => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `Pre-Aprobacion_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
+      link.download = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

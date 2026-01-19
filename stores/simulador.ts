@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import type { SimuladorState } from '~/types/simulador';
 
 const STORAGE_KEY = 'contuhogar_simulador_state';
+const SESSION_STORAGE_KEY = 'contuhogar_simulador_session';
 
 export const useSimuladorStore = defineStore('simulador', {
   state: (): SimuladorState => ({
@@ -33,19 +34,27 @@ export const useSimuladorStore = defineStore('simulador', {
       reportesNegativos: null
     },
     resultado: null,
-    completado: false
+    completado: false,
+
+    // Session tracking
+    sessionId: null,
+    sessionStarted: false
   }),
 
   getters: {
     // Validación de cada paso
     isPaso1Valid(state): boolean {
+      // Regex para validación de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
       // Validar información de contacto
       const hasContactInfo =
         state.datosPersonales.nombres !== null && state.datosPersonales.nombres.trim() !== '' &&
         state.datosPersonales.apellidos !== null && state.datosPersonales.apellidos.trim() !== '' &&
         state.datosPersonales.fechaNacimiento !== null &&
         state.datosPersonales.telefono !== null && state.datosPersonales.telefono.trim() !== '' &&
-        state.datosPersonales.correo !== null && state.datosPersonales.correo.trim() !== '';
+        state.datosPersonales.correo !== null && state.datosPersonales.correo.trim() !== '' &&
+        emailRegex.test(state.datosPersonales.correo.trim());
 
       // Validar edad y tipo de crédito
       const hasValidAge =
@@ -59,7 +68,17 @@ export const useSimuladorStore = defineStore('simulador', {
     },
 
     isPaso2Valid(state): boolean {
-      if (!state.datosBien.valorBien || !state.datosBien.montoSolicitado) {
+      // Validar que los valores existan y sean mayores a 0
+      if (!state.datosBien.valorBien || state.datosBien.valorBien <= 0) {
+        return false;
+      }
+
+      if (!state.datosBien.montoSolicitado || state.datosBien.montoSolicitado <= 0) {
+        return false;
+      }
+
+      // Validar plazo mínimo (12 meses)
+      if (state.datosBien.plazoMeses < 12) {
         return false;
       }
 
@@ -87,9 +106,10 @@ export const useSimuladorStore = defineStore('simulador', {
     },
 
     isPaso4Valid(state): boolean {
+      // Validar valores específicos: statusMigratorio debe ser true Y reportesNegativos debe ser false
       return (
-        state.datosElegibilidad.statusMigratorio !== null &&
-        state.datosElegibilidad.reportesNegativos !== null
+        state.datosElegibilidad.statusMigratorio === true &&
+        state.datosElegibilidad.reportesNegativos === false
       );
     },
 
@@ -119,34 +139,234 @@ export const useSimuladorStore = defineStore('simulador', {
       return Math.floor((84 - state.datosPersonales.edad) * 12);
     },
 
-    canGoToStep: (state) => (step: number): boolean => {
-      // Siempre puede volver atrás
-      if (step <= state.pasoActual) return true;
+    canGoToStep(state): (step: number) => boolean {
+      return (step: number): boolean => {
+        // Step 1 always accessible
+        if (step === 1) return true;
 
-      // Para avanzar, debe haber completado los pasos anteriores
-      if (step === 2) return state.pasoActual >= 1;
-      if (step === 3) return state.pasoActual >= 2;
-      if (step === 4) return state.pasoActual >= 3;
-      if (step === 5) return state.pasoActual >= 4 && state.completado;
+        // To go to step 2: step 1 must be valid
+        if (step === 2) return this.isPaso1Valid;
 
-      return false;
+        // To go to step 3: steps 1 and 2 must be valid
+        if (step === 3) return this.isPaso1Valid && this.isPaso2Valid;
+
+        // To go to step 4: steps 1, 2, and 3 must be valid
+        if (step === 4) return this.isPaso1Valid && this.isPaso2Valid && this.isPaso3Valid;
+
+        // To go to step 5: all previous steps valid
+        if (step === 5) return this.isPaso1Valid && this.isPaso2Valid && this.isPaso3Valid && this.isPaso4Valid;
+
+        return false;
+      };
     }
   },
 
   actions: {
+    // ==========================================
+    // SESSION TRACKING
+    // ==========================================
+
+    /**
+     * Generate or restore session ID
+     * Checks localStorage for existing session, otherwise generates new UUID
+     */
+    initSession(): string {
+      if (typeof window === 'undefined') {
+        // Server-side: generate temp ID (will be replaced on client)
+        return crypto.randomUUID();
+      }
+
+      try {
+        // Check if we already have a session ID in state
+        if (this.sessionId) {
+          return this.sessionId;
+        }
+
+        // Check localStorage for existing session
+        const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY);
+        if (storedSessionId) {
+          this.sessionId = storedSessionId;
+          return storedSessionId;
+        }
+
+        // Generate new session ID
+        const newSessionId = crypto.randomUUID();
+        this.sessionId = newSessionId;
+        localStorage.setItem(SESSION_STORAGE_KEY, newSessionId);
+        return newSessionId;
+      } catch (error) {
+        console.error('Error initializing session:', error);
+        // Fallback: generate temp ID
+        const fallbackId = crypto.randomUUID();
+        this.sessionId = fallbackId;
+        return fallbackId;
+      }
+    },
+
+    /**
+     * Start tracking session
+     * Calls the session start API endpoint
+     */
+    async startSession(): Promise<void> {
+      try {
+        // Generate or restore session ID
+        const sessionId = this.initSession();
+
+        // If session already started, don't start again
+        if (this.sessionStarted) {
+          return;
+        }
+
+        // Call API to start session
+        await $fetch('/api/simulador/session/start', {
+          method: 'POST',
+          body: { sessionId }
+        });
+
+        this.sessionStarted = true;
+        this.saveToLocalStorage();
+      } catch (error) {
+        // Non-blocking: log error but don't break UX
+        console.error('Error starting session:', error);
+      }
+    },
+
+    /**
+     * Track step change
+     * Non-blocking call to update session progress
+     * @param paso - The new step the user is navigating to
+     * @param datosPasoAnterior - Data from the step just completed (optional)
+     * @param pasoAnterior - The step number the data belongs to (optional)
+     */
+    async trackStep(paso: number, datosPasoAnterior?: object, pasoAnterior?: number): Promise<void> {
+      // Don't track if session not initialized
+      if (!this.sessionId) {
+        return;
+      }
+
+      // Non-blocking: fire and forget with error handling
+      $fetch('/api/simulador/session/update', {
+        method: 'POST',
+        body: {
+          sessionId: this.sessionId,
+          paso,
+          datosParciales: datosPasoAnterior,
+          pasoDeLosDatos: pasoAnterior // Which step the data belongs to
+        }
+      }).catch((error) => {
+        // Silent fail - tracking shouldn't break UX
+        console.error('Error tracking step:', error);
+      });
+    },
+
+    /**
+     * Complete session
+     * Links session to saved simulation and clears session data
+     */
+    async completeSession(simulacionId: string): Promise<void> {
+      if (!this.sessionId) {
+        return;
+      }
+
+      try {
+        await $fetch('/api/simulador/session/complete', {
+          method: 'POST',
+          body: {
+            sessionId: this.sessionId,
+            simulacionId
+          }
+        });
+
+        // Clear session from localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem(SESSION_STORAGE_KEY);
+        }
+
+        // Reset session state
+        this.sessionId = null;
+        this.sessionStarted = false;
+      } catch (error) {
+        // Non-blocking: log error but don't break UX
+        console.error('Error completing session:', error);
+      }
+    },
+
+    /**
+     * Get partial data for a specific step (for tracking)
+     */
+    getPartialDataForStep(paso: number): object | undefined {
+      switch (paso) {
+        case 1:
+          return {
+            nombres: this.datosPersonales.nombres,
+            apellidos: this.datosPersonales.apellidos,
+            correo: this.datosPersonales.correo,
+            telefono: this.datosPersonales.telefono,
+            tipoCredito: this.datosPersonales.tipoCredito
+          };
+        case 2:
+          return {
+            valorBien: this.datosBien.valorBien,
+            montoSolicitado: this.datosBien.montoSolicitado,
+            plazoMeses: this.datosBien.plazoMeses
+          };
+        case 3:
+          return {
+            ingresosFijos: this.datosIngresos.ingresosFijos,
+            ingresosVariables: this.datosIngresos.ingresosVariables,
+            deducciones: this.datosIngresos.deducciones,
+            totalObligaciones: this.datosIngresos.obligacionesFinancieras?.reduce(
+              (sum, o) => sum + (o.monto || 0), 0
+            ) || 0
+          };
+        case 4:
+          return {
+            statusMigratorio: this.datosElegibilidad.statusMigratorio,
+            reportesNegativos: this.datosElegibilidad.reportesNegativos
+          };
+        case 5:
+          return {
+            resultado: this.resultado?.resultado,
+            cuotaMensual: this.resultado?.cuotaMensual
+          };
+        default:
+          return undefined;
+      }
+    },
+
+    // ==========================================
+    // NAVIGATION & STEP MANAGEMENT
+    // ==========================================
+
     // Navegar a un paso específico
     goToStep(step: number) {
       if (step >= 1 && step <= 5 && this.canGoToStep(step)) {
+        // Capture data from CURRENT step before navigating
+        const currentStep = this.pasoActual;
+        const partialData = this.getPartialDataForStep(currentStep);
+
         this.pasoActual = step;
         this.saveToLocalStorage();
+
+        // Track step change with partial data (non-blocking)
+        // Pass current step as the step the data belongs to
+        this.trackStep(step, partialData, currentStep);
       }
     },
 
     // Avanzar al siguiente paso
     nextStep() {
       if (this.pasoActual < 5) {
+        // Capture data from CURRENT step before advancing
+        const currentStep = this.pasoActual;
+        const partialData = this.getPartialDataForStep(currentStep);
+
         this.pasoActual++;
         this.saveToLocalStorage();
+
+        // Track step change with partial data (non-blocking)
+        // Pass current step (before increment) as the step the data belongs to
+        this.trackStep(this.pasoActual, partialData, currentStep);
       }
     },
 
@@ -190,6 +410,7 @@ export const useSimuladorStore = defineStore('simulador', {
     reset() {
       this.$reset();
       this.clearLocalStorage();
+      this.clearSessionStorage();
     },
 
     // Persistencia en LocalStorage
@@ -224,6 +445,124 @@ export const useSimuladorStore = defineStore('simulador', {
         } catch (error) {
           console.error('Error eliminando localStorage:', error);
         }
+      }
+    },
+
+    clearSessionStorage() {
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.removeItem(SESSION_STORAGE_KEY);
+        } catch (error) {
+          console.error('Error eliminando session storage:', error);
+        }
+      }
+    },
+
+    // Guardar simulación en Directus
+    async guardarSimulacion(): Promise<{ ok: boolean; id?: string | number; error?: string }> {
+      console.log('[guardarSimulacion] Starting validation...', {
+        completado: this.completado,
+        hasResultado: !!this.resultado,
+        isPaso1Valid: this.isPaso1Valid,
+        isPaso2Valid: this.isPaso2Valid,
+        isPaso3Valid: this.isPaso3Valid,
+        isPaso4Valid: this.isPaso4Valid,
+        datosElegibilidad: this.datosElegibilidad,
+      });
+
+      // Validate that we have all required data
+      if (!this.completado || !this.resultado) {
+        console.log('[guardarSimulacion] Failed: simulation not complete');
+        return {
+          ok: false,
+          error: 'La simulación no está completa. Por favor, completa todos los pasos.',
+        };
+      }
+
+      // Validate all steps
+      if (!this.isPaso1Valid || !this.isPaso2Valid || !this.isPaso3Valid || !this.isPaso4Valid) {
+        console.log('[guardarSimulacion] Failed: step validation failed', {
+          isPaso1Valid: this.isPaso1Valid,
+          isPaso2Valid: this.isPaso2Valid,
+          isPaso3Valid: this.isPaso3Valid,
+          isPaso4Valid: this.isPaso4Valid,
+        });
+        return {
+          ok: false,
+          error: 'Algunos datos son inválidos. Por favor, revisa la información ingresada.',
+        };
+      }
+
+      console.log('[guardarSimulacion] Validation passed, preparing payload...');
+
+      try {
+        // Prepare payload for API
+        const payload = {
+          // Datos personales
+          nombres: this.datosPersonales.nombres,
+          apellidos: this.datosPersonales.apellidos,
+          fechaNacimiento: this.datosPersonales.fechaNacimiento,
+          telefono: this.datosPersonales.telefono,
+          telefonoCodigo: this.datosPersonales.telefonoCodigo,
+          correo: this.datosPersonales.correo,
+          edad: this.datosPersonales.edad,
+          tipoCredito: this.datosPersonales.tipoCredito,
+
+          // Datos del bien
+          valorBien: this.datosBien.valorBien,
+          montoSolicitado: this.datosBien.montoSolicitado,
+          plazoMeses: this.datosBien.plazoMeses,
+
+          // Datos de ingresos
+          ingresosFijos: this.datosIngresos.ingresosFijos,
+          ingresosVariables: this.datosIngresos.ingresosVariables,
+          deducciones: this.datosIngresos.deducciones,
+          obligacionesFinancieras: this.datosIngresos.obligacionesFinancieras,
+
+          // Datos de elegibilidad
+          statusMigratorio: this.datosElegibilidad.statusMigratorio,
+          reportesNegativos: this.datosElegibilidad.reportesNegativos,
+
+          // Resultado
+          resultado: this.resultado,
+        };
+
+        // Call API endpoint
+        const response = await $fetch<{ ok: boolean; id?: string | number | null; message?: string }>('/api/simulador/save', {
+          method: 'POST',
+          body: payload,
+        });
+
+        if (response.ok && response.id) {
+          // Complete session tracking (non-blocking)
+          this.completeSession(String(response.id));
+
+          return {
+            ok: true,
+            id: response.id,
+          };
+        }
+
+        return {
+          ok: false,
+          error: 'No se pudo guardar la simulación.',
+        };
+      } catch (error: any) {
+        console.error('Error guardando simulación:', error);
+
+        // Extract error message from API response if available
+        let errorMessage = 'Ocurrió un error al guardar la simulación. Por favor, inténtalo de nuevo.';
+
+        if (error?.data?.message) {
+          errorMessage = error.data.message;
+        } else if (error?.message) {
+          errorMessage = error.message;
+        }
+
+        return {
+          ok: false,
+          error: errorMessage,
+        };
       }
     }
   }

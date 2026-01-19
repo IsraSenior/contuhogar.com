@@ -104,7 +104,7 @@ const currentPage = ref(1)
 const itemsPerPage = 6
 const minSearchLength = 3 // Mínimo de caracteres para iniciar búsqueda
 
-// Extraer categorías únicas
+// Extraer categorías únicas (solo mostrar las que tienen contenido)
 const categories = computed(() => {
   const uniqueCategories = [...new Set(articles.value.map(a => a.category))]
   const categoryCounts = {}
@@ -113,7 +113,7 @@ const categories = computed(() => {
     categoryCounts[cat] = articles.value.filter(a => a.category === cat).length
   })
 
-  return [
+  const allCategories = [
     { id: 'all', label: 'Todas', count: articles.value.length },
     ...uniqueCategories.map(cat => ({
       id: cat.toLowerCase(),
@@ -121,6 +121,9 @@ const categories = computed(() => {
       count: categoryCounts[cat]
     }))
   ]
+
+  // Filtrar: siempre mostrar "Todas", y las demás solo si tienen count > 0
+  return allCategories.filter(cat => cat.id === 'all' || cat.count > 0)
 })
 
 // Filtrar artículos
@@ -187,7 +190,7 @@ const hasNoResults = computed(() => {
   <div>
     <!-- Hero Section -->
     <HeroSection
-      badge="Más de 1,500 colombianos confían en nosotros"
+      badge="Más de 3,000 colombianos confían en nosotros"
       badge-icon
       title="Explora. Infórmate. Invierte con seguridad."
       subtitle="En nuestro blog encontrarás contenido útil, claro y actualizado sobre todo lo que necesitas saber para invertir con confianza en finca raíz desde cualquier lugar del mundo."
@@ -304,10 +307,10 @@ const hasNoResults = computed(() => {
 
     <!-- CTA Final -->
     <CTASection
-      title="Tu hogar en Colombia te esta esperando"
-      description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-      :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-      :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+      title="Tu hogar en Colombia te está esperando"
+      description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+      :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
+      :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
       :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
     />
   </div>

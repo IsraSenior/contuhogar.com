@@ -118,7 +118,7 @@ const serviceIcons = {
                 <div class="bg-gray-50 px-8 py-5 border-b border-gray-100">
                   <div class="flex items-center justify-between">
                     <div>
-                      <h3 class="text-lg font-bold text-gray-900">Nuestros Servicios</h3>
+                      <h3 class="text-lg font-bold text-gray-900">Nuestros servicios</h3>
                       <p class="text-sm text-gray-500 mt-0.5">Soluciones financieras para tu vivienda en Colombia</p>
                     </div>
                     <NuxtLink
@@ -192,7 +192,7 @@ const serviceIcons = {
                     @click="closeMegaMenuInstant"
                     class="btn primary"
                   >
-                    Hablar con un asesor
+                    Hablar con un ejecutivo de crédito
                   </NuxtLink>
                 </div>
               </div>
@@ -445,7 +445,7 @@ const serviceIcons = {
                   @click="mobileMenuOpen = false"
                   class="flex w-full items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary/5 transition-colors"
                 >
-                  Hablar con un asesor
+                  Hablar con un ejecutivo de crédito
                 </NuxtLink>
                 <p class="text-xs text-center text-gray-500">
                   Respuesta en menos de 24 horas

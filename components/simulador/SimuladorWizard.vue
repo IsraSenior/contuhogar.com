@@ -19,7 +19,7 @@
           Simulador de crédito
         </h1>
         <p class="text-sm text-gray-600">
-          Completa cada paso para conocer tu pre-aprobación
+          Completa cada paso para conocer tu preaprobación
         </p>
       </div>
 
@@ -226,6 +226,9 @@ const getStepName = (step: number) => {
 
 // Cargar desde localStorage al montar
 onMounted(() => {
+  // Start session tracking (non-blocking)
+  store.startSession();
+
   store.loadFromLocalStorage();
 
   // Track inicio del simulador

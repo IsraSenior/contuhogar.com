@@ -18,10 +18,14 @@
 
         </div>
         <h2 class="text-2xl font-bold text-gray-900 mb-1">
-          ¡Pre-aprobado!
+          ¡Preaprobado!
         </h2>
         <p class="text-gray-500">
           Cumples con los requisitos iniciales
+        </p>
+        <!-- Auto-save indicator -->
+        <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
+          Simulacion guardada
         </p>
       </div>
 
@@ -29,7 +33,7 @@
       <div class="bg-primary rounded-2xl p-6 mb-6">
         <div class="grid grid-cols-2 gap-4">
           <div class="text-center">
-            <p class="text-xs text-white/70 uppercase tracking-wide mb-1">Monto pre-aprobado</p>
+            <p class="text-xs text-white/70 uppercase tracking-wide mb-1">Monto preaprobado</p>
             <p class="text-2xl font-bold text-white">{{ formatCurrency(store.datosBien.montoSolicitado!) }}</p>
           </div>
           <div class="text-center border-l border-white/20">
@@ -103,7 +107,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            Hablar con un asesor
+            Hablar con un ejecutivo de crédito
           </button>
           <button
             v-if="canGeneratePDF(resultado)"
@@ -118,7 +122,7 @@
             <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            {{ isGenerating ? 'Generando...' : 'Descargar tu pre-aprobación' }}
+            {{ isGenerating ? 'Generando...' : 'Descargar tu preaprobación' }}
           </button>
         </div>
 
@@ -150,6 +154,10 @@
         </h2>
         <p class="text-gray-500">
           Pero hay opciones que podemos explorar
+        </p>
+        <!-- Auto-save indicator -->
+        <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
+          Simulacion guardada
         </p>
       </div>
 
@@ -216,6 +224,10 @@
         </h2>
         <p class="text-gray-500">
           El monto supera tu capacidad de pago recomendada
+        </p>
+        <!-- Auto-save indicator -->
+        <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
+          Simulacion guardada
         </p>
       </div>
 
@@ -344,8 +356,55 @@ const { calculate } = useSimuladorCalculations();
 const loading = ref(true);
 const resultado = ref<ResultadoCalculo | null>(null);
 
+// Auto-save state tracking
+const saveStatus = ref<'idle' | 'saving' | 'saved' | 'error'>('idle');
+const hasSaved = ref(false);
+
 // Número de WhatsApp de ConTuHogar
 const WHATSAPP_NUMBER = '573012418074';
+
+// Auto-save simulation to Directus (runs once when results are displayed)
+const autoSaveSimulation = async () => {
+  // Debug: Log save attempt
+  console.log('[AutoSave] Attempting to save simulation...', {
+    hasSaved: hasSaved.value,
+    saveStatus: saveStatus.value,
+    completado: store.completado,
+    hasResultado: !!store.resultado,
+    isPaso1Valid: store.isPaso1Valid,
+    isPaso2Valid: store.isPaso2Valid,
+    isPaso3Valid: store.isPaso3Valid,
+    isPaso4Valid: store.isPaso4Valid,
+  });
+
+  // Prevent duplicate saves
+  if (hasSaved.value || saveStatus.value === 'saving') {
+    console.log('[AutoSave] Skipping - already saved or saving');
+    return;
+  }
+
+  saveStatus.value = 'saving';
+
+  try {
+    console.log('[AutoSave] Calling store.guardarSimulacion()...');
+    const result = await store.guardarSimulacion();
+    console.log('[AutoSave] Result:', result);
+
+    if (result.ok) {
+      saveStatus.value = 'saved';
+      hasSaved.value = true;
+      console.log('[AutoSave] Successfully saved with ID:', result.id);
+    } else {
+      // Log error but don't disrupt UX
+      console.warn('[AutoSave] Failed:', result.error);
+      saveStatus.value = 'error';
+    }
+  } catch (error) {
+    // Log error but don't disrupt UX
+    console.error('[AutoSave] Exception:', error);
+    saveStatus.value = 'error';
+  }
+};
 
 // Notificar lead al servidor (Telegram)
 const notifySimulatorLead = async (action: 'whatsapp' | 'pdf' | 'contact') => {
@@ -384,7 +443,7 @@ Acabo de completar el simulador de crédito:
 
   if (tipo === 'aprobado' && res) {
     message += `
-✅ *Resultado: PRE-APROBADO*
+✅ *Resultado: PREAPROBADO*
 • Cuota mensual: ${formatCurrency(res.cuotaMensual)}
 • Tasa EA: ${(res.tasaEA * 100).toFixed(2)}%
 • Financiación: ${Math.ceil(res.porcentajeFinanciacion)}%
@@ -463,10 +522,13 @@ const calcularResultado = () => {
   loading.value = true;
 
   // Simular un pequeño delay para dar sensación de procesamiento
-  setTimeout(() => {
+  setTimeout(async () => {
     resultado.value = calculate(store.$state);
     store.setResultado(resultado.value);
     loading.value = false;
+
+    // Auto-save after calculation completes (non-blocking)
+    await autoSaveSimulation();
   }, 1000);
 };
 
@@ -478,11 +540,14 @@ const resetSimulador = () => {
 };
 
 // Calcular resultado al montar
-onMounted(() => {
+onMounted(async () => {
   // Si ya existe un resultado guardado, usarlo
   if (store.resultado) {
     resultado.value = store.resultado;
     loading.value = false;
+
+    // Auto-save existing result (non-blocking)
+    await autoSaveSimulation();
   } else {
     calcularResultado();
   }

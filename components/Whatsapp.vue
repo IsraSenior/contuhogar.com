@@ -10,8 +10,18 @@ import dialPhoneOptions from "@/db/tlf-dial.json";
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError, trackWhatsAppClick } = useTracking()
 
-// Cloudflare Turnstile (invisible)
-const turnstileToken = ref('')
+// Anti-spam protection (reemplaza Turnstile)
+const { isBot, getBotDetectionPayload } = useBotDetection()
+const {
+  honeypotFieldName1,
+  honeypotFieldName2,
+  honeypot1Value,
+  honeypot2Value,
+  trackInteraction,
+  isLegitimateSession,
+  getAntiSpamPayload,
+  reset: resetAntiSpam
+} = useAntiSpam()
 
 // Rate limiting info
 const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
@@ -72,7 +82,10 @@ watch(open, (newVal) => {
 })
 
 // Track form start when user interacts with any field
-const onFormInteraction = () => {
+const onFormInteraction = (fieldName: string = 'unknown', eventType: 'focus' | 'blur' | 'input' = 'focus') => {
+    // Track anti-spam interaction
+    trackInteraction(fieldName, eventType)
+
     if (!hasTrackedStart.value) {
         trackFormStart('whatsapp_widget_form', fullPath.value)
         hasTrackedStart.value = true
@@ -109,10 +122,18 @@ const canProceedFromStep3 = computed(() => {
 })
 
 const onSubmit = async () => {
-    // Verificar que Turnstile haya generado un token
-    if (!turnstileToken.value) {
-        errorMsg.value = 'Esperando verificación de seguridad. Por favor, espera un momento.'
+    // Block bots detected by BotD
+    if (isBot.value) {
+        console.warn('[AntiSpam] Bot detected, blocking submission')
+        // Silently fail for bots - don't give them feedback
+        state.value = 'success'
         return
+    }
+
+    // Check for insufficient interaction (potential bot)
+    if (!isLegitimateSession.value) {
+        console.warn('[AntiSpam] Insufficient interaction detected')
+        // Don't block, but log for monitoring - server will validate
     }
 
     state.value = 'loading'
@@ -129,55 +150,52 @@ const onSubmit = async () => {
     })
 
     try {
+        // Combine form data with anti-spam payloads
+        const antiSpamPayload = getAntiSpamPayload()
+        const botDetectionPayload = getBotDetectionPayload()
+
         const res = await $fetch('/api/contact', {
             method: 'POST',
             body: {
                 ...form.value,
-                _turnstileToken: turnstileToken.value
+                ...antiSpamPayload,
+                ...botDetectionPayload
             }
         })
         if ((res as any)?.ok) {
+            state.value = 'success'
 
-            const sendRes = await $fetch('/api/send/lead', {
-                method: 'POST',
-                body: form.value
-            })
+            // Track successful form submission
+            trackFormSuccess('whatsapp_widget_form', form.value.source_page, (res as any)?.id)
 
-            if ((sendRes as any)?.ok) {
-                state.value = 'success'
-
-                // Track successful form submission
-                trackFormSuccess('whatsapp_widget_form', form.value.source_page, (res as any)?.id)
-
-                const phone = "573150540000";
-                const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
+            // Abrir WhatsApp con mensaje pre-llenado
+            const phone = "573150540000";
+            const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
 Correo: *${form.value.email}*
 Teléfono: *${form.value.phone}*
 Desde: *${form.value.source_page}*
 
 ${form.value.message}
-                `;
-                window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`);
+            `;
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`);
 
-                // Limpia el form
-                form.value.firstName = ''
-                form.value.lastName = ''
-                form.value.email = ''
-                form.value.phone = ''
-                form.value.message = ''
+            // Limpia el form
+            form.value.firstName = ''
+            form.value.lastName = ''
+            form.value.email = ''
+            form.value.phone = ''
+            form.value.message = ''
 
-                // Reset tracking, step y Turnstile
-                turnstileToken.value = ''
-                hasTrackedStart.value = false
-                currentStep.value = 1
-                resetAttempts() // Reset rate limit counter on success
+            // Reset tracking, step y anti-spam
+            hasTrackedStart.value = false
+            currentStep.value = 1
+            resetAttempts() // Reset rate limit counter on success
+            resetAntiSpam() // Reset anti-spam state
 
-                // Cerrar widget después de éxito
-                setTimeout(() => {
-                    open.value = false
-                }, 2000)
-            }
-
+            // Cerrar widget después de éxito
+            setTimeout(() => {
+                open.value = false
+            }, 2000)
         } else {
             throw new Error('Respuesta inválida del servidor')
         }
@@ -192,9 +210,6 @@ ${form.value.message}
         } else {
             errorMsg.value = e?.data?.message || e?.data?.statusMessage || e?.message || 'Error al enviar'
         }
-
-        // Reset Turnstile token en caso de error para generar uno nuevo
-        turnstileToken.value = ''
 
         // Track form error
         trackFormError('whatsapp_widget_form', form.value.source_page, 'submit_failed', errorMsg.value)
@@ -295,8 +310,28 @@ const stepDescriptions = [
 
                 <!-- Contenido del formulario -->
                 <div class="flex-1 overflow-y-auto px-6 py-6">
-                    <!-- Honeypot -->
-                    <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1" autocomplete="off" />
+                    <!-- Honeypot campos ocultos (anti-bot) -->
+                    <input type="text" name="website" v-model="form.website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                    <!-- Dynamic honeypot 1 -->
+                    <input
+                        :name="honeypotFieldName1"
+                        v-model="honeypot1Value"
+                        type="text"
+                        class="absolute -left-[9999px] opacity-0 h-0 w-0 pointer-events-none"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                    />
+                    <!-- Dynamic honeypot 2 -->
+                    <input
+                        :name="honeypotFieldName2"
+                        v-model="honeypot2Value"
+                        type="url"
+                        class="absolute -left-[9999px] opacity-0 h-0 w-0 pointer-events-none"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                    />
 
                     <!-- Step header -->
                     <div class="mb-6">
@@ -327,7 +362,9 @@ const stepDescriptions = [
                                     id="first-name"
                                     v-model="form.firstName"
                                     autocomplete="given-name"
-                                    @focus="onFormInteraction"
+                                    @focus="onFormInteraction('firstName', 'focus')"
+                                    @blur="onFormInteraction('firstName', 'blur')"
+                                    @input="onFormInteraction('firstName', 'input')"
                                     placeholder="Ej: Juan Carlos"
                                     class="block w-full rounded-xl bg-gray-50 px-4 py-3.5 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all"
                                     required
@@ -341,6 +378,9 @@ const stepDescriptions = [
                                     id="last-name"
                                     v-model="form.lastName"
                                     autocomplete="family-name"
+                                    @focus="onFormInteraction('lastName', 'focus')"
+                                    @blur="onFormInteraction('lastName', 'blur')"
+                                    @input="onFormInteraction('lastName', 'input')"
                                     placeholder="Ej: Pérez García"
                                     class="block w-full rounded-xl bg-gray-50 px-4 py-3.5 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all"
                                     required
@@ -358,6 +398,9 @@ const stepDescriptions = [
                                     type="email"
                                     v-model="form.email"
                                     autocomplete="email"
+                                    @focus="onFormInteraction('email', 'focus')"
+                                    @blur="onFormInteraction('email', 'blur')"
+                                    @input="onFormInteraction('email', 'input')"
                                     placeholder="info@contuhogar.com"
                                     class="block w-full rounded-xl bg-gray-50 px-4 py-3.5 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all"
                                     required
@@ -383,6 +426,9 @@ const stepDescriptions = [
                                         id="phone"
                                         v-model="form.phone"
                                         autocomplete="tel"
+                                        @focus="onFormInteraction('phone', 'focus')"
+                                        @blur="onFormInteraction('phone', 'blur')"
+                                        @input="onFormInteraction('phone', 'input')"
                                         placeholder="3001234567"
                                         class="flex-1 rounded-xl bg-gray-50 px-4 py-3.5 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all"
                                         required
@@ -403,6 +449,9 @@ const stepDescriptions = [
                                     v-model="form.message"
                                     rows="5"
                                     maxlength="500"
+                                    @focus="onFormInteraction('message', 'focus')"
+                                    @blur="onFormInteraction('message', 'blur')"
+                                    @input="onFormInteraction('message', 'input')"
                                     placeholder="Cuéntanos sobre tu proyecto de vivienda, tus dudas o cómo podemos ayudarte..."
                                     class="block w-full rounded-xl bg-gray-50 px-4 py-3.5 pb-8 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all resize-none"
                                 ></textarea>
@@ -413,9 +462,6 @@ const stepDescriptions = [
                                     {{ form.message.length }}/500
                                 </div>
                             </div>
-
-                            <!-- Cloudflare Turnstile (invisible) -->
-                            <NuxtTurnstile v-model="turnstileToken" />
 
                             <!-- Rate limit warning -->
                             <div v-if="remainingAttemptsMessage && isNearLimit" class="p-4 bg-orange-50 border border-orange-200 rounded-xl">

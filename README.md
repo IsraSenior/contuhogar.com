@@ -242,6 +242,7 @@ contuhogar.com/
 │   ├── Whatsapp.vue      # Botón flotante de WhatsApp
 │   ├── CurrencyInput.vue # Input para cantidades en COP
 │   ├── DatePicker.vue    # Selector de fecha con v-calendar
+│   ├── PhoneCountryCombobox.vue  # Selector de país + teléfono con formato
 │   ├── cards/            # Componentes de tarjetas
 │   │   ├── BlogCard.vue
 │   │   └── ServiceCard.vue
@@ -268,7 +269,9 @@ contuhogar.com/
 │       │   └── StepResults.vue        # Paso 5: Resultados
 │       └── ui/
 │           ├── ProgressBar.vue         # Barra de progreso
-│           └── VerticalStepper.vue     # Indicador de pasos
+│           ├── VerticalStepper.vue     # Indicador de pasos
+│           ├── StepNavigation.vue      # Navegación entre pasos
+│           └── ValidationMessage.vue   # Mensajes de validación
 ├── composables/          # Composables de Vue
 │   ├── useDirectus.ts    # Helper para fetch de Directus
 │   ├── useSeo.ts         # SEO metadata helpers
@@ -421,6 +424,7 @@ El proyecto utiliza Directus como headless CMS para gestionar:
 - Blog posts
 - Servicios
 - Configuraciones dinámicas
+- Leads de contacto
 
 **Composable** para fetch de datos:
 
@@ -431,6 +435,41 @@ const { data, error } = await useDirectusItems<T>('collection_name', {
   sort: ['-date_created']
 })
 ```
+
+#### Directus MCP (Model Context Protocol)
+
+El proyecto integra el servidor MCP de Directus para acceso directo al CMS desde Claude Code. Esto permite a los agentes de IA interactuar con las colecciones de Directus sin escribir codigo de API.
+
+**Herramientas MCP disponibles:**
+- `mcp__directus__items` - Operaciones CRUD en colecciones
+- `mcp__directus__files` - Gestion de archivos
+- `mcp__directus__schema` - Informacion del schema
+- `mcp__directus__collections` - Metadata de colecciones
+- `mcp__directus__flows` - Automatizaciones
+
+**Configuracion para desarrolladores:**
+
+1. Crea un archivo `.mcp.json` en la raiz del proyecto:
+
+```json
+{
+  "mcpServers": {
+    "directus": {
+      "url": "https://admin.contuhogar.com/mcp",
+      "headers": {
+        "Authorization": "Bearer TU_TOKEN_DIRECTUS"
+      }
+    }
+  }
+}
+```
+
+2. Reemplaza `TU_TOKEN_DIRECTUS` con tu token de Directus
+
+**Seguridad:**
+- El archivo `.mcp.json` esta en `.gitignore` - nunca hacer commit de credenciales
+- Cada desarrollador debe crear su propio `.mcp.json` con su token personal
+- Usar tokens con permisos apropiados segun el rol
 
 ### Resend (Email)
 
@@ -698,6 +737,21 @@ El endpoint maneja todo en una sola llamada:
   "preview": "nuxt preview",      // Preview de build
   "postinstall": "nuxt prepare"   // Preparar tipos (auto-ejecutado)
 }
+```
+
+### Scripts de Directus
+
+```bash
+# Exportar schema de Directus
+pnpm directus:schema
+
+# Generar tipos TypeScript desde Directus
+pnpm directus:types
+
+# Gestionar snapshots de Directus
+pnpm directus:snapshot
+pnpm directus:snapshot:create
+pnpm directus:snapshot:list
 ```
 
 ### Comandos Adicionales Útiles

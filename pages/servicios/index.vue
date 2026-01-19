@@ -23,7 +23,7 @@ useBreadcrumbSchema([
 const trustStats = [
   { value: '1,500+', label: 'Familias', description: 'confían en nosotros' },
   { value: '16+', label: 'Años de experiencia', description: 'en el mercado' },
-  { value: '24h', label: 'Respuesta', description: 'en pre-aprobación' },
+  { value: '24h', label: 'Respuesta', description: 'en preaprobación' },
   { value: '6', label: 'Bancos aliados', description: 'para mejores tasas' }
 ]
 
@@ -66,7 +66,7 @@ const testimonials = [
     location: 'Santiago, Chile'
   },
   {
-    quote: 'Increíble la rapidez con la que obtuve mi pre-aprobación. En menos de 48 horas ya tenía respuesta.',
+    quote: 'Increíble la rapidez con la que obtuve mi preaprobación. En menos de 48 horas ya tenía respuesta.',
     name: 'Claudia Vargas',
     avatar: '/testimonials/Claudia.jpeg',
     location: 'Nueva York, NY - Estados Unidos'
@@ -104,7 +104,7 @@ const testimonials = [
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold text-gray-900 mb-4">
-            Nuestros Servicios
+            Nuestros servicios
           </h2>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">
             Ofrecemos soluciones financieras especializadas para colombianos en el exterior que desean invertir en vivienda en Colombia
@@ -135,10 +135,10 @@ const testimonials = [
 
     <!-- CTA Final -->
     <CTASection
-      title="Tu hogar en Colombia te esta esperando"
-      description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-      :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
-      :secondary-cta="{ text: 'Hablar con un asesor', to: '/contacto' }"
+      title="Tu hogar en Colombia te está esperando"
+      description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+      :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
+      :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
       :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
     />
   </div>
