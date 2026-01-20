@@ -184,7 +184,7 @@ const duplicatedColumn3 = computed(() => [...column3.value, ...column3.value])
             </div>
           </div>
           <span class="text-sm text-gray-600">
-            <strong class="text-primary">+1,500</strong> colombianos cumplieron su sueño con nosotros
+            <strong class="text-primary">+3,000</strong> colombianos cumplieron su sueño con nosotros
           </span>
         </div>
       </div>

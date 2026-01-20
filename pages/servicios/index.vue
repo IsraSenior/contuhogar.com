@@ -21,7 +21,7 @@ useBreadcrumbSchema([
 
 // Estadísticas de confianza
 const trustStats = [
-  { value: '1,500+', label: 'Familias', description: 'confían en nosotros' },
+  { value: '3,000+', label: 'Familias', description: 'confían en nosotros' },
   { value: '16+', label: 'Años de experiencia', description: 'en el mercado' },
   { value: '24h', label: 'Respuesta', description: 'en preaprobación' },
   { value: '6', label: 'Bancos aliados', description: 'para mejores tasas' }
@@ -90,7 +90,7 @@ const testimonials = [
   <div>
     <!-- Hero Section -->
     <HeroSection
-      badge="Más de 1,500 colombianos confían en nosotros"
+      badge="Más de 3,000 colombianos confían en nosotros"
       badge-icon
       title="Soluciones de financiamiento para tu hogar en Colombia"
       subtitle="Desde el exterior, puedes acceder a crédito hipotecario, leasing habitacional y más. Te acompañamos en cada paso para hacer realidad tu proyecto de vivienda."
