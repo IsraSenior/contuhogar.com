@@ -6,15 +6,15 @@ const store = useMainStore()
 const props = defineProps({
   title: {
     type: String,
-    default: 'Nuestras alianzas estratégicas nos permiten ofrecerte las mejores opciones de financiamiento, tiempos, solidez y respaldo para la inversión de tu hogar en Colombia.'
+    default: 'Respaldo estratégico para invertir con confianza en Colombia'
   },
   subtitle: {
     type: String,
-    default: 'Nuestras alianzas estratégicas nos permiten ofrecerte las mejores opciones de financiamiento para tu hogar'
+    default: 'Nuestras alianzas estratégicas nos permiten ofrecerte las mejores opciones de financiamiento, tiempos, solidez y respaldo para la inversión de tu hogar en Colombia.'
   },
   trustMessage: {
     type: String,
-    default: '2. Más de 16 años de experiencia conectando colombianos en el exterior con su verdadero hogar.'
+    default: 'Más de 16 años de experiencia conectando colombianos en el exterior con su verdadero hogar.'
   },
   logos: {
     type: Array as PropType<PartnerLogo[]>,
