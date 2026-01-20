@@ -107,9 +107,11 @@
   min-width: 320px;
 }
 
-/* Header del calendario */
+/* Header del calendario - z-index ensures clickable month/year navigation */
 .vc-header {
   @apply px-6 py-4 pb-2;
+  position: relative;
+  z-index: 10;
 }
 
 .vc-title {
@@ -126,9 +128,9 @@
   @apply w-5 h-5;
 }
 
-/* Contenedor de semanas */
+/* Contenedor de semanas - reduced top padding to prevent header overlap */
 .vc-weeks {
-  @apply px-6 pb-6 !pt-10;
+  @apply px-6 pb-6 pt-2;
 }
 
 /* Encabezados de días de la semana */
