@@ -1,6 +1,8 @@
 // Server API endpoint para generar PDF de preaprobación usando Puppeteer
 // Navega a la página de preview y captura solo el contenedor A4
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
+import { existsSync } from 'node:fs';
 import { z } from 'zod';
 import {
   defineEventHandler,
@@ -56,6 +58,8 @@ const buildPreviewUrl = (data: PreApprovalData, baseUrl: string): string => {
 };
 
 export default defineEventHandler(async (event) => {
+  let browser = null;
+
   try {
     const body = await readBody(event);
     const data = PreApprovalDataSchema.parse(body);
@@ -69,10 +73,45 @@ export default defineEventHandler(async (event) => {
     const previewUrl = buildPreviewUrl(data, baseUrl);
     console.log('Navigating to preview page:', previewUrl);
 
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    // Detectar si estamos en Vercel (serverless)
+    const isVercel = !!process.env.VERCEL;
+
+    console.log('Environment:', {
+      isVercel,
+      nodeEnv: process.env.NODE_ENV,
+      platform: process.platform
     });
+
+    // Configuración de Puppeteer según el entorno
+    if (isVercel) {
+      console.log('Using @sparticuz/chromium for serverless environment');
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
+    } else {
+      // Desarrollo local: puppeteer-core requiere executablePath explícito
+      const localChromePaths = [
+        '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // macOS
+        '/usr/bin/google-chrome', // Linux
+        '/usr/bin/chromium-browser', // Linux (Chromium)
+        'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Windows
+      ];
+      const executablePath = localChromePaths.find((p) => existsSync(p));
+
+      if (!executablePath) {
+        throw new Error('No se encontró Chrome/Chromium instalado localmente. Instala Google Chrome para generar PDFs en desarrollo.');
+      }
+
+      console.log('Using local Chrome:', executablePath);
+      browser = await puppeteer.launch({
+        headless: true,
+        executablePath,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+    }
 
     const page = await browser.newPage();
 
@@ -84,8 +123,9 @@ export default defineEventHandler(async (event) => {
     });
 
     // Navegar a la página de preview
+    // Usar networkidle2 en lugar de networkidle0 para mejor compatibilidad serverless
     await page.goto(previewUrl, {
-      waitUntil: 'networkidle0',
+      waitUntil: 'networkidle2',
       timeout: 30000
     });
 
@@ -106,7 +146,10 @@ export default defineEventHandler(async (event) => {
       margin: { top: '0', right: '0', bottom: '0', left: '0' }
     });
 
-    await browser.close();
+    console.log('PDF generated successfully:', {
+      size: pdfBuffer.length,
+      timestamp: new Date().toISOString()
+    });
 
     const fileName = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
 
@@ -119,18 +162,35 @@ export default defineEventHandler(async (event) => {
     return pdfBuffer;
 
   } catch (error) {
-    console.error('Error generating PDF:', error);
+    console.error('Error generating PDF:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined,
+      isZodError: error instanceof z.ZodError
+    });
 
     if (error instanceof z.ZodError) {
       throw createError({
         statusCode: 400,
-        message: 'Datos inválidos para generar el PDF'
+        message: 'Datos inválidos para generar el PDF',
+        data: error.errors
       });
     }
 
     throw createError({
       statusCode: 500,
-      message: 'Error al generar el PDF'
+      message: 'Error al generar el PDF',
+      data: error instanceof Error ? error.message : 'Unknown error'
     });
+  } finally {
+    // Asegurar que el browser se cierre siempre
+    if (browser) {
+      try {
+        await browser.close();
+        console.log('Browser closed successfully');
+      } catch (closeError) {
+        console.error('Error closing browser:', closeError);
+      }
+    }
   }
 });
