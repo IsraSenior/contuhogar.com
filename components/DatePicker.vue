@@ -35,7 +35,7 @@
 
     <!-- Calendario flotante -->
     <div
-      v-if="isOpen"
+      v-show="isOpen"
       ref="calendarRef"
       class="absolute z-50 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden"
       :class="positionClass"
@@ -141,6 +141,7 @@ const closeCalendar = () => {
  * Maneja la selección de fecha
  */
 const handleDateSelect = (day: any) => {
+  if (!day?.date) return;
   const date = day.date;
   selectedDate.value = date;
 
@@ -152,10 +153,10 @@ const handleDateSelect = (day: any) => {
 
   emit('update:modelValue', isoDate);
 
-  // Cerrar el calendario después de seleccionar
-  setTimeout(() => {
+  // Esperar a que v-calendar termine su ciclo reactivo antes de cerrar
+  nextTick(() => {
     closeCalendar();
-  }, 200);
+  });
 };
 
 // Watch para sincronizar con cambios externos del modelValue

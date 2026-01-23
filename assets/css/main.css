@@ -109,9 +109,13 @@
 
 /* Header del calendario - z-index ensures clickable month/year navigation */
 .vc-header {
-  @apply px-6 py-4 pb-2;
+  @apply px-6 pt-4 pb-10;
   position: relative;
   z-index: 10;
+}
+
+.vc-nav-item.vc-focus.is-active {
+  @apply bg-primary;
 }
 
 .vc-title {
@@ -130,12 +134,12 @@
 
 /* Contenedor de semanas - reduced top padding to prevent header overlap */
 .vc-weeks {
-  @apply px-6 pb-6 pt-2;
+  @apply px-6 pb-6 pt-4;
 }
 
 /* Encabezados de días de la semana */
 .vc-weekday {
-  @apply text-sm font-semibold text-gray-600 py-3;
+  @apply text-xs font-semibold text-gray-500 py-2;
 }
 
 /* Celdas de días */
