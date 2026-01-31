@@ -15,6 +15,52 @@
 
 ---
 
+## Estado del Proyecto - Auditoría Técnica
+
+**Puntuación Global: 7.9/10** ✅
+
+| # | Aspecto | Puntuación | Estado |
+|---|---------|------------|--------|
+| 1 | Anti-Spam & Bot Detection | 9/10 | Excelente |
+| 2 | Rate Limiting | 9/10 | Excelente* |
+| 3 | State Management (Pinia) | 8.5/10 | Muy Bueno |
+| 4 | TypeScript | 8.5/10 | Muy Bueno |
+| 5 | Structured Data (JSON-LD) | 8.5/10 | Muy Bueno |
+| 6 | SEO Meta Tags | 8.2/10 | Muy Bueno |
+| 7 | Validación de Inputs (Zod) | 8/10 | Bueno |
+| 8 | Security Headers | 8/10 | Bueno* |
+| 9 | Styling (Tailwind) | 8/10 | Bueno |
+| 10 | Sitemap & Robots | 8/10 | Bueno |
+| 11 | Arquitectura Componentes | 7.5/10 | Bueno |
+| 12 | Accesibilidad (A11y) | 7.5/10 | Bueno |
+| 13 | Manejo de Errores | 7/10 | Aceptable |
+| 14 | Performance | 7/10 | Aceptable |
+| 15 | CSRF/CORS | 5/10 | Débil |
+
+*Con advertencias para producción (ver sección de vulnerabilidades)
+
+### Fortalezas
+- Anti-spam: 6 capas de protección (Turnstile, honeypot, timing, rate limit, bot detection, Zod)
+- SEO: 5 schemas JSON-LD implementados
+- TypeScript: Sin uso de `any`
+- State: Pinia con persistencia
+
+### Vulnerabilidades Conocidas (Pre-Producción)
+| Prioridad | Issue | Archivo | Estado |
+|-----------|-------|---------|--------|
+| 🔴 Crítico | CSP `unsafe-inline` | `server/plugins/securityHeaders.ts` | Pendiente |
+| 🔴 Crítico | Rate limiting en memoria | `server/utils/rateLimit.ts` | Pendiente |
+| 🔴 Crítico | Sin CSRF tokens | - | Pendiente |
+| 🟠 Alto | Sitemap sin blog dinámico | `server/routes/sitemap.xml.ts` | Pendiente |
+| 🟠 Alto | Simulador sin lazy loading | `components/simulador/` | Pendiente |
+
+### Validadores Recomendados
+- SEO: [Google Rich Results](https://search.google.com/test/rich-results) · [Schema Validator](https://validator.schema.org/)
+- Seguridad: [Security Headers](https://securityheaders.com/) · [Mozilla Observatory](https://observatory.mozilla.org/)
+- Performance: [PageSpeed](https://pagespeed.web.dev/) · Lighthouse
+
+---
+
 ## 📋 Tabla de Contenidos
 
 - [Sobre el Proyecto](#-sobre-el-proyecto)
@@ -540,7 +586,7 @@ El simulador de crédito es un wizard interactivo de 5 pasos que permite a los u
 
 3. **Ingresos y Gastos**:
    - Ingresos fijos mensuales
-   - Ingresos variables (opcionales)
+   - Ingresos variables - adicionales (opcionales)
    - Deducciones (salud, pensión, etc.)
    - Obligaciones financieras actuales:
      - Tarjetas de crédito (se calcula 3% del cupo)
