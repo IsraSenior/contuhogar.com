@@ -138,7 +138,7 @@ export const useLocalBusinessSchema = () => {
     sameAs: [
       // Agregar redes sociales si existen
       // 'https://www.facebook.com/contuhogar',
-      // 'https://www.instagram.com/contuhogar',
+      // 'https://www.instagram.com/contuhogar_oficial',
       // 'https://www.linkedin.com/company/contuhogar'
     ],
     areaServed: {
