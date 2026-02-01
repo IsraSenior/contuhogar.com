@@ -84,30 +84,25 @@ export default defineEventHandler(async (event) => {
       sessionId: saved?.session_id || data.data.sessionId,
     };
   } catch (e: any) {
-    console.error("Session start error:", e?.message || e);
-
     // Check for duplicate session_id (unique constraint violation)
-    if (e?.errors && Array.isArray(e.errors)) {
-      const isDuplicate = e.errors.some((err: any) =>
+    const errorMessage = e?.message || '';
+    const errorDetails = e?.errors || [];
+
+    const isDuplicate =
+      errorMessage.includes('unique') ||
+      errorMessage.includes('has to be unique') ||
+      (Array.isArray(errorDetails) && errorDetails.some((err: any) =>
         err?.extensions?.code === 'RECORD_NOT_UNIQUE' ||
         err?.message?.includes('duplicate') ||
         err?.message?.includes('unique')
-      );
+      ));
 
-      if (isDuplicate) {
-        // Session already exists - this is OK, return success
-        return {
-          ok: true,
-          sessionId: data.data.sessionId,
-        };
-      }
-
-      throw createError({
-        statusCode: 500,
-        statusMessage: "Error al iniciar sesión",
-        message: "No se pudo crear la sesión de seguimiento.",
-        data: { details: e.errors },
-      });
+    if (isDuplicate) {
+      // Session already exists - this is OK, return success silently
+      return {
+        ok: true,
+        sessionId: data.data.sessionId,
+      };
     }
 
     throw createError({

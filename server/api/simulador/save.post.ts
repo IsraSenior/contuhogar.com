@@ -7,26 +7,7 @@ import {
   getRequestHeader,
 } from "h3";
 import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
-
-// Formatear moneda COP para notificación
-const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(value);
-};
-
-// Obtener emoji según resultado
-const getResultEmoji = (resultado: string): string => {
-  switch (resultado) {
-    case 'aprobado': return '✅';
-    case 'rechazado': return '❌';
-    case 'advertencia': return '⚠️';
-    default: return '📊';
-  }
-};
+import { formatCurrency, getResultEmoji } from "../../utils/formatting";
 
 // Validation schema for simulation data
 const obligacionSchema = z.object({
@@ -54,6 +35,8 @@ const schema = z.object({
   valorBien: z.number().positive(),
   montoSolicitado: z.number().positive(),
   plazoMeses: z.number().int().min(12).max(240),
+  paisResidencia: z.string().min(2).max(10).nullable(),
+  tipoInmueble: z.enum(['nuevo', 'usado', 'por_definir']).nullable(),
 
   // Datos de ingresos
   ingresosFijos: z.number().min(0),
@@ -148,6 +131,8 @@ export default defineEventHandler(async (event) => {
     monto_solicitado: data.data.montoSolicitado,
     plazo_meses: data.data.plazoMeses,
     porcentaje_financiacion: data.data.resultado.porcentajeFinanciacion,
+    pais_residencia: data.data.paisResidencia,
+    tipo_inmueble: data.data.tipoInmueble,
 
     // Datos de ingresos
     ingresos_fijos: data.data.ingresosFijos,

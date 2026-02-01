@@ -11,6 +11,7 @@ import {
   setResponseHeaders,
   createError,
 } from 'h3';
+import { rateLimit } from '../../utils/rateLimit';
 
 // Schema de validación para los datos del PDF
 const PreApprovalDataSchema = z.object({
@@ -58,6 +59,14 @@ const buildPreviewUrl = (data: PreApprovalData, baseUrl: string): string => {
 };
 
 export default defineEventHandler(async (event) => {
+  // Rate limiting: 10 requests per 5 minutes (300 seconds)
+  // PDF generation with Puppeteer is resource-intensive
+  await rateLimit(event, {
+    maxRequests: 10,
+    windowSeconds: 300,
+    message: "Has alcanzado el límite de generación de PDFs. Por favor, espera unos minutos antes de intentarlo de nuevo.",
+  });
+
   let browser = null;
 
   try {
