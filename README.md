@@ -305,6 +305,26 @@ contuhogar.com/
 │   │   ├── Accordion.vue
 │   │   ├── CategoryPills.vue
 │   │   └── SearchBar.vue
+│   ├── skeleton/         # Componentes de carga (skeletons)
+│   │   ├── SkeletonBox.vue           # Primitivo: caja rectangular
+│   │   ├── SkeletonText.vue          # Primitivo: líneas de texto
+│   │   ├── SkeletonCircle.vue        # Primitivo: círculo/avatar
+│   │   ├── SkeletonImage.vue         # Primitivo: placeholder imagen
+│   │   ├── SkeletonBlogCard.vue      # Card de blog
+│   │   ├── SkeletonServiceCard.vue   # Card de servicio
+│   │   ├── SkeletonTestimonialCard.vue
+│   │   ├── SkeletonHeroHome.vue      # Hero del homepage
+│   │   ├── SkeletonHeroSection.vue   # Hero genérico
+│   │   ├── SkeletonStatsSection.vue  # Sección de stats
+│   │   ├── SkeletonBankLogos.vue     # Logos de bancos
+│   │   ├── SkeletonAccordion.vue     # Acordeón FAQ
+│   │   ├── SkeletonBlogPost.vue      # Página de blog post
+│   │   ├── SkeletonServicePage.vue   # Página de servicio
+│   │   ├── SkeletonSimulador.vue     # Wizard del simulador
+│   │   └── SkeletonLegalPage.vue     # Páginas legales
+│   ├── legal/            # Componentes para páginas legales
+│   │   ├── LegalPageLayout.vue       # Layout con sidebar + acordeones
+│   │   └── LegalSection.vue          # Sección colapsable
 │   └── simulador/        # Componentes del simulador
 │       ├── SimuladorWizard.vue    # Wizard principal (5 pasos)
 │       ├── steps/
@@ -320,6 +340,7 @@ contuhogar.com/
 │           └── ValidationMessage.vue   # Mensajes de validación
 ├── composables/          # Composables de Vue
 │   ├── useDirectus.ts    # Helper para fetch de Directus
+│   ├── useLoading.ts     # Estado de carga para skeletons
 │   ├── useSeo.ts         # SEO metadata helpers
 │   ├── useSimuladorCalculations.ts   # Cálculos financieros
 │   └── usePreApprovalPDF.ts          # Generación de PDF
@@ -914,6 +935,71 @@ Ve a GitHub y crea un Pull Request describiendo:
 ---
 
 ## 📝 Changelog
+
+### [2.2.0] - 2026-01-31
+
+#### ✨ Nuevas Funcionalidades
+
+- **Sistema de Skeletons Profesional**: Sistema completo de componentes de carga para eliminar FOUC
+  - 4 primitivos base (Box, Text, Circle, Image) con animación shimmer
+  - 4 skeletons de cards (Blog, Service, Testimonial, Accordion)
+  - 4 skeletons de secciones (HeroHome, HeroSection, Stats, BankLogos)
+  - 4 skeletons de página completa (BlogPost, ServicePage, Simulador, LegalPage)
+  - Composable `useLoading(minDuration)` para control centralizado
+  - Soporte para `prefers-reduced-motion` (accesibilidad)
+  - Variantes light/dark para fondos oscuros
+
+- **Rediseño de Páginas Legales**: Nueva UI estilo Stripe/Notion
+  - Layout de 2 columnas con sidebar sticky
+  - Navegación por anclas con detección de sección activa (Intersection Observer)
+  - Secciones colapsables con acordeones
+  - Dropdown de índice en móvil
+  - Contenido simplificado y legible
+  - Iconos SVG inline por sección
+
+#### 📦 Nuevos Archivos
+
+**Composables**:
+- `composables/useLoading.ts` - Estado de carga con duración mínima
+
+**Componentes Skeleton**:
+- `components/skeleton/SkeletonBox.vue`
+- `components/skeleton/SkeletonText.vue`
+- `components/skeleton/SkeletonCircle.vue`
+- `components/skeleton/SkeletonImage.vue`
+- `components/skeleton/SkeletonBlogCard.vue`
+- `components/skeleton/SkeletonServiceCard.vue`
+- `components/skeleton/SkeletonTestimonialCard.vue`
+- `components/skeleton/SkeletonHeroHome.vue`
+- `components/skeleton/SkeletonHeroSection.vue`
+- `components/skeleton/SkeletonStatsSection.vue`
+- `components/skeleton/SkeletonBankLogos.vue`
+- `components/skeleton/SkeletonAccordion.vue`
+- `components/skeleton/SkeletonBlogPost.vue`
+- `components/skeleton/SkeletonServicePage.vue`
+- `components/skeleton/SkeletonSimulador.vue`
+- `components/skeleton/SkeletonLegalPage.vue`
+
+**Componentes Legal**:
+- `components/legal/LegalPageLayout.vue`
+- `components/legal/LegalSection.vue`
+
+#### 🔧 Modificaciones
+
+- `assets/css/main.css`: Animación shimmer y variante light
+- `pages/index.vue`: Integración completa de skeletons
+- `pages/blog/index.vue`: Skeletons para hero, featured, grid
+- `pages/blog/[slug].vue`: SkeletonBlogPost
+- `pages/servicios/index.vue`: Skeletons para secciones
+- `pages/servicios/[slug].vue`: SkeletonServicePage
+- `pages/simulador/credito/index.vue`: SkeletonSimulador
+- `pages/faqs.vue`: Skeletons para hero y acordeones
+- `pages/nosotros.vue`: Skeletons para todas las secciones
+- `pages/contacto.vue`: Skeleton para formulario
+- `pages/terminos-condiciones.vue`: Rediseño completo con LegalPageLayout
+- `pages/politica-privacidad.vue`: Rediseño con 13 secciones colapsables
+
+---
 
 ### [2.1.0] - 2025-01-12
 
