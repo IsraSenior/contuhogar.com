@@ -293,7 +293,7 @@ const stepDescriptions = [
                         </div>
                         <div>
                             <h3 class="text-lg font-bold">Escríbenos</h3>
-                            <p class="text-sm text-white/80">Respuesta en menos de 24h</p>
+                            <p class="text-sm text-white/80">Respuesta en menos de 24 h</p>
                         </div>
                     </div>
 

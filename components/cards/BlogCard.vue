@@ -1,14 +1,37 @@
-<script setup>
-const props = defineProps({
-  article: {
-    type: Object,
-    required: true,
-    // { image, date, datetime, title, slug, excerpt, author: { name, avatar, role } }
-  },
-  featured: {
-    type: Boolean,
-    default: false
-  }
+<script setup lang="ts">
+/**
+ * Interfaz para el autor del artículo
+ */
+interface BlogAuthor {
+  name: string
+  avatar?: string
+  role?: string
+}
+
+/**
+ * Interfaz para un artículo del blog
+ */
+interface BlogArticle {
+  image: string
+  title: string
+  slug: string
+  date?: string
+  datetime?: string
+  excerpt?: string
+  category?: string
+  author?: BlogAuthor
+}
+
+/**
+ * Props del componente BlogCard
+ */
+interface BlogCardProps {
+  article: BlogArticle
+  featured?: boolean
+}
+
+const props = withDefaults(defineProps<BlogCardProps>(), {
+  featured: false
 })
 
 const layoutClasses = computed(() => {

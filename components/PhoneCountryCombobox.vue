@@ -257,10 +257,10 @@ onUnmounted(() => {
                         @mouseenter="highlightedIndex = index"
                     >
                         <div class="flex items-center gap-2 flex-1 min-w-0">
-                            <span class="text-xl flex-shrink-0">{{ option.flag }}</span>
+                            <span class="text-xl shrink-0">{{ option.flag }}</span>
                             <div class="flex flex-col min-w-0 flex-1">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-sm font-medium text-gray-700 flex-shrink-0">{{ option.code }}</span>
+                                    <span class="text-sm font-medium text-gray-700 shrink-0">{{ option.code }}</span>
                                     <span v-if="getCountryDisplayName(option)" class="text-xs text-gray-500 truncate">
                                         {{ getCountryDisplayName(option) }}
                                     </span>
@@ -272,7 +272,7 @@ onUnmounted(() => {
                         </div>
                         <svg
                             v-if="option.code === modelValue.code && option.flag === modelValue.flag"
-                            class="w-4 h-4 text-primary flex-shrink-0"
+                            class="w-4 h-4 text-primary shrink-0"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                         >

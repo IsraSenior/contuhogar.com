@@ -7,30 +7,6 @@ const currentYear = new Date().getFullYear()
 const isActive = (path) => route.path === path
 const isServiceActive = (href) => route.path === `/servicios${href}`
 
-// Newsletter form state
-const email = ref('')
-const isSubmitting = ref(false)
-const submitted = ref(false)
-
-const handleNewsletterSubmit = async (e) => {
-  e.preventDefault()
-  if (!email.value || isSubmitting.value) return
-
-  isSubmitting.value = true
-
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000))
-
-  submitted.value = true
-  isSubmitting.value = false
-  email.value = ''
-
-  // Reset after 3 seconds
-  setTimeout(() => {
-    submitted.value = false
-  }, 3000)
-}
-
 // Contact info
 const contactInfo = {
   phone: '+57 310 819 2877',
@@ -208,41 +184,15 @@ const socialLinks = [
           <!-- Newsletter -->
           <div class="mt-10">
             <h3 class="text-sm font-semibold text-white mb-3">
-              Suscríbete al boletín
+              Suscribete al boletin
             </h3>
 
-            <form @submit="handleNewsletterSubmit">
-              <div v-if="!submitted" class="flex gap-2">
-                <input
-                  v-model="email"
-                  type="email"
-                  required
-                  placeholder="boletin@contuhogar.com"
-                  class="flex-1 min-w-0 px-3 py-2 bg-white/10 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <button
-                  type="submit"
-                  :disabled="isSubmitting"
-                  class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <svg v-if="isSubmitting" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Success message -->
-              <div v-else class="flex items-center gap-2 text-sm text-green-400">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <span>¡Gracias por suscribirte!</span>
-              </div>
-            </form>
+            <NewsletterForm
+              variant="inline"
+              :show-title="false"
+              button-text="Suscribirme"
+              :dark="true"
+            />
           </div>
         </div>
       </div>

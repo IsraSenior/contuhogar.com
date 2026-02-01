@@ -1,15 +1,21 @@
-<script setup>
-const props = defineProps({
-  service: {
-    type: Object,
-    required: true,
-    // { slug, title, intro, image }
-  },
-  variant: {
-    type: String,
-    default: 'default', // 'default' | 'featured'
-    validator: (value) => ['default', 'featured'].includes(value)
-  }
+<script setup lang="ts">
+import type { Service } from '~/stores/index'
+
+/**
+ * Variantes de visualización de la tarjeta
+ */
+type ServiceCardVariant = 'default' | 'featured'
+
+/**
+ * Props del componente ServiceCard
+ */
+interface ServiceCardProps {
+  service: Service
+  variant?: ServiceCardVariant
+}
+
+const props = withDefaults(defineProps<ServiceCardProps>(), {
+  variant: 'default'
 })
 
 const cardClasses = computed(() => {

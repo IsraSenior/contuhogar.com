@@ -87,6 +87,9 @@ const serviceIcons = {
             type="button"
             :class="getDropdownTriggerClasses"
             @click="megaMenuOpen = !megaMenuOpen"
+            :aria-expanded="megaMenuOpen"
+            aria-controls="mega-menu-panel"
+            aria-haspopup="true"
           >
             Servicios
             <svg
@@ -111,6 +114,8 @@ const serviceIcons = {
           >
             <div
               v-if="megaMenuOpen"
+              id="mega-menu-panel"
+              role="menu"
               class="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-screen max-w-4xl"
             >
               <div class="bg-white rounded-2xl shadow-2xl ring-1 ring-gray-900/5 overflow-hidden">
@@ -248,6 +253,8 @@ const serviceIcons = {
           type="button"
           @click="mobileMenuOpen = !mobileMenuOpen"
           class="p-2 -m-2 text-gray-700 hover:text-primary transition-colors"
+          :aria-expanded="mobileMenuOpen"
+          aria-controls="mobile-menu-panel"
         >
           <span class="sr-only">{{ mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú' }}</span>
           <!-- Icono de menú hamburguesa -->
@@ -276,6 +283,8 @@ const serviceIcons = {
           v-if="megaMenuOpen"
           class="fixed inset-0 z-40 bg-black/20"
           @click="closeMegaMenuInstant"
+          role="presentation"
+          aria-hidden="true"
         />
       </Transition>
     </Teleport>
@@ -312,6 +321,7 @@ const serviceIcons = {
           >
             <div
               v-if="mobileMenuOpen"
+              id="mobile-menu-panel"
               class="fixed inset-y-0 right-0 w-full bg-white shadow-2xl flex flex-col"
             >
               <!-- Header -->
