@@ -9,6 +9,31 @@ import {
 import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
 import { Resend } from "resend";
 import { isDuplicateSubmission } from "../utils/duplicateDetection";
+import { formatCurrency } from "../utils/formatting";
+
+// Schema for validating parsed simuladorInfo JSON
+// Based on types/simulador.ts structure
+const simuladorInfoSchema = z.object({
+  // From the simulator - credit type
+  tipoCredito: z.enum(['hipotecario', 'leasing']).optional().nullable(),
+  tipoCreditoLabel: z.string().optional().nullable(),
+
+  // Property and loan details
+  valorBien: z.number().positive().optional().nullable(),
+  montoSolicitado: z.number().positive().optional().nullable(),
+  plazoMeses: z.number().int().min(12).max(240).optional().nullable(),
+
+  // Financial calculations
+  cuotaMensual: z.number().positive().optional().nullable(),
+  ingresoNeto: z.number().optional().nullable(),
+  capacidadEndeudamiento: z.number().optional().nullable(),
+  porcentajeCompromiso: z.number().min(0).max(100).optional().nullable(),
+  porcentajeFinanciacion: z.number().min(0).max(100).optional().nullable(),
+
+  // Result
+  resultado: z.enum(['aprobado', 'rechazado', 'advertencia']).optional().nullable(),
+  motivoRechazo: z.string().optional().nullable(),
+}).strict().optional().nullable();
 
 const schema = z.object({
   firstName: z.string().min(2).max(60).trim(),
@@ -27,6 +52,10 @@ const schema = z.object({
   _formStartTime: z.number().optional(),
   // Campo oculto con datos del simulador (JSON string)
   simuladorInfo: z.string().optional().or(z.literal("")),
+  // Flag to skip Telegram if this is a simulator lead (already notified)
+  _skipTelegramFromSimulator: z.boolean().optional(),
+  // Simulator session ID for deduplication tracking
+  _simuladorSessionId: z.string().optional(),
 
   // === Anti-spam fields (layer 2-4) ===
   // Bot detection
@@ -47,16 +76,6 @@ const schema = z.object({
   _honeypot2Name: z.string().optional(),
   _honeypot2Value: z.string().max(0).optional().or(z.literal("")),
 });
-
-// Helper para formatear moneda
-const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(value);
-};
 
 export default defineEventHandler(async (event) => {
   // Rate limiting: máximo 8 requests por 5 minutos (300 segundos) - más permisivo
@@ -235,25 +254,37 @@ export default defineEventHandler(async (event) => {
       const fullName = [safe(data.data.firstName), safe(data.data.lastName)].filter(Boolean).join(" ");
       const msg = safe(data.data.message);
 
-      // Parsear datos del simulador si existen
-      let simuladorInfo: any = null;
+      // Parsear y validar datos del simulador si existen
+      let simuladorInfo: z.infer<typeof simuladorInfoSchema> = null;
       let simuladorText = '';
       if (data.data.simuladorInfo) {
         try {
-          simuladorInfo = JSON.parse(data.data.simuladorInfo);
-          const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
-          const resultadoEmoji = simuladorInfo.resultado === 'aprobado' ? '✅' :
-                                  simuladorInfo.resultado === 'rechazado' ? '❌' : '⚠️';
-          simuladorText = `
+          const parsedJson = JSON.parse(data.data.simuladorInfo);
+          // Validate parsed JSON against schema
+          const validationResult = simuladorInfoSchema.safeParse(parsedJson);
+          if (validationResult.success) {
+            simuladorInfo = validationResult.data;
+          } else {
+            console.warn('simuladorInfo validation failed:', validationResult.error.issues);
+            // Continue without simuladorInfo - don't block the lead
+            simuladorInfo = null;
+          }
+
+          if (simuladorInfo) {
+            const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+            const resultadoEmoji = simuladorInfo.resultado === 'aprobado' ? '✅' :
+                                    simuladorInfo.resultado === 'rechazado' ? '❌' : '⚠️';
+            simuladorText = `
 📊 *DATOS DEL SIMULADOR:*
    Tipo: ${tipoCredito}
    Valor inmueble: ${formatCurrency(simuladorInfo.valorBien || 0)}
    Monto solicitado: ${formatCurrency(simuladorInfo.montoSolicitado || 0)}
-   Plazo: ${simuladorInfo.plazoMeses} meses (${Math.floor(simuladorInfo.plazoMeses / 12)} años)
+   Plazo: ${simuladorInfo.plazoMeses} meses (${Math.floor((simuladorInfo.plazoMeses || 0) / 12)} años)
    Resultado: ${resultadoEmoji} ${simuladorInfo.resultado?.toUpperCase() || 'N/D'}
    ${simuladorInfo.cuotaMensual ? `Cuota: ${formatCurrency(simuladorInfo.cuotaMensual)}` : ''}`;
+          }
         } catch (e) {
-          console.warn('Error parsing simuladorInfo:', e);
+          console.warn('Error parsing simuladorInfo JSON:', e);
         }
       }
 
@@ -287,7 +318,7 @@ export default defineEventHandler(async (event) => {
         <div class="row"><div class="label">Tipo de crédito</div><div class="value">${tipoCredito}</div></div>
         <div class="row"><div class="label">Valor del inmueble</div><div class="value">${formatCurrency(simuladorInfo.valorBien || 0)}</div></div>
         <div class="row"><div class="label">Monto solicitado</div><div class="value">${formatCurrency(simuladorInfo.montoSolicitado || 0)}</div></div>
-        <div class="row"><div class="label">Plazo</div><div class="value">${simuladorInfo.plazoMeses} meses (${Math.floor(simuladorInfo.plazoMeses / 12)} años)</div></div>
+        <div class="row"><div class="label">Plazo</div><div class="value">${simuladorInfo.plazoMeses ?? 0} meses (${Math.floor((simuladorInfo.plazoMeses ?? 0) / 12)} años)</div></div>
         <div class="row"><div class="label">Resultado</div><div class="value" style="color:${resultadoColor}; font-weight:bold;">${resultadoText}</div></div>
         ${simuladorInfo.cuotaMensual ? `<div class="row"><div class="label">Cuota estimada</div><div class="value">${formatCurrency(simuladorInfo.cuotaMensual)}</div></div>` : ''}
         ${simuladorInfo.porcentajeCompromiso ? `<div class="row"><div class="label">Compromiso ingresos</div><div class="value">${Math.ceil(simuladorInfo.porcentajeCompromiso)}%</div></div>` : ''}
@@ -345,7 +376,10 @@ export default defineEventHandler(async (event) => {
       );
 
       // Enviar Telegram (si está configurado)
-      if (tgToken && tgChatId) {
+      // Skip if this is a simulator lead that was already notified
+      const shouldSkipTelegram = data.data._skipTelegramFromSimulator === true && simuladorInfo;
+
+      if (tgToken && tgChatId && !shouldSkipTelegram) {
         tasks.push(
           fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
             method: "POST",
@@ -364,6 +398,8 @@ export default defineEventHandler(async (event) => {
             return r.json();
           })
         );
+      } else if (shouldSkipTelegram) {
+        console.log("[Contact] Skipping Telegram notification - simulator lead already notified");
       }
 
       // Ejecutar notificaciones en paralelo (no bloquean la respuesta)
