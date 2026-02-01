@@ -37,7 +37,7 @@
         <!-- Ingresos Variables (Opcional) -->
         <div>
           <label for="ingresosVariables" class="block text-sm font-semibold text-gray-700 mb-2">
-            Ingresos variables mensuales (opcional)
+            Ingresos variables - adicionales (opcional)
           </label>
           <CurrencyInput
             id="ingresosVariables"

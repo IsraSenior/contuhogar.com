@@ -41,7 +41,7 @@
 
         <!-- Título con nombre -->
         <div class="text-center mb-10 mt-5">
-          <h1 class="text-3xl font-bold text-primary mb-1">¡Felicitaciones {{ nombreCompleto }}!</h1>
+          <h1 class="text-3xl font-bold text-primary mb-1">¡Felicitaciones, {{ nombreCompleto }}!</h1>
           <p class="text-gray-500">Has sido preaprobado para tu crédito de vivienda en Colombia</p>
         </div>
 
@@ -99,10 +99,9 @@
             <div>
               <h4 class="font-semibold text-primary text-lg -mt-1 mb-1">Condiciones y vigencia</h4>
               <ul class="space-y-0.5">
-                <li class="text-sm text-primary">• <strong>Vigencia:</strong> Válida hasta el {{ expirationDate }} (30 días)</li>
-                <li class="text-sm text-primary">• Sujeta a verificación de documentos y análisis crediticio</li>
-                <li class="text-sm text-primary">• Condiciones finales confirmadas por entidad bancaria aliada</li>
-                <li class="text-sm text-primary">• Documento informativo, no constituye oferta vinculante</li>
+                <li class="text-sm text-primary">• <strong>Vigencia:</strong> válida hasta el {{ expirationDate }} (30 días).</li>
+                <li class="text-sm text-primary">• Sujeta a verificación de documentos y análisis crediticio.</li>
+                <li class="text-sm text-primary">• Este simulador tiene fines exclusivamente informativos y no constituye una oferta ni aprobación de crédito. La entidad financiera que usted elija será la única responsable de realizar el estudio, evaluación y aprobación definitiva de su solicitud.</li>
               </ul>
             </div>
           </div>
