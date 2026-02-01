@@ -333,7 +333,7 @@ if (simulationResult.ok) {
 1. **Email Notification:** Send email to sales team when simulation is saved (similar to contact form)
 2. **Simulation ID in State:** Add `simulacionId` to store state after successful save
 3. **Save on Navigation:** Auto-save when user navigates away from results
-4. **Duplicate Detection:** Prevent saving identical simulations within 24h
+4. **Duplicate Detection:** Prevent saving identical simulations within 24 h
 5. **Analytics:** Track save conversion rate
 6. **Export PDF:** Allow user to download PDF with simulation ID
 7. **Resume Simulation:** Allow users to load saved simulations by ID

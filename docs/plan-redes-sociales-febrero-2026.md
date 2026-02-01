@@ -87,7 +87,7 @@ Febrero 2026 se centra en **generar leads cualificados** a través del simulador
 - Historias de clientes desde USA, España, Europa
 - "De la duda al sí" - proceso de decisión
 - Familias que lograron su sueño
-- Cifras: +3,000 familias atendidas
+- Cifras: +3.000 familias atendidas
 
 **Formatos:** Videos testimoniales, Carruseles antes/después, Stories con quotes
 
@@ -145,7 +145,7 @@ Febrero 2026 se centra en **generar leads cualificados** a través del simulador
 | Dom | 9 Feb | Story | Testimonial | Quote de cliente: "Gracias a ConTuHogar, mis papás ya tienen donde quedarse cuando los visito" | Inspiración | Story con diseño quote |
 | Lun | 10 Feb | Feed | Testimonial | Historia de pareja: "Carlos y Ana, desde España, compraron su primera vivienda juntos en Bogotá" | "¿Listo para dar el paso?" | Carrusel historia |
 | Mar | 11 Feb | Story | Producto | Countdown a San Valentín: "El mejor regalo: un hogar para tu familia en Colombia ❤️" | Link al simulador | Story con countdown |
-| Mié | 12 Feb | Reel | Testimonial | Compilación: "Esto dijeron nuestros clientes sobre su experiencia" (3-4 testimonios cortos) | "Únete a +3,000 familias" | Reel 45-60s |
+| Mié | 12 Feb | Reel | Testimonial | Compilación: "Esto dijeron nuestros clientes sobre su experiencia" (3-4 testimonios cortos) | "Únete a +3.000 familias" | Reel 45-60s |
 | Jue | 13 Feb | Story | Educativo | "Pregunta del día: ¿Sabías que puedes comprar vivienda en Colombia sin estar allá?" | Engagement | Story con sticker pregunta |
 | Vie | 14 Feb | Feed | Urgencia | San Valentín: "El amor por Colombia no tiene fronteras 🇨🇴❤️ Dale a tu familia el regalo de un hogar" | "Simula tu crédito hoy" | Imagen emocional |
 
@@ -221,7 +221,7 @@ Estos son los 5 errores más comunes al comprar vivienda desde el exterior 🚫
 
 (El #3 es el que más vemos)
 
-Después de ayudar a más de 3,000 familias, sabemos exactamente qué evitar.
+Después de ayudar a más de 3.000 familias, sabemos exactamente qué evitar.
 
 Desliza y guarda este post para no cometer ninguno 👉
 
@@ -638,7 +638,7 @@ Las más populares entre nuestros clientes:
 ```
 ¡Hola [nombre]! Entendemos la precaución, es importante verificar antes de confiar.
 
-ConTuHogar es una empresa colombiana con más de [X] años de experiencia, regulada por [autoridades]. Hemos ayudado a más de 3,000 familias.
+ConTuHogar es una empresa colombiana con más de [X] años de experiencia, regulada por [autoridades]. Hemos ayudado a más de 3.000 familias.
 
 Te invitamos a:
 ✅ Visitar nuestra web: contuhogar.com

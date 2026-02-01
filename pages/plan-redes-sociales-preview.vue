@@ -327,7 +327,7 @@
               <td class="border border-gray-300 p-2 text-center">4</td>
               <td class="border border-gray-300 p-2 text-center">8</td>
               <td class="border border-gray-300 p-2 text-center">20</td>
-              <td class="border border-gray-300 p-2 text-center">100%</td>
+              <td class="border border-gray-300 p-2 text-center">100 %</td>
             </tr>
           </tbody>
         </table>
@@ -446,7 +446,7 @@
           </div>
           <h4 class="font-bold text-primary text-sm mb-1">"Sabias que puedes saber si calificas en solo 3 minutos?"</h4>
           <p class="text-xs text-gray-600 mb-1"><strong>Formato:</strong> 1080x1920px | Duracion: 15s</p>
-          <p class="text-xs text-gray-500">Gradiente de marca, subtexto: "Sin compromiso | 100% gratis | Sin afectar tu credito". Link sticker al simulador.</p>
+          <p class="text-xs text-gray-500">Gradiente de marca, subtexto: "Sin compromiso | 100 % gratis | Sin afectar tu credito". Link sticker al simulador.</p>
         </div>
 
         <!-- STORY 2 -->
@@ -536,7 +536,7 @@
           </div>
           <h4 class="font-bold text-primary text-sm mb-1">"Ellos lo lograron. Tu tambien puedes"</h4>
           <p class="text-xs text-gray-600 mb-1"><strong>Formato:</strong> Video 50-60s | 1080x1920px (9:16)</p>
-          <p class="text-xs text-gray-500">Compilacion de 3 testimonios: Maria (Miami), Carlos (Madrid), Andrea (New York). Montaje emocional. "Mas de 3,000 familias".</p>
+          <p class="text-xs text-gray-500">Compilacion de 3 testimonios: Maria (Miami), Carlos (Madrid), Andrea (New York). Montaje emocional. "Mas de 3.000 familias".</p>
         </div>
 
         <!-- STORY 3 -->
@@ -815,22 +815,24 @@
           <div class="border border-gray-200 rounded-lg p-3">
             <h4 class="font-bold text-primary text-sm mb-2">Posts Feed</h4>
             <table class="w-full text-[10px]">
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Cuadrado</td>
-                <td class="py-1 text-right">1080x1080px</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Vertical</td>
-                <td class="py-1 text-right">1080x1350px</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Resolucion</td>
-                <td class="py-1 text-right">72 DPI min</td>
-              </tr>
-              <tr>
-                <td class="py-1">Peso max</td>
-                <td class="py-1 text-right">8MB/slide</td>
-              </tr>
+              <tbody>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Cuadrado</td>
+                  <td class="py-1 text-right">1080x1080px</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Vertical</td>
+                  <td class="py-1 text-right">1080x1350px</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Resolucion</td>
+                  <td class="py-1 text-right">72 DPI min</td>
+                </tr>
+                <tr>
+                  <td class="py-1">Peso max</td>
+                  <td class="py-1 text-right">8MB/slide</td>
+                </tr>
+              </tbody>
             </table>
           </div>
 
@@ -838,22 +840,24 @@
           <div class="border border-gray-200 rounded-lg p-3">
             <h4 class="font-bold text-primary text-sm mb-2">Reels</h4>
             <table class="w-full text-[10px]">
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Dimensiones</td>
-                <td class="py-1 text-right">1080x1920px</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Ratio</td>
-                <td class="py-1 text-right">9:16</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Duracion</td>
-                <td class="py-1 text-right">30-90s</td>
-              </tr>
-              <tr>
-                <td class="py-1">FPS</td>
-                <td class="py-1 text-right">30 fps min</td>
-              </tr>
+              <tbody>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Dimensiones</td>
+                  <td class="py-1 text-right">1080x1920px</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Ratio</td>
+                  <td class="py-1 text-right">9:16</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Duracion</td>
+                  <td class="py-1 text-right">30-90s</td>
+                </tr>
+                <tr>
+                  <td class="py-1">FPS</td>
+                  <td class="py-1 text-right">30 fps min</td>
+                </tr>
+              </tbody>
             </table>
           </div>
 
@@ -861,22 +865,24 @@
           <div class="border border-gray-200 rounded-lg p-3">
             <h4 class="font-bold text-primary text-sm mb-2">Stories</h4>
             <table class="w-full text-[10px]">
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Dimensiones</td>
-                <td class="py-1 text-right">1080x1920px</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Ratio</td>
-                <td class="py-1 text-right">9:16</td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-1">Duracion</td>
-                <td class="py-1 text-right">15s max</td>
-              </tr>
-              <tr>
-                <td class="py-1">Zona segura</td>
-                <td class="py-1 text-right">250px arr/310px abj</td>
-              </tr>
+              <tbody>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Dimensiones</td>
+                  <td class="py-1 text-right">1080x1920px</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Ratio</td>
+                  <td class="py-1 text-right">9:16</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-1">Duracion</td>
+                  <td class="py-1 text-right">15s max</td>
+                </tr>
+                <tr>
+                  <td class="py-1">Zona segura</td>
+                  <td class="py-1 text-right">250px arr/310px abj</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -1002,23 +1008,23 @@
             <h4 class="font-bold text-primary text-xs mb-2">Semana Previa (21-28 Enero)</h4>
             <ul class="space-y-1 text-[10px]">
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Crear banco de assets visuales</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Preparar copies de posts (8)</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Escribir guiones de reels (4)</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Solicitar testimonios y permisos</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Configurar herramienta de programacion</span>
               </li>
             </ul>
@@ -1029,23 +1035,23 @@
             <h4 class="font-bold text-primary text-xs mb-2">Durante el Mes (1-28 Febrero)</h4>
             <ul class="space-y-1 text-[10px]">
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Monitoreo diario (15 min): comentarios, DMs</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Actualizar valor del dolar en stories (jueves)</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Responder comentarios en primeras 2 horas</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Hacer 1 pregunta/semana en stories</span>
               </li>
               <li class="flex items-center gap-1.5">
-                <span class="w-3 h-3 border border-gray-300 rounded flex-shrink-0"></span>
+                <span class="w-3 h-3 border border-gray-300 rounded shrink-0"></span>
                 <span>Agradecer shares y menciones</span>
               </li>
             </ul>
