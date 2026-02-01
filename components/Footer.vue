@@ -172,8 +172,8 @@ const socialLinks = [
         <!-- Company Info Column (DERECHA) -->
         <div class="lg:col-span-4 order-1 lg:order-3">
           <!-- Logo -->
-          <NuxtLink to="/" class="inline-block">
-            <Logo class="h-10 w-auto brightness-0 invert" />
+          <NuxtLink to="/" class="inline-block" aria-label="ConTuHogar - Ir al inicio">
+            <Logo class="h-10 w-auto brightness-0 invert" aria-hidden="true" />
           </NuxtLink>
 
           <!-- Tagline -->

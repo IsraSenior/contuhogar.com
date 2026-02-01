@@ -54,6 +54,9 @@ const imageClasses = computed(() => {
       <NuxtImg
         :src="article.image"
         :alt="article.title"
+        :width="featured ? 256 : 400"
+        :height="featured ? 256 : 267"
+        :sizes="featured ? '(max-width: 1024px) 100vw, 256px' : '(max-width: 640px) 100vw, 400px'"
         class="absolute inset-0 size-full rounded-2xl bg-primary object-cover"
         format="webp"
         quality="80"
@@ -98,10 +101,12 @@ const imageClasses = computed(() => {
             v-if="article.author.avatar"
             :src="article.author.avatar"
             :alt="article.author.name"
+            width="80"
+            height="80"
+            sizes="40px"
             class="size-10 rounded-full bg-gray-50"
             format="webp"
             quality="75"
-            sizes="40px"
             loading="lazy"
           />
           <div class="text-sm/6">

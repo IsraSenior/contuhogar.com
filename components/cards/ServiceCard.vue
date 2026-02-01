@@ -35,6 +35,9 @@ const cardClasses = computed(() => {
       <NuxtImg
         :src="service.image"
         :alt="service.title"
+        width="400"
+        height="225"
+        sizes="(max-width: 768px) 100vw, 400px"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         format="webp"
         quality="80"
