@@ -14,6 +14,9 @@ importers:
       '@fingerprintjs/botd':
         specifier: ^2.0.0
         version: 2.0.0
+      '@fontsource/roboto':
+        specifier: ^5.2.9
+        version: 5.2.9
       '@pinia/nuxt':
         specifier: 0.11.2
         version: 0.11.2(magicast@0.5.1)(pinia@3.0.4(vue@3.5.22))
@@ -378,6 +381,9 @@ packages:
 
   '@fingerprintjs/botd@2.0.0':
     resolution: {integrity: sha512-yhuz23NKEcBDTHmGz/ULrXlGnbHenO+xZmVwuBkuqHUkqvaZ5TAA0kAgcRy4Wyo5dIBdkIf57UXX8/c9UlMLJg==}
+
+  '@fontsource/roboto@5.2.9':
+    resolution: {integrity: sha512-ZTkyHiPk74B/aj8BZWbsxD5Yu+Lq+nR64eV4wirlrac2qXR7jYk2h6JlLYuOuoruTkGQWNw2fMuKNavw7/rg0w==}
 
   '@gtm-support/core@2.3.1':
     resolution: {integrity: sha512-eD0hndQjhgKm5f/7IA9fZYujmHiVMY+fnYv4mdZSmz5XJQlS4TiTmpdZx2l7I2A9rI9J6Ysz8LpXYYNo/Xq4LQ==}
@@ -3996,6 +4002,8 @@ snapshots:
     optional: true
 
   '@fingerprintjs/botd@2.0.0': {}
+
+  '@fontsource/roboto@5.2.9': {}
 
   '@gtm-support/core@2.3.1': {}
 

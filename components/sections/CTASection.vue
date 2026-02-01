@@ -22,7 +22,7 @@ const props = defineProps({
   },
   image: {
     type: String,
-    default: 'https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg'
+    default: '/images/familia-nueva-casa.jpg'
   },
   imageAlt: {
     type: String,
@@ -86,6 +86,9 @@ const props = defineProps({
               :alt="imageAlt"
               format="webp"
               quality="80"
+              sizes="sm:100vw lg:500px"
+              width="600"
+              height="450"
               loading="lazy"
             />
           </div>

@@ -4,20 +4,25 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: [
+    "@fontsource/roboto/latin-400.css",
+    "@fontsource/roboto/latin-500.css",
+    "@fontsource/roboto/latin-700.css",
+    "~/assets/css/main.css"
+  ],
 
   app: {
     head: {
       link: [
         { rel: "preconnect", href: "https://contuhogar.com" },
         { rel: "dns-prefetch", href: "https://contuhogar.com" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+        // Preload hero image for better LCP
         {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap",
-          media: "print",
-          onload: "this.media='all'",
+          rel: "preload",
+          href: "/2148392254.jpg",
+          as: "image",
+          type: "image/jpeg",
+          fetchpriority: "high",
         },
       ],
     },
@@ -43,7 +48,15 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      sourcemap: false, // Deshabilitar sourcemaps en producción para evitar warnings
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-pdf': ['jspdf', 'html-to-image'],
+            'vendor-calendar': ['v-calendar'],
+          },
+        },
+      },
     },
   },
 
