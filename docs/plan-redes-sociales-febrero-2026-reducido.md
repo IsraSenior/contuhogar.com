@@ -357,7 +357,7 @@ Tu familia te está esperando 🏠
 [SEGUNDO 42-50] - MONTAJE EMOCIONAL
 🎬 Visual: Montaje de familias en sus casas, niños jugando, abuelos felices
 🎤 Audio: Música alcanza punto emotivo
-💬 Texto: "MÁS DE 3,000 FAMILIAS NOS CONFIARON SU SUEÑO"
+💬 Texto: "MÁS DE 3.000 FAMILIAS NOS CONFIARON SU SUEÑO"
 
 [SEGUNDO 50-60] - CTA
 🎬 Visual: Logo ConTuHogar + familia feliz de fondo
@@ -428,7 +428,7 @@ Si vives en el exterior y quieres comprar en Colombia, EVITA estos 7 errores que
 
 Desliza para ver los errores más comunes (y cómo evitarlos) ➡️
 
-Hemos ayudado a más de 3,000 familias y estos son los errores que vemos UNA Y OTRA VEZ 🔴
+Hemos ayudado a más de 3.000 familias y estos son los errores que vemos UNA Y OTRA VEZ 🔴
 
 La buena noticia: todos son evitables si sabes cómo 💡
 
@@ -643,7 +643,7 @@ Aquí está la GUÍA DEFINITIVA de financiación según tu ingreso mensual 👇
 🔹 $2M COP/mes ($500 USD) → Casa de $150M - $180M
 🔹 $4M COP/mes ($1,000 USD) → Casa de $280M - $350M
 🔹 $8M COP/mes ($2,000 USD) → Casa de $550M - $700M
-🔹 $12M COP/mes ($3,000 USD) → Casa de $800M - $1,000M
+🔹 $12M COP/mes ($3.000 USD) → Casa de $800M - $1,000M
 🔹 $20M+ COP/mes ($5,000+ USD) → Casa de $1,500M+
 
 ¿Quieres saber tu capacidad EXACTA?

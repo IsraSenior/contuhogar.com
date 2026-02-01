@@ -102,7 +102,7 @@ Antes de dar el paso, hay 5 cosas que NECESITAS saber.
 
 Te las cuento en este carrusel 👉
 
-Después de ayudar a más de 3,000 familias colombianas en el exterior, estos son los puntos clave que todos deberían conocer.
+Después de ayudar a más de 3.000 familias colombianas en el exterior, estos son los puntos clave que todos deberían conocer.
 
 💡 Spoiler: Es más fácil de lo que crees.
 
@@ -185,7 +185,7 @@ Guarda este post para cuando lo necesites 📌
 ```
 "Pensé que era imposible comprar desde Miami. Hoy tengo las llaves de mi apartamento en Medellín" 🔑
 
-Esta es la historia de María, una de las más de 3,000 familias que hemos ayudado.
+Esta es la historia de María, una de las más de 3.000 familias que hemos ayudado.
 
 Como muchos de ustedes, María tenía dudas:
 ❓ "¿Se puede comprar sin estar allá?"
@@ -456,7 +456,7 @@ Simula tu crédito GRATIS: Link en bio
 | Elemento | Descripción |
 |----------|-------------|
 | **Visual** | Fondo cálido, emocional |
-| **Texto principal** | "+3,000 familias ya lo lograron. ¿Serás la siguiente? 💚" |
+| **Texto principal** | "+3.000 familias ya lo lograron. ¿Serás la siguiente? 💚" |
 | **Sticker** | Link: "Empieza aquí" → simulador |
 
 ---
@@ -568,13 +568,13 @@ Cuéntanos 👇 o simula tu crédito: Link en bio
 | 3-15s | Testimonio 1: "Nunca pensé que fuera tan fácil" - María, Miami | Video/foto + texto |
 | 15-27s | Testimonio 2: "El proceso fue 100% remoto, increíble" - Carlos, Barcelona | Video/foto + texto |
 | 27-39s | Testimonio 3: "En 3 meses tenía mis llaves" - Andrea, Houston | Video/foto + texto |
-| 39-50s | "+3,000 familias ya lo lograron" | Número animado |
+| 39-50s | "+3.000 familias ya lo lograron" | Número animado |
 | 50-60s | "¿Quieres ser el siguiente? Link en bio 👆" | Logo + CTA |
 
 **COPY:**
 
 ```
-+3,000 familias colombianas en el exterior ya tienen su casa propia en Colombia 🏠
++3.000 familias colombianas en el exterior ya tienen su casa propia en Colombia 🏠
 
 Estas son algunas de sus historias 👆
 
@@ -716,7 +716,7 @@ Feliz San Valentín 💕
 **COPY:**
 
 ```
-Después de ayudar a +3,000 familias, estos son los 5 errores más comunes que vemos 🚫
+Después de ayudar a +3.000 familias, estos son los 5 errores más comunes que vemos 🚫
 
 (El #3 es el que más retrasa el proceso ⚠️)
 
