@@ -14,7 +14,7 @@
       }"
     >
       <!-- Icono -->
-      <div class="flex-shrink-0 mt-0.5">
+      <div class="shrink-0 mt-0.5">
         <svg
           v-if="type === 'error'"
           class="w-5 h-5"
@@ -81,7 +81,7 @@
       <button
         type="button"
         @click="$emit('close')"
-        class="flex-shrink-0 ml-2 rounded-full p-1 hover:bg-black/10 transition-colors"
+        class="shrink-0 ml-2 rounded-full p-1 hover:bg-black/10 transition-colors"
         aria-label="Cerrar mensaje"
       >
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">

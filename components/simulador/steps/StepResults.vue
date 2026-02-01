@@ -25,7 +25,7 @@
         </p>
         <!-- Auto-save indicator -->
         <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
-          Simulacion guardada
+          Simulación guardada
         </p>
       </div>
 
@@ -107,7 +107,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            Hablar con un ejecutivo de crédito
+            Contacta a tu ejecutivo de crédito
           </button>
           <button
             v-if="canGeneratePDF(resultado)"
@@ -125,6 +125,60 @@
             {{ isGenerating ? 'Generando...' : 'Descargar tu preaprobación' }}
           </button>
         </div>
+
+        <!-- Mensaje de error/límite del PDF -->
+        <Transition
+          enter-active-class="transition ease-out duration-200"
+          enter-from-class="opacity-0 -translate-y-1"
+          enter-to-class="opacity-100 translate-y-0"
+          leave-active-class="transition ease-in duration-150"
+          leave-from-class="opacity-100 translate-y-0"
+          leave-to-class="opacity-0 -translate-y-1"
+        >
+          <div
+            v-if="pdfError"
+            :class="[
+              'flex items-start gap-3 p-4 rounded-xl mb-4',
+              pdfErrorType === 'rate_limit'
+                ? 'bg-amber-50 border border-amber-200'
+                : 'bg-red-50 border border-red-200'
+            ]"
+          >
+            <svg
+              v-if="pdfErrorType === 'rate_limit'"
+              class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+            </svg>
+            <svg
+              v-else
+              class="w-5 h-5 text-red-600 shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <div class="flex-1">
+              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-800' : 'text-red-800'" class="text-sm font-medium">
+                {{ pdfErrorType === 'rate_limit' ? 'Límite alcanzado' : 'Error' }}
+              </p>
+              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-700' : 'text-red-700'" class="text-sm mt-0.5">
+                {{ pdfError }}
+              </p>
+            </div>
+            <button
+              @click="clearPdfError"
+              :class="pdfErrorType === 'rate_limit' ? 'text-amber-500 hover:text-amber-700' : 'text-red-500 hover:text-red-700'"
+              class="shrink-0"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </Transition>
 
         <!-- WhatsApp -->
         <button
@@ -157,7 +211,7 @@
         </p>
         <!-- Auto-save indicator -->
         <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
-          Simulacion guardada
+          Simulación guardada
         </p>
       </div>
 
@@ -194,7 +248,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            Consultar con un asesor
+            Contacta a tu ejecutivo de crédito
           </button>
           <button
             @click="handleWhatsAppClick(whatsAppUrlRechazado)"
@@ -227,7 +281,7 @@
         </p>
         <!-- Auto-save indicator -->
         <p v-if="saveStatus === 'saved'" class="text-xs text-gray-400 mt-2">
-          Simulacion guardada
+          Simulación guardada
         </p>
       </div>
 
@@ -295,7 +349,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
-            Ajustar con un asesor
+            Contacta a tu ejecutivo de crédito
           </button>
           <button
             @click="handleWhatsAppClick(whatsAppUrlAdvertencia)"
@@ -350,7 +404,7 @@ import { usePreApprovalPDF } from '~/composables/usePreApprovalPDF';
 const store = useSimuladorStore();
 const mainStore = useMainStore();
 const router = useRouter();
-const { generatePDF, canGeneratePDF, isGenerating } = usePreApprovalPDF();
+const { generatePDF, canGeneratePDF, isGenerating, error: pdfError, errorType: pdfErrorType, clearError: clearPdfError } = usePreApprovalPDF();
 const { calculate } = useSimuladorCalculations();
 
 const loading = ref(true);
@@ -365,49 +419,34 @@ const WHATSAPP_NUMBER = '573012418074';
 
 // Auto-save simulation to Directus (runs once when results are displayed)
 const autoSaveSimulation = async () => {
-  // Debug: Log save attempt
-  console.log('[AutoSave] Attempting to save simulation...', {
-    hasSaved: hasSaved.value,
-    saveStatus: saveStatus.value,
-    completado: store.completado,
-    hasResultado: !!store.resultado,
-    isPaso1Valid: store.isPaso1Valid,
-    isPaso2Valid: store.isPaso2Valid,
-    isPaso3Valid: store.isPaso3Valid,
-    isPaso4Valid: store.isPaso4Valid,
-  });
-
   // Prevent duplicate saves
   if (hasSaved.value || saveStatus.value === 'saving') {
-    console.log('[AutoSave] Skipping - already saved or saving');
     return;
   }
 
   saveStatus.value = 'saving';
 
   try {
-    console.log('[AutoSave] Calling store.guardarSimulacion()...');
     const result = await store.guardarSimulacion();
-    console.log('[AutoSave] Result:', result);
 
     if (result.ok) {
       saveStatus.value = 'saved';
       hasSaved.value = true;
-      console.log('[AutoSave] Successfully saved with ID:', result.id);
     } else {
-      // Log error but don't disrupt UX
-      console.warn('[AutoSave] Failed:', result.error);
       saveStatus.value = 'error';
     }
-  } catch (error) {
-    // Log error but don't disrupt UX
-    console.error('[AutoSave] Exception:', error);
+  } catch {
     saveStatus.value = 'error';
   }
 };
 
-// Notificar lead al servidor (Telegram)
+// Notificar lead al servidor (Telegram) - with deduplication
 const notifySimulatorLead = async (action: 'whatsapp' | 'pdf' | 'contact') => {
+  // Check if this action was already notified
+  if (store.fueAccionNotificada(action)) {
+    return;
+  }
+
   try {
     await $fetch('/api/send/simulator-lead', {
       method: 'POST',
@@ -415,11 +454,15 @@ const notifySimulatorLead = async (action: 'whatsapp' | 'pdf' | 'contact') => {
         action,
         datosPersonales: store.datosPersonales,
         datosBien: store.datosBien,
-        resultado: resultado.value
+        resultado: resultado.value,
+        sessionId: store.sessionId // Include sessionId for server-side deduplication
       }
     });
-  } catch (error) {
-    console.error('Error notifying simulator lead:', error);
+
+    // Mark this action as notified to prevent duplicates
+    store.marcarAccionNotificada(action);
+  } catch {
+    // Silent fail - notification is non-critical
   }
 };
 
@@ -483,20 +526,27 @@ const whatsAppUrlAdvertencia = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?
 // Handler para click en WhatsApp
 const handleWhatsAppClick = (url: string) => {
   notifySimulatorLead('whatsapp');
+  // Track action in Directus (non-blocking)
+  store.trackAccionUsuario('whatsapp', 'resultados');
   window.open(url, '_blank', 'noopener,noreferrer');
 };
 
 // Handler para descargar PDF
 const handleDownloadPDF = async () => {
   notifySimulatorLead('pdf');
+  // Track action in Directus (non-blocking)
+  store.trackAccionUsuario('pdf', 'resultados');
   await generatePDF(store.$state);
 };
 
 // Handler para ir a contacto con datos pre-llenados
 const handleContactClick = () => {
   notifySimulatorLead('contact');
+  // Track action in Directus (non-blocking)
+  store.trackAccionUsuario('contact', 'resultados');
 
   // Guardar datos en el store principal (no expuestos en URL)
+  // Include flags to skip duplicate Telegram notification in contact form
   mainStore.setContactPrefill({
     source: 'simulador',
     nombres: store.datosPersonales.nombres || '',
@@ -512,7 +562,10 @@ const handleContactClick = () => {
       resultado: resultado.value?.resultado,
       cuotaMensual: resultado.value?.cuotaMensual,
       porcentajeCompromiso: resultado.value?.porcentajeCompromiso
-    }
+    },
+    // Skip Telegram in contact form since we already sent notification
+    skipTelegramNotification: true,
+    simuladorSessionId: store.sessionId || undefined
   });
 
   router.push('/contacto');

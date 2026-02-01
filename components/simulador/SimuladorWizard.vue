@@ -54,9 +54,9 @@
         </div>
       </div> -->
 
-      <!-- Info adicional y créditos -->
-      <div class="mt-4 pt-4 border-t border-gray-200">
-        <p class="text-xs text-gray-500 mb-4">
+      <!-- Info adicional y créditos (altura fija para alinear con main footer) -->
+      <div class="mt-auto py-4 border-t border-gray-200 min-h-[88px] flex flex-col justify-center">
+        <p class="text-xs text-gray-500 mb-2">
           Tu información es confidencial y segura. Este simulador es solo para fines informativos.
         </p>
         <!-- Logo y copyright -->
@@ -104,9 +104,9 @@
         </div>
       </div>
 
-      <!-- Footer con navegación -->
-      <div v-if="store.pasoActual < 5" class="bg-white border-t border-gray-200 px-4 sm:px-6 lg:px-12 py-4">
-        <div class="max-w-4xl mx-auto">
+      <!-- Footer con navegación (alineado con sidebar) -->
+      <div v-if="store.pasoActual < 5" class="bg-white border-t border-gray-200 px-4 sm:px-6 lg:px-12 py-4 lg:min-h-[88px] flex items-center">
+        <div class="max-w-4xl mx-auto w-full">
           <StepNavigation
             :current-step="store.pasoActual"
             :can-go-next="canAdvance"

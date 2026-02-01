@@ -1,9 +1,10 @@
 // Pinia Store para el estado del simulador de crédito
 import { defineStore } from 'pinia';
-import type { SimuladorState } from '~/types/simulador';
+import type { SimuladorState, AccionNotificable } from '~/types/simulador';
 
 const STORAGE_KEY = 'contuhogar_simulador_state';
 const SESSION_STORAGE_KEY = 'contuhogar_simulador_session';
+const NOTIFICATIONS_STORAGE_KEY = 'contuhogar_simulador_notifications';
 
 export const useSimuladorStore = defineStore('simulador', {
   state: (): SimuladorState => ({
@@ -21,7 +22,9 @@ export const useSimuladorStore = defineStore('simulador', {
     datosBien: {
       valorBien: null,
       montoSolicitado: null,
-      plazoMeses: 180 // Default: 15 años
+      plazoMeses: 180, // Default: 15 años
+      paisResidencia: null, // Código ISO-2 del país de residencia
+      tipoInmueble: null // 'nuevo' | 'usado' | 'por_definir'
     },
     datosIngresos: {
       ingresosFijos: null,
@@ -38,7 +41,14 @@ export const useSimuladorStore = defineStore('simulador', {
 
     // Session tracking
     sessionId: null,
-    sessionStarted: false
+    sessionStarted: false,
+
+    // Simulation persistence
+    simulacionId: null as string | null, // ID de la simulación guardada en Directus
+
+    // Notification deduplication
+    notificacionEnviada: false,
+    accionesNotificadas: [] as AccionNotificable[]
   }),
 
   getters: {
@@ -64,7 +74,11 @@ export const useSimuladorStore = defineStore('simulador', {
 
       const hasValidCreditType = state.datosPersonales.tipoCredito !== null;
 
-      return hasContactInfo && hasValidAge && hasValidCreditType;
+      // Validar país de residencia y tipo de inmueble (ahora en paso 1)
+      const hasValidCountry = state.datosBien.paisResidencia !== null && state.datosBien.paisResidencia !== '';
+      const hasValidPropertyType = state.datosBien.tipoInmueble !== null;
+
+      return hasContactInfo && hasValidAge && hasValidCreditType && hasValidCountry && hasValidPropertyType;
     },
 
     isPaso2Valid(state): boolean {
@@ -163,6 +177,114 @@ export const useSimuladorStore = defineStore('simulador', {
 
   actions: {
     // ==========================================
+    // NOTIFICATION DEDUPLICATION
+    // ==========================================
+
+    /**
+     * Mark that the main simulation notification was sent (via save.post.ts)
+     */
+    marcarNotificacionEnviada(): void {
+      this.notificacionEnviada = true;
+      this.saveNotificationsToStorage();
+    },
+
+    /**
+     * Mark a specific action as notified (whatsapp, pdf, contact)
+     * This prevents duplicate Telegram notifications for the same action
+     */
+    marcarAccionNotificada(accion: AccionNotificable): void {
+      if (!this.accionesNotificadas.includes(accion)) {
+        this.accionesNotificadas.push(accion);
+        this.saveNotificationsToStorage();
+      }
+    },
+
+    /**
+     * Check if an action was already notified
+     */
+    fueAccionNotificada(accion: AccionNotificable): boolean {
+      return this.accionesNotificadas.includes(accion);
+    },
+
+    /**
+     * Track user action in Directus (persistent storage)
+     * Non-blocking: fire and forget with error handling
+     * @param action - The action type (whatsapp, pdf, contact)
+     * @param origen - Optional origin for more detailed tracking (default: 'resultados')
+     */
+    async trackAccionUsuario(action: AccionNotificable, origen: string = 'resultados'): Promise<void> {
+      // Don't track if no simulacionId (simulation not saved yet)
+      if (!this.simulacionId) {
+        return;
+      }
+
+      // Non-blocking: fire and forget
+      $fetch('/api/simulador/action', {
+        method: 'POST',
+        body: {
+          simulacionId: this.simulacionId,
+          action,
+          origen
+        }
+      }).catch(() => {
+        // Silent fail - tracking shouldn't break UX
+      });
+    },
+
+    /**
+     * Save notification state to localStorage
+     */
+    saveNotificationsToStorage(): void {
+      if (typeof window !== 'undefined') {
+        try {
+          const data = {
+            notificacionEnviada: this.notificacionEnviada,
+            accionesNotificadas: this.accionesNotificadas,
+            sessionId: this.sessionId
+          };
+          localStorage.setItem(NOTIFICATIONS_STORAGE_KEY, JSON.stringify(data));
+        } catch {
+          // Silent fail - localStorage may be unavailable
+        }
+      }
+    },
+
+    /**
+     * Load notification state from localStorage
+     * Only restores if sessionId matches current session
+     */
+    loadNotificationsFromStorage(): void {
+      if (typeof window !== 'undefined') {
+        try {
+          const stored = localStorage.getItem(NOTIFICATIONS_STORAGE_KEY);
+          if (stored) {
+            const data = JSON.parse(stored);
+            // Only restore if same session
+            if (data.sessionId === this.sessionId) {
+              this.notificacionEnviada = data.notificacionEnviada || false;
+              this.accionesNotificadas = data.accionesNotificadas || [];
+            }
+          }
+        } catch {
+          // Silent fail - localStorage may be unavailable
+        }
+      }
+    },
+
+    /**
+     * Clear notification storage
+     */
+    clearNotificationsStorage(): void {
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.removeItem(NOTIFICATIONS_STORAGE_KEY);
+        } catch {
+          // Silent fail - localStorage may be unavailable
+        }
+      }
+    },
+
+    // ==========================================
     // SESSION TRACKING
     // ==========================================
 
@@ -179,6 +301,8 @@ export const useSimuladorStore = defineStore('simulador', {
       try {
         // Check if we already have a session ID in state
         if (this.sessionId) {
+          // Restore notification state for this session
+          this.loadNotificationsFromStorage();
           return this.sessionId;
         }
 
@@ -186,6 +310,8 @@ export const useSimuladorStore = defineStore('simulador', {
         const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY);
         if (storedSessionId) {
           this.sessionId = storedSessionId;
+          // Restore notification state for this session
+          this.loadNotificationsFromStorage();
           return storedSessionId;
         }
 
@@ -193,9 +319,11 @@ export const useSimuladorStore = defineStore('simulador', {
         const newSessionId = crypto.randomUUID();
         this.sessionId = newSessionId;
         localStorage.setItem(SESSION_STORAGE_KEY, newSessionId);
+        // Reset notification state for new session
+        this.notificacionEnviada = false;
+        this.accionesNotificadas = [];
         return newSessionId;
-      } catch (error) {
-        console.error('Error initializing session:', error);
+      } catch {
         // Fallback: generate temp ID
         const fallbackId = crypto.randomUUID();
         this.sessionId = fallbackId;
@@ -225,9 +353,8 @@ export const useSimuladorStore = defineStore('simulador', {
 
         this.sessionStarted = true;
         this.saveToLocalStorage();
-      } catch (error) {
-        // Non-blocking: log error but don't break UX
-        console.error('Error starting session:', error);
+      } catch {
+        // Non-blocking: silent fail
       }
     },
 
@@ -253,9 +380,8 @@ export const useSimuladorStore = defineStore('simulador', {
           datosParciales: datosPasoAnterior,
           pasoDeLosDatos: pasoAnterior // Which step the data belongs to
         }
-      }).catch((error) => {
+      }).catch(() => {
         // Silent fail - tracking shouldn't break UX
-        console.error('Error tracking step:', error);
       });
     },
 
@@ -285,9 +411,8 @@ export const useSimuladorStore = defineStore('simulador', {
         // Reset session state
         this.sessionId = null;
         this.sessionStarted = false;
-      } catch (error) {
-        // Non-blocking: log error but don't break UX
-        console.error('Error completing session:', error);
+      } catch {
+        // Non-blocking: silent fail
       }
     },
 
@@ -308,7 +433,9 @@ export const useSimuladorStore = defineStore('simulador', {
           return {
             valorBien: this.datosBien.valorBien,
             montoSolicitado: this.datosBien.montoSolicitado,
-            plazoMeses: this.datosBien.plazoMeses
+            plazoMeses: this.datosBien.plazoMeses,
+            paisResidencia: this.datosBien.paisResidencia,
+            tipoInmueble: this.datosBien.tipoInmueble
           };
         case 3:
           return {
@@ -411,6 +538,7 @@ export const useSimuladorStore = defineStore('simulador', {
       this.$reset();
       this.clearLocalStorage();
       this.clearSessionStorage();
+      this.clearNotificationsStorage();
     },
 
     // Persistencia en LocalStorage
@@ -418,8 +546,8 @@ export const useSimuladorStore = defineStore('simulador', {
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(this.$state));
-        } catch (error) {
-          console.error('Error guardando en localStorage:', error);
+        } catch {
+          // Silent fail - localStorage may be unavailable
         }
       }
     },
@@ -430,10 +558,21 @@ export const useSimuladorStore = defineStore('simulador', {
           const stored = localStorage.getItem(STORAGE_KEY);
           if (stored) {
             const parsed = JSON.parse(stored);
+
+            // Si la simulación ya fue completada, NO restaurar
+            // El usuario que vuelve probablemente quiere hacer una nueva simulación
+            if (parsed.completado === true) {
+              // Limpiar todo el storage relacionado al simulador
+              this.clearLocalStorage();
+              this.clearSessionStorage();
+              this.clearNotificationsStorage();
+              return; // No restaurar, empezar de cero
+            }
+
             this.$patch(parsed);
           }
-        } catch (error) {
-          console.error('Error cargando desde localStorage:', error);
+        } catch {
+          // Silent fail - localStorage may be unavailable
         }
       }
     },
@@ -442,8 +581,8 @@ export const useSimuladorStore = defineStore('simulador', {
       if (typeof window !== 'undefined') {
         try {
           localStorage.removeItem(STORAGE_KEY);
-        } catch (error) {
-          console.error('Error eliminando localStorage:', error);
+        } catch {
+          // Silent fail - localStorage may be unavailable
         }
       }
     },
@@ -452,27 +591,16 @@ export const useSimuladorStore = defineStore('simulador', {
       if (typeof window !== 'undefined') {
         try {
           localStorage.removeItem(SESSION_STORAGE_KEY);
-        } catch (error) {
-          console.error('Error eliminando session storage:', error);
+        } catch {
+          // Silent fail - localStorage may be unavailable
         }
       }
     },
 
     // Guardar simulación en Directus
     async guardarSimulacion(): Promise<{ ok: boolean; id?: string | number; error?: string }> {
-      console.log('[guardarSimulacion] Starting validation...', {
-        completado: this.completado,
-        hasResultado: !!this.resultado,
-        isPaso1Valid: this.isPaso1Valid,
-        isPaso2Valid: this.isPaso2Valid,
-        isPaso3Valid: this.isPaso3Valid,
-        isPaso4Valid: this.isPaso4Valid,
-        datosElegibilidad: this.datosElegibilidad,
-      });
-
       // Validate that we have all required data
       if (!this.completado || !this.resultado) {
-        console.log('[guardarSimulacion] Failed: simulation not complete');
         return {
           ok: false,
           error: 'La simulación no está completa. Por favor, completa todos los pasos.',
@@ -481,19 +609,11 @@ export const useSimuladorStore = defineStore('simulador', {
 
       // Validate all steps
       if (!this.isPaso1Valid || !this.isPaso2Valid || !this.isPaso3Valid || !this.isPaso4Valid) {
-        console.log('[guardarSimulacion] Failed: step validation failed', {
-          isPaso1Valid: this.isPaso1Valid,
-          isPaso2Valid: this.isPaso2Valid,
-          isPaso3Valid: this.isPaso3Valid,
-          isPaso4Valid: this.isPaso4Valid,
-        });
         return {
           ok: false,
           error: 'Algunos datos son inválidos. Por favor, revisa la información ingresada.',
         };
       }
-
-      console.log('[guardarSimulacion] Validation passed, preparing payload...');
 
       try {
         // Prepare payload for API
@@ -512,6 +632,8 @@ export const useSimuladorStore = defineStore('simulador', {
           valorBien: this.datosBien.valorBien,
           montoSolicitado: this.datosBien.montoSolicitado,
           plazoMeses: this.datosBien.plazoMeses,
+          paisResidencia: this.datosBien.paisResidencia,
+          tipoInmueble: this.datosBien.tipoInmueble,
 
           // Datos de ingresos
           ingresosFijos: this.datosIngresos.ingresosFijos,
@@ -534,6 +656,13 @@ export const useSimuladorStore = defineStore('simulador', {
         });
 
         if (response.ok && response.id) {
+          // Store the simulation ID for action tracking
+          this.simulacionId = String(response.id);
+          this.saveToLocalStorage();
+
+          // Mark main notification as sent (save.post.ts sends Telegram)
+          this.marcarNotificacionEnviada();
+
           // Complete session tracking (non-blocking)
           this.completeSession(String(response.id));
 
@@ -548,8 +677,6 @@ export const useSimuladorStore = defineStore('simulador', {
           error: 'No se pudo guardar la simulación.',
         };
       } catch (error: any) {
-        console.error('Error guardando simulación:', error);
-
         // Extract error message from API response if available
         let errorMessage = 'Ocurrió un error al guardar la simulación. Por favor, inténtalo de nuevo.';
 

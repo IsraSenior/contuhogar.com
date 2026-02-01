@@ -2,6 +2,8 @@
 
 export type TipoCredito = 'hipotecario' | 'leasing';
 
+export type TipoInmueble = 'nuevo' | 'usado' | 'por_definir';
+
 export type ResultadoSimulacion = 'aprobado' | 'rechazado' | 'advertencia';
 
 export type TipoObligacion = 'tarjeta_credito' | 'hipotecaria_arriendo' | 'otra';
@@ -36,6 +38,8 @@ export interface DatosBien {
   valorBien: number | null;
   montoSolicitado: number | null;
   plazoMeses: number;
+  paisResidencia: string | null; // Código ISO-2 del país (ej: "CO", "US", "ES")
+  tipoInmueble: TipoInmueble | null;
 }
 
 export interface DatosIngresos {
@@ -64,6 +68,15 @@ export interface ResultadoCalculo {
   recomendaciones?: string[];
 }
 
+export type AccionNotificable = 'whatsapp' | 'pdf' | 'contact';
+
+// Registro de acción del usuario para persistencia en Directus
+export interface AccionUsuarioRecord {
+  accion: AccionNotificable;
+  timestamp: string;
+  origen?: string; // Ej: 'resultados', 'carta-preaprobacion'
+}
+
 export interface SimuladorState {
   pasoActual: number;
   datosPersonales: DatosPersonales;
@@ -76,6 +89,13 @@ export interface SimuladorState {
   // Session tracking
   sessionId: string | null;
   sessionStarted: boolean;
+
+  // Simulation persistence
+  simulacionId: string | null; // ID de la simulación guardada en Directus
+
+  // Notification deduplication
+  notificacionEnviada: boolean;
+  accionesNotificadas: AccionNotificable[];
 }
 
 export interface ValidacionResult {

@@ -54,89 +54,149 @@
       </div>
     </div>
 
-    <!-- Fecha de Nacimiento -->
-    <div>
-      <label for="fechaNacimiento" class="block text-sm font-semibold text-gray-700 mb-2">
-        Fecha de nacimiento <span class="text-red-500">*</span>
-      </label>
-      <DatePicker
-        v-model="localFechaNacimiento"
-        :max-date="maxDateObj"
-        :min-date="minDateObj"
-        placeholder="Selecciona tu fecha de nacimiento"
-        :error="!!validationErrors.fechaNacimiento"
-        @update:model-value="calculateAge"
-      />
-      <p v-if="validationErrors.fechaNacimiento" class="mt-1 text-sm text-red-600">
-        {{ validationErrors.fechaNacimiento }}
-      </p>
-      <p v-else class="mt-2 text-sm text-gray-500">
-        Debes tener entre {{ EDAD_MINIMA }} y {{ EDAD_MAXIMA }} años
-      </p>
-      <div v-if="calculatedAge && !validationErrors.fechaNacimiento" class="mt-2 flex items-center gap-2">
-        <span class="text-sm font-medium text-primary">
-          Edad: {{ calculatedAge }} años
-        </span>
+    <!-- Grid 2 columnas para Fecha de Nacimiento y Teléfono -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Fecha de Nacimiento -->
+      <div>
+        <label for="fechaNacimiento" class="block text-sm font-semibold text-gray-700 mb-2">
+          Fecha de nacimiento <span class="text-red-500">*</span>
+        </label>
+        <DatePicker
+          v-model="localFechaNacimiento"
+          :max-date="maxDateObj"
+          :min-date="minDateObj"
+          placeholder="DD/MM/AAAA"
+          :error="!!validationErrors.fechaNacimiento"
+          @update:model-value="calculateAge"
+        />
+        <p v-if="validationErrors.fechaNacimiento" class="mt-1 text-sm text-red-600">
+          {{ validationErrors.fechaNacimiento }}
+        </p>
+        <div v-else-if="calculatedAge" class="mt-2 flex items-center gap-2">
+          <span class="text-sm font-medium text-primary">
+            Edad: {{ calculatedAge }} años
+          </span>
+        </div>
+        <p v-else class="mt-2 text-sm text-gray-500">
+          {{ EDAD_MINIMA }}-{{ EDAD_MAXIMA }} años
+        </p>
+      </div>
+
+      <!-- Teléfono con selector de país -->
+      <div>
+        <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">
+          Teléfono <span class="text-red-500">*</span>
+        </label>
+        <div class="flex gap-2">
+          <!-- Selector de país -->
+          <div class="shrink-0 w-28">
+            <PhoneCountryCombobox
+              v-model="localTelefonoCodigo"
+              :options="phoneDropdownOptions"
+            />
+          </div>
+          <!-- Input de teléfono -->
+          <div class="flex-1">
+            <input
+              id="telefono"
+              v-model="localTelefono"
+              type="tel"
+              autocomplete="tel"
+              :placeholder="`Ej: ${phonePlaceholder}`"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+              :class="{
+                'border-red-500 ring-2 ring-red-200': validationErrors.telefono
+              }"
+              @blur="validateField('telefono')"
+              @input="formatPhoneInput"
+            />
+          </div>
+        </div>
+        <p v-if="validationErrors.telefono" class="mt-1 text-sm text-red-600">
+          {{ validationErrors.telefono }}
+        </p>
+        <!-- Hint del formato -->
+        <p v-else-if="getPhoneFormat(localTelefonoCodigo.code)" class="mt-1 text-xs text-gray-500 font-mono">
+          Formato: {{ getPhoneFormat(localTelefonoCodigo.code)?.format }}
+        </p>
       </div>
     </div>
 
-    <!-- Teléfono con selector de país -->
-    <div>
-      <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">
-        Teléfono <span class="text-red-500">*</span>
-      </label>
-      <div class="grid grid-cols-3 gap-3">
-        <!-- Selector de país -->
-        <div class="col-span-1">
-          <PhoneCountryCombobox
-            v-model="localTelefonoCodigo"
-            :options="phoneDropdownOptions"
-          />
-        </div>
-        <!-- Input de teléfono -->
-        <div class="col-span-2">
-          <input
-            id="telefono"
-            v-model="localTelefono"
-            type="tel"
-            autocomplete="tel"
-            :placeholder="`Ej: ${phonePlaceholder}`"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-            :class="{
-              'border-red-500 ring-2 ring-red-200': validationErrors.telefono
-            }"
-            @blur="validateField('telefono')"
-            @input="formatPhoneInput"
-          />
-          <p v-if="validationErrors.telefono" class="mt-1 text-sm text-red-600">
-            {{ validationErrors.telefono }}
-          </p>
-          <!-- Hint del formato -->
-          <p v-else-if="getPhoneFormat(localTelefonoCodigo.code)" class="mt-1 text-xs text-gray-500 font-mono">
-            Formato: {{ getPhoneFormat(localTelefonoCodigo.code)?.format }}
-          </p>
-        </div>
+    <!-- Grid 2 columnas para Correo y País de Residencia -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Correo electrónico -->
+      <div>
+        <label for="correo" class="block text-sm font-semibold text-gray-700 mb-2">
+          Correo electrónico <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="correo"
+          v-model="localCorreo"
+          type="email"
+          placeholder="Ej: info@contuhogar.com"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+          :class="{
+            'border-red-500 ring-2 ring-red-200': validationErrors.correo
+          }"
+          @blur="validateField('correo')"
+        />
+        <p v-if="validationErrors.correo" class="mt-1 text-sm text-red-600">
+          {{ validationErrors.correo }}
+        </p>
+      </div>
+
+      <!-- País de Residencia -->
+      <div>
+        <label for="paisResidencia" class="block text-sm font-semibold text-gray-700 mb-2">
+          País de residencia actual <span class="text-red-500">*</span>
+        </label>
+        <CountryCombobox
+          v-model="localPaisResidencia"
+          :options="paisesResidencia"
+          placeholder="Selecciona tu país"
+          :error="!!validationErrors.paisResidencia"
+        />
+        <p v-if="validationErrors.paisResidencia" class="mt-1 text-sm text-red-600">
+          {{ validationErrors.paisResidencia }}
+        </p>
       </div>
     </div>
 
-    <!-- Correo electrónico -->
+    <!-- Tipo de Inmueble -->
     <div>
-      <label for="correo" class="block text-sm font-semibold text-gray-700 mb-2">
-        Correo electrónico <span class="text-red-500">*</span>
+      <label class="block text-sm font-semibold text-gray-700 mb-2">
+        Tipo de inmueble <span class="text-red-500">*</span>
       </label>
-      <input
-        id="correo"
-        v-model="localCorreo"
-        type="email"
-        placeholder="Ej: info@contuhogar.com"
-        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-        :class="{
-          'border-red-500 ring-2 ring-red-200': validationErrors.correo
-        }"
-        @blur="validateField('correo')"
-      />
-      <p v-if="validationErrors.correo" class="mt-1 text-sm text-red-600">
-        {{ validationErrors.correo }}
+      <div class="grid grid-cols-3 gap-2">
+        <button
+          v-for="tipo in tiposInmueble"
+          :key="tipo.value"
+          type="button"
+          @click="selectTipoInmueble(tipo.value)"
+          class="px-3 py-2.5 rounded-lg border-2 transition-all flex items-center justify-center gap-2"
+          :class="{
+            'border-primary bg-primary/5 text-primary': localTipoInmueble === tipo.value,
+            'border-gray-200 hover:border-gray-300': localTipoInmueble !== tipo.value,
+            'border-red-500': validationErrors.tipoInmueble && !localTipoInmueble
+          }"
+        >
+          <!-- Icono Nuevo: Edificio en construcción -->
+          <svg v-if="tipo.icon === 'nuevo'" class="w-5 h-5 shrink-0" :class="localTipoInmueble === tipo.value ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          <!-- Icono Usado: Casa -->
+          <svg v-else-if="tipo.icon === 'usado'" class="w-5 h-5 shrink-0" :class="localTipoInmueble === tipo.value ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <!-- Icono Por definir: Interrogante -->
+          <svg v-else class="w-5 h-5 shrink-0" :class="localTipoInmueble === tipo.value ? 'text-primary' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="font-medium text-sm">{{ tipo.label }}</span>
+        </button>
+      </div>
+      <p v-if="validationErrors.tipoInmueble" class="mt-1 text-sm text-red-600">
+        {{ validationErrors.tipoInmueble }}
       </p>
     </div>
 
@@ -278,7 +338,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TipoCredito, CodigoPaisTelefono } from '~/types/simulador';
+import type { TipoCredito, TipoInmueble, CodigoPaisTelefono } from '~/types/simulador';
 import dialPhoneOptions from '@/db/tlf-dial.json';
 import { getPhoneFormat, getDialCodeFromCountry } from '@/utils/phoneFormats';
 import { useGeoLocation } from '@/composables/useGeoLocation';
@@ -294,8 +354,38 @@ const localFechaNacimiento = ref<string>(store.datosPersonales.fechaNacimiento |
 const localTelefono = ref<string>(store.datosPersonales.telefono || '');
 const localTelefonoCodigo = ref<CodigoPaisTelefono>(store.datosPersonales.telefonoCodigo);
 const localCorreo = ref<string>(store.datosPersonales.correo || '');
+const localPaisResidencia = ref<string>(store.datosBien.paisResidencia || '');
+const localTipoInmueble = ref<TipoInmueble | null>(store.datosBien.tipoInmueble);
 const localTipoCredito = ref<TipoCredito | null>(store.datosPersonales.tipoCredito);
 const calculatedAge = ref<number | null>(store.datosPersonales.edad);
+
+// Lista de países de residencia común para colombianos en el exterior
+const paisesResidencia = [
+  { code: 'US', name: 'Estados Unidos', flag: '🇺🇸' },
+  { code: 'ES', name: 'España', flag: '🇪🇸' },
+  { code: 'CL', name: 'Chile', flag: '🇨🇱' },
+  { code: 'MX', name: 'México', flag: '🇲🇽' },
+  { code: 'CA', name: 'Canadá', flag: '🇨🇦' },
+  { code: 'PA', name: 'Panamá', flag: '🇵🇦' },
+  { code: 'EC', name: 'Ecuador', flag: '🇪🇨' },
+  { code: 'PE', name: 'Perú', flag: '🇵🇪' },
+  { code: 'AR', name: 'Argentina', flag: '🇦🇷' },
+  { code: 'GB', name: 'Reino Unido', flag: '🇬🇧' },
+  { code: 'DE', name: 'Alemania', flag: '🇩🇪' },
+  { code: 'FR', name: 'Francia', flag: '🇫🇷' },
+  { code: 'IT', name: 'Italia', flag: '🇮🇹' },
+  { code: 'AU', name: 'Australia', flag: '🇦🇺' },
+  { code: 'AE', name: 'Emiratos Árabes Unidos', flag: '🇦🇪' },
+  { code: 'CO', name: 'Colombia', flag: '🇨🇴' },
+  { code: 'OTHER', name: 'Otro país', flag: '🌍' }
+];
+
+// Opciones de tipo de inmueble
+const tiposInmueble = [
+  { value: 'nuevo' as TipoInmueble, label: 'Nuevo', icon: 'nuevo' },
+  { value: 'usado' as TipoInmueble, label: 'Usado', icon: 'usado' },
+  { value: 'por_definir' as TipoInmueble, label: 'Por definir', icon: 'por_definir' }
+];
 
 // Opciones para el selector de país
 const phoneDropdownOptions = dialPhoneOptions;
@@ -357,7 +447,9 @@ const validationErrors = ref<Record<string, string>>({
   apellidos: '',
   fechaNacimiento: '',
   telefono: '',
-  correo: ''
+  correo: '',
+  paisResidencia: '',
+  tipoInmueble: ''
 });
 
 // Fechas límite para el date picker
@@ -463,6 +555,15 @@ const isValidEmail = (email: string): boolean => {
 };
 
 /**
+ * Selecciona el tipo de inmueble
+ */
+const selectTipoInmueble = (tipo: TipoInmueble) => {
+  validationErrors.value.tipoInmueble = '';
+  localTipoInmueble.value = tipo;
+  store.updateDatosBien({ tipoInmueble: tipo });
+};
+
+/**
  * Selecciona el tipo de crédito
  */
 const selectTipoCredito = (tipo: TipoCredito) => {
@@ -500,6 +601,14 @@ watch(localTelefonoCodigo, (value) => {
   store.updateDatosPersonales({ telefonoCodigo: value });
 });
 
+// Watcher para el país de residencia
+watch(localPaisResidencia, (value) => {
+  if (value) {
+    validationErrors.value.paisResidencia = '';
+    store.updateDatosBien({ paisResidencia: value });
+  }
+});
+
 // Cargar datos del store al montar y auto-detectar país
 onMounted(async () => {
   localNombres.value = store.datosPersonales.nombres || '';
@@ -508,6 +617,8 @@ onMounted(async () => {
   localTelefono.value = store.datosPersonales.telefono || '';
   localTelefonoCodigo.value = store.datosPersonales.telefonoCodigo;
   localCorreo.value = store.datosPersonales.correo || '';
+  localPaisResidencia.value = store.datosBien.paisResidencia || '';
+  localTipoInmueble.value = store.datosBien.tipoInmueble;
   localTipoCredito.value = store.datosPersonales.tipoCredito;
   calculatedAge.value = store.datosPersonales.edad;
 
@@ -528,8 +639,8 @@ onMounted(async () => {
           }
         }
       }
-    } catch (e) {
-      console.warn('Country detection failed, using default:', e);
+    } catch {
+      // Silent fail - use default country
     }
   }
 });
