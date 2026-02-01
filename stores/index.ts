@@ -42,6 +42,17 @@ export interface PartnerLogo {
 }
 
 /**
+ * Interfaz para testimonios de clientes
+ */
+export interface Testimonial {
+  quote: string
+  name: string
+  handle?: string
+  avatar: string
+  location: string
+}
+
+/**
  * Interfaz para datos pre-llenados de contacto
  * Se usa para pasar datos entre páginas sin exponerlos en URL
  */
@@ -63,6 +74,9 @@ export interface ContactPrefill {
     cuotaMensual?: number
     porcentajeCompromiso?: number
   }
+  // Notification deduplication
+  skipTelegramNotification?: boolean
+  simuladorSessionId?: string
 }
 
 /**
@@ -73,6 +87,7 @@ export interface MainStoreState {
   logos: PartnerLogo[]
   team: TeamMember[]
   questions: Question[]
+  testimonials: Testimonial[]
   contactPrefill: ContactPrefill | null
 }
 
@@ -147,8 +162,8 @@ export const useMainStore = defineStore('main', {
     ],
     logos: [
       { type: 'text', category: 'banco', value: 'BBVA', name: 'BBVA Colombia' },
-      { type: 'image', category: 'banco',  value: '/logos/banco-occidental.webp', name: 'Banco de Occidente' },
       { type: 'image', category: 'banco',  value: '/logos/logo-banco-de-bogota.webp', name: 'Banco de Bogotá' },
+      { type: 'image', category: 'banco',  value: '/logos/banco-occidental.webp', name: 'Banco de Occidente' },
       { type: 'image', category: 'banco',  value: '/logos/banco-union.webp', name: 'Banco Unión' },
       { type: 'image', category: 'constructora',  value: '/logos/colpatria-logo.webp', name: 'Colpatria' },
       { type: 'image', category: 'constructora',  value: '/logos/amarilo-logo.webp', name: 'Amarilo' },
@@ -208,6 +223,55 @@ export const useMainStore = defineStore('main', {
       //   title: 'Ejecutivo de crédito',
       //   image: '/team/juan-david-medrano.webp',
       // },
+    ],
+    testimonials: [
+      {
+        quote: 'Hice el proceso con ConTuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin súper bien. La verdad súper recomendado.',
+        name: 'Juan Camilo Manrique Olave',
+        handle: '@juancamilolave',
+        avatar: '/testimonials/juancamilolave.jpeg',
+        location: 'Estados Unidos'
+      },
+      {
+        quote: 'Quiero agradecer a CONTUHOGAR por todo el acompañamiento que me brindaron, la asesoría fue excelente, te resuelven todas las inquietudes permitiéndome hacer el proceso mucho más fácil y seguro. Los recomiendo al 100, una empresa muy responsable y confiable.',
+        name: 'Ingrid Yurley Fajardo Contreras',
+        handle: '@nafyc_moda',
+        avatar: '/testimonials/nafyc_moda.jpeg',
+        location: 'España'
+      },
+      {
+        quote: 'Tuve una excelente experiencia con ConTuHogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. Muy feliz con el resultado y los recomiendo totalmente!',
+        name: 'German Enrique Cortes Hernandez',
+        handle: '@Gecortes92',
+        avatar: '/testimonials/Gecortes92.jpeg',
+        location: 'Suiza'
+      },
+      {
+        quote: 'Vivo en Estados Unidos y mi experiencia con ConTuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, 100 de 10!',
+        name: 'Bibiana Patricia Velasquez Velasquez',
+        avatar: '/testimonials/bibiana.jpeg',
+        location: 'Estados Unidos'
+      },
+      {
+        quote: 'Muy buenos días, mi nombre es Cindy Sánchez y tuve una excelente experiencia con el crédito y CONTUHOGAR. El acompañamiento fue muy agradable porque no me dejaron sola en este proceso y hoy ya puedo disfrutar de mi nuevo apartamento en Medellín. Muchas gracias por la excelencia que tuvieron con mi caso.',
+        name: 'Cindy Sánchez',
+        handle: '@milufitoficial',
+        avatar: '/testimonials/milufitoficial.jpeg',
+        location: 'Estados Unidos'
+      },
+      {
+        quote: 'En ConTuHogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido. Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia. Gracias mil veces por su apoyo incondicional.',
+        name: 'Diana Piedrahita',
+        handle: '@dmilenep',
+        avatar: '/testimonials/dmilenep.jpeg',
+        location: 'Europa'
+      },
+      {
+        quote: 'Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con ConTuHogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.',
+        name: 'Elena Marcela Quiroga Imparato',
+        avatar: '/testimonials/Elena.jpeg',
+        location: 'Fort Myers, FL - Estados Unidos'
+      }
     ],
     questions: [
       {
@@ -301,6 +365,13 @@ export const useMainStore = defineStore('main', {
      */
     questionsCount: (state): number => {
       return state.questions.length
+    },
+
+    /**
+     * Cantidad total de testimonios
+     */
+    testimonialsCount: (state): number => {
+      return state.testimonials.length
     },
 
     /**

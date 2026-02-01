@@ -22,8 +22,33 @@ export interface Leads {
 }
 
 /**
+ * Colección: newsletter_subscribers
+ * Suscriptores del boletín informativo
+ */
+export interface NewsletterSubscriber {
+  id?: string
+  email: string
+  status: 'subscribed' | 'unsubscribed' | 'bounced'
+  date_created?: string | null
+  date_updated?: string | null
+  subscribed_at?: string | null
+  unsubscribed_at?: string | null
+  ip_address?: string | null
+  user_agent?: string | null
+  device_type?: 'mobile' | 'tablet' | 'desktop' | null
+  browser?: string | null
+  os?: string | null
+  source_page?: string | null
+  utm_source?: string | null
+  utm_medium?: string | null
+  utm_campaign?: string | null
+  locale?: string | null
+}
+
+/**
  * Union type de todas las colecciones
  */
 export type DirectusCollections = {
   leads: Leads
+  newsletter_subscribers: NewsletterSubscriber
 }

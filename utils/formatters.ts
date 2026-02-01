@@ -4,12 +4,11 @@
  * Formatea un número como moneda colombiana (COP)
  */
 export const formatCurrency = (value: number): string => {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
+  const formatted = new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(value);
+  return `COP ${formatted}`;
 };
 
 /**

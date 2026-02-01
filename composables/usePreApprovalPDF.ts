@@ -2,9 +2,27 @@
 // Usa Puppeteer en el servidor para renderizar HTML con Tailwind
 import type { SimuladorState, ResultadoCalculo } from '~/types/simulador';
 
+// Tipo de error para manejar rate limit
+type PDFErrorType = 'rate_limit' | 'generic' | null;
+
 export const usePreApprovalPDF = () => {
   const isGenerating = ref(false);
   const error = ref<string | null>(null);
+  const errorType = ref<PDFErrorType>(null);
+
+  // Auto-clear error después de 8 segundos
+  const clearErrorAfterDelay = () => {
+    setTimeout(() => {
+      error.value = null;
+      errorType.value = null;
+    }, 8000);
+  };
+
+  // Limpiar error manualmente
+  const clearError = () => {
+    error.value = null;
+    errorType.value = null;
+  };
 
   /**
    * Genera el PDF de preaprobación llamando al API del servidor
@@ -17,6 +35,7 @@ export const usePreApprovalPDF = () => {
 
     isGenerating.value = true;
     error.value = null;
+    errorType.value = null;
 
     try {
       // Preparar datos para el API
@@ -59,9 +78,20 @@ export const usePreApprovalPDF = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-    } catch (err) {
-      console.error('Error generating PDF:', err);
-      error.value = 'Error al generar el PDF. Por favor intenta de nuevo.';
+    } catch (err: any) {
+      // Detectar error de rate limit (429)
+      const statusCode = err?.response?.status || err?.statusCode || err?.data?.statusCode;
+
+      if (statusCode === 429) {
+        errorType.value = 'rate_limit';
+        error.value = 'Has alcanzado el límite de descargas. Por favor espera unos minutos antes de intentarlo de nuevo.';
+      } else {
+        errorType.value = 'generic';
+        error.value = 'Error al generar el PDF. Por favor intenta de nuevo.';
+        console.error('Error generating PDF:', err);
+      }
+
+      clearErrorAfterDelay();
     } finally {
       isGenerating.value = false;
     }
@@ -78,6 +108,8 @@ export const usePreApprovalPDF = () => {
     generatePDF,
     canGeneratePDF,
     isGenerating,
-    error
+    error,
+    errorType,
+    clearError
   };
 };
