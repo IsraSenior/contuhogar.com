@@ -153,6 +153,8 @@ const benefits = [
                             format="webp"
                             quality="85"
                             sizes="sm:100vw lg:600px"
+                            width="640"
+                            height="429"
                             loading="eager"
                             fetchpriority="high"
                         />
@@ -217,11 +219,14 @@ const benefits = [
                 <div class="relative">
                     <div class="aspect-4/3 rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
                         <NuxtImg
-                            src="https://img.freepik.com/fotos-premium/retrato-familia-llaves-su-nueva-casa-dia-mudanza_1218270-5812.jpg"
+                            src="/images/familia-llaves-mudanza.jpg"
                             alt="Familia recibiendo las llaves de su nueva casa"
                             class="w-full h-full object-cover"
                             format="webp"
-                            quality="85"
+                            quality="80"
+                            sizes="sm:100vw lg:600px"
+                            width="800"
+                            height="533"
                             loading="lazy"
                         />
                     </div>
@@ -374,11 +379,14 @@ const benefits = [
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="order-2 lg:order-1">
                     <NuxtImg
-                        src="https://img.freepik.com/fotos-premium/gente-sentada-acera-texto-fondo_1048944-7461820.jpg"
+                        src="/images/personas-leyendo-inversiones.jpg"
                         alt="Personas leyendo información sobre inversiones"
                         class="w-full aspect-4/3 object-cover rounded-2xl shadow-lg"
                         format="webp"
                         quality="80"
+                        sizes="sm:100vw lg:600px"
+                        width="800"
+                        height="533"
                         loading="lazy"
                     />
                 </div>
@@ -421,7 +429,7 @@ const benefits = [
         :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
         :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
         :benefits="['Sin costo inicial', 'Respuesta en 24 h', 'Proceso 100 % remoto']"
-        image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
+        image="/images/familia-nueva-casa.jpg"
         image-alt="Familia feliz con su nueva casa"
     />
     </div>
