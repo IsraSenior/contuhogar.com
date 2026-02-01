@@ -168,10 +168,10 @@
 
     <!-- Tipo de Inmueble -->
     <div>
-      <label class="block text-sm font-semibold text-gray-700 mb-2">
+      <span id="tipo-inmueble-label" class="block text-sm font-semibold text-gray-700 mb-2">
         Tipo de inmueble <span class="text-red-500">*</span>
-      </label>
-      <div class="grid grid-cols-3 gap-2">
+      </span>
+      <div class="grid grid-cols-3 gap-2" role="group" aria-labelledby="tipo-inmueble-label">
         <button
           v-for="tipo in tiposInmueble"
           :key="tipo.value"
@@ -206,10 +206,10 @@
 
     <!-- Tipo de Crédito -->
     <div>
-      <label class="block text-sm font-semibold text-gray-700 mb-3">
+      <span id="tipo-credito-label" class="block text-sm font-semibold text-gray-700 mb-3">
         Tipo de crédito que deseas <span class="text-red-500">*</span>
-      </label>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      </span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="group" aria-labelledby="tipo-credito-label">
         <!-- Hipotecario -->
         <button
           type="button"
