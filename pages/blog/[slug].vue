@@ -1,4 +1,5 @@
 <script setup>
+const { isLoading } = useLoading(150)
 const route = useRoute()
 
 // Lista completa de artículos (misma que en blog/index.vue)
@@ -141,6 +142,11 @@ const usefulResources = [
 
 <template>
   <div>
+    <!-- Skeleton durante carga -->
+    <SkeletonBlogPost v-if="isLoading" />
+
+    <!-- Contenido real -->
+    <template v-else>
     <!-- Hero del artículo -->
     <HeroSection
       :badge="currentArticle.category"
@@ -264,11 +270,12 @@ const usefulResources = [
 
     <!-- CTA Final -->
     <CTASection
-      title="Tu hogar en Colombia te esta esperando"
-      description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-      :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
+      title="Tu hogar en Colombia te está esperando"
+      description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+      :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
       :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
-      :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+      :benefits="['Sin costo inicial', 'Respuesta en 24 h', 'Proceso 100 % remoto']"
     />
+    </template>
   </div>
 </template>

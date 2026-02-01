@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 const route = useRoute();
+const { isLoading } = useLoading(150)
 import dialPhoneOptions from "@/db/tlf-dial.json";
 import { useMainStore } from '@/stores/index'
 import { getPhoneFormat, getDialCodeFromCountry } from '@/utils/phoneFormats'
@@ -134,6 +135,14 @@ onMounted(async () => {
             if (data.simulador) {
                 form.value.simuladorInfo = JSON.stringify(data.simulador)
 
+                // Set deduplication flags to skip duplicate Telegram notification
+                if (data.skipTelegramNotification) {
+                    form.value._skipTelegramFromSimulator = true
+                }
+                if (data.simuladorSessionId) {
+                    form.value._simuladorSessionId = data.simuladorSessionId
+                }
+
                 // Generar mensaje automático con resumen del simulador
                 const sim = data.simulador
                 const tipoCredito = sim.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional'
@@ -215,7 +224,9 @@ const form = ref({
     source_page: route.fullPath,
     website: '', // honeypot (debe quedar vacío)
     _formStartTime: 0, // timestamp para validación anti-bot
-    simuladorInfo: '' // campo oculto con datos del simulador (JSON)
+    simuladorInfo: '', // campo oculto con datos del simulador (JSON)
+    _skipTelegramFromSimulator: false, // flag to skip Telegram if coming from simulator
+    _simuladorSessionId: '' // simulator session ID for deduplication
 })
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -367,9 +378,83 @@ ${form.value.message}
 </script>
 
 <template>
-    <!-- Layout optimizado: dos columnas (info + formulario) -->
+    <div>
     <div class="relative bg-muted min-h-screen">
         <div class="mx-auto container px-6 lg:px-8 py-16">
+            <!-- Skeleton State -->
+            <template v-if="isLoading">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Left Column Skeleton -->
+                <div class="col-span-7 space-y-6">
+                  <!-- Badge -->
+                  <div class="skeleton-shimmer h-10 w-72 rounded-lg" />
+                  <!-- Title -->
+                  <div class="space-y-3">
+                    <div class="skeleton-shimmer h-12 sm:h-14 lg:h-16 w-full rounded-lg" />
+                    <div class="skeleton-shimmer h-12 sm:h-14 lg:h-16 w-4/5 rounded-lg" />
+                  </div>
+                  <!-- Subtitle -->
+                  <div class="space-y-2 mt-6">
+                    <div class="skeleton-shimmer h-5 w-full rounded" />
+                    <div class="skeleton-shimmer h-5 w-5/6 rounded" />
+                  </div>
+                  <!-- Benefits list -->
+                  <div class="space-y-3 mt-6">
+                    <div v-for="i in 3" :key="i" class="flex items-center gap-2">
+                      <div class="skeleton-shimmer w-5 h-5 rounded-full shrink-0" />
+                      <div class="skeleton-shimmer h-4 flex-1 rounded" :style="{ maxWidth: `${70 + (i % 3) * 10}%` }" />
+                    </div>
+                  </div>
+                  <!-- Bank logos -->
+                  <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="skeleton-shimmer h-4 w-56 rounded mb-3" />
+                    <div class="flex flex-wrap items-center gap-8">
+                      <div v-for="i in 4" :key="i" class="skeleton-shimmer h-6 w-20 rounded" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column Skeleton (Form) -->
+                <div class="col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
+                  <div class="space-y-6">
+                    <!-- Form fields -->
+                    <div class="grid grid-cols-2 gap-6">
+                      <div class="space-y-2">
+                        <div class="skeleton-shimmer h-4 w-16 rounded" />
+                        <div class="skeleton-shimmer h-11 w-full rounded-md" />
+                      </div>
+                      <div class="space-y-2">
+                        <div class="skeleton-shimmer h-4 w-20 rounded" />
+                        <div class="skeleton-shimmer h-11 w-full rounded-md" />
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <div class="skeleton-shimmer h-4 w-32 rounded" />
+                      <div class="skeleton-shimmer h-11 w-full rounded-md" />
+                    </div>
+                    <div class="space-y-2">
+                      <div class="skeleton-shimmer h-4 w-20 rounded" />
+                      <div class="grid grid-cols-3 gap-3">
+                        <div class="skeleton-shimmer h-11 rounded-md" />
+                        <div class="col-span-2 skeleton-shimmer h-11 rounded-md" />
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <div class="skeleton-shimmer h-4 w-20 rounded" />
+                      <div class="skeleton-shimmer h-28 w-full rounded-md" />
+                    </div>
+                    <!-- Submit button -->
+                    <div class="mt-10 pt-8 border-t border-gray-100">
+                      <div class="skeleton-shimmer h-12 w-48 rounded-md" />
+                      <div class="skeleton-shimmer h-4 w-56 rounded mt-3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <!-- Real Content -->
+            <template v-else>
             <!-- Grid de dos columnas -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
@@ -384,7 +469,7 @@ ${form.value.message}
                     </div>
 
                     <h1 class="text-4xl font-bold tracking-tight text-pretty text-primary sm:text-5xl lg:text-6xl max-w-2xl">
-                        Recibe tu preaprobación en 24 Horas
+                        Recibe tu preaprobación en 24 horas
                     </h1>
 
                     <p class="mt-6 text-lg text-gray-600 leading-relaxed">
@@ -393,19 +478,19 @@ ${form.value.message}
 
                     <ul class="mt-6 space-y-3 text-base text-gray-600">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-secondary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                             <span>Análisis de tu perfil sin costo inicial ni compromiso.</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-secondary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                             <span>Comparativa de tasas de interés personalizadas.</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-secondary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                             <span>Acompañamiento de expertos de inicio a fin.</span>
@@ -451,6 +536,16 @@ ${form.value.message}
                     </div>
 
                     <form @submit.prevent="onSubmit">
+                        <!-- Región aria-live para anuncios de errores a screen readers -->
+                        <div
+                            aria-live="polite"
+                            aria-atomic="true"
+                            class="sr-only"
+                        >
+                            <template v-if="emailError">{{ emailError }}</template>
+                            <template v-if="phoneError">{{ phoneError }}</template>
+                        </div>
+
                         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                             <!-- Honeypot campos ocultos (anti-bot) - nombres dinámicos -->
                             <!-- Original honeypot for backwards compatibility -->
@@ -517,9 +612,11 @@ ${form.value.message}
                                         @input="() => { onFormInteraction('email', 'input'); checkFormProgress() }"
                                         class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                         :class="{ 'outline-red-500 outline-2': emailError }"
+                                        :aria-invalid="!!emailError"
+                                        :aria-describedby="emailError ? 'email-error' : undefined"
                                         required>
                                 </div>
-                                <p v-if="emailError" class="mt-1 text-sm text-red-600">{{ emailError }}</p>
+                                <p v-if="emailError" id="email-error" class="mt-1 text-sm text-red-600" role="alert">{{ emailError }}</p>
                             </div>
                             <div class="sm:col-span-2">
                                 <label class="block text-sm/6 font-semibold text-primary mb-2.5">Teléfono</label>
@@ -539,13 +636,14 @@ ${form.value.message}
                                             @focus="onFormInteraction('phone', 'focus')"
                                             @blur="() => { validatePhone(); onFormInteraction('phone', 'blur') }"
                                             @input="(e) => { formatPhoneInput(e); onFormInteraction('phone', 'input') }"
-                                            aria-describedby="phone-description"
+                                            :aria-describedby="phoneError ? 'phone-error phone-format' : 'phone-format'"
                                             class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-primary outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary"
                                             :class="{ 'outline-red-500 outline-2': phoneError }"
+                                            :aria-invalid="!!phoneError"
                                             required>
-                                        <p v-if="phoneError" class="mt-1 text-sm text-red-600">{{ phoneError }}</p>
+                                        <p v-if="phoneError" id="phone-error" class="mt-1 text-sm text-red-600" role="alert">{{ phoneError }}</p>
                                         <!-- Hint del formato -->
-                                        <p v-if="getPhoneFormat(form.dial.code)" class="mt-1 text-xs text-gray-500 font-mono">
+                                        <p v-if="getPhoneFormat(form.dial.code)" id="phone-format" class="mt-1 text-xs text-gray-500 font-mono">
                                             Formato: {{ getPhoneFormat(form.dial.code)?.format }}
                                         </p>
                                     </div>
@@ -602,12 +700,42 @@ ${form.value.message}
                     </form>
                 </div>
             </div>
+            </template>
         </div>
     </div>
 
     <!-- Sección de información de contacto y mapa -->
     <div class="bg-white py-12 sm:py-20">
         <div class="mx-auto container px-6 lg:px-8">
+            <!-- Skeleton State -->
+            <template v-if="isLoading">
+              <!-- Header skeleton -->
+              <div class="mb-12">
+                <div class="skeleton-shimmer h-10 w-80 rounded-lg mb-2" />
+                <div class="skeleton-shimmer h-5 w-64 rounded" />
+              </div>
+              <!-- Contact info cards skeleton -->
+              <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+                <div v-for="i in 4" :key="i" class="rounded-xl bg-gray-100 p-6">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="skeleton-shimmer w-10 h-10 rounded-full" />
+                    <div class="skeleton-shimmer h-5 w-24 rounded" />
+                  </div>
+                  <div class="space-y-2">
+                    <div class="skeleton-shimmer h-4 w-full rounded" />
+                    <div class="skeleton-shimmer h-4 w-5/6 rounded" />
+                    <div class="skeleton-shimmer h-4 w-4/5 rounded" />
+                  </div>
+                </div>
+              </div>
+              <!-- Map skeleton -->
+              <div class="mt-8">
+                <div class="skeleton-shimmer w-full h-80 rounded-2xl" />
+              </div>
+            </template>
+
+            <!-- Real Content -->
+            <template v-else>
             <!-- Header de la sección -->
             <div class="mb-12">
                 <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
@@ -705,6 +833,8 @@ ${form.value.message}
                         class="h-full w-full"></iframe>
                 </div>
             </div>
+            </template>
         </div>
+    </div>
     </div>
 </template>

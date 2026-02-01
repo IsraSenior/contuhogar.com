@@ -234,3 +234,105 @@
 .prose a {
   @apply text-primary hover:text-secondary font-medium underline;
 }
+
+/* ===== Testimonial Marquee Animations ===== */
+@keyframes marquee-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-down {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-up {
+  animation: marquee-up 40s linear infinite;
+}
+
+.marquee-down {
+  animation: marquee-down 35s linear infinite;
+}
+
+.marquee-up-slow {
+  animation: marquee-up 45s linear infinite;
+}
+
+.marquee-horizontal {
+  /* width: max-content asegura que el elemento tome el ancho TOTAL de su contenido
+     (todas las tarjetas), no el ancho del viewport. Esto es crítico porque
+     translateX(-50%) se calcula sobre el ancho del elemento, no el scrollWidth */
+  width: max-content;
+  /* Duration is set via inline style based on: testimonials.length * 2s per card */
+  /* Default fallback: 14s (7 testimonials * 2s per card) */
+  animation: marquee-horizontal 14s linear infinite;
+}
+
+/* Pause all marquees when container is hovered/touched */
+.marquee-container-paused .marquee-up,
+.marquee-container-paused .marquee-down,
+.marquee-container-paused .marquee-up-slow,
+.marquee-container-paused .marquee-horizontal {
+  animation-play-state: paused;
+}
+
+/* Disable pointer events on cards during drag for smoother experience */
+.marquee-container-paused .marquee-horizontal > * {
+  pointer-events: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-up,
+  .marquee-down,
+  .marquee-up-slow,
+  .marquee-horizontal {
+    animation: none;
+  }
+}
+
+/* ===== Skeleton Shimmer Animation ===== */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg,
+    var(--color-gray-200) 25%,
+    var(--color-gray-300) 50%,
+    var(--color-gray-200) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Para fondos oscuros (hero primary) */
+.skeleton-shimmer-light {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.1) 25%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer, .skeleton-shimmer-light { animation: none; }
+}

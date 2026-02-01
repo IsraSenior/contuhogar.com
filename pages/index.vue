@@ -1,5 +1,7 @@
 <script setup>
 const store = useMainStore();
+const { isLoading } = useLoading(150)
+
 const title = `ConTuHogar | Crédito de vivienda en Colombia para colombianos en el exterior`;
 const description = "ConTuHogar: Más de 16 años ayudando a colombianos en el exterior a obtener crédito hipotecario en Colombia. Asesoría gratuita, preaprobación en 24 horas."
 
@@ -41,7 +43,7 @@ const carouselConfig = {
 // Estadisticas de confianza
 const trustStats = [
     { value: '16 +', label: 'Años de experiencia', description: 'en el mercado colombiano' },
-    { value: '3,000 +', label: 'Familias', description: 'cumplieron su sueño' },
+    { value: '3.000 +', label: 'Familias', description: 'cumplieron su sueño' },
     { value: '4', label: 'Bancos aliados', description: 'para mejores tasas de interés' },
     { value: '24 h', label: 'Respuesta', description: 'en preaprobación' }
 ]
@@ -69,62 +71,13 @@ const benefits = [
         description: 'Un ejecutivo dedicado te acompaña desde la solicitud hasta el desembolso.'
     }
 ]
-
-// Testimonios para el componente marquee
-const testimonials = [
-    {
-        quote: 'Hice el proceso con ContuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin súper bien. La verdad súper recomendado.',
-        name: 'Juan Camilo Manrique Olave',
-        handle: '@juancamilolave',
-        avatar: '/testimonials/juancamilolave.jpeg',
-        location: 'Estados Unidos'
-    },
-    {
-        quote: 'Quiero agradecer a CONTUHOGAR por todo el acompañamiento que me brindaron, la asesoría fue excelente, te resuelven todas las inquietudes permitiéndome hacer el proceso mucho más fácil y seguro. Los recomiendo al 100, una empresa muy responsable y confiable.',
-        name: 'Ingrid Yurley Fajardo Contreras',
-        handle: '@nafyc_moda',
-        avatar: '/testimonials/nafyc_moda.jpeg',
-        location: 'España'
-    },
-    {
-        quote: 'Tuve una excelente experiencia con Contuhogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. Muy feliz con el resultado y los recomiendo totalmente!',
-        name: 'German Enrique Cortes Hernandez',
-        handle: '@Gecortes92',
-        avatar: '/testimonials/Gecortes92.jpeg',
-        location: 'Suiza'
-    },
-    {
-        quote: 'Vivo en Estados Unidos y mi experiencia con ContuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, 100 de 10!',
-        name: 'Bibiana Patricia Velasquez Velasquez',
-        avatar: '/testimonials/bibiana.jpeg',
-        location: 'Estados Unidos'
-    },
-    {
-        quote: 'Muy buenos días, mi nombre es Cindy Sanchez y tuve una excelente experiencia con el crédito y CONTUHOGAR. El acompañamiento fue muy agradable porque no me dejaron sola en este proceso y hoy ya puedo disfrutar de mi nuevo apartamento en Medellín. Muchas gracias por la excelencia que tuvieron con mi caso.',
-        name: 'Cindy Sanchez',
-        handle: '@milufitoficial',
-        avatar: '/testimonials/milufitoficial.jpeg',
-        location: 'Estados Unidos'
-    },
-    {
-        quote: 'En Contuhogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido. Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia. Gracias mil veces por su apoyo incondicional.',
-        name: 'Diana Piedrahita',
-        handle: '@dmilenep',
-        avatar: '/testimonials/dmilenep.jpeg',
-        location: 'Europa'
-    },
-    {
-        quote: 'Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con Contuhogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.',
-        name: 'Elena Marcela Quiroga Imparato',
-        avatar: '/testimonials/Elena.jpeg',
-        location: 'Fort Myers, FL - Estados Unidos'
-    }
-]
 </script>
 
 <template>
+    <div>
     <!-- Hero Section -->
-    <section class="bg-primary">
+    <SkeletonHeroHome v-if="isLoading" />
+    <section v-else class="bg-primary">
         <div class="mx-auto container px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16 lg:py-24">
                 <!-- Contenido izquierdo -->
@@ -185,7 +138,7 @@ const testimonials = [
                             <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            100% remoto
+                            100 % remoto
                         </div>
                     </div>
                 </div>
@@ -210,7 +163,9 @@ const testimonials = [
     </section>
 
     <!-- Bancos aliados (segunda seccion) -->
+    <SkeletonBankLogos v-if="isLoading" />
     <BankLogosSection
+        v-else
         title="Respaldados por los principales bancos de Colombia"
         subtitle="Nuestras alianzas estratégicas te garantizan las mejores tasas y condiciones del mercado."
         trust-message="Trabajamos exclusivamente con entidades reguladas por la Superintendencia Financiera de Colombia"
@@ -223,9 +178,9 @@ const testimonials = [
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <!-- Contenido -->
                 <div>
-                    <h2 class="text-base font-semibold text-secondary mb-3">¿Por qué ContuHogar?</h2>
+                    <h2 class="text-base font-semibold text-secondary mb-3">¿Por qué ConTuHogar?</h2>
                     <p class="text-3xl lg:text-4xl font-bold text-primary mb-6">
-                        La confianza de más de 1.500 familias nos respalda.
+                        La confianza de más de 3.000 familias nos respalda.
                     </p>
                     <p class="text-lg text-gray-600 mb-10">
                         Desde 2009, hemos construido relaciones sólidas con los principales bancos de Colombia para ofrecerte un servicio integral, seguro y transparente.
@@ -276,23 +231,36 @@ const testimonials = [
     </section>
 
     <!-- Stats Section (debajo de Por que ConTuHogar) -->
-    <StatsSection :stats="trustStats" variant="muted" />
+    <SkeletonStatsSection v-if="isLoading" :count="4" variant="muted" />
+    <StatsSection v-else :stats="trustStats" variant="muted" />
 
     <!-- Servicios (Carrusel infinito) -->
     <section id="servicios" class="bg-white py-20 lg:py-28">
         <div class="mx-auto container px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-base font-semibold text-secondary mb-3">Nuestros servicios</h2>
-                <p class="text-3xl lg:text-4xl font-bold text-primary mb-4">
-                    Soluciones financieras a tu medida
-                </p>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Ofrecemos un portafolio completo de productos financieros para que inviertas en finca raiz en Colombia desde cualquier lugar del mundo.
-                </p>
+                <template v-if="isLoading">
+                    <div class="h-5 w-32 skeleton-shimmer rounded mx-auto mb-3" />
+                    <div class="h-10 w-80 max-w-full skeleton-shimmer rounded-lg mx-auto mb-4" />
+                    <div class="h-5 w-[32rem] max-w-full skeleton-shimmer rounded mx-auto" />
+                </template>
+                <template v-else>
+                    <h2 class="text-base font-semibold text-secondary mb-3">Nuestros servicios</h2>
+                    <p class="text-3xl lg:text-4xl font-bold text-primary mb-4">
+                        Soluciones financieras a tu medida
+                    </p>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Ofrecemos un portafolio completo de productos financieros para que inviertas en finca raíz en Colombia desde cualquier lugar del mundo.
+                    </p>
+                </template>
+            </div>
+
+            <!-- Skeleton grid para servicios -->
+            <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
+                <SkeletonServiceCard v-for="i in 4" :key="i" />
             </div>
         </div>
 
-        <Carousel v-bind="carouselConfig" class="py-4">
+        <Carousel v-if="!isLoading" v-bind="carouselConfig" class="py-4">
             <Slide v-for="(n, index) in store.services" :key="index" class="px-2 py-4">
                 <div class="max-w-sm rounded-2xl overflow-hidden shadow-lg shadow-primary/5 bg-white">
                     <NuxtImg
@@ -357,12 +325,29 @@ const testimonials = [
         </div>
     </section>
 
-    <!-- Testimonios (sin modificar) -->
+    <!-- Testimonios -->
+    <section v-if="isLoading" class="bg-gray-50 py-20 lg:py-28 overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <!-- Header skeleton -->
+            <div class="text-center mb-16">
+                <div class="h-5 w-24 skeleton-shimmer rounded mx-auto mb-3" />
+                <div class="h-10 w-80 max-w-full skeleton-shimmer rounded-lg mx-auto mb-4" />
+                <div class="h-5 w-96 max-w-full skeleton-shimmer rounded mx-auto" />
+            </div>
+            <!-- Testimonial cards skeleton -->
+            <div class="flex gap-6 overflow-hidden">
+                <div v-for="i in 3" :key="i" class="shrink-0 w-72 md:w-80">
+                    <SkeletonTestimonialCard />
+                </div>
+            </div>
+        </div>
+    </section>
     <TestimonialMarquee
+        v-else
         id="testimonios"
         title="Lo que dicen nuestros clientes"
         subtitle="Historias reales de colombianos que cumplieron su sueño de tener vivienda propia"
-        :testimonials="testimonials"
+        :testimonials="store.testimonials"
     />
 
     <!-- Blog / Articulos -->
@@ -439,4 +424,5 @@ const testimonials = [
         image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
         image-alt="Familia feliz con su nueva casa"
     />
+    </div>
 </template>
