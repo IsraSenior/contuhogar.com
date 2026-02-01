@@ -151,15 +151,24 @@ const filteredArticles = computed(() => {
   return filtered
 })
 
-// Paginación
+// Artículos para la grid (excluyendo el destacado cuando aplique)
+const articlesForGrid = computed(() => {
+  // Si se muestra el artículo destacado, excluirlo de la lista
+  if (selectedCategory.value === 'all' && searchQuery.value.trim().length < minSearchLength) {
+    return filteredArticles.value.slice(1) // Excluir el primero (destacado)
+  }
+  return filteredArticles.value
+})
+
+// Paginación sobre articlesForGrid en vez de filteredArticles
 const totalPages = computed(() => {
-  return Math.ceil(filteredArticles.value.length / itemsPerPage)
+  return Math.ceil(articlesForGrid.value.length / itemsPerPage)
 })
 
 const paginatedArticles = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage
   const end = start + itemsPerPage
-  return filteredArticles.value.slice(start, end)
+  return articlesForGrid.value.slice(start, end)
 })
 
 // Artículo destacado (el más reciente)
@@ -253,7 +262,7 @@ const hasNoResults = computed(() => {
               {{ selectedCategory === 'all' && searchQuery.trim().length < minSearchLength ? 'Más artículos' : 'Artículos' }}
             </h2>
             <p class="text-sm text-gray-500">
-              {{ filteredArticles.length }} {{ filteredArticles.length === 1 ? 'artículo' : 'artículos' }}
+              {{ articlesForGrid.length }} {{ articlesForGrid.length === 1 ? 'artículo' : 'artículos' }}
             </p>
           </div>
 
@@ -308,8 +317,8 @@ const hasNoResults = computed(() => {
           </div>
 
           <!-- Contador de resultados -->
-          <div v-if="filteredArticles.length > 0" class="mt-4 text-center text-sm text-gray-500">
-            Mostrando {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredArticles.length) }} de {{ filteredArticles.length }} artículos
+          <div v-if="articlesForGrid.length > 0" class="mt-4 text-center text-sm text-gray-500">
+            Mostrando {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, articlesForGrid.length) }} de {{ articlesForGrid.length }} artículos
           </div>
         </div>
 
