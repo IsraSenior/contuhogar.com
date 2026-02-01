@@ -3,7 +3,7 @@
 import type { SimuladorState } from '~/types/simulador';
 
 // Tipo de error para manejar errores
-type PDFErrorType = 'generic' | null;
+type PDFErrorType = 'generic' | 'module_load' | null;
 
 // Logo SVG inline (versión white para header)
 const LOGO_SVG_WHITE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 847.26 181.29" style="height: 40px; width: auto;">
@@ -26,6 +26,49 @@ const LOGO_SVG_WHITE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 8
     </g>
   </g>
 </svg>`;
+
+// Helper para detectar si es un error de carga de módulo dinámico
+const isModuleLoadError = (e: unknown): boolean => {
+  if (e instanceof Error) {
+    const message = e.message.toLowerCase();
+    return (
+      message.includes('failed to fetch dynamically imported module') ||
+      message.includes('loading chunk') ||
+      message.includes('loading css chunk') ||
+      message.includes('failed to load') ||
+      message.includes('dynamically imported module')
+    );
+  }
+  return false;
+};
+
+// Helper para importar módulos con retry
+const importWithRetry = async <T>(
+  importFn: () => Promise<T>,
+  retries = 2,
+  delay = 1000
+): Promise<T> => {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await importFn();
+    } catch (e) {
+      if (attempt === retries) {
+        throw e;
+      }
+      // Si es error de módulo, esperar antes de reintentar
+      if (isModuleLoadError(e)) {
+        console.warn(`[PDF] Module load failed, retrying in ${delay}ms... (attempt ${attempt + 1}/${retries + 1})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        // Incrementar delay para siguiente intento
+        delay *= 1.5;
+      } else {
+        // Si no es error de módulo, lanzar inmediatamente
+        throw e;
+      }
+    }
+  }
+  throw new Error('Max retries exceeded');
+};
 
 export const useDirectPDFDownload = () => {
   const isGenerating = ref(false);
@@ -99,10 +142,10 @@ export const useDirectPDFDownload = () => {
         console.warn('Could not load Fernando image, using placeholder');
       }
 
-      // Importar dinámicamente las librerías
+      // Importar dinámicamente las librerías con retry para manejar errores de cache/red
       const [htmlToImage, jsPDFModule] = await Promise.all([
-        import('html-to-image'),
-        import('jspdf')
+        importWithRetry(() => import('html-to-image')),
+        importWithRetry(() => import('jspdf'))
       ]);
 
       const { jsPDF } = jsPDFModule;
@@ -329,9 +372,17 @@ export const useDirectPDFDownload = () => {
 
       return true;
     } catch (e) {
-      errorType.value = 'generic';
-      error.value = e instanceof Error ? e.message : 'Error generando PDF';
       console.error('Error generating PDF:', e);
+
+      // Detectar si es error de carga de módulo dinámico
+      if (isModuleLoadError(e)) {
+        errorType.value = 'module_load';
+        error.value = 'Error al cargar los recursos. Por favor, recarga la página e intenta de nuevo.';
+      } else {
+        errorType.value = 'generic';
+        error.value = e instanceof Error ? e.message : 'Error generando PDF';
+      }
+
       clearErrorAfterDelay();
       return false;
     } finally {

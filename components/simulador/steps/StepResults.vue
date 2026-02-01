@@ -141,6 +141,8 @@
               'flex items-start gap-3 p-4 rounded-xl mb-4',
               pdfErrorType === 'rate_limit'
                 ? 'bg-amber-50 border border-amber-200'
+                : pdfErrorType === 'module_load'
+                ? 'bg-orange-50 border border-orange-200'
                 : 'bg-red-50 border border-red-200'
             ]"
           >
@@ -153,6 +155,14 @@
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
             </svg>
             <svg
+              v-else-if="pdfErrorType === 'module_load'"
+              class="w-5 h-5 text-orange-600 shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+            </svg>
+            <svg
               v-else
               class="w-5 h-5 text-red-600 shrink-0 mt-0.5"
               fill="currentColor"
@@ -161,16 +171,26 @@
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
             </svg>
             <div class="flex-1">
-              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-800' : 'text-red-800'" class="text-sm font-medium">
-                {{ pdfErrorType === 'rate_limit' ? 'Límite alcanzado' : 'Error' }}
+              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-800' : pdfErrorType === 'module_load' ? 'text-orange-800' : 'text-red-800'" class="text-sm font-medium">
+                {{ pdfErrorType === 'rate_limit' ? 'Límite alcanzado' : pdfErrorType === 'module_load' ? 'Problema de carga' : 'Error' }}
               </p>
-              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-700' : 'text-red-700'" class="text-sm mt-0.5">
+              <p :class="pdfErrorType === 'rate_limit' ? 'text-amber-700' : pdfErrorType === 'module_load' ? 'text-orange-700' : 'text-red-700'" class="text-sm mt-0.5">
                 {{ pdfError }}
               </p>
+              <button
+                v-if="pdfErrorType === 'module_load'"
+                @click="reloadPage"
+                class="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-orange-600 text-white text-xs font-medium rounded-lg hover:bg-orange-700 transition-colors"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Recargar página
+              </button>
             </div>
             <button
               @click="clearPdfError"
-              :class="pdfErrorType === 'rate_limit' ? 'text-amber-500 hover:text-amber-700' : 'text-red-500 hover:text-red-700'"
+              :class="pdfErrorType === 'rate_limit' ? 'text-amber-500 hover:text-amber-700' : pdfErrorType === 'module_load' ? 'text-orange-500 hover:text-orange-700' : 'text-red-500 hover:text-red-700'"
               class="shrink-0"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -537,6 +557,11 @@ const handleDownloadPDF = async () => {
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('pdf', 'resultados');
   await downloadPDF(store.$state);
+};
+
+// Handler para recargar la página (cuando hay error de carga de módulo)
+const reloadPage = () => {
+  window.location.reload();
 };
 
 // Handler para ir a contacto con datos pre-llenados
