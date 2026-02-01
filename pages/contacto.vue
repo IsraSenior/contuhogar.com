@@ -385,7 +385,7 @@ ${form.value.message}
             <template v-if="isLoading">
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                 <!-- Left Column Skeleton -->
-                <div class="col-span-7 space-y-6">
+                <div class="lg:col-span-7 space-y-6">
                   <!-- Badge -->
                   <div class="skeleton-shimmer h-10 w-72 rounded-lg" />
                   <!-- Title -->
@@ -415,7 +415,7 @@ ${form.value.message}
                 </div>
 
                 <!-- Right Column Skeleton (Form) -->
-                <div class="col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
+                <div class="lg:col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
                   <div class="space-y-6">
                     <!-- Form fields -->
                     <div class="grid grid-cols-2 gap-6">
@@ -459,7 +459,7 @@ ${form.value.message}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
                 <!-- COLUMNA IZQUIERDA: Información y contenido de valor -->
-                <div class="col-span-7">
+                <div class="lg:col-span-7">
                     <!-- Badge de respuesta rápida -->
                     <div class="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 text-secondary rounded-lg text-sm font-medium mb-6 border border-white/20">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -521,7 +521,7 @@ ${form.value.message}
                 </div>
 
                 <!-- COLUMNA DERECHA: Formulario -->
-                <div class="col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
+                <div class="lg:col-span-5 bg-white rounded-2xl shadow-xl shadow-primary/5 p-8 lg:p-10">
                     <!-- Banner indicando que viene del simulador -->
                     <div v-if="isFromSimulador" class="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
                         <div class="flex items-start gap-3">
