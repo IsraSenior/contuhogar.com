@@ -86,4 +86,13 @@ export default defineNuxtConfig({
     enableRouterSync: true, // auto pageviews en SPA
     debug: false, // útil en dev
   },
+
+  // Configuración de Nitro para Vercel
+  nitro: {
+    vercel: {
+      functions: {
+        maxDuration: 60,
+      },
+    },
+  },
 });
