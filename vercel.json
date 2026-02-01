@@ -1,8 +1,1 @@
-{
-  "functions": {
-    "api/pdf/pre-approval.post": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
-}
+{}
