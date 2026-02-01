@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="relative">
-      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">
-        $
+      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium text-sm">
+        COP
       </span>
       <input
         :id="id"
@@ -12,7 +12,7 @@
         inputmode="numeric"
         :placeholder="placeholder"
         :disabled="disabled"
-        class="w-full pl-8 pr-4 py-3 border rounded-lg focus:ring-2 transition-all outline-none"
+        class="w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 transition-all outline-none"
         :class="[
           inputClass,
           error

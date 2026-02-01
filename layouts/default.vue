@@ -15,8 +15,16 @@ useHead({
 
 <template>
     <div>
+        <!-- Skip to content link -->
+        <a
+            href="#main-content"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+            Saltar al contenido principal
+        </a>
+
         <Header />
-        <main class="mt-[73px]">
+        <main id="main-content" class="mt-[73px]" tabindex="-1">
             <NuxtPage />
         </main>
         <Footer />
@@ -25,37 +33,19 @@ useHead({
 </template>
 
 <style>
-/* Page transitions - subtle fade with slight scale */
-.page-enter-active {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
+/* Page transitions - subtle fade with blur */
+.page-enter-active,
 .page-leave-active {
-    transition: all 0.25s cubic-bezier(0.4, 0, 1, 1);
+    transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 .page-enter-from {
     opacity: 0;
-    transform: translateY(10px) scale(0.99);
+    filter: blur(4px);
 }
 
 .page-leave-to {
     opacity: 0;
-    transform: translateY(-10px) scale(0.99);
-}
-
-/* Layout shift prevention */
-.page-enter-active,
-.page-leave-active {
-    position: absolute;
-    width: 100%;
-}
-
-.page-leave-active {
-    z-index: 0;
-}
-
-.page-enter-active {
-    z-index: 1;
+    filter: blur(4px);
 }
 </style>

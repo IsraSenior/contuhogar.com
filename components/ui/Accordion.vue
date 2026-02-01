@@ -60,6 +60,9 @@ const isOpen = (index) => openSections.value.has(index)
       <!-- Header (clickeable) -->
       <button
         @click="toggleSection(index)"
+        :aria-expanded="isOpen(index)"
+        :aria-controls="`accordion-panel-${index}`"
+        :id="`accordion-header-${index}`"
         class="w-full px-6 py-4 flex items-center justify-between text-left transition-colors duration-200"
         :class="[
           isOpen(index)
@@ -70,7 +73,7 @@ const isOpen = (index) => openSections.value.has(index)
         <div class="flex items-center gap-4 flex-1">
           <!-- Icono SVG -->
           <div
-            class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200"
+            class="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200"
             :class="[
               isOpen(index)
                 ? 'bg-primary text-white'
@@ -95,7 +98,7 @@ const isOpen = (index) => openSections.value.has(index)
 
         <!-- Chevron -->
         <svg
-          class="w-5 h-5 transition-transform duration-200 flex-shrink-0 ml-4"
+          class="w-5 h-5 transition-transform duration-200 shrink-0 ml-4"
           :class="[
             isOpen(index) ? 'rotate-180 text-primary' : 'text-gray-400'
           ]"
@@ -114,7 +117,13 @@ const isOpen = (index) => openSections.value.has(index)
         @after-enter="onAfterEnter"
         @leave="onLeave"
       >
-        <div v-if="isOpen(index)" class="accordion-content">
+        <div
+          v-if="isOpen(index)"
+          class="accordion-content"
+          :id="`accordion-panel-${index}`"
+          :aria-labelledby="`accordion-header-${index}`"
+          role="region"
+        >
           <div class="px-6 py-5 prose prose-lg max-w-none text-gray-600">
             <div v-html="item.content"></div>
           </div>
