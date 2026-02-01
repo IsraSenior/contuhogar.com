@@ -77,9 +77,9 @@
 
     <!-- Obligaciones Financieras (Ancho completo) -->
     <div>
-      <label class="block text-sm font-semibold text-gray-700 mb-3">
+      <span class="block text-sm font-semibold text-gray-700 mb-3">
         Obligaciones financieras (opcional)
-      </label>
+      </span>
 
       <!-- Lista de obligaciones -->
       <div v-if="localObligaciones.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
@@ -170,10 +170,11 @@
 
           <!-- Monto -->
           <div class="mb-6">
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <label for="obligacion-monto" class="block text-sm font-semibold text-gray-700 mb-2">
               {{ nuevaObligacion.tipo === 'tarjeta_credito' ? 'Cupo utilizado' : 'Valor mensual' }} <span class="text-red-500">*</span>
             </label>
             <CurrencyInput
+              id="obligacion-monto"
               v-model="nuevaObligacion.monto"
               :placeholder="nuevaObligacion.tipo === 'tarjeta_credito' ? 'Cupo utilizado' : 'Valor mensual'"
               :min="0"
