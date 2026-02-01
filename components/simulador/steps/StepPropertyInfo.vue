@@ -105,6 +105,7 @@
       <div class="flex items-center gap-4">
         <input
           id="plazo"
+          name="plazo"
           v-model.number="localPlazoMeses"
           type="range"
           :min="PLAZO_MINIMO"

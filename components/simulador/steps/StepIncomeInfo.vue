@@ -141,10 +141,12 @@
 
           <!-- Tipo de obligación -->
           <div class="mb-4">
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <label for="tipo-obligacion" class="block text-sm font-semibold text-gray-700 mb-2">
               Tipo de obligación <span class="text-red-500">*</span>
             </label>
             <select
+              id="tipo-obligacion"
+              name="tipo-obligacion"
               v-model="nuevaObligacion.tipo"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
             >

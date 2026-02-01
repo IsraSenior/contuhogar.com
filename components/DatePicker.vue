@@ -9,7 +9,10 @@
       }"
     >
       <div class="flex items-center gap-3">
+        <label for="date-picker-input" class="sr-only">Fecha</label>
         <input
+          id="date-picker-input"
+          name="date-picker-input"
           ref="inputRef"
           v-model="inputValue"
           type="text"
