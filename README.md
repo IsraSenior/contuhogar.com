@@ -147,9 +147,10 @@ ConTuHogar.com es una plataforma web diseñada para conectar a colombianos que v
 - **[v-calendar 3.1.2](https://vcalendar.io/)** - Date picker component
 - **[@nuxtjs/turnstile 1.1.1](https://github.com/nuxt-modules/turnstile)** - Cloudflare Turnstile CAPTCHA
 
-### Server & PDF
+### Client-side PDF Generation
 
-- **[Puppeteer 24.32.0](https://pptr.dev/)** - Headless browser for PDF generation
+- **[html-to-image 1.11.13](https://github.com/bubkoo/html-to-image)** - DOM to image conversion
+- **[jsPDF 4.0.0](https://github.com/parallax/jsPDF)** - Client-side PDF generation
 
 ### Package Manager
 
@@ -587,7 +588,7 @@ El simulador de crédito es un wizard interactivo de 5 pasos que permite a los u
   - Capacidad de pago ≤ 30% de ingresos netos
   - Financiación: 70% (hipotecario) / 80% (leasing)
   - Status migratorio y reportes crediticios
-- **Generación de PDF**: Carta de preaprobación profesional usando Puppeteer
+- **Generación de PDF**: Carta de preaprobación profesional (client-side con html-to-image + jsPDF)
 - **Persistencia**: Estado guardado en localStorage (sobrevive recargas)
 - **Responsive**: Diseño adaptativo para móvil y desktop
 - **Resultados Detallados**: Aprobado ✅, Rechazado ❌ o Advertencia ⚠️ con recomendaciones
@@ -656,11 +657,11 @@ stores/
 
 composables/
 ├── useSimuladorCalculations.ts  // Lógica de cálculos financieros
-└── usePreApprovalPDF.ts         // Generación de PDF
+├── usePreApprovalPDF.ts         // Navegación a página de preaprobación
+├── useDirectPDFDownload.ts      // Generación directa de PDF desde StepResults
+└── useGeneratePDFFromElement.ts // Generación de PDF desde DOM element
 
 server/api/
-├── pdf/
-│   └── pre-approval.post.ts     // Endpoint para generar PDF
 └── send/
     └── simulator-lead.post.ts   // Notificación de simulador
 
@@ -875,7 +876,7 @@ npx tsx [archivo.ts]
 - ✅ Rate limiting por IP en endpoints sensibles
 - ✅ Headers de seguridad configurados
 - ✅ TypeScript en stores y composables
-- ✅ Puppeteer con optimizaciones para PDF
+- ✅ PDF generation client-side (html-to-image + jsPDF)
 
 ### Mejoras Pendientes (Roadmap)
 
