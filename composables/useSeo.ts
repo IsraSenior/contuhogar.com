@@ -294,3 +294,51 @@ export const useFAQSchema = (faqs: Array<{ question: string; answer: string }>) 
     ]
   })
 }
+
+/**
+ * Genera JSON-LD para FinancialProduct (servicios financieros)
+ */
+export const useServiceSchema = (service: {
+  name: string
+  description: string
+  url: string
+  category: string
+  image?: string
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialProduct',
+    name: service.name,
+    description: service.description,
+    url: service.url,
+    category: service.category,
+    ...(service.image && { image: service.image }),
+    provider: {
+      '@type': 'FinancialService',
+      name: 'ConTuHogar',
+      url: 'https://contuhogar.com',
+      telephone: [
+        '+573208033672',
+        '+17185214701',
+        '+34910602499'
+      ],
+      email: 'gerencia@contuhogar.net',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Cra. 54 # 105-20',
+        addressLocality: 'Bogotá',
+        addressRegion: 'D.C.',
+        addressCountry: 'CO'
+      }
+    }
+  }
+
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(schema)
+      }
+    ]
+  })
+}
