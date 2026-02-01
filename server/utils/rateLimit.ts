@@ -72,11 +72,17 @@ export async function rateLimit(
   event: H3Event,
   options: RateLimitOptions = {}
 ): Promise<void> {
+  // En desarrollo, ser más permisivo (10x más requests)
+  const isDev = process.env.NODE_ENV === 'development';
+  const multiplier = isDev ? 10 : 1;
+
   const {
     maxRequests = 5,
     windowSeconds = 60,
     message = "Demasiadas solicitudes. Por favor, intenta de nuevo más tarde.",
   } = options;
+
+  const effectiveMaxRequests = maxRequests * multiplier;
 
   const ip = getClientIP(event);
 
@@ -101,8 +107,8 @@ export async function rateLimit(
     });
 
     // Headers informativos
-    event.node.res.setHeader("X-RateLimit-Limit", maxRequests.toString());
-    event.node.res.setHeader("X-RateLimit-Remaining", (maxRequests - 1).toString());
+    event.node.res.setHeader("X-RateLimit-Limit", effectiveMaxRequests.toString());
+    event.node.res.setHeader("X-RateLimit-Remaining", (effectiveMaxRequests - 1).toString());
     event.node.res.setHeader(
       "X-RateLimit-Reset",
       new Date(now + windowSeconds * 1000).toISOString()
@@ -119,8 +125,8 @@ export async function rateLimit(
       resetTime: now + windowSeconds * 1000,
     });
 
-    event.node.res.setHeader("X-RateLimit-Limit", maxRequests.toString());
-    event.node.res.setHeader("X-RateLimit-Remaining", (maxRequests - 1).toString());
+    event.node.res.setHeader("X-RateLimit-Limit", effectiveMaxRequests.toString());
+    event.node.res.setHeader("X-RateLimit-Remaining", (effectiveMaxRequests - 1).toString());
     event.node.res.setHeader(
       "X-RateLimit-Reset",
       new Date(now + windowSeconds * 1000).toISOString()
@@ -133,10 +139,10 @@ export async function rateLimit(
   entry.count++;
 
   // Verificar si se excedió el límite
-  if (entry.count > maxRequests) {
+  if (entry.count > effectiveMaxRequests) {
     const retryAfter = Math.ceil((entry.resetTime - now) / 1000);
 
-    event.node.res.setHeader("X-RateLimit-Limit", maxRequests.toString());
+    event.node.res.setHeader("X-RateLimit-Limit", effectiveMaxRequests.toString());
     event.node.res.setHeader("X-RateLimit-Remaining", "0");
     event.node.res.setHeader("X-RateLimit-Reset", new Date(entry.resetTime).toISOString());
     event.node.res.setHeader("Retry-After", retryAfter.toString());
@@ -153,8 +159,8 @@ export async function rateLimit(
   }
 
   // Headers informativos
-  const remaining = Math.max(0, maxRequests - entry.count);
-  event.node.res.setHeader("X-RateLimit-Limit", maxRequests.toString());
+  const remaining = Math.max(0, effectiveMaxRequests - entry.count);
+  event.node.res.setHeader("X-RateLimit-Limit", effectiveMaxRequests.toString());
   event.node.res.setHeader("X-RateLimit-Remaining", remaining.toString());
   event.node.res.setHeader("X-RateLimit-Reset", new Date(entry.resetTime).toISOString());
 }

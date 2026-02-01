@@ -110,7 +110,7 @@
             Contacta a tu ejecutivo de crédito
           </button>
           <button
-            v-if="canGeneratePDF(resultado)"
+            v-if="canDownloadPDF(resultado)"
             @click="handleDownloadPDF"
             :disabled="isGenerating"
             class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-gray-200"
@@ -399,12 +399,12 @@
 <script setup lang="ts">
 import { formatCurrency, formatPercentage, formatPercentageUp } from '~/utils/formatters';
 import type { ResultadoCalculo } from '~/types/simulador';
-import { usePreApprovalPDF } from '~/composables/usePreApprovalPDF';
+import { useDirectPDFDownload } from '~/composables/useDirectPDFDownload';
 
 const store = useSimuladorStore();
 const mainStore = useMainStore();
 const router = useRouter();
-const { generatePDF, canGeneratePDF, isGenerating, error: pdfError, errorType: pdfErrorType, clearError: clearPdfError } = usePreApprovalPDF();
+const { downloadPDF, canDownloadPDF, isGenerating, error: pdfError, errorType: pdfErrorType, clearError: clearPdfError } = useDirectPDFDownload();
 const { calculate } = useSimuladorCalculations();
 
 const loading = ref(true);
@@ -536,7 +536,7 @@ const handleDownloadPDF = async () => {
   notifySimulatorLead('pdf');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('pdf', 'resultados');
-  await generatePDF(store.$state);
+  await downloadPDF(store.$state);
 };
 
 // Handler para ir a contacto con datos pre-llenados

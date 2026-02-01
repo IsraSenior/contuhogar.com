@@ -6,10 +6,24 @@
         <h1 class="text-lg font-semibold text-gray-800">Preview: Carta de preaprobación</h1>
         <div class="flex gap-2">
           <button
-            @click="handlePrint"
-            class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90"
+            @click="handleDownloadPDF"
+            :disabled="isGeneratingPDF"
+            class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
-            Imprimir / Guardar PDF
+            <svg v-if="isGeneratingPDF" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            {{ isGeneratingPDF ? 'Generando PDF...' : 'Descargar PDF' }}
+          </button>
+          <button
+            @click="handlePrint"
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200"
+          >
+            Imprimir
           </button>
           <NuxtLink
             to="/simulador/credito"
@@ -18,6 +32,10 @@
             Volver al simulador
           </NuxtLink>
         </div>
+      </div>
+      <!-- Error message -->
+      <div v-if="pdfError" class="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+        {{ pdfError }}
       </div>
     </div>
 
@@ -162,6 +180,9 @@ import { formatCurrency } from '~/utils/formatters';
 // Store
 const store = useMainStore();
 
+// PDF generation
+const { generatePDF: generatePDFFromElement, isGenerating: isGeneratingPDF, error: pdfError } = useGeneratePDFFromElement();
+
 // SEO
 definePageMeta({
   layout: false
@@ -172,7 +193,7 @@ useSeoMeta({
   robots: 'noindex, nofollow'
 });
 
-// Leer datos desde query params (para Puppeteer) o usar mock data
+// Leer datos desde query params o usar mock data
 const route = useRoute();
 
 // Decodificar datos de query param si existe
@@ -206,6 +227,8 @@ const mockData = reactive({
 // Indicar si estamos en modo PDF (para ocultar controles)
 const isPdfMode = computed(() => !!route.query.pdf);
 
+// Ya no se usa auto-download - la descarga es directa desde StepResults
+
 // Computed
 const nombreCompleto = computed(() =>
   `${mockData.nombres} ${mockData.apellidos}`.trim() || 'Estimado Cliente'
@@ -217,17 +240,21 @@ const tipoCreditoLabel = computed(() => {
   return 'Por definir';
 });
 
-// Generar número de documento
-const generateDocNumber = (): string => {
+// Generar número de documento (solo en cliente para evitar hydration mismatch)
+const docNumber = ref('');
+
+// Generar número solo en cliente
+if (import.meta.client) {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-  return `CTH-${year}${month}${day}-${random}`;
-};
-
-const docNumber = generateDocNumber();
+  docNumber.value = `CTH-${year}${month}${day}-${random}`;
+} else {
+  // Placeholder para SSR que será reemplazado en cliente
+  docNumber.value = 'CTH-XXXXXXXX-XXXXXX';
+}
 
 // Formatear fecha actual
 const currentDate = new Date().toLocaleDateString('es-CO', {
@@ -247,12 +274,21 @@ const expirationDate = computed(() => {
   });
 });
 
+// Función para descargar PDF
+const handleDownloadPDF = async () => {
+  const filename = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
+  await generatePDFFromElement('pdf-container', filename);
+};
+
 // Función para imprimir
 const handlePrint = () => {
   if (import.meta.client) {
     window.print();
   }
 };
+
+// Esta página es solo para preview/print manual
+// La descarga de PDF ahora se hace directamente desde StepResults
 </script>
 
 <style>

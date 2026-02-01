@@ -1,14 +1,15 @@
 // Composable para generar carta de preaprobación en PDF
-// Usa Puppeteer en el servidor para renderizar HTML con Tailwind
+// Usa html2canvas + jsPDF en el cliente (no requiere servidor)
 import type { SimuladorState, ResultadoCalculo } from '~/types/simulador';
 
-// Tipo de error para manejar rate limit
-type PDFErrorType = 'rate_limit' | 'generic' | null;
+// Tipo de error para manejar errores
+type PDFErrorType = 'generic' | null;
 
 export const usePreApprovalPDF = () => {
   const isGenerating = ref(false);
   const error = ref<string | null>(null);
   const errorType = ref<PDFErrorType>(null);
+  const router = useRouter();
 
   // Auto-clear error después de 8 segundos
   const clearErrorAfterDelay = () => {
@@ -25,7 +26,8 @@ export const usePreApprovalPDF = () => {
   };
 
   /**
-   * Genera el PDF de preaprobación llamando al API del servidor
+   * Genera el PDF de preaprobación navegando a la página de preview
+   * y usando html2canvas + jsPDF para capturar el contenido
    */
   const generatePDF = async (state: SimuladorState): Promise<void> => {
     if (!state.resultado || state.resultado.resultado !== 'aprobado') {
@@ -38,59 +40,34 @@ export const usePreApprovalPDF = () => {
     errorType.value = null;
 
     try {
-      // Preparar datos para el API
-      const payload = {
-        datosPersonales: {
-          nombres: state.datosPersonales.nombres,
-          apellidos: state.datosPersonales.apellidos,
-          correo: state.datosPersonales.correo,
-          telefono: state.datosPersonales.telefono,
-          tipoCredito: state.datosPersonales.tipoCredito
-        },
-        datosBien: {
-          valorBien: state.datosBien.valorBien,
-          montoSolicitado: state.datosBien.montoSolicitado,
-          plazoMeses: state.datosBien.plazoMeses
-        },
-        resultado: {
-          cuotaMensual: state.resultado.cuotaMensual,
-          tasaEA: state.resultado.tasaEA,
-          porcentajeFinanciacion: state.resultado.porcentajeFinanciacion,
-          porcentajeCompromiso: state.resultado.porcentajeCompromiso
-        }
+      // Preparar datos para pasar a la página de preview
+      const queryData = {
+        nombres: state.datosPersonales.nombres || '',
+        apellidos: state.datosPersonales.apellidos || '',
+        tipoCredito: state.datosPersonales.tipoCredito || 'hipotecario',
+        montoSolicitado: state.datosBien.montoSolicitado || 0,
+        cuotaMensual: state.resultado.cuotaMensual,
+        plazoMeses: state.datosBien.plazoMeses,
+        tasaEA: state.resultado.tasaEA,
+        porcentajeFinanciacion: state.resultado.porcentajeFinanciacion,
+        porcentajeCompromiso: state.resultado.porcentajeCompromiso
       };
 
-      // Llamar al API para generar el PDF
-      const response = await $fetch('/api/pdf/pre-approval', {
-        method: 'POST',
-        body: payload,
-        responseType: 'blob'
+      const encodedData = encodeURIComponent(JSON.stringify(queryData));
+
+      // Navegar a la página de preview con parámetro para auto-descargar
+      router.push({
+        path: '/simulador/credito/carta-preaprobacion',
+        query: {
+          data: encodedData,
+          download: '1' // Flag para auto-descargar
+        }
       });
 
-      // Crear URL del blob y descargar
-      const blob = new Blob([response as BlobPart], { type: 'application/pdf' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-
-    } catch (err: any) {
-      // Detectar error de rate limit (429)
-      const statusCode = err?.response?.status || err?.statusCode || err?.data?.statusCode;
-
-      if (statusCode === 429) {
-        errorType.value = 'rate_limit';
-        error.value = 'Has alcanzado el límite de descargas. Por favor espera unos minutos antes de intentarlo de nuevo.';
-      } else {
-        errorType.value = 'generic';
-        error.value = 'Error al generar el PDF. Por favor intenta de nuevo.';
-        console.error('Error generating PDF:', err);
-      }
-
+    } catch (err: unknown) {
+      errorType.value = 'generic';
+      error.value = 'Error al preparar el PDF. Por favor intenta de nuevo.';
+      console.error('Error preparing PDF:', err);
       clearErrorAfterDelay();
     } finally {
       isGenerating.value = false;
