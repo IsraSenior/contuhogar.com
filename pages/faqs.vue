@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 const store = useMainStore();
+const { isLoading } = useLoading(150)
 const route = useRoute();
 
 const title = `Preguntas Frecuentes | ConTuHogar`;
@@ -138,16 +139,31 @@ const hasNoResults = computed(() => {
 </script>
 
 <template>
+    <div>
     <!-- Hero Section -->
+    <SkeletonHeroSection v-if="isLoading" variant="primary" show-badge />
     <HeroSection
-        badge="Más de 3,000 colombianos confían en nosotros"
+        v-else
+        badge="Más de 3.000 colombianos confían en nosotros"
         badge-icon
         title="⁠¿Tienes dudas sobre tu préstamo en Colombia?"
         subtitle="Encuentra respuestas claras y rápidas a tus preguntas. Si no encuentras lo que buscas, nuestro equipo está listo para ayudarte."
     />
 
     <!-- Categorías y Buscador -->
+    <template v-if="isLoading">
+      <div class="bg-white border-b border-gray-200 py-4">
+        <div class="mx-auto container px-6 lg:px-8">
+          <div class="flex flex-wrap items-center gap-3">
+            <div v-for="i in 5" :key="i" class="skeleton-shimmer h-10 rounded-lg" :style="{ width: `${60 + (i % 3) * 20}px` }" />
+            <div class="flex-1" />
+            <div class="skeleton-shimmer h-10 w-64 rounded-lg" />
+          </div>
+        </div>
+      </div>
+    </template>
     <CategoryPills
+        v-else
         v-model="selectedCategory"
         v-model:searchQuery="searchQuery"
         v-model:hasNoResults="hasNoResults"
@@ -160,7 +176,50 @@ const hasNoResults = computed(() => {
     <!-- Contenido principal -->
     <div class="bg-muted">
         <div class="mx-auto container px-6 lg:px-8 py-16">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+            <!-- Skeleton State -->
+            <template v-if="isLoading">
+              <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+                <!-- Columna izquierda: FAQ Skeletons -->
+                <div class="lg:col-span-8">
+                  <SkeletonAccordion :count="6" />
+                </div>
+
+                <!-- Columna derecha: Sidebar Skeletons -->
+                <div class="lg:col-span-4 mt-12 lg:mt-0">
+                  <div class="lg:sticky lg:top-24 space-y-6">
+                    <!-- Widget contacto skeleton -->
+                    <div class="bg-gray-100 rounded-2xl p-6 border-2 border-gray-200">
+                      <div class="text-center space-y-4">
+                        <div class="skeleton-shimmer w-14 h-14 rounded-full mx-auto" />
+                        <div class="skeleton-shimmer h-6 w-3/4 mx-auto rounded" />
+                        <div class="skeleton-shimmer h-4 w-full mx-auto rounded" />
+                        <div class="skeleton-shimmer h-4 w-5/6 mx-auto rounded" />
+                        <div class="skeleton-shimmer h-12 w-full rounded-lg mt-4" />
+                      </div>
+                    </div>
+                    <!-- CTA Simulador skeleton -->
+                    <div class="bg-gray-100 rounded-2xl p-6 border-2 border-gray-200">
+                      <div class="text-center space-y-4">
+                        <div class="skeleton-shimmer w-14 h-14 rounded-full mx-auto" />
+                        <div class="skeleton-shimmer h-5 w-2/3 mx-auto rounded" />
+                        <div class="skeleton-shimmer h-4 w-full mx-auto rounded" />
+                        <div class="skeleton-shimmer h-12 w-full rounded-lg mt-4" />
+                      </div>
+                    </div>
+                    <!-- Recursos skeleton -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                      <div class="skeleton-shimmer h-5 w-32 rounded mb-4" />
+                      <div class="space-y-3">
+                        <div v-for="i in 3" :key="i" class="skeleton-shimmer h-4 rounded" :style="{ width: `${50 + (i % 3) * 15}%` }" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+
+            <!-- Real Content -->
+            <div v-else class="lg:grid lg:grid-cols-12 lg:gap-12">
 
                 <!-- Columna izquierda: FAQs -->
                 <div class="lg:col-span-8">
@@ -179,7 +238,7 @@ const hasNoResults = computed(() => {
                                 </span>
                                 <svg
                                     :class="[
-                                        'w-5 h-5 text-primary transition-transform flex-shrink-0',
+                                        'w-5 h-5 text-primary transition-transform shrink-0',
                                         isQuestionOpen(index) ? 'rotate-45' : ''
                                     ]"
                                     fill="none"
@@ -353,7 +412,8 @@ const hasNoResults = computed(() => {
     </div>
 
     <!-- Bancos y Aliados -->
-    <BankLogosSection />
+    <SkeletonBankLogos v-if="isLoading" />
+    <BankLogosSection v-else />
 
     <!-- CTA Final -->
     <CTASection
@@ -361,8 +421,9 @@ const hasNoResults = computed(() => {
         description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
         :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
         :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
-        :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+        :benefits="['Sin costo inicial', 'Respuesta en 24 h', 'Proceso 100 % remoto']"
         image="https://img.freepik.com/foto-gratis/mira-compramos-casa_637285-12424.jpg"
         image-alt="Familia feliz celebrando compra de casa"
     />
+    </div>
 </template>

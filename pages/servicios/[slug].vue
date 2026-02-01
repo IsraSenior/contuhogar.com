@@ -1,4 +1,5 @@
 <script setup>
+const { isLoading } = useLoading(150)
 const store = useMainStore();
 const route = useRoute();
 const router = useRouter();
@@ -24,6 +25,15 @@ watchEffect(() => {
       { name: 'Servicios', url: 'https://contuhogar.com/servicios' },
       { name: currentService.value.title, url: `https://contuhogar.com/servicios/${currentService.value.slug}` }
     ])
+
+    // Service schema para producto financiero
+    useServiceSchema({
+      name: currentService.value.title,
+      description: currentService.value.description,
+      url: `https://contuhogar.com/servicios/${currentService.value.slug}`,
+      category: 'Crédito de Vivienda',
+      image: `https://contuhogar.com${currentService.value.image}`
+    })
   }
 })
 
@@ -34,14 +44,14 @@ function getServiceContent(slug) {
     icon: 'document',
     content: `<p class="mb-6">Para solicitar este servicio, necesitarás preparar la siguiente documentación:</p>
     <ul class="list-disc list-inside space-y-2">
-      <li>Certificación laboral vigente (no mayor a 90 días)</li>
-      <li>Comprobantes de pago de nómina de los últimos tres (3) meses</li>
-      <li>Extractos bancarios de los últimos tres (3) meses donde recibes tu salario</li>
-      <li>Declaración de renta del año fiscal anterior y/o certificado de ingresos y retenciones</li>
-      <li>Reporte de crédito vigente con buen historial de pago (no mayor a 30 días)</li>
-      <li>Copia ampliada de la cédula colombiana al 150%</li>
-      <li>Copia del documento migratorio vigente: residencia, visa de trabajo o ciudadanía</li>
-      <li>Soportes de ingresos adicionales: pensión, arriendos, honorarios, etc. (si aplica)</li>
+      <li>Certificación laboral vigente (no mayor a 90 días).</li>
+      <li>Comprobantes de pago de nómina de los últimos tres (3) meses.</li>
+      <li>Extractos bancarios de los últimos tres (3) meses donde recibes tu salario.</li>
+      <li>Declaración de renta del año fiscal anterior y/o certificado de ingresos y retenciones.</li>
+      <li>Reporte de crédito vigente con buen historial de pago (no mayor a 30 días).</li>
+      <li>Copia ampliada de la cédula colombiana al 150%.</li>
+      <li>Copia del documento migratorio vigente: residencia, visa de trabajo o ciudadanía.</li>
+      <li>Soportes de ingresos adicionales: pensión, arriendos, honorarios, etc. (si aplica).</li>
     </ul>
     <p class="mt-6 font-semibold text-lg">Formatos bancarios para descargar:</p>
     <p class="mt-4 text-sm text-gray-600">Una vez inicies tu proceso, te compartiremos los formatos específicos del banco con el que trabajaremos tu solicitud.</p>`
@@ -54,12 +64,12 @@ function getServiceContent(slug) {
         icon: 'clipboard',
         content: `<p class="mb-4">El crédito hipotecario es la opción más tradicional y segura para adquirir vivienda en Colombia desde el exterior. Te conviertes en propietario desde el primer día.</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Plazo:</strong> Entre 5 y 20 años, adaptándose a tu capacidad de pago</li>
-          <li><strong>Tasa de interés:</strong> Competitiva, fija en pesos colombianos durante toda la vida del crédito</li>
-          <li><strong>Financiación:</strong> Hasta el 70% del valor comercial del inmueble (80-85% en proyectos financiados por el banco)</li>
-          <li><strong>Cuota inicial:</strong> Desde el 30% del valor del inmueble</li>
-          <li><strong>Vigencia de la aprobación:</strong> 6 meses para que encuentres el inmueble perfecto</li>
-          <li><strong>Montos:</strong> Sin límite máximo, sujeto a tu capacidad de pago y avalúo del inmueble</li>
+          <li><strong>Plazo:</strong> entre 5 y 20 años, adaptándose a tu capacidad de pago.</li>
+          <li><strong>Tasa de interés:</strong> competitiva, fija en pesos colombianos durante toda la vida del crédito.</li>
+          <li><strong>Financiación:</strong> hasta el 70% del valor comercial del inmueble. Si tienes un requerimiento de mayor porcentaje, pregúntanos cómo.</li>
+          <li><strong>Cuota inicial:</strong> desde el 30% del valor del inmueble.</li>
+          <li><strong>Vigencia de la aprobación:</strong> 6 meses para que encuentres el inmueble perfecto.</li>
+          <li><strong>Montos:</strong> sin límite máximo, sujeto a tu capacidad de pago y avalúo del inmueble.</li>
         </ul>
         <p class="mt-4"><strong>Importante:</strong> ConTuHogar te acompaña en todo el proceso de legalización, elaboración de poderes y hasta el desembolso del crédito.</p>`
       },
@@ -68,11 +78,11 @@ function getServiceContent(slug) {
         icon: 'users',
         content: `<p class="mb-4">Este producto financiero está especialmente diseñado para:</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Colombianos residentes en el exterior</strong> que desean comprar vivienda nueva o usada en zonas urbanas de Colombia</li>
-          <li><strong>Profesionales con estabilidad laboral</strong> que lleven al menos 1-2 años trabajando en el exterior</li>
-          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago demostrable</li>
-          <li><strong>Extranjeros casados con colombianos</strong> que puedan consolidar ingresos mediante unión marital comprobable</li>
-          <li><strong>Inversores que buscan patrimonio</strong> en Colombia sin afectar su cupo crediticio en el país de residencia</li>
+          <li><strong>Colombianos residentes en el exterior</strong> que desean comprar vivienda nueva o usada en zonas urbanas de Colombia.</li>
+          <li><strong>Profesionales con estabilidad laboral</strong> que lleven al menos 1-2 años trabajando en el exterior.</li>
+          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago demostrable.</li>
+          <li><strong>Extranjeros casados con colombianos</strong> que puedan consolidar ingresos mediante unión marital comprobable.</li>
+          <li><strong>Inversores que buscan patrimonio</strong> en Colombia sin afectar su cupo crediticio en el país de residencia.</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>Nota: Este crédito no aplica para compra de locales comerciales, lotes sin construir, fincas rurales o proyectos de construcción.</em></p>`
       },
@@ -80,14 +90,14 @@ function getServiceContent(slug) {
         title: 'Beneficios exclusivos',
         icon: 'sparkles',
         content: `<ul class="list-disc list-inside space-y-2">
-          <li><strong>Eres propietario desde el día uno:</strong> El inmueble queda a tu nombre con garantía hipotecaria que se levanta al pagar</li>
-          <li><strong>Cuota fija en pesos:</strong> Te proteges de la volatilidad del peso colombiano, ideal si tus ingresos son en moneda extranjera</li>
-          <li><strong>preaprobación sin inmueble definido:</strong> Asegura tu cupo y negocia con respaldo financiero</li>
-          <li><strong>Flexibilidad de pago:</strong> Realiza abonos anticipados sin penalización y reduce el plazo de tu crédito</li>
-          <li><strong>No afecta tu historial en el exterior:</strong> El crédito solo reporta en Colombia bajo la Ley 546 de 1999</li>
-          <li><strong>Múltiples créditos posibles:</strong> Adquiere una o más propiedades según tu capacidad de pago</li>
-          <li><strong>Cuenta de ahorros incluida:</strong> Para el desembolso y manejo de tu crédito</li>
-          <li><strong>Acompañamiento integral:</strong> Desde la solicitud hasta el desembolso y posventa</li>
+          <li><strong>Eres propietario desde el día uno:</strong> el inmueble queda a tu nombre con garantía hipotecaria que se levanta al pagar.</li>
+          <li><strong>Cuota fija en pesos:</strong> te proteges de la volatilidad del peso colombiano, ideal si tus ingresos son en moneda extranjera.</li>
+          <li><strong>Preaprobación sin inmueble definido:</strong> asegura tu cupo y negocia con respaldo financiero.</li>
+          <li><strong>Flexibilidad de pago:</strong> realiza abonos anticipados sin penalización y reduce el plazo de tu crédito.</li>
+          <li><strong>No afecta tu historial en el exterior:</strong> el crédito solo reporta en Colombia bajo la Ley 546 de 1999.</li>
+          <li><strong>Múltiples créditos posibles:</strong> adquiere una o más propiedades según tu capacidad de pago.</li>
+          <li><strong>Cuenta de ahorros incluida:</strong> para el desembolso y manejo de tu crédito.</li>
+          <li><strong>Acompañamiento integral:</strong> desde la solicitud hasta el desembolso y posventa.</li>
         </ul>`
       },
       {
@@ -96,20 +106,20 @@ function getServiceContent(slug) {
         content: `<p class="mb-4">Para acceder a este crédito hipotecario, debes cumplir con:</p>
         <h4 class="font-semibold text-lg mb-3">Estatus migratorio y laboral</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Estatus migratorio legal y vigente (residencia permanente, visa de trabajo o naturalización)</li>
-          <li>Mínimo 1-2 años de antigüedad laboral en tu empleo actual</li>
-          <li>Ingresos demostrables y estables mediante certificaciones y comprobantes de pago</li>
+          <li>Estatus migratorio legal y vigente (residencia permanente, visa de trabajo o naturalización).</li>
+          <li>Mínimo 1-2 años de antigüedad laboral en tu empleo actual.</li>
+          <li>Ingresos demostrables y estables mediante certificaciones y comprobantes de pago.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Perfil crediticio</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Sin reportes negativos vigentes en centrales de riesgo de Colombia</li>
-          <li>Buen comportamiento crediticio en el país de residencia</li>
-          <li>Capacidad de pago que permita cumplir con la cuota mensual</li>
+          <li>Sin reportes negativos vigentes en centrales de riesgo de Colombia.</li>
+          <li>Buen comportamiento crediticio en el país de residencia.</li>
+          <li>Capacidad de pago que permita cumplir con la cuota mensual.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Apoyo adicional</h4>
         <ul class="list-disc list-inside space-y-2">
-          <li>Posibilidad de consolidar ingresos con un co-deudor en Colombia o en el exterior</li>
-          <li>Apoderado de confianza en Colombia para trámites legales y notariales</li>
+          <li>Posibilidad de consolidar ingresos con un co-deudor en Colombia o en el exterior.</li>
+          <li>Apoderado de confianza en Colombia para trámites legales y notariales.</li>
         </ul>`
       },
       commonDocuments
@@ -120,26 +130,26 @@ function getServiceContent(slug) {
         icon: 'clipboard',
         content: `<p class="mb-4">El leasing habitacional combina lo mejor del arriendo y la compra: vives en tu vivienda desde el primer día y al final del contrato la adquieres a un precio preferencial.</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Plazo:</strong> Entre 5 y 20 años de contrato de arrendamiento financiero</li>
-          <li><strong>Cuota inicial más baja:</strong> Desde 15% del valor del inmueble (vs. 30% del crédito hipotecario)</li>
-          <li><strong>Financiación:</strong> Hasta el 85% del valor comercial (90% en proyectos financiados)</li>
-          <li><strong>Opción de compra:</strong> Al finalizar el contrato, ejerces tu derecho de compra por un valor residual bajo (típicamente 1-5%)</li>
-          <li><strong>Beneficios tributarios:</strong> Deducciones fiscales en Colombia durante la vigencia del contrato</li>
-          <li><strong>Vigencia de aprobación:</strong> 6 meses para definir tu inmueble ideal</li>
+          <li><strong>Plazo:</strong> entre 5 y 20 años de contrato de arrendamiento financiero.</li>
+          <li><strong>Cuota inicial más baja:</strong> desde 15% del valor del inmueble (vs. 30% del crédito hipotecario).</li>
+          <li><strong>Financiación:</strong> hasta el 80% del valor comercial del inmueble. Si tienes un requerimiento de mayor porcentaje, pregúntanos cómo.</li>
+          <li><strong>Opción de compra:</strong> al finalizar el contrato, ejerces tu derecho de compra por un valor residual bajo (típicamente 1-5%).</li>
+          <li><strong>Beneficios tributarios:</strong> deducciones fiscales en Colombia durante la vigencia del contrato.</li>
+          <li><strong>Vigencia de aprobación:</strong> 6 meses para definir tu inmueble ideal.</li>
         </ul>
-        <p class="mt-4"><strong>¿Cómo funciona?</strong> Durante el contrato, el banco es el propietario legal y tú eres el locatario. Al cumplir con los pagos y ejercer la opción de compra, la propiedad pasa a tu nombre.</p>`
+        <p class="mt-4"><strong>¿Cómo funciona?</strong> durante el contrato, el banco es el propietario legal y tú eres el locatario. Al cumplir con los pagos y ejercer la opción de compra, la propiedad pasa a tu nombre.</p>`
       },
       {
         title: '¿Para quién es ideal el leasing?',
         icon: 'users',
         content: `<p class="mb-4">El leasing habitacional es perfecto para:</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Profesionales con menor capital inicial</strong> que prefieren una cuota de entrada más accesible</li>
-          <li><strong>Colombianos en el exterior con ingresos altos</strong> que buscan beneficios tributarios en Colombia</li>
-          <li><strong>Inversionistas estratégicos</strong> que valoran la flexibilidad financiera y los beneficios fiscales</li>
-          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago verificable</li>
-          <li><strong>Parejas binacionales</strong> (colombiano-extranjero) que pueden consolidar ingresos</li>
-          <li><strong>Quienes buscan proteger capital</strong> mientras construyen patrimonio en Colombia</li>
+          <li><strong>Profesionales con menor capital inicial</strong> que prefieren una cuota de entrada más accesible.</li>
+          <li><strong>Colombianos en el exterior con ingresos altos</strong> que buscan beneficios tributarios en Colombia.</li>
+          <li><strong>Inversionistas estratégicos</strong> que valoran la flexibilidad financiera y los beneficios fiscales.</li>
+          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago verificable.</li>
+          <li><strong>Parejas binacionales</strong> (colombiano-extranjero) que pueden consolidar ingresos.</li>
+          <li><strong>Quienes buscan proteger capital</strong> mientras construyen patrimonio en Colombia.</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>Ideal si tienes excelente capacidad de pago pero prefieres conservar liquidez para otras inversiones.</em></p>`
       },
@@ -147,15 +157,14 @@ function getServiceContent(slug) {
         title: 'Ventajas del leasing habitacional',
         icon: 'sparkles',
         content: `<ul class="list-disc list-inside space-y-2">
-          <li><strong>Menor cuota inicial:</strong> Hasta 50% menos que un crédito hipotecario tradicional</li>
-          <li><strong>Beneficios tributarios:</strong> Deduce un porcentaje de tus cuotas mensuales en tu declaración de renta colombiana</li>
-          <li><strong>Vives tu vivienda desde el inicio:</strong> No esperas a ser dueño para habitarla</li>
-          <li><strong>Opción de compra al final:</strong> Decides si ejerces tu derecho a comprar a un valor preferencial (típicamente 1-5% del valor inicial)</li>
-          <li><strong>Cuotas fijas en pesos:</strong> Certeza financiera durante toda la vigencia del contrato</li>
-          <li><strong>Prepagos sin penalización:</strong> Acelera tu plan de adquisición cuando quieras</li>
-          <li><strong>Historial crediticio independiente:</strong> No afecta tu cupo en el país donde resides</li>
-          <li><strong>Mayor porcentaje de financiación:</strong> Hasta 90% en proyectos nuevos</li>
-          <li><strong>Asesoría personalizada:</strong> Te acompañamos en cada etapa del proceso</li>
+          <li><strong>Menor cuota inicial:</strong> requiere menos capital de entrada comparado con el crédito hipotecario tradicional.</li>
+          <li><strong>Beneficios tributarios:</strong> deduce un porcentaje de tus cuotas mensuales en tu declaración de renta colombiana.</li>
+          <li><strong>Vives tu vivienda desde el inicio:</strong> no esperas a ser dueño para habitarla.</li>
+          <li><strong>Opción de compra al final:</strong> decides si ejerces tu derecho a comprar a un valor preferencial (típicamente 1-5% del valor inicial).</li>
+          <li><strong>Cuotas fijas en pesos:</strong> certeza financiera durante toda la vigencia del contrato.</li>
+          <li><strong>Prepagos sin penalización:</strong> acelera tu plan de adquisición cuando quieras.</li>
+          <li><strong>Historial crediticio independiente:</strong> no afecta tu cupo en el país donde resides.</li>
+          <li><strong>Asesoría personalizada:</strong> te acompañamos en cada etapa del proceso.</li>
         </ul>`
       },
       {
@@ -164,21 +173,21 @@ function getServiceContent(slug) {
         content: `<p class="mb-4">Para acceder al leasing habitacional necesitas:</p>
         <h4 class="font-semibold text-lg mb-3">Perfil migratorio y laboral</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Estatus migratorio definido y documentado (residencia, visa de trabajo o naturalización)</li>
-          <li>Antigüedad laboral mínima de 1-2 años en tu empleo actual</li>
-          <li>Ingresos regulares y demostrables mediante certificaciones oficiales</li>
-          <li>Capacidad de pago suficiente para cubrir la cuota mensual del leasing</li>
+          <li>Estatus migratorio definido y documentado (residencia, visa de trabajo o naturalización).</li>
+          <li>Antigüedad laboral mínima de 1-2 años en tu empleo actual.</li>
+          <li>Ingresos regulares y demostrables mediante certificaciones oficiales.</li>
+          <li>Capacidad de pago suficiente para cubrir la cuota mensual del leasing.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Historial financiero</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Sin reportes negativos activos en centrales de riesgo colombianas</li>
-          <li>Buen comportamiento crediticio verificable en el país de residencia</li>
-          <li>Capacidad de ahorro demostrada para la cuota inicial</li>
+          <li>Sin reportes negativos activos en centrales de riesgo colombianas.</li>
+          <li>Buen comportamiento crediticio verificable en el país de residencia.</li>
+          <li>Capacidad de ahorro demostrada para la cuota inicial.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Apoyo y representación</h4>
         <ul class="list-disc list-inside space-y-2">
-          <li>Opción de sumar ingresos con co-deudor (en Colombia o exterior)</li>
-          <li>Apoderado confiable en Colombia para firma de documentos y escrituración</li>
+          <li>Opción de sumar ingresos con co-deudor (en Colombia o exterior).</li>
+          <li>Apoderado confiable en Colombia para firma de documentos y escrituración.</li>
         </ul>`
       },
       commonDocuments
@@ -189,26 +198,26 @@ function getServiceContent(slug) {
         icon: 'clipboard',
         content: `<p class="mb-4">El crédito de remodelación con garantía hipotecaria te permite transformar tu vivienda en Colombia sin afectar tus ahorros, con condiciones mucho más favorables que un crédito de libre inversión.</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Plazo:</strong> Hasta 15 años para pagar tu remodelación</li>
-          <li><strong>Tasa preferencial:</strong> Mucho más baja que un crédito de consumo gracias a la garantía hipotecaria</li>
-          <li><strong>Financiación:</strong> Hasta el 50% del valor comercial actual de tu inmueble</li>
-          <li><strong>Flexibilidad:</strong> Funciona incluso si tu vivienda ya tiene hipoteca vigente</li>
-          <li><strong>Uso del dinero:</strong> Remodelaciones, ampliaciones, mejoras estructurales, acabados, etc.</li>
-          <li><strong>Cuota fija:</strong> En pesos colombianos durante toda la vida del crédito</li>
+          <li><strong>Plazo:</strong> hasta 15 años para pagar tu remodelación.</li>
+          <li><strong>Tasa preferencial:</strong> mucho más baja que un crédito de consumo gracias a la garantía hipotecaria.</li>
+          <li><strong>Financiación:</strong> hasta el 70% del valor comercial actual de tu inmueble. Si tienes un requerimiento de mayor porcentaje, pregúntanos cómo.</li>
+          <li><strong>Flexibilidad:</strong> funciona incluso si tu vivienda ya tiene hipoteca vigente.</li>
+          <li><strong>Uso del dinero:</strong> remodelaciones, ampliaciones, mejoras estructurales, acabados, etc.</li>
+          <li><strong>Cuota fija:</strong> en pesos colombianos durante toda la vida del crédito.</li>
         </ul>
-        <p class="mt-4"><strong>Casos de uso:</strong> Ampliar habitaciones, renovar cocina/baños, mejorar fachada, instalar pisos, cambiar ventanas, actualizar instalaciones eléctricas o de plomería.</p>`
+        <p class="mt-4"><strong>Casos de uso:</strong> ampliar habitaciones, renovar cocina/baños, mejorar fachada, instalar pisos, cambiar ventanas, actualizar instalaciones eléctricas o de plomería.</p>`
       },
       {
         title: '¿Para quién es este crédito?',
         icon: 'users',
         content: `<p class="mb-4">Este crédito de remodelación es ideal para:</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Propietarios de vivienda en Colombia</strong> que desean mejorar o ampliar su inmueble</li>
-          <li><strong>Colombianos en el exterior</strong> que tienen casa propia en Colombia (libre de hipoteca o con saldo por pagar)</li>
-          <li><strong>Inversionistas que buscan valorizar</strong> su propiedad antes de vender o arrendar</li>
-          <li><strong>Familias que necesitan adaptar espacios</strong> para nuevos integrantes o para padres mayores</li>
-          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago demostrable</li>
-          <li><strong>Quienes prefieren no tocar sus ahorros</strong> y financiar las mejoras a largo plazo con cuotas cómodas</li>
+          <li><strong>Propietarios de vivienda en Colombia</strong> que desean mejorar o ampliar su inmueble.</li>
+          <li><strong>Colombianos en el exterior</strong> que tienen casa propia en Colombia (libre de hipoteca o con saldo por pagar).</li>
+          <li><strong>Inversionistas que buscan valorizar</strong> su propiedad antes de vender o arrendar.</li>
+          <li><strong>Familias que necesitan adaptar espacios</strong> para nuevos integrantes o para padres mayores.</li>
+          <li><strong>Personas entre 18 y 74 años</strong> con capacidad de pago demostrable.</li>
+          <li><strong>Quienes prefieren no tocar sus ahorros</strong> y financiar las mejoras a largo plazo con cuotas cómodas.</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>Ideal para aumentar el valor de tu patrimonio mientras mejoras la calidad de vida de tu familia en Colombia.</em></p>`
       },
@@ -216,15 +225,15 @@ function getServiceContent(slug) {
         title: 'Beneficios de remodelar con crédito',
         icon: 'sparkles',
         content: `<ul class="list-disc list-inside space-y-2">
-          <li><strong>Tasa de interés preferencial:</strong> Mucho menor que créditos de consumo o tarjetas de crédito</li>
-          <li><strong>Plazos cómodos:</strong> Hasta 15 años para pagar, con cuotas que se ajustan a tu presupuesto</li>
-          <li><strong>Conservas tu liquidez:</strong> No gastas tus ahorros de golpe, mantienes tu fondo de emergencias intacto</li>
-          <li><strong>Incremento del valor de tu inmueble:</strong> Las remodelaciones bien hechas aumentan significativamente el valor comercial</li>
-          <li><strong>Cuota fija en pesos:</strong> Estabilidad financiera durante toda la vigencia del crédito</li>
-          <li><strong>Prepagos sin penalización:</strong> Paga más cuando puedas, sin costos adicionales</li>
-          <li><strong>Funciona con hipoteca vigente:</strong> No necesitas tener tu casa libre de deudas</li>
-          <li><strong>No afecta crédito en el exterior:</strong> Solo se reporta en Colombia</li>
-          <li><strong>Asesoría profesional incluida:</strong> Te acompañamos en todo el proceso de solicitud y desembolso</li>
+          <li><strong>Tasa de interés preferencial:</strong> mucho menor que créditos de consumo o tarjetas de crédito.</li>
+          <li><strong>Plazos cómodos:</strong> hasta 15 años para pagar, con cuotas que se ajustan a tu presupuesto.</li>
+          <li><strong>Conservas tu liquidez:</strong> no gastas tus ahorros de golpe, mantienes tu fondo de emergencias intacto.</li>
+          <li><strong>Incremento del valor de tu inmueble:</strong> las remodelaciones bien hechas aumentan significativamente el valor comercial.</li>
+          <li><strong>Cuota fija en pesos:</strong> estabilidad financiera durante toda la vigencia del crédito.</li>
+          <li><strong>Prepagos sin penalización:</strong> paga más cuando puedas, sin costos adicionales.</li>
+          <li><strong>Funciona con hipoteca vigente:</strong> no necesitas tener tu casa libre de deudas.</li>
+          <li><strong>No afecta crédito en el exterior:</strong> solo se reporta en Colombia.</li>
+          <li><strong>Asesoría profesional incluida:</strong> te acompañamos en todo el proceso de solicitud y desembolso.</li>
         </ul>`
       },
       {
@@ -233,22 +242,22 @@ function getServiceContent(slug) {
         content: `<p class="mb-4">Para acceder al crédito de remodelación necesitas:</p>
         <h4 class="font-semibold text-lg mb-3">Sobre la propiedad</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Ser propietario de una vivienda en zona urbana de Colombia</li>
-          <li>La propiedad puede estar libre de gravámenes o tener hipoteca vigente</li>
-          <li>El inmueble debe tener un valor comercial que permita el porcentaje de financiación solicitado</li>
+          <li>Ser propietario de una vivienda en zona urbana de Colombia.</li>
+          <li>La propiedad puede estar libre de gravámenes o tener hipoteca vigente.</li>
+          <li>El inmueble debe tener un valor comercial que permita el porcentaje de financiación solicitado.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Perfil del solicitante</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Estatus migratorio legal y vigente si resides en el exterior</li>
-          <li>Antigüedad laboral mínima de 1-2 años</li>
-          <li>Ingresos estables y demostrables</li>
-          <li>Capacidad de pago para la nueva cuota (o cuota adicional si ya tienes hipoteca)</li>
+          <li>Estatus migratorio legal y vigente si resides en el exterior.</li>
+          <li>Antigüedad laboral mínima de 1-2 años.</li>
+          <li>Ingresos estables y demostrables.</li>
+          <li>Capacidad de pago para la nueva cuota (o cuota adicional si ya tienes hipoteca).</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Historial crediticio</h4>
         <ul class="list-disc list-inside space-y-2">
-          <li>Sin reportes negativos en Colombia</li>
-          <li>Buen comportamiento en obligaciones financieras actuales</li>
-          <li>Apoderado en Colombia para firmas y trámites notariales</li>
+          <li>Sin reportes negativos en Colombia.</li>
+          <li>Buen comportamiento en obligaciones financieras actuales.</li>
+          <li>Apoderado en Colombia para firmas y trámites notariales.</li>
         </ul>`
       },
       commonDocuments
@@ -259,26 +268,26 @@ function getServiceContent(slug) {
         icon: 'clipboard',
         content: `<p class="mb-4">La compra de cartera te permite trasladar tu crédito hipotecario actual a un banco con mejores condiciones, reduciendo tu cuota mensual y mejorando tu flujo de caja.</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Reducción de cuota:</strong> Hasta 30-40% menos en tu pago mensual según las condiciones del mercado</li>
-          <li><strong>Tasas más competitivas:</strong> Aprovecha las mejores tasas del mercado actual</li>
-          <li><strong>Sin penalizaciones:</strong> La Ley 546 de 1999 te permite cambiar de banco en cualquier momento</li>
-          <li><strong>Plazo flexible:</strong> Puedes mantener el plazo original o extenderlo para reducir aún más la cuota</li>
-          <li><strong>Misma garantía:</strong> Se mantiene la hipoteca sobre tu inmueble, solo cambia la entidad financiera</li>
-          <li><strong>Proceso ágil:</strong> En promedio toma 30-45 días completar el traslado</li>
+          <li><strong>Reducción de cuota:</strong> la reducción en tu cuota mensual depende de la tasa de interés vigente. <a href="/contacto" class="text-primary hover:underline font-medium">Contáctanos</a> para conocer las condiciones actuales.</li>
+          <li><strong>Tasas más competitivas:</strong> aprovecha las mejores tasas del mercado actual.</li>
+          <li><strong>Sin penalizaciones:</strong> la Ley 546 de 1999 te permite cambiar de banco en cualquier momento.</li>
+          <li><strong>Plazo flexible:</strong> puedes mantener el plazo original o extenderlo para reducir aún más la cuota.</li>
+          <li><strong>Misma garantía:</strong> se mantiene la hipoteca sobre tu inmueble, solo cambia la entidad financiera.</li>
+          <li><strong>Proceso ágil:</strong> en promedio toma 30-45 días completar el traslado.</li>
         </ul>
-        <p class="mt-4"><strong>¿Cuándo tiene sentido?</strong> Si las tasas actuales son al menos 1-2 puntos porcentuales más bajas que tu tasa actual, o si tus ingresos han mejorado y calificas para mejores condiciones.</p>`
+        <p class="mt-4"><strong>¿Cuándo tiene sentido?</strong> si las tasas actuales son al menos 1-2 puntos porcentuales más bajas que tu tasa actual, o si tus ingresos han mejorado y calificas para mejores condiciones.</p>`
       },
       {
         title: '¿Para quién es este servicio?',
         icon: 'users',
         content: `<p class="mb-4">La compra de cartera es perfecta para:</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Propietarios con hipoteca vigente</strong> que pagan tasas de interés altas</li>
-          <li><strong>Colombianos en el exterior</strong> cuyos ingresos han mejorado desde que adquirieron su crédito original</li>
-          <li><strong>Personas que buscan alivio financiero</strong> reduciendo su cuota mensual significativamente</li>
-          <li><strong>Deudores hipotecarios que quieren mejor servicio</strong> de su entidad financiera</li>
-          <li><strong>Quienes están al día con sus pagos</strong> y tienen buen historial crediticio</li>
-          <li><strong>Propietarios estratégicos</strong> que monitorean el mercado financiero para optimizar costos</li>
+          <li><strong>Propietarios con hipoteca vigente</strong> que pagan tasas de interés altas.</li>
+          <li><strong>Colombianos en el exterior</strong> cuyos ingresos han mejorado desde que adquirieron su crédito original.</li>
+          <li><strong>Personas que buscan alivio financiero</strong> reduciendo su cuota mensual significativamente.</li>
+          <li><strong>Deudores hipotecarios que quieren mejor servicio</strong> de su entidad financiera.</li>
+          <li><strong>Quienes están al día con sus pagos</strong> y tienen buen historial crediticio.</li>
+          <li><strong>Propietarios estratégicos</strong> que monitorean el mercado financiero para optimizar costos.</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>¿No sabes si te conviene? Realiza una proyección gratuita con nosotros y compara tu cuota actual vs. la nueva cuota.</em></p>`
       },
@@ -286,15 +295,15 @@ function getServiceContent(slug) {
         title: 'Beneficios de comprar tu cartera',
         icon: 'sparkles',
         content: `<ul class="list-disc list-inside space-y-2">
-          <li><strong>Ahorro inmediato:</strong> Reduce tu cuota mensual desde el primer pago en el nuevo banco</li>
-          <li><strong>Tasa de interés más baja:</strong> Accede a las tasas competitivas actuales del mercado</li>
-          <li><strong>Mejor flujo de caja:</strong> Libera dinero mensual para otras necesidades o inversiones</li>
-          <li><strong>Derecho legal:</strong> La Ley 546 de 1999 protege tu derecho a cambiar de banco cuando quieras</li>
-          <li><strong>Sin penalidades:</strong> No pagas multas por cancelar anticipadamente con tu banco actual</li>
-          <li><strong>Posible ampliación del plazo:</strong> Extiende el tiempo de pago si necesitas reducir aún más la cuota</li>
-          <li><strong>Mejora tu perfil crediticio:</strong> Menor endeudamiento mensual mejora tu capacidad de pago para futuros créditos</li>
-          <li><strong>Proyección gratuita:</strong> Calculamos tu nueva cuota antes de comprometerte</li>
-          <li><strong>Gestión completa:</strong> Nos encargamos de todo el papeleo entre bancos</li>
+          <li><strong>Ahorro inmediato:</strong> reduce tu cuota mensual desde el primer pago en el nuevo banco.</li>
+          <li><strong>Tasa de interés más baja:</strong> accede a las tasas competitivas actuales del mercado.</li>
+          <li><strong>Mejor flujo de caja:</strong> libera dinero mensual para otras necesidades o inversiones.</li>
+          <li><strong>Derecho legal:</strong> la Ley 546 de 1999 protege tu derecho a cambiar de banco cuando quieras.</li>
+          <li><strong>Sin penalidades:</strong> no pagas multas por cancelar anticipadamente con tu banco actual.</li>
+          <li><strong>Posible ampliación del plazo:</strong> extiende el tiempo de pago si necesitas reducir aún más la cuota.</li>
+          <li><strong>Mejora tu perfil crediticio:</strong> menor endeudamiento mensual mejora tu capacidad de pago para futuros créditos.</li>
+          <li><strong>Proyección gratuita:</strong> calculamos tu nueva cuota antes de comprometerte.</li>
+          <li><strong>Gestión completa:</strong> nos encargamos de todo el papeleo entre bancos.</li>
         </ul>`
       },
       {
@@ -303,24 +312,24 @@ function getServiceContent(slug) {
         content: `<p class="mb-4">Para trasladar tu crédito hipotecario a mejores condiciones necesitas:</p>
         <h4 class="font-semibold text-lg mb-3">Condiciones del crédito actual</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Tener un crédito hipotecario vigente en Colombia</li>
-          <li>Estar al día en tus pagos (sin cuotas en mora)</li>
-          <li>Que la tasa del nuevo banco sea al menos 1% más baja que tu tasa actual</li>
+          <li>Tener un crédito hipotecario vigente en Colombia.</li>
+          <li>Estar al día en tus pagos (sin cuotas en mora).</li>
+          <li>Que la tasa del nuevo banco sea al menos 1% más baja que tu tasa actual.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">Perfil del solicitante</h4>
         <ul class="list-disc list-inside space-y-2 mb-6">
-          <li>Buen historial de pagos en tu crédito actual (mínimo 6-12 meses)</li>
-          <li>Sin reportes negativos en centrales de riesgo</li>
-          <li>Ingresos estables y demostrables</li>
-          <li>Capacidad de pago para la nueva cuota</li>
+          <li>Buen historial de pagos en tu crédito actual (mínimo 6-12 meses).</li>
+          <li>Sin reportes negativos en centrales de riesgo.</li>
+          <li>Ingresos estables y demostrables.</li>
+          <li>Capacidad de pago para la nueva cuota.</li>
         </ul>
         <h4 class="font-semibold text-lg mb-3">El proceso</h4>
         <ol class="list-decimal list-inside space-y-2">
-          <li><strong>Proyección gratuita:</strong> Calculamos tu nueva cuota y el ahorro mensual</li>
-          <li><strong>Solicitud:</strong> Presentamos tu caso al nuevo banco</li>
-          <li><strong>Aprobación:</strong> El banco estudia y aprueba las nuevas condiciones</li>
-          <li><strong>Traslado:</strong> Se cancela el crédito anterior y se abre el nuevo</li>
-          <li><strong>Ahorro:</strong> Comienzas a pagar menos desde el siguiente mes</li>
+          <li><strong>Proyección gratuita:</strong> calculamos tu nueva cuota y el ahorro mensual.</li>
+          <li><strong>Solicitud:</strong> presentamos tu caso al nuevo banco.</li>
+          <li><strong>Aprobación:</strong> el banco estudia y aprueba las nuevas condiciones.</li>
+          <li><strong>Traslado:</strong> se cancela el crédito anterior y se abre el nuevo.</li>
+          <li><strong>Ahorro:</strong> comienzas a pagar menos desde el siguiente mes.</li>
         </ol>`
       },
       commonDocuments
@@ -331,27 +340,27 @@ function getServiceContent(slug) {
         icon: 'clipboard',
         content: `<p class="mb-4">ConTuRenta es tu aliado para cumplir con tus obligaciones tributarias en Colombia, sin importar dónde vivas. Te ayudamos a determinar si estás obligado a declarar renta y te conectamos con expertos contables certificados.</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Evaluación inicial gratuita:</strong> Determinamos si estás o no obligado a declarar renta en Colombia</li>
-          <li><strong>Conexión con expertos:</strong> Te ponemos en contacto con contadores certificados especializados en tributación internacional</li>
-          <li><strong>Declaración completa:</strong> Preparación y presentación de tu declaración de renta según normativa colombiana vigente</li>
-          <li><strong>Asesoría integral:</strong> Te explicamos tus obligaciones tributarias de forma clara y sencilla</li>
-          <li><strong>Atención desde el exterior:</strong> Todo el proceso se hace online, sin necesidad de viajar a Colombia</li>
-          <li><strong>Seguimiento completo:</strong> Hasta la confirmación de tu declaración ante la DIAN</li>
+          <li><strong>Evaluación inicial gratuita:</strong> determinamos si estás o no obligado a declarar renta en Colombia.</li>
+          <li><strong>Conexión con expertos:</strong> te ponemos en contacto con contadores certificados especializados en tributación internacional.</li>
+          <li><strong>Declaración completa:</strong> preparación y presentación de tu declaración de renta según normativa colombiana vigente.</li>
+          <li><strong>Asesoría integral:</strong> te explicamos tus obligaciones tributarias de forma clara y sencilla.</li>
+          <li><strong>Atención desde el exterior:</strong> todo el proceso se hace online, sin necesidad de viajar a Colombia.</li>
+          <li><strong>Seguimiento completo:</strong> hasta la confirmación de tu declaración ante la DIAN.</li>
         </ul>
-        <p class="mt-4"><strong>¿Por qué es importante?</strong> Declarar renta correctamente te permite solicitar créditos hipotecarios, evita sanciones de la DIAN y mantiene tu historial financiero limpio en Colombia.</p>`
+        <p class="mt-4"><strong>¿Por qué es importante?</strong> declarar renta correctamente te permite solicitar créditos hipotecarios, evita sanciones de la DIAN y mantiene tu historial financiero limpio en Colombia.</p>`
       },
       {
         title: '¿Quién debe declarar renta en Colombia?',
         icon: 'users',
         content: `<p class="mb-4">Este servicio es especialmente importante si:</p>
         <ul class="list-disc list-inside space-y-2">
-          <li><strong>Eres colombiano en el exterior</strong> y conservas ingresos o activos en Colombia</li>
-          <li><strong>Tienes propiedades en arriendo</strong> en Colombia que generan ingresos</li>
-          <li><strong>Realizaste ventas de activos</strong> (inmuebles, vehículos, acciones) en Colombia</li>
-          <li><strong>Tienes inversiones en Colombia</strong> que generan rendimientos financieros</li>
-          <li><strong>Cumples con topes de ingresos, patrimonio o consumos</strong> establecidos por la DIAN</li>
-          <li><strong>Planeas solicitar un crédito hipotecario</strong> en Colombia (la declaración de renta es un requisito)</li>
-          <li><strong>Quieres regularizar tu situación tributaria</strong> antes de regresar a Colombia</li>
+          <li><strong>Eres colombiano en el exterior</strong> y conservas ingresos o activos en Colombia.</li>
+          <li><strong>Tienes propiedades en arriendo</strong> en Colombia que generan ingresos.</li>
+          <li><strong>Realizaste ventas de activos</strong> (inmuebles, vehículos, acciones) en Colombia.</li>
+          <li><strong>Tienes inversiones en Colombia</strong> que generan rendimientos financieros.</li>
+          <li><strong>Cumples con topes de ingresos, patrimonio o consumos</strong> establecidos por la DIAN.</li>
+          <li><strong>Planeas solicitar un crédito hipotecario</strong> en Colombia (la declaración de renta es un requisito).</li>
+          <li><strong>Quieres regularizar tu situación tributaria</strong> antes de regresar a Colombia.</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>No estés seguro si debes declarar? Contáctanos para una evaluación gratuita de tu caso particular.</em></p>`
       },
@@ -359,15 +368,15 @@ function getServiceContent(slug) {
         title: 'Beneficios de declarar con ConTuRenta',
         icon: 'sparkles',
         content: `<ul class="list-disc list-inside space-y-2">
-          <li><strong>Cumplimiento legal:</strong> Evita sanciones, multas e intereses moratorios de la DIAN</li>
-          <li><strong>Requisito para créditos:</strong> La declaración de renta es obligatoria para solicitar créditos hipotecarios en Colombia</li>
-          <li><strong>Historial financiero limpio:</strong> Mantén tu perfil crediticio en óptimas condiciones</li>
-          <li><strong>Asesoría especializada:</strong> Contadores expertos en tributación internacional y residentes en el exterior</li>
-          <li><strong>Proceso 100% digital:</strong> Todo se hace online, sin necesidad de viajar a Colombia</li>
-          <li><strong>Máximas deducciones:</strong> Aprovechamos todas las deducciones y beneficios a los que tienes derecho</li>
-          <li><strong>Tranquilidad:</strong> Duerme tranquilo sabiendo que cumples con tus obligaciones tributarias</li>
-          <li><strong>Ahorro de tiempo:</strong> Nos encargamos de todo el papeleo y trámites ante la DIAN</li>
-          <li><strong>Precios transparentes:</strong> Costos claros sin sorpresas</li>
+          <li><strong>Cumplimiento legal:</strong> evita sanciones, multas e intereses moratorios de la DIAN.</li>
+          <li><strong>Requisito para créditos:</strong> la declaración de renta es obligatoria para solicitar créditos hipotecarios en Colombia.</li>
+          <li><strong>Historial financiero limpio:</strong> mantén tu perfil crediticio en óptimas condiciones.</li>
+          <li><strong>Asesoría especializada:</strong> contadores expertos en tributación internacional y residentes en el exterior.</li>
+          <li><strong>Proceso 100 % digital:</strong> todo se hace online, sin necesidad de viajar a Colombia.</li>
+          <li><strong>Máximas deducciones:</strong> aprovechamos todas las deducciones y beneficios a los que tienes derecho.</li>
+          <li><strong>Tranquilidad:</strong> duerme tranquilo sabiendo que cumples con tus obligaciones tributarias.</li>
+          <li><strong>Ahorro de tiempo:</strong> nos encargamos de todo el papeleo y trámites ante la DIAN.</li>
+          <li><strong>Precios transparentes:</strong> costos claros sin sorpresas.</li>
         </ul>`
       },
       {
@@ -375,24 +384,24 @@ function getServiceContent(slug) {
         icon: 'check',
         content: `<h4 class="font-semibold text-lg mb-3">¿Cómo funciona el proceso?</h4>
         <ol class="list-decimal list-inside space-y-2 mb-6">
-          <li><strong>Evaluación inicial:</strong> Revisamos tu caso y determinamos si estás obligado a declarar</li>
-          <li><strong>Cotización:</strong> Te informamos el costo del servicio según la complejidad de tu declaración</li>
-          <li><strong>Recolección de documentos:</strong> Te indicamos qué documentos necesitamos</li>
-          <li><strong>Preparación:</strong> Nuestros contadores elaboran tu declaración de renta</li>
-          <li><strong>Revisión:</strong> Te mostramos la declaración antes de presentarla para tu aprobación</li>
-          <li><strong>Presentación:</strong> Radicamos ante la DIAN en las fechas establecidas</li>
-          <li><strong>Seguimiento:</strong> Te entregamos copia de la declaración y soportes</li>
+          <li><strong>Evaluación inicial:</strong> revisamos tu caso y determinamos si estás obligado a declarar.</li>
+          <li><strong>Cotización:</strong> te informamos el costo del servicio según la complejidad de tu declaración.</li>
+          <li><strong>Recolección de documentos:</strong> te indicamos qué documentos necesitamos.</li>
+          <li><strong>Preparación:</strong> nuestros contadores elaboran tu declaración de renta.</li>
+          <li><strong>Revisión:</strong> te mostramos la declaración antes de presentarla para tu aprobación.</li>
+          <li><strong>Presentación:</strong> radicamos ante la DIAN en las fechas establecidas.</li>
+          <li><strong>Seguimiento:</strong> te entregamos copia de la declaración y soportes.</li>
         </ol>
         <h4 class="font-semibold text-lg mb-3">Documentos generalmente requeridos</h4>
         <ul class="list-disc list-inside space-y-2">
-          <li>Cédula de ciudadanía colombiana</li>
-          <li>Certificados de ingresos del año fiscal a declarar</li>
-          <li>Certificados bancarios (cuentas de ahorro, CDTs, inversiones)</li>
-          <li>Certificados de aportes a pensión y salud</li>
-          <li>Soportes de propiedades en Colombia (certificados de tradición, impuesto predial)</li>
-          <li>Contratos de arrendamiento si tienes inmuebles en arriendo</li>
-          <li>Facturas de compra/venta de activos si aplica</li>
-          <li>Declaración del año anterior (si aplica)</li>
+          <li>Cédula de ciudadanía colombiana.</li>
+          <li>Certificados de ingresos del año fiscal a declarar.</li>
+          <li>Certificados bancarios (cuentas de ahorro, CDTs, inversiones).</li>
+          <li>Certificados de aportes a pensión y salud.</li>
+          <li>Soportes de propiedades en Colombia (certificados de tradición, impuesto predial).</li>
+          <li>Contratos de arrendamiento si tienes inmuebles en arriendo.</li>
+          <li>Facturas de compra/venta de activos si aplica.</li>
+          <li>Declaración del año anterior (si aplica).</li>
         </ul>
         <p class="mt-4 text-sm text-gray-600"><em>Nota: Los documentos específicos varían según tu situación particular. Te indicaremos exactamente qué necesitas después de la evaluación inicial.</em></p>`
       }
@@ -444,7 +453,12 @@ const handleSolicitarServicio = () => {
 </script>
 
 <template>
-  <div v-if="currentService">
+  <div>
+    <!-- Skeleton durante carga -->
+    <SkeletonServicePage v-if="isLoading" />
+
+    <!-- Contenido real -->
+    <template v-else-if="currentService">
     <!-- Hero del servicio -->
     <HeroSection
       badge="Servicios financieros"
@@ -547,11 +561,12 @@ const handleSolicitarServicio = () => {
 
     <!-- CTA Final -->
     <CTASection
-      title="Tu hogar en Colombia te esta esperando"
-      description="Da el primer paso hacia tu inversion inmobiliaria. Nuestro equipo esta listo para asesorarte sin costo ni compromiso."
-      :primary-cta="{ text: 'Simular mi credito', to: '/simulador/credito' }"
+      title="Tu hogar en Colombia te está esperando"
+      description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
+      :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
       :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
-      :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+      :benefits="['Sin costo inicial', 'Respuesta en 24 h', 'Proceso 100 % remoto']"
     />
+    </template>
   </div>
 </template>

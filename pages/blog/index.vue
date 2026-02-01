@@ -1,4 +1,6 @@
 <script setup>
+const { isLoading } = useLoading(150)
+
 const title = `Blog | ConTuHogar`;
 const description = "Explora artículos sobre inversión inmobiliaria, crédito hipotecario, leasing habitacional y consejos para colombianos en el exterior que desean comprar vivienda en Colombia."
 
@@ -189,37 +191,63 @@ const hasNoResults = computed(() => {
 <template>
   <div>
     <!-- Hero Section -->
+    <SkeletonHeroSection v-if="isLoading" variant="primary" show-badge />
     <HeroSection
-      badge="Más de 3,000 colombianos confían en nosotros"
+      v-else
+      badge="Más de 3.000 colombianos confían en nosotros"
       badge-icon
       title="Explora. Infórmate. Invierte con seguridad."
       subtitle="En nuestro blog encontrarás contenido útil, claro y actualizado sobre todo lo que necesitas saber para invertir con confianza en finca raíz desde cualquier lugar del mundo."
     />
 
-    <!-- Categorías y Buscador -->
-    <CategoryPills
-      v-model="selectedCategory"
-      v-model:searchQuery="searchQuery"
-      v-model:hasNoResults="hasNoResults"
-      :categories="categories"
-      :show-search="true"
-      search-placeholder="Buscar artículos..."
-      @no-results-click="$router.push('/contacto')"
-    />
+    <!-- Categorías y Buscador (skeleton incluido dentro del componente si es necesario) -->
+    <template v-if="!isLoading">
+      <CategoryPills
+        v-model="selectedCategory"
+        v-model:searchQuery="searchQuery"
+        v-model:hasNoResults="hasNoResults"
+        :categories="categories"
+        :show-search="true"
+        search-placeholder="Buscar artículos..."
+        @no-results-click="$router.push('/contacto')"
+      />
+    </template>
 
     <!-- Contenido principal -->
     <div class="bg-muted py-16">
       <div class="mx-auto container px-6 lg:px-8">
-        <!-- Artículo destacado -->
-        <div v-if="featuredArticle && selectedCategory === 'all' && searchQuery.trim().length < minSearchLength" class="mb-16">
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Artículo destacado</h2>
+        <!-- Skeleton state -->
+        <template v-if="isLoading">
+          <!-- Skeleton articulo destacado -->
+          <div class="mb-16">
+            <div class="mb-6">
+              <div class="h-8 w-48 skeleton-shimmer rounded" />
+            </div>
+            <SkeletonBlogCard :featured="true" />
           </div>
-          <BlogCard :article="featuredArticle" :featured="true" />
-        </div>
 
-        <!-- Grid de artículos -->
-        <div v-if="paginatedArticles.length > 0" class="blog-grid">
+          <!-- Skeleton grid -->
+          <div class="mb-6 flex items-center justify-between">
+            <div class="h-8 w-36 skeleton-shimmer rounded" />
+            <div class="h-4 w-20 skeleton-shimmer rounded" />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <SkeletonBlogCard v-for="i in 6" :key="i" />
+          </div>
+        </template>
+
+        <!-- Contenido real -->
+        <template v-else>
+          <!-- Artículo destacado -->
+          <div v-if="featuredArticle && selectedCategory === 'all' && searchQuery.trim().length < minSearchLength" class="mb-16">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900">Artículo destacado</h2>
+            </div>
+            <BlogCard :article="featuredArticle" :featured="true" />
+          </div>
+
+          <!-- Grid de artículos -->
+          <div v-if="paginatedArticles.length > 0" class="blog-grid">
           <div class="mb-6 flex items-center justify-between">
             <h2 class="text-2xl font-bold text-gray-900">
               {{ selectedCategory === 'all' && searchQuery.trim().length < minSearchLength ? 'Más artículos' : 'Artículos' }}
@@ -299,6 +327,7 @@ const hasNoResults = computed(() => {
             Ver todos los artículos
           </button>
         </div>
+        </template>
       </div>
     </div>
 
@@ -311,7 +340,7 @@ const hasNoResults = computed(() => {
       description="Da el primer paso hacia tu inversión inmobiliaria. Nuestro equipo está listo para asesorarte sin costo ni compromiso."
       :primary-cta="{ text: 'Simular mi crédito', to: '/simulador/credito' }"
       :secondary-cta="{ text: 'Hablar con un ejecutivo de crédito', to: '/contacto' }"
-      :benefits="['Sin costo inicial', 'Respuesta en 24h', 'Proceso 100% remoto']"
+      :benefits="['Sin costo inicial', 'Respuesta en 24 h', 'Proceso 100 % remoto']"
     />
   </div>
 </template>

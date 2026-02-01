@@ -1,4 +1,6 @@
 <script setup>
+const { isLoading } = useLoading(150)
+
 definePageMeta({
   layout: 'simulador'
 })
@@ -16,6 +18,10 @@ useSeoMeta({
 
 <template>
   <div>
-    <SimuladorWizard />
+    <!-- Skeleton durante carga -->
+    <SkeletonSimulador v-if="isLoading" />
+
+    <!-- Contenido real -->
+    <SimuladorWizard v-else />
   </div>
 </template>
