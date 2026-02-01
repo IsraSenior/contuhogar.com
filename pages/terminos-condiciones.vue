@@ -1,544 +1,358 @@
-<script setup>
-const title = `Términos y Condiciones | ConTuHogar`;
-const description = "Lee los términos y condiciones de uso de los servicios de asesoría financiera e inmobiliaria de ConTuHogar. Conoce tus derechos y obligaciones."
+<script setup lang="ts">
+/**
+ * Terminos y Condiciones - Pagina legal con diseno moderno tipo Stripe/Notion
+ * Contenido simplificado y accesible
+ */
 
-// SEO optimizado
+const title = 'Terminos y Condiciones | ConTuHogar'
+const description = 'Lee los terminos y condiciones de uso de los servicios de asesoria financiera e inmobiliaria de ConTuHogar. Conoce tus derechos y obligaciones.'
+
 useSeo({
-    title: title,
-    description: description,
-    type: 'website'
+  title,
+  description,
+  type: 'website'
 })
+
+const { isLoading } = useLoading(150)
+
+// Definicion de secciones para el sidebar
+const sections = [
+  { id: 'introduccion', title: 'Introduccion', icon: 'heroicons:information-circle' },
+  { id: 'definiciones', title: 'Definiciones clave', icon: 'heroicons:book-open' },
+  { id: 'uso-servicio', title: 'Uso del servicio', icon: 'heroicons:cursor-arrow-rays' },
+  { id: 'tus-derechos', title: 'Tus derechos', icon: 'heroicons:shield-check' },
+  { id: 'nuestras-obligaciones', title: 'Nuestras obligaciones', icon: 'heroicons:clipboard-document-check' },
+  { id: 'tratamiento-datos', title: 'Tratamiento de datos', icon: 'heroicons:lock-closed' },
+  { id: 'limitaciones', title: 'Limitaciones', icon: 'heroicons:scale' },
+  { id: 'contacto', title: 'Contacto', icon: 'heroicons:envelope' }
+]
 </script>
 
 <template>
-    <div class="bg-muted px-6 py-32 lg:px-8">
-        <div class="mx-auto container px-6 lg:px-8 text-base/7 text-gray-500">
-            <p class="text-base/7 font-semibold text-secondary">Legal</p>
-            <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-primary sm:text-5xl">Términos y
-                condiciones</h1>
-            <div class="space-y-6 text-xl/8 mt-16">
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">1. OBJETIVO</h2>
-                <p>Establecer los principios y parámetros que se aplican en CONTUHOGAR S.A.S. para
-                    el Tratamiento de Datos Personales de los Titulares de los mismos, tales como
-                    clientes, proveedores y empleados; de acuerdo con lo previsto en la Ley 1581 del 17
-                    de octubre de 2012 y en las normas que la modifiquen, adicionen o complementen.</p>
-
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">2. ALCANCE</h2>
-                <p>El alcance de este documento contempla las directrices principales y los mecanismos
-                    a utilizar para el manejo de información de clientes, colaboradores y proveedores de
-                    CONTUHOGAR S.A.S.</p>
-
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">3. DEFINICIONES</h2>
-                <p><b>Autorización:</b> consentimiento previo, expreso e informado del Titular para llevar a
-                    cabo el Tratamiento de Datos Personales. El consentimiento puede otorgarse por
-                    escrito, de forma oral o mediante conductas inequívocas del Titular que permitan
-                    concluir que otorgó la autorización.</p>
-
-                <p><b>Base de Datos:</b> conjunto organizado de datos personales que sea objeto de
-                    Tratamiento (ej. Base de Datos de clientes, entre otras).</p>
-
-                <p><b>Causahabiente:</b> persona que ha sucedido a otra por causa del fallecimiento de ésta (heredero).
-                </p>
-                <p><b>Dato personal:</b> cualquier información vinculada o que pueda asociarse a una o varias
-                    personas naturales determinadas o determinables.</p>
-                <p><b>Dato Público:</b> dato que no sea semiprivado, privado o sensible, que puede ser
-                    tratado por cualquier persona, sin necesidad de autorización para ello. Son públicos,
-                    entre otros, los datos contenidos en el registro civil de las personas (p.ej. si se es
-                    soltero o casado, hombre o mujer) y aquellos contenidos en documentos públicos
-                    (p.ej. contenidos en Escrituras Públicas), en registros públicos (p.ej. el registro de
-                    antecedentes disciplinarios de la Procuraduría), en gacetas y boletines oficiales y en
-                    sentencias judiciales ejecutoriadas que no estén sometidas a reserva.</p>
-                <p><b>Dato Sensible:</b> son aquellos que afectan la intimidad del Titular o cuyo uso indebido
-                    puede generar tu discriminación, tales como aquellos que revelen el origen racial o
-                    étnico, la orientación política, las convicciones religiosas o filosóficas, la pertenencia a
-                    sindicatos, organizaciones sociales, de derechos humanos o que promueva intereses
-                    de cualquier partido político o que garanticen los derechos y garantías de partidos
-                    políticos de oposición así como los datos relativos a la salud, a la vida sexual y los
-                    datos biométricos.</p>
-
-                <p><b>Encargado del Tratamiento:</b> persona natural o jurídica, pública o privada, que por sí
-                    misma o en asocio con otros, realice el Tratamiento de datos personales por cuenta
-                    del Responsable del Tratamiento.</p>
-
-                <p><b>Habeas Data:</b> derecho de cualquier persona a conocer, actualizar y rectificar las
-                    informaciones que se hayan recogido sobre ellas en bancos de datos y en archivos de
-                    entidades públicas y privadas.</p>
-
-                <p><b>Ley de Protección de Datos Personales:</b> es la Ley 1581 de 2012 (Ley de Protección
-                    de Datos Personales) y tus Decretos Reglamentarios o las normas que los
-                    modifiquen, complementen o sustituyan, en adelante &quot;Ley de Protección de Datos&quot;.</p>
-
-                <p><b>Responsable del Tratamiento:</b> persona natural o jurídica, pública o privada, que por
-                    sí misma o en asocio con otros, decida sobre la base de datos y/o el Tratamiento de
-                    los datos.</p>
-
-                <p><b>Titular:</b> persona natural cuyos datos personales sean objeto de Tratamiento.</p>
-
-                <p><b>Tratamiento:</b> cualquier operación o conjunto de operaciones sobre datos personales,
-                    tales como la recolección, almacenamiento, uso, circulación o supresión.</p>
-
-
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">4. PRÓLOGO</h2>
-                <p>PRÓLOGO CONTUHOGAR S.A.S, (en adelante “CONTUHOGAR”), recopila, trata y
-                    almacena información personal a través de la web de tu
-                    propiedad: https://www.contuhogar.com/. diferentes redes sociales como lo es
-                    Facebook, Instagram, YouTube, WhatsApp, etc., y formatos impresos, digitales,
-                    visuales, sonoros o de cualquier otra tecnología. La información se recopilará, tratará
-                    y almacenará conforme a la presente Política de Privacidad la cual fue actualizada el
-                    28 de octubre de 2017.</p>
-
-                <p>Derechos de los Titulares de los datos.</p>
-
-
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">5. RESPONSABLES</h2>
-                <p>El Representante Legal es la persona registrada ante la Superintendencia de Industria
-                    y Comercio para el Registro Nacional de Bases de Datos – RNBD –: Myriam Caicedo
-                    de Pérez, calle 81 # 11-68, ofc. 304 de Bogotá D. C., gerencia@contuhogar.net,
-                    teléfono 8053353.</p>
-
-                <p>El director de operaciones es el responsable de recopilar, actualizar, divulgar,
-                    implementar y evaluar el cumplimiento de la Legislación aplicable y el presente
-                    documento. También es el responsable por el tratamiento de los datos y el recibo,
-                    gestión y respuesta de las solicitudes y reclamos asociados con el tratamiento de
-                    datos personales.</p>
-
-                <p>El contador es el responsable por el tratamiento de la información que se almacena en
-                    el sistema contable que contiene la base de datos correspondiente.</p>
-
-                <p>El director de gestión humana es el responsable por recopilar y actualizar los
-                    documentos relacionados con los colaboradores para el cumplimiento de las normas
-                    que aplican al tratamiento de datos personales y el presente documento.</p>
-
-
-                <h2 class="text-3xl font-semibold tracking-tight text-pretty text-primary mt-16">6. PROCEDIMIENTO</h2>
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6. 1. Principios que observa
-                    CONTUHOGAR S.A.S. para el tratamiento
-                    de datos personales.</h3>
-
-
-                <p><b>Legalidad:</b> El Tratamiento debe sujetarse a lo establecido en la Ley.</p>
-
-                <p><b>Finalidad</b>:La finalidad del Tratamiento debe ser legítima, e informada al titular.</p>
-
-                <p><b>Debido cuidado</b>:Los datos personales son información importante para el negocio
-                    de CONTUHOGAR S.A.S. y deben ser recolectados, manipulados y protegidos con el
-                    debido cuidado.</p>
-
-                <p><b>Límite razonable</b>:Se limitará el almacenamiento y procesamiento de datos
-                    personales a lo que es esencialmente necesario para cumplir los propósitos
-                    previamente especificados de la relación comercial, laboral, de negocios, así como el
-                    cumplimiento de los fines autorizados por el Titular.
-                </p>
-
-                <p><b>Libertad</b>:El dato puede ser tratado sólo con el consentimiento previo, expreso e
-                    informado del titular o por mandato legal o judicial.</p>
-
-                <p><b>Veracidad o calidad</b>:la información debe ser veraz, completa, exacta, actualizada,
-                    comprobable y comprensible.</p>
-
-                <p><b>Transparencia</b>:debe garantizarse el derecho del Titular a obtener información sobre
-                    tus datos en cualquier momento y sin restricciones.</p>
-
-                <p><b>Acceso y circulación restringida</b>:el Tratamiento sólo podrá hacerse por personas
-                    autorizadas por el Titular o por las personas previstas en la Ley.
-                </p>
-
-                <p><b>Seguridad</b>:la información debe manejarse con las medidas necesarias para otorgar
-                    seguridad a los registros y evitar tu adulteración, pérdida, consulta, uso o acceso no
-                    autorizado o fraudulento.
-                </p>
-                <p><b>Confidencialidad</b>:la información debe ser tratada con la máxima reserva, incluso
-                    después de finalizada la relación comercial, laboral o de negocios, y sólo podrá ser
-                    suministrada a terceros cuando exista autorización expresa del Titular o por mandato
-                    legal o judicial.</p>
-                <p><b>Confidencialidad</b>:los datos personales que no tengan la naturaleza de públicos son
-                    reservados y sólo se pueden suministrar en los términos de la Ley.</p>
-                <p><b>Ámbito de
-                        aplicación</b>:los principios de Protección de Datos son tenidos en cuenta
-                    en todos los procesos y procedimientos de CONTUHOGAR S.A.S. que involucren
-                    clientes, colaboradores y proveedores nacionales.</p>
-
-                <p><b>El Titular de los Datos Personales tiene derecho a:</b></p>
-
-                <p>Conocer, actualizar y rectificar tus datos personales frente a los Responsables del
-                    Tratamiento o Encargados del Tratamiento. Este derecho se podrá ejercer, entre
-                    otros frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a
-                    error, o aquellos cuyo Tratamiento esté expresamente prohibido o no haya sido
-                    autorizado.</p>
-                <p>Solicitar prueba de la autorización otorgada al Responsable del Tratamiento salvo
-                    cuando expresamente se exceptúe como requisito para el Tratamiento o así lo
-                    establezcan las normas aplicables.</p>
-                <p>Ser informado por el Responsable del Tratamiento o el Encargado del Tratamiento,
-                    previa solicitud, respecto del uso que le ha dado a tus datos personales.</p>
-                <p>Presentar ante la Superintendencia de Industria y Comercio quejas por infracciones a
-                    la Ley de Protección de Datos o aquellas que la modifiquen, adicionen o
-                    complementen.</p>
-                <p>Revocar la autorización y/o solicitar la supresión del dato cuando: (i) En el Tratamiento
-                    no se respeten los principios, derechos y garantías constitucionales y legales, siempre
-                    que la Superintendencia de Industria y Comercio haya determinado que en el
-                    Tratamiento el Responsable o Encargado han incurrido en conductas contrarias al
-                    ordenamiento; y/o (ii) Así lo solicite voluntariamente, salvo que exista obligación legal
-                    o contractual que le imponga el deber de permanecer en la base de datos.</p>
-
-                <p>Acceder en forma gratuita a tus datos personales que hayan sido objeto de
-                    Tratamiento.</p>
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.2. Deberes de CONTUHOGAR
-                    S.A.S. cuando actúe como responsable
-                    del tratamiento de datos.</h3>
-
-                <p>Cuando CONTUHOGAR S.A.S. actúe como responsable del Tratamiento de datos
-                    velará por el cumplimiento de:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>Garantizar al Titular, en todo tiempo, el pleno y efectivo ejercicio del derecho de
-                        habeas data.</li>
-                    <li>Solicitar la Autorización al Titular informándole:
-                        <br>
-                        <ul class="list-disc list-inside pl-5">
-                            <li>El Tratamiento al cual serán sometidos tus datos personales y la finalidad del
-                                mismo.</li>
-                            <li>El carácter facultativo de la respuesta a las preguntas que le sean hechas,
-                                cuando estas versen sobre datos sensibles o sobre los datos de las niñas,
-                                niños y adolescentes.</li>
-                            <li>Los derechos que le asisten como Titular.</li>
-                            <li>La identificación, dirección física o electrónica y teléfono del Responsable del
-                                Tratamiento.</li>
-                        </ul>
-                    </li>
-                    <li>Conservar copia de la Autorización otorgada por el Titular.</li>
-                    <li>Entregar copia de la Autorización cuando el Titular o quien esté autorizado la
-                        solicite.</li>
-                    <li>Informar al Titular sobre la finalidad de la recolección y los derechos que le
-                        asisten con ocasión de tu Autorización.</li>
-                    <li>Conservar la información bajo las condiciones de seguridad necesarias para
-                        impedir tu adulteración, pérdida, consulta, uso o acceso no autorizado o
-                        fraudulento.</li>
-                    <li>Garantizar que la información que se suministre al Encargado del Tratamiento
-                        sea veraz, completa, exacta, actualizada, comprobable y comprensible.</li>
-                    <li>Actualizar la información, comunicando de forma oportuna al Encargado del
-                        Tratamiento, las novedades respecto de los Datos que previamente le haya
-                        suministrado y adoptar las medidas para que la información suministrada a
-                        éste se mantenga actualizada.</li>
-                    <li>Rectificar la información cuando sea incorrecta y comunicar lo pertinente al
-                        Encargado del Tratamiento.</li>
-                    <li>Suministrar al Encargado del Tratamiento, únicamente Datos cuyo Tratamiento
-                        esté previamente autorizado.</li>
-                    <li>Exigir al Encargado del Tratamiento el respeto a las condiciones de seguridad
-                        y privacidad de la información del Titular.</li>
-                    <li>Tramitar las consultas y reclamos formulados.</li>
-                    <li>Informar al Encargado del Tratamiento cuando determinada información se
-                        encuentra en discusión por parte del Titular, una vez se haya presentado la
-                        reclamación y no haya finalizado el trámite respectivo.</li>
-                    <li>Informar a solicitud del Titular sobre el uso dado a tus datos.</li>
-                    <li>Cumplir las instrucciones y requerimientos de la Superintendencia de Industria
-                        y Comercio.</li>
-                </ol>
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.3. Deberes de CONTUHOGAR
-                    S.A.S. cuando actúe como encargado
-                    del tratamiento.</h3>
-
-                <p>Cuando CONTUHOGAR S.A.S. actúe como Encargado del Tratamiento velará por el
-                    cumplimiento de:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>Garantizar al Titular, en todo tiempo, el pleno y efectivo ejercicio del derecho de
-                        habeas data.</li>
-                    <li>Conservar la información bajo las condiciones de seguridad necesarias para
-                        impedir tu adulteración, pérdida, consulta, uso o acceso no autorizado o
-                        fraudulento.</li>
-                    <li>Realizar oportunamente la actualización, rectificación o supresión de los datos.</li>
-                    <li>Actualizar la información reportada por los Responsables del Tratamiento
-                        dentro de los cinco (5) días hábiles contados a partir de tu recibo.</li>
-                    <li>Tramitar las consultas y los reclamos formulados por los Titulares.</li>
-                    <li>Mediante el presente documento CONTUHOGAR S.A.S. cuenta con un manual
-                        interno de políticas y procedimientos para garantizar el adecuado cumplimiento
-                        la Ley de Protección de Datos y, en especial, para la atención de consultas y
-                        reclamos por parte de los Titulares.</li>
-
-                    <li>Abstenerse de circular información que esté siendo controvertida por el Titular
-                        y cuyo bloqueo haya sido ordenado por la Superintendencia de Industria y
-                        Comercio.</li>
-                    <li>Permitir el acceso a la información únicamente a las personas que pueden
-                        tener acceso a ella.</li>
-                    <li>Cumplir las instrucciones y requerimientos que imparta la Superintendencia de
-                        Industria y Comercio.</li>
-                </ol>
-
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.4. Quiénes pueden acceder a
-                    la información del Titular.</h3>
-
-                <p>CONTUHOGAR S.A.S. entregará la información sobre los Datos del Titular a las
-                    siguientes personas, siempre que acrediten tu calidad:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>Los Titulares, tus causahabientes, tus representantes legales o apoderados.</li>
-                    <li>Las entidades públicas o administrativas en ejercicio de tus funciones legales
-                        o por orden judicial.</li>
-                    <li>Los terceros autorizados por el Titular o por la Ley.</li>
-                    <li>Quien haya estipulado a favor o para el Titular.</li>
-                </ol>
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.5. Procedimiento y canales
-                    existentes para la atención de
-                    solicitudes, consultas y reclamos.</h3>
-
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">
-                    6.5.1 Procedimiento para la atención de solicitudes y consultas
-                    relacionadas con el Tratamiento de Datos Personales.
-                </h3>
-
-                <p>
-                    Mediante este procedimiento el Titular o quien esté autorizado podrá formular
-                    solicitudes y consultas para:
-                </p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>Conocer la información personal del Titular que repose en CONTUHOGAR
-                        S.A.S.</li>
-                    <li>Solicitar copia de la autorización otorgada por el Titular a CONTUHOGAR
-                        S.A.S. para tratar tus Datos Personales.</li>
-                </ol>
-
-                <p>El procedimiento para la atención de las consultas sobre los datos personales del
-                    Titular es el siguiente:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>El Titular o quien esté autorizado para ello, podrá formular consultas a
-                        CONTUHOGAR S.A.S. sobre la información personal del Titular a través de los
-                        siguientes mecanismos:
-                        <br>
-
-                        <ul class="list-disc list-inside pl-5">
-                            <li>Línea telefónica de CONTUHOGAR S.A.S. en Bogotá D.C. 8053353</li>
-                            <li>Requerimiento escrito en la Calle 81 # 11-68 Oficina 304 de Bogotá D.C.</li>
-                            <li>Correo electrónico a la dirección; <a
-                                    href="mailto:directorcomercial@contuhogar.net">directorcomercial@contuhogar.net</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>La consulta será atendida en un término máximo de diez (10) días hábiles
-                        contados a partir de la fecha de recibo de esta.</li>
-                    <li>Cuando no fuere posible atender la consulta dentro del término antes indicado,
-                        CONTUHOGAR S.A.S. lo informará al interesado, expresando los motivos y
-                        señalando la fecha en que se atenderá tu consulta, a más tardar dentro de los
-                        cinco (5) días hábiles siguientes al vencimiento del primer término.</li>
-                </ol>
-
-                <p>Los términos antes mencionados pueden variar en caso de que se emitan leyes o
-                    reglamentos que establezcan términos inferiores, de acuerdo con la naturaleza el dato
-                    personal.</p>
-
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.5.2. Procedimiento para la
-                    atención de reclamos
-                    relacionados con el Tratamiento de Datos Personales.</h3>
-
-                <p>Mediante este procedimiento el Titular o quien esté autorizado podrá formular
-                    reclamaciones para:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>Actualizar, modificar, rectificar o suprimir los datos del Titular.</li>
-                    <li>Revocar la Autorización del Titular para el Tratamiento de Datos.</li>
-                    <li>Presentar un reclamo cuando considere que existe un presunto incumplimiento
-                        de los deberes de CONTUHOGAR S.A.S. relacionado con el Tratamiento de
-                        Datos Personales, de acuerdo con lo previsto en estas Políticas o en la Ley de
-                        Protección de Datos Personales y las normas que la complementen o
-                        modifiquen.</li>
-                </ol>
-
-                <p>El Titular podrá revocar la autorización y solicitar la supresión de tus datos cuando:</p>
-                <ol class="list-decimal list-inside pl-5">
-                    <li>No se respeten los principios, derechos y garantías constitucionales y legales,
-                        siempre y cuando la Superintendencia de Industria y Comercio haya
-                        determinado que en el Tratamiento el Responsable o Encargado han incurrido
-                        en conductas contrarias al ordenamiento.</li>
-                    <li>En virtud de la solicitud libre y voluntaria del Titular del dato, cuando no exista
-                        una obligación legal o contractual que imponga al Titular el deber de
-                        permanecer en la base de datos.</li>
-                </ol>
-
-                <p>Lo anterior, sin perjuicio de las normas que CONTUHOGAR S.A.S. debe cumplir en
-                    materia de retención documental. En consecuencia, CONTUHOGAR S.A.S. suprimirá
-                    los datos o suspenderá tu uso cuando a ello haya lugar, respetando las normas sobre
-                    conservación documental que le son aplicables.</p>
-
-                <p>El procedimiento para la atención de los reclamos sobre los datos personales del
-                    Titular es el siguiente:</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>El Titular o quien esté autorizado para ello, podrán formular reclamos cuando:
-                        <br>
-                        <ul class="list-disc list-inside pl-5">
-                            <li>Considere que la información del Titular contenida en una base de datos debe
-                                ser objeto de corrección, actualización o supresión.</li>
-                            <li>Advierta el presunto incumplimiento de cualquiera de los deberes contenidos
-                                en la Ley de Protección de Datos.</li>
-                            <li>Revoque la autorización para el Tratamiento del Titular.</li>
-                        </ul>
-                    </li>
-                </ol>
-
-                <p>El interesado (El Titular o quien esté autorizado para ello) podrá formular el reclamo a
-                    través de los canales mencionados en el punto 7.1.</p>
-
-                <ol class="list-decimal list-inside pl-5">
-                    <li>El reclamo del interesado debe contener: la identificación del Titular (nombres y
-                        apellidos, tipo y número de documento de identidad, dirección y teléfono de
-                        contacto y el e-mail (opcional)), la descripción de los hechos que dan lugar al
-                        reclamo, los documentos que soporten tu reclamación.  En caso de no contar
-                        con la anterior información, se entenderá que el reclamo no se encuentra
-                        completo.</li>
-                    <li>Si el reclamo está incompleto, CONTUHOGAR S.A.S. solicitará al interesado
-                        subsanar las fallas o remitir la información o documentación que se requiera
-                        dentro de los diez (10) días hábiles siguientes a la recepción del reclamo.
-                        Transcurridos dos (2) meses desde la fecha del requerimiento, sin que el
-                        solicitante presente la información requerida, se entenderá que ha desistido del
-                        reclamo.</li>
-                    <li>CONTUHOGAR S.A.S. atenderá el reclamo en un término máximo de quince
-                        (15) días hábiles contados a partir del día siguiente a la fecha de tu recibo.</li>
-                    <li>Cuando no fuere posible atender el reclamo dentro del término antes
-                        mencionado, el (las) área(s) responsables de dar respuesta al interior de
-                        CONTUHOGAR S.A.S., informará(n) al interesado con copia al director
-                        administrativo los motivos de la demora y la fecha en que se atenderá tu
-                        reclamo, la cual no podrá superar los diez (10) días hábiles siguientes al
-                        vencimiento del primer término.</li>
-                </ol>
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.5.3. Área responsable de la
-                    atención de solicitudes,
-                    consultas y reclamos.</h3>
-
-                <p>La dirección operaciones de CONTUHOGAR S.A.S. es la encargada de recibir las
-                    peticiones, consultas y reclamos del Titular relacionados con tus derechos a conocer,
-                    actualizar, rectificar y suprimir el dato personal y revocar la Autorización. Asimismo,
-                    velará por la oportuna y adecuada respuesta que emita cada una de las áreas de
-                    CONTUHOGAR S.A.S. a las solicitudes, consultas y reclamos de los Titulares de los
-                    Datos.</p>
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.6. Tratamiento de los datos
-                    y finalidad del tratamiento de los datos.</h3>
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.6.1. Tratamiento de Datos
-                    Personales de los Clientes de
-                    CONTUHOGAR S.A.S.</h3>
-                <p>El tratamiento de los datos personales se realizará para: (i) Atención de solicitudes,
-                    gestión integral del seguro y de contratos con CONTUHOGAR S.A.S.; (ii) Control y
-                    prevención del fraude; (iii) Oferta de productos o servicios de CONTUHOGAR S.A.S.
-                    o de terceros vinculados, realización de encuestas y otros fines comerciales,
-                    financieros o publicitarios a través de mensajes de texto, correo electrónico, SMS,
-                    entre otros; (iv) De seguridad y/o de prueba ante una autoridad judicial o
-                    administrativa; (v) Fines estadísticos, de consulta, gremiales y técnico-actuariales; (vi)
-                    Fines tributarios, incluido el envío de información a autoridades tributarias de otros
-                    países, y/o a la Dirección de Impuestos y Aduanas Nacionales de Colombia (DIAN),
-                    en los términos de las normas aplicables.</p>
-
-                <p>CONTUHOGAR S.A.S. tratará los datos de tus clientes como Titulares de Datos
-                    Personales para realizar operaciones sobre los mismos, como recolección,
-                    almacenamiento, uso, circulación, transferencia o transmisión, informando los
-                    derechos que les asisten, en especial, conocer, actualizar, rectificar y solicitar la
-                    supresión de los datos.</p>
-
-                <p>Dicho tratamiento puede ser realizado por los representantes de CONTUHOGAR
-                    S.A.S. o con quienes celebre contratos de transferencia o transmisión de datos;
-                    prestadores de servicio necesarios para el cumplimiento de los contratos dentro y
-                    fuera del territorio nacional, especialmente lo referente al uso de información
-                    relacionada con la contratación de pólizas de seguros, transporte urbano, nacional e
-                    internacional, comercio exterior y los necesarios para el desarrollo de la relación
-                    comercial entre CONTUHOGAR S.A.S. y tus clientes.</p>
-
-                <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes,
-                    CONTUHOGAR S.A.S. solicitará al Titular tu autorización explícita para ello,
-                    indicando al Titular el carácter facultativo de las preguntas sobre estos datos.</p>
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.6.2. Tratamiento de datos de
-                    empleados o candidatos.</h3>
-
-                <p>El tratamiento de los Datos Personales se realizará para: (i) verificación de
-                    información personal, familiar, financiera, crediticia, comercial y laboral; (ii) Aspectos
-                    Laborales y de Seguridad Social y aquellos relacionados con el (los) contratos que
-                    celebre o pretenda celebrar con CONTUHOGAR S.A.S.; (iii) Control y prevención del
-                    fraude; (iv) De seguridad y/o de prueba ante una autoridad judicial o administrativa;
-                    (vi) Fines estadísticos, de consulta, gremiales y técnico-actuariales; (vi) La solicitud,
-                    procesamiento, conservación, verificación, consulta, suministro, reporte o
-                    actualización de cualquier información relacionada con el comportamiento financiero,
-                    crediticio o comercial a los operadores de bancos de datos o centrales de información
-                    autorizados por la legislación, incluidos DATACRÉDITO y CIFIN, con fines estadísticos
-                    de verificación del riesgo crediticio o de reporte histórico de comportamiento
-                    comercial, en caso que CONTUHOGAR S.A.S. otorgue un crédito y por lo tanto el
-                    empleado adquiera la calidad de deudor de ésta; (vii) Fines tributarios, incluido el
-                    envío de información a autoridades tributarias de otros países y/o a la Dirección de
-                    Impuestos y Aduanas Nacionales de Colombia (DIAN), en los términos de las normas
-                    aplicables.</p>
-
-                <p>CONTUHOGAR S.A.S. tratará los datos de tus empleados o candidatos para ser
-                    empleados como Titulares de Datos Personales para realizar operaciones sobre los
-                    mismos, como recolección, almacenamiento, uso, circulación, transferencia o
-                    transmisión, informando los derechos que les asisten, en especial, conocer, actualizar,
-                    rectificar y solicitar la supresión de los datos.</p>
-
-                <p>Dicho tratamiento puede ser realizado por los representantes de CONTUHOGAR
-                    S.A.S. o con quienes celebre contratos de transferencia o transmisión de datos;
-                    operadores y prestadores necesarios para el cumplimiento de los contratos; y,
-                    encargados ubicados dentro y fuera del territorio nacional.</p>
-                <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes cuyos
-                    representantes sean los empleados o candidatos, CONTUHOGAR S.A.S. solicitará al
-                    Titular tu autorización explícita para ello, indicando al Titular el carácter facultativo de
-                    las preguntas sobre estos datos.</p>
-
-
-                <h3 class="text-lg font-semibold tracking-tight text-pretty text-primary">6.6.3. Tratamiento de datos de
-                    proveedores.</h3>
-
-                <p>El tratamiento de los datos personales se realizará para: (i) Atención de solicitudes,
-                    gestión integral de contratos con CONTUHOGAR S.A.S.; (ii) Control y prevención del
-                    fraude; (iii) Oferta de productos o servicios de CONTUHOGAR S.A.S. o de terceros
-                    vinculados, realización de encuestas y otros fines comerciales, financieros o
-                    publicitarios a través de mensajes de texto, correo electrónico, SMS, entre otros; (iv)
-                    De seguridad y/o de prueba ante una autoridad judicial o administrativa; (v) Conocer
-                    tu comportamiento comercial y financiero; (vi) Fines estadísticos, de consulta,
-                    gremiales y técnico-actuariales; (vii) Fines tributarios, incluido el envío de información
-                    a autoridades tributarias de otros países, tal como la de posibles sujetos de tributación
-                    en los Estados Unidos al Internal Revenue Service (IRS) y/o a la Dirección de
-                    Impuestos y Aduanas Nacionales de Colombia (DIAN), en los términos del Foreign
-                    Account Tax Compliance Act (FATCA) o las normas que lo modifiquen y las
-                    reglamentaciones aplicables.</p>
-
-                <p>CONTUHOGAR S.A.S. tratará los datos de tus proveedores como Titulares de Datos
-                    Personales para realizar operaciones sobre los mismos, como recolección,
-                    almacenamiento, uso, circulación, transferencia o transmisión, informando los
-                    derechos que les asisten, en especial, conocer, actualizar, rectificar y solicitar la
-                    supresión de los datos.</p>
-
-                <p>Dicho tratamiento puede ser realizado por los representantes de CONTUHOGAR
-                    S.A.S. o con quienes celebre contratos de transferencia o transmisión de datos para el
-                    cumplimiento de los contratos; y, encargados ubicados dentro y fuera del territorio
-                    nacional.</p>
-
-                <p>Para el tratamiento de datos sensibles y de datos de niños(as) y adolescentes,
-                    CONTUHOGAR S.A.S. solicitará al Titular tu autorización explícita para ello,
-                    indicando al Titular el carácter facultativo de las preguntas sobre estos datos.</p>
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.7. Datos de los responsables
-                    del tratamiento de datos.</h3>
-
-                <p><b>Cargo:</b> gerente general</p>
-                <p><b>Dirección:</b> carrera 54 # 105 - 20, Bogotá.</p>
-                <p><b>Correo electrónico:</b> <a href="mailto:gerencia@contuhogar.net">gerencia@contuhogar.net</a></p>
-                <!-- <p><b>Teléfono:</b> <a href="tel:8053353">8053353</a></p> -->
-
-                <h3 class="text-xl font-semibold tracking-tight text-pretty text-primary">6.8. Datos del responsable de
-                    la atención de solicitudes, consultas y
-                    reclamos</h3>
-
-                <p><b>Cargo:</b> director de operaciones</p>
-                <p><b>Dirección:</b> carrera 54 # 105 - 20, Bogotá.</p>
-                <p><b>Correo electrónico:</b> <a href="mailto:directorcomercial@contuhogar.net">directorcomercial@contuhogar.net</a></p>
-            </div>
+  <div>
+    <SkeletonLegalPage v-if="isLoading" />
+
+    <LegalPageLayout
+      v-else
+      title="Terminos y Condiciones"
+      description="Estos terminos regulan el uso de nuestros servicios de asesoria financiera e inmobiliaria. Los hemos escrito de forma clara para que entiendas tus derechos y nuestras responsabilidades."
+      last-updated="Enero 2025"
+      :sections="sections"
+    >
+      <!-- 1. Introduccion -->
+      <LegalSection
+        id="introduccion"
+        title="1. Introduccion"
+        icon="heroicons:information-circle"
+        :default-open="true"
+      >
+        <p class="mb-4">
+          Bienvenido a <strong>ConTuHogar</strong>. Somos una empresa colombiana especializada en ayudar a colombianos
+          en el exterior a conseguir credito hipotecario para comprar vivienda en Colombia.
+        </p>
+        <p class="mb-4">
+          Estos Terminos y Condiciones establecen las reglas para usar nuestro sitio web
+          <a href="https://contuhogar.com" class="text-primary hover:text-secondary underline">contuhogar.com</a>
+          y nuestros servicios de asesoria. Al usar nuestros servicios, aceptas estos terminos.
+        </p>
+        <p>
+          Si tienes alguna duda, puedes contactarnos en cualquier momento. Queremos que te sientas seguro
+          y bien informado durante todo el proceso.
+        </p>
+      </LegalSection>
+
+      <!-- 2. Definiciones -->
+      <LegalSection
+        id="definiciones"
+        title="2. Definiciones clave"
+        icon="heroicons:book-open"
+      >
+        <p class="mb-4">Para que este documento sea claro, aqui explicamos algunos terminos importantes:</p>
+
+        <ul class="space-y-3">
+          <li>
+            <strong class="text-gray-900">ConTuHogar:</strong>
+            CONTUHOGAR S.A.S., la empresa que te brinda el servicio de asesoria.
+          </li>
+          <li>
+            <strong class="text-gray-900">Usuario o Tu:</strong>
+            Cualquier persona que use nuestro sitio web o solicite nuestros servicios.
+          </li>
+          <li>
+            <strong class="text-gray-900">Servicios:</strong>
+            Asesoria en credito hipotecario, simulacion de credito, acompanamiento en el proceso de compra de vivienda.
+          </li>
+          <li>
+            <strong class="text-gray-900">Datos personales:</strong>
+            Informacion que nos proporcionas y que permite identificarte (nombre, email, telefono, etc.).
+          </li>
+          <li>
+            <strong class="text-gray-900">Entidades financieras:</strong>
+            Bancos y entidades con las que trabajamos para gestionar tu credito (BBVA, Banco de Bogota, Banco de Occidente, Colpatria).
+          </li>
+        </ul>
+      </LegalSection>
+
+      <!-- 3. Uso del servicio -->
+      <LegalSection
+        id="uso-servicio"
+        title="3. Uso del servicio"
+        icon="heroicons:cursor-arrow-rays"
+      >
+        <p class="mb-4">Nuestros servicios incluyen:</p>
+
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Simulador de credito hipotecario para calcular tu capacidad de endeudamiento</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Asesoria personalizada sobre opciones de financiacion</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Gestion de tu solicitud ante entidades financieras</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Acompanamiento durante todo el proceso de compra</span>
+          </li>
+        </ul>
+
+        <p class="mb-4"><strong class="text-gray-900">Al usar nuestros servicios, te comprometes a:</strong></p>
+
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-secondary rounded-full mt-2 shrink-0"></span>
+            <span>Proporcionar informacion veraz y actualizada</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-secondary rounded-full mt-2 shrink-0"></span>
+            <span>No usar el sitio para fines ilegales o no autorizados</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-secondary rounded-full mt-2 shrink-0"></span>
+            <span>Mantener la confidencialidad de cualquier informacion que te proporcionemos</span>
+          </li>
+        </ul>
+      </LegalSection>
+
+      <!-- 4. Tus derechos -->
+      <LegalSection
+        id="tus-derechos"
+        title="4. Tus derechos"
+        icon="heroicons:shield-check"
+      >
+        <p class="mb-4">Como usuario de ConTuHogar, tienes derecho a:</p>
+
+        <div class="space-y-4">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-semibold text-gray-900 mb-1">Informacion clara</p>
+            <p class="text-sm">Recibir explicaciones claras sobre nuestros servicios, costos y el proceso de credito.</p>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-semibold text-gray-900 mb-1">Proteccion de datos</p>
+            <p class="text-sm">Que tus datos personales sean tratados de forma segura y conforme a la ley colombiana.</p>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-semibold text-gray-900 mb-1">Acceso y correccion</p>
+            <p class="text-sm">Conocer, actualizar o eliminar los datos personales que tenemos sobre ti.</p>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-semibold text-gray-900 mb-1">Desistimiento</p>
+            <p class="text-sm">Cancelar el servicio en cualquier momento sin penalidades, antes de la formalizacion del credito.</p>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="font-semibold text-gray-900 mb-1">Reclamacion</p>
+            <p class="text-sm">Presentar quejas o reclamos si consideras que no hemos cumplido con nuestras obligaciones.</p>
+          </div>
         </div>
-    </div>
+      </LegalSection>
+
+      <!-- 5. Nuestras obligaciones -->
+      <LegalSection
+        id="nuestras-obligaciones"
+        title="5. Nuestras obligaciones"
+        icon="heroicons:clipboard-document-check"
+      >
+        <p class="mb-4">ConTuHogar se compromete a:</p>
+
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Brindarte asesoria profesional, honesta y transparente</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Proteger tus datos personales con las medidas de seguridad apropiadas</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Mantener la confidencialidad de tu informacion financiera</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Responder tus consultas y reclamos en los tiempos establecidos por la ley</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Informarte sobre cualquier cambio en las condiciones del servicio</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Actuar como intermediarios de buena fe entre tu y las entidades financieras</span>
+          </li>
+        </ul>
+      </LegalSection>
+
+      <!-- 6. Tratamiento de datos -->
+      <LegalSection
+        id="tratamiento-datos"
+        title="6. Tratamiento de datos"
+        icon="heroicons:lock-closed"
+      >
+        <p class="mb-4">
+          Tus datos personales son importantes para nosotros. Los recopilamos y tratamos de acuerdo con la
+          <strong>Ley 1581 de 2012</strong> (Ley de Proteccion de Datos de Colombia).
+        </p>
+
+        <p class="mb-4">En resumen:</p>
+
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Solo recopilamos los datos necesarios para prestarte el servicio</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Compartimos informacion con bancos aliados solo con tu autorizacion</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Implementamos medidas de seguridad para proteger tus datos</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0"></span>
+            <span>Puedes solicitar acceso, correccion o eliminacion de tus datos</span>
+          </li>
+        </ul>
+
+        <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+          <p class="text-sm text-blue-800">
+            Para conocer todos los detalles sobre como manejamos tus datos, consulta nuestra
+            <NuxtLink to="/politica-privacidad" class="font-semibold underline hover:text-blue-600">
+              Politica de Privacidad
+            </NuxtLink>.
+          </p>
+        </div>
+      </LegalSection>
+
+      <!-- 7. Limitaciones -->
+      <LegalSection
+        id="limitaciones"
+        title="7. Limitaciones"
+        icon="heroicons:scale"
+      >
+        <p class="mb-4">Es importante que sepas que:</p>
+
+        <div class="space-y-4">
+          <div class="border-l-4 border-orange-400 pl-4">
+            <p class="font-semibold text-gray-900 mb-1">No somos un banco</p>
+            <p class="text-sm">Somos asesores. La decision final de otorgar un credito corresponde a la entidad financiera.</p>
+          </div>
+
+          <div class="border-l-4 border-orange-400 pl-4">
+            <p class="font-semibold text-gray-900 mb-1">Resultados del simulador</p>
+            <p class="text-sm">Las simulaciones son estimaciones. El monto final del credito depende del analisis del banco.</p>
+          </div>
+
+          <div class="border-l-4 border-orange-400 pl-4">
+            <p class="font-semibold text-gray-900 mb-1">Tasas de interes</p>
+            <p class="text-sm">Las tasas pueden variar. Las que mostramos son referenciales basadas en condiciones del mercado.</p>
+          </div>
+
+          <div class="border-l-4 border-orange-400 pl-4">
+            <p class="font-semibold text-gray-900 mb-1">Disponibilidad</p>
+            <p class="text-sm">Nuestro sitio web puede tener interrupciones por mantenimiento. No somos responsables por danos derivados de la indisponibilidad temporal.</p>
+          </div>
+        </div>
+      </LegalSection>
+
+      <!-- 8. Contacto -->
+      <LegalSection
+        id="contacto"
+        title="8. Contacto"
+        icon="heroicons:envelope"
+      >
+        <p class="mb-4">
+          Si tienes preguntas sobre estos Terminos y Condiciones, o si deseas ejercer alguno de tus derechos,
+          puedes contactarnos:
+        </p>
+
+        <div class="bg-white border border-gray-200 rounded-xl p-5 space-y-3">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+            <span>
+              <strong class="text-gray-900">Email:</strong>
+              <a href="mailto:info@contuhogar.com" class="text-primary hover:text-secondary ml-1">info@contuhogar.com</a>
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+            <span>
+              <strong class="text-gray-900">Telefono:</strong>
+              <a href="tel:+573108192877" class="text-primary hover:text-secondary ml-1">+57 310 819 2877</a>
+            </span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            <span>
+              <strong class="text-gray-900">Direccion:</strong>
+              <span class="ml-1">Carrera 54 # 105 - 20, Bogota D.C., Colombia</span>
+            </span>
+          </div>
+        </div>
+
+        <p class="mt-6 text-sm text-gray-500">
+          Responderemos tus consultas en un plazo maximo de 10 dias habiles, conforme a la normativa colombiana.
+        </p>
+      </LegalSection>
+
+      <!-- Link a Politica de Privacidad -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <p class="text-gray-500">
+          Para mas informacion sobre como tratamos tus datos personales, consulta nuestra
+          <NuxtLink to="/politica-privacidad" class="text-primary hover:text-secondary font-medium underline">
+            Politica de Privacidad
+          </NuxtLink>.
+        </p>
+      </div>
+    </LegalPageLayout>
+  </div>
 </template>
