@@ -13,6 +13,7 @@ export default defineNuxtConfig({
         { rel: "dns-prefetch", href: "https://contuhogar.com" },
       ],
     },
+    pageTransition: { name: "page", mode: "out-in" },
   },
 
   runtimeConfig: {
@@ -37,10 +38,6 @@ export default defineNuxtConfig({
       sourcemap: false, // Deshabilitar sourcemaps en producción para evitar warnings
     },
   },
-
-  // app: {
-  //   pageTransition: { name: "page", mode: "out-in" },
-  // },
 
   modules: [
     "vue3-carousel-nuxt",

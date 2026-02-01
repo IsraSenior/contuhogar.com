@@ -1,2 +1,8 @@
-User-Agent: *
-Disallow:
+User-agent: *
+Allow: /
+
+# Bloquear páginas internas del simulador que no deben indexarse
+Disallow: /simulador/credito/carta-preaprobacion
+
+# Sitemap
+Sitemap: https://contuhogar.com/sitemap.xml
