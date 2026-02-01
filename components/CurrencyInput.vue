@@ -6,6 +6,7 @@
       </span>
       <input
         :id="id"
+        :name="id"
         ref="inputRef"
         v-model="displayValue"
         type="text"

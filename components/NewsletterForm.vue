@@ -227,7 +227,10 @@ onMounted(() => {
       <!-- Inline variant -->
       <div v-if="variant === 'inline'" class="flex gap-2">
         <div class="flex-1">
+          <label for="newsletter-email-inline" class="sr-only">Correo electronico</label>
           <input
+            id="newsletter-email-inline"
+            name="newsletter-email-inline"
             type="email"
             v-model="email"
             placeholder="tu.email@ejemplo.com"
@@ -268,9 +271,10 @@ onMounted(() => {
       <!-- Stacked variant -->
       <div v-else class="space-y-3">
         <div>
-          <label for="newsletter-email" class="sr-only">Correo electronico</label>
+          <label for="newsletter-email-stacked" class="sr-only">Correo electronico</label>
           <input
-            id="newsletter-email"
+            id="newsletter-email-stacked"
+            name="newsletter-email-stacked"
             type="email"
             v-model="email"
             placeholder="tu.email@ejemplo.com"

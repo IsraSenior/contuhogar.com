@@ -619,7 +619,7 @@ ${form.value.message}
                                 <p v-if="emailError" id="email-error" class="mt-1 text-sm text-red-600" role="alert">{{ emailError }}</p>
                             </div>
                             <div class="sm:col-span-2">
-                                <label class="block text-sm/6 font-semibold text-primary mb-2.5">Teléfono</label>
+                                <label for="phone" class="block text-sm/6 font-semibold text-primary mb-2.5">Teléfono</label>
                                 <div class="grid grid-cols-3 gap-3">
                                     <!-- Combobox de país -->
                                     <div class="col-span-1">

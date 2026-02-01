@@ -18,6 +18,7 @@
         </label>
         <input
           id="nombres"
+          name="nombres"
           v-model="localNombres"
           type="text"
           placeholder="Ej: Juan Carlos"
@@ -39,6 +40,7 @@
         </label>
         <input
           id="apellidos"
+          name="apellidos"
           v-model="localApellidos"
           type="text"
           placeholder="Ej: García Pérez"
@@ -99,6 +101,7 @@
           <div class="flex-1">
             <input
               id="telefono"
+              name="telefono"
               v-model="localTelefono"
               type="tel"
               autocomplete="tel"
@@ -131,6 +134,7 @@
         </label>
         <input
           id="correo"
+          name="correo"
           v-model="localCorreo"
           type="email"
           placeholder="Ej: info@contuhogar.com"
