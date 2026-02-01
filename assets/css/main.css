@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -308,28 +307,38 @@
   }
 }
 
-/* ===== Skeleton Shimmer Animation ===== */
+/* ===== Skeleton Shimmer Animation (GPU-accelerated) ===== */
 @keyframes skeleton-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg,
-    var(--color-gray-200) 25%,
-    var(--color-gray-300) 50%,
-    var(--color-gray-200) 75%);
-  background-size: 200% 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-gray-200);
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--color-gray-300), transparent);
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
 }
 
 /* Para fondos oscuros (hero primary) */
 .skeleton-shimmer-light {
-  background: linear-gradient(90deg,
-    rgba(255,255,255,0.1) 25%,
-    rgba(255,255,255,0.2) 50%,
-    rgba(255,255,255,0.1) 75%);
-  background-size: 200% 100%;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.1);
+}
+
+.skeleton-shimmer-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
 }
 

@@ -11,6 +11,14 @@ export default defineNuxtConfig({
       link: [
         { rel: "preconnect", href: "https://contuhogar.com" },
         { rel: "dns-prefetch", href: "https://contuhogar.com" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap",
+          media: "print",
+          onload: "this.media='all'",
+        },
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
@@ -76,6 +84,8 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENV === "production",
     // Your primary Google tag ID
     id: "G-1182NP1Z0D",
+    // Defer initialization to reduce TBT
+    initMode: "manual",
     // Additional configuration for this tag ID
     config: {},
   },
@@ -85,5 +95,6 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENV === "production",
     enableRouterSync: true, // auto pageviews en SPA
     debug: false, // útil en dev
+    defer: true, // Defer script loading to reduce TBT
   },
 });

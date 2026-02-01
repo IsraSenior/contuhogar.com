@@ -57,6 +57,8 @@ const displayLogos = computed(() => props.logos || store.logos)
             v-else
             :src="logo.value"
             :alt="logo.name"
+            width="150"
+            height="48"
             class="h-12 w-auto object-contain grayscale group-hover:grayscale-0 transition-all"
             loading="lazy"
           />
