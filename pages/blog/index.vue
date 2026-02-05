@@ -1,7 +1,7 @@
 <script setup>
 const { isLoading } = useLoading(150)
 
-const title = `Blog | ConTuHogar`;
+const title = `Blog | ContuHogar`;
 const description = "Explora artículos sobre inversión inmobiliaria, crédito hipotecario, leasing habitacional y consejos para colombianos en el exterior que desean comprar vivienda en Colombia."
 
 // SEO optimizado

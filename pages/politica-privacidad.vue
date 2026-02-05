@@ -4,8 +4,8 @@
  * Conforme a la Ley 1581 de 2012 de Colombia
  */
 
-const title = 'Politica de Privacidad | ConTuHogar'
-const description = 'Conoce como ConTuHogar protege y trata tus datos personales. Politica de privacidad conforme a la Ley 1581 de 2012 de Colombia.'
+const title = 'Politica de Privacidad | ContuHogar'
+const description = 'Conoce como ContuHogar protege y trata tus datos personales. Politica de privacidad conforme a la Ley 1581 de 2012 de Colombia.'
 
 useSeo({
   title,
@@ -40,7 +40,7 @@ const sections = [
     <LegalPageLayout
       v-else
       title="Politica de Privacidad"
-      description="En ConTuHogar nos comprometemos a proteger tu privacidad y tus datos personales. Esta politica describe como recopilamos, usamos y protegemos tu informacion."
+      description="En ContuHogar nos comprometemos a proteger tu privacidad y tus datos personales. Esta politica describe como recopilamos, usamos y protegemos tu informacion."
       last-updated="Enero 2025"
       :sections="sections"
     >
@@ -52,7 +52,7 @@ const sections = [
         :default-open="true"
       >
         <p class="mb-4">
-          En <strong>CONTUHOGAR S.A.S.</strong> (en adelante "ConTuHogar") nos comprometemos a proteger tu privacidad
+          En <strong>CONTUHOGAR S.A.S.</strong> (en adelante "ContuHogar") nos comprometemos a proteger tu privacidad
           y tus datos personales.
         </p>
         <p class="mb-4">

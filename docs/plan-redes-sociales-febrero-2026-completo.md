@@ -1,12 +1,12 @@
 # PLAN DE CONTENIDOS REDES SOCIALES
-## ConTuHogar - Febrero 2026
+## ContuHogar - Febrero 2026
 ### Plataformas: Instagram + Facebook
 
 ---
 
 # INFORMACIÓN GENERAL
 
-**Cliente:** ConTuHogar
+**Cliente:** ContuHogar
 **Periodo:** 1 - 28 de Febrero 2026
 **Plataformas:** Instagram y Facebook
 **Objetivo Principal:** Generar leads cualificados a través del simulador de crédito
@@ -91,7 +91,7 @@ FEBRERO 2026
 | 4 | "3. Puedes financiar hasta el 80% del valor de la vivienda" | Gráfico de porcentaje |
 | 5 | "4. La preaprobación toma solo 24 horas" | Icono de reloj |
 | 6 | "5. Tu ingreso en dólares/euros te da mayor poder de compra" | Icono de monedas/gráfico |
-| 7 | "¿Listo para dar el primer paso? Simula tu crédito GRATIS en 3 minutos 👉 Link en bio" | Logo ConTuHogar + CTA |
+| 7 | "¿Listo para dar el primer paso? Simula tu crédito GRATIS en 3 minutos 👉 Link en bio" | Logo ContuHogar + CTA |
 
 **COPY COMPLETO:**
 
@@ -110,7 +110,7 @@ Guarda este post para cuando lo necesites 📌
 
 ¿Tienes preguntas? Déjalas en los comentarios 👇
 
-#ConTuHogar #ViviendaColombia #CreditoHipotecario #ColombianosEnElExterior #ColombianosEnUSA #ColombianosEnEspaña #ComprarVivienda #InversionColombia
+#ContuHogar #ViviendaColombia #CreditoHipotecario #ColombianosEnElExterior #ColombianosEnUSA #ColombianosEnEspaña #ComprarVivienda #InversionColombia
 ```
 
 **INSTRUCCIONES ESPECÍFICAS POR PLATAFORMA:**
@@ -201,7 +201,7 @@ María hoy tiene su apartamento en Medellín, donde su mamá vive cómodamente.
 👉 Cuéntanos en los comentarios
 👉 O simula tu crédito gratis: Link en bio
 
-#HistoriaReal #SueñoCumplido #ConTuHogar #ColombianosEnMiami #ViviendaMedellin #CreditoHipotecario
+#HistoriaReal #SueñoCumplido #ContuHogar #ColombianosEnMiami #ViviendaMedellin #CreditoHipotecario
 ```
 
 ---
@@ -272,7 +272,7 @@ Te lo explico simple en 45 segundos ⏱️
 
 Simula ambas opciones GRATIS: Link en bio
 
-#CreditoHipotecario #LeasingHabitacional #ConTuHogar #ViviendaColombia #TipsFinancieros
+#CreditoHipotecario #LeasingHabitacional #ContuHogar #ViviendaColombia #TipsFinancieros
 ```
 
 **ESPECIFICACIONES TÉCNICAS:**
@@ -343,7 +343,7 @@ Simula ambas opciones GRATIS: Link en bio
 | **Texto secundario** | "Tu inversión en Colombia rinde más hoy" |
 | **Dato destacado** | Gráfico simple o número del tipo de cambio |
 | **CTA** | "Descubre cuánto puedes financiar 👉" |
-| **Logo** | ConTuHogar en esquina inferior |
+| **Logo** | ContuHogar en esquina inferior |
 
 **COPY COMPLETO:**
 
@@ -367,7 +367,7 @@ No es solo comprar una casa. Es:
 
 👉 Descúbrelo GRATIS en 3 minutos: Link en bio
 
-#InversionInteligente #TipoDeCambio #ConTuHogar #ColombianosEnUSA #ColombianosEnEspaña #ViviendaColombia
+#InversionInteligente #TipoDeCambio #ContuHogar #ColombianosEnUSA #ColombianosEnEspaña #ViviendaColombia
 ```
 
 ---
@@ -428,7 +428,7 @@ Simula tu crédito GRATIS: Link en bio
 
 ¿Tienes dudas sobre algún requisito? Pregúntanos en los comentarios 👇
 
-#Requisitos #CreditoHipotecario #ConTuHogar #ColombianosEnElExterior #DocumentosCredito
+#Requisitos #CreditoHipotecario #ContuHogar #ColombianosEnElExterior #DocumentosCredito
 ```
 
 ---
@@ -448,7 +448,7 @@ Simula tu crédito GRATIS: Link en bio
 | Elemento | Descripción |
 |----------|-------------|
 | **Visual** | Diseño de quote con foto (si hay permiso) o silueta |
-| **Texto principal** | "Gracias a ConTuHogar, mis papás ya tienen donde quedarse cuando los visito" - Cliente desde NYC 🗽 |
+| **Texto principal** | "Gracias a ContuHogar, mis papás ya tienen donde quedarse cuando los visito" - Cliente desde NYC 🗽 |
 | **Sticker** | Emoji slider: "¿Qué tan cerca estás de tu sueño? 🏠" |
 
 **STORY 2 (7:00 PM):**
@@ -510,7 +510,7 @@ Este San Valentín lo celebran en SU casa.
 
 Cuéntanos 👇 o simula tu crédito: Link en bio
 
-#HistoriaDeAmor #ColombianosEnBarcelona #SanValentin #ConTuHogar #SueñoCumplido
+#HistoriaDeAmor #ColombianosEnBarcelona #SanValentin #ContuHogar #SueñoCumplido
 ```
 
 ---
@@ -588,7 +588,7 @@ Cada uno tenía sus dudas. Cada uno dio el paso.
 
 👉 Simula tu crédito GRATIS: Link en bio
 
-#Testimonios #HistoriasReales #ConTuHogar #ColombianosEnUSA #ColombianosEnEspaña
+#Testimonios #HistoriasReales #ContuHogar #ColombianosEnUSA #ColombianosEnEspaña
 ```
 
 ---
@@ -666,7 +666,7 @@ El sueño está más cerca de lo que crees.
 
 Feliz San Valentín 💕
 
-#SanValentin #AmorPorColombia #ConTuHogar #FamiliaColombiiana #Regalo
+#SanValentin #AmorPorColombia #ContuHogar #FamiliaColombiiana #Regalo
 ```
 
 **STORIES ADICIONALES SAN VALENTÍN (3 stories):**
@@ -675,7 +675,7 @@ Feliz San Valentín 💕
 |------|-----------|
 | 9:00 AM | "Feliz San Valentín 💕 Hoy celebramos el amor por Colombia 🇨🇴" |
 | 3:00 PM | "El mejor regalo: Un hogar para tu familia ❤️🏠" + Link simulador |
-| 9:00 PM | "Gracias por ser parte de la familia ConTuHogar. Los queremos 💚" |
+| 9:00 PM | "Gracias por ser parte de la familia ContuHogar. Los queremos 💚" |
 
 ---
 
@@ -735,7 +735,7 @@ Todo GRATIS, en 3 minutos: Link en bio
 
 📌 Guarda este post para cuando lo necesites
 
-#ErroresComunes #TipsVivienda #ConTuHogar #ColombianosEnElExterior #ComprarVivienda
+#ErroresComunes #TipsVivienda #ContuHogar #ColombianosEnElExterior #ComprarVivienda
 ```
 
 ---
@@ -754,7 +754,7 @@ Todo GRATIS, en 3 minutos: Link en bio
 | Elemento | Descripción |
 |----------|-------------|
 | **Visual** | Foto/video casual del equipo trabajando |
-| **Texto** | "Domingo de trabajo en ConTuHogar 💼 Revisando solicitudes para que tengas respuesta el lunes 🏠" |
+| **Texto** | "Domingo de trabajo en ContuHogar 💼 Revisando solicitudes para que tengas respuesta el lunes 🏠" |
 | **Tono** | Casual, cercano, humano |
 
 **STORY 2 (6:00 PM):**
@@ -812,7 +812,7 @@ Lo mejor: Es 100% GRATIS y sin compromiso.
 
 👉 Link en bio
 
-#Simulador #PasoAPaso #ConTuHogar #CreditoHipotecario #Tutorial
+#Simulador #PasoAPaso #ContuHogar #CreditoHipotecario #Tutorial
 ```
 
 ---
@@ -879,7 +879,7 @@ Y lo mejor: Todo lo envías digital. No necesitas viajar.
 
 👉 Simula tu crédito GRATIS: Link en bio
 
-#Documentos #Requisitos #ConTuHogar #CreditoHipotecario #Tutorial
+#Documentos #Requisitos #ContuHogar #CreditoHipotecario #Tutorial
 ```
 
 ---
@@ -958,7 +958,7 @@ Cuéntanos en los comentarios 👇
 
 O empieza hoy: Link en bio
 
-#FamiliaRodriguez #HistoriaReal #ConTuHogar #ColombianosEnHouston #Cartagena
+#FamiliaRodriguez #HistoriaReal #ContuHogar #ColombianosEnHouston #Cartagena
 ```
 
 ---
@@ -1019,7 +1019,7 @@ Nuestro simulador te lo calcula en 3 minutos. GRATIS.
 
 👉 Link en bio
 
-#CapacidadDeCredito #FinanzasPersonales #ConTuHogar #CreditoHipotecario #Calculadora
+#CapacidadDeCredito #FinanzasPersonales #ContuHogar #CreditoHipotecario #Calculadora
 ```
 
 ---
@@ -1087,7 +1087,7 @@ No dejes para marzo lo que puedes empezar hoy.
 
 👉 Simula tu crédito GRATIS: Link en bio
 
-#FinDeMes #Oportunidad #ConTuHogar #NoLoDejes #ActuaAhora
+#FinDeMes #Oportunidad #ContuHogar #NoLoDejes #ActuaAhora
 ```
 
 ---
@@ -1159,7 +1159,7 @@ El momento es AHORA.
 
 👉 Simula tu crédito GRATIS: Link en bio
 
-#Inversion2026 #Oportunidad #ConTuHogar #MercadoInmobiliario #ColombiaCrece
+#Inversion2026 #Oportunidad #ContuHogar #MercadoInmobiliario #ColombiaCrece
 ```
 
 ---
@@ -1231,7 +1231,7 @@ No dejes que febrero termine sin dar el primer paso.
 
 Marzo está a la vuelta de la esquina. Pero tu sueño no tiene que esperar.
 
-#CierreDeMes #SiPuedes #ConTuHogar #NuevoMes #TuCasaEnColombia
+#CierreDeMes #SiPuedes #ContuHogar #NuevoMes #TuCasaEnColombia
 ```
 
 **STORIES DE CIERRE (3 stories):**
@@ -1327,7 +1327,7 @@ FEBRERO 2026
 
 ## Set Principal (Usar siempre)
 ```
-#ConTuHogar #ViviendaColombia #CreditoHipotecario
+#ContuHogar #ViviendaColombia #CreditoHipotecario
 ```
 
 ## Por Audiencia USA
@@ -1398,7 +1398,7 @@ FEBRERO 2026
 
 - [ ] Copy revisado (ortografía, gramática)
 - [ ] Imagen/video en dimensiones correctas
-- [ ] Logo de ConTuHogar visible
+- [ ] Logo de ContuHogar visible
 - [ ] CTA claro incluido
 - [ ] Hashtags preparados (para primer comentario en IG)
 - [ ] Link en bio actualizado si es necesario
@@ -1421,6 +1421,6 @@ FEBRERO 2026
 
 ---
 
-**Documento preparado por:** Claude Code para ConTuHogar
+**Documento preparado por:** Claude Code para ContuHogar
 **Fecha de creación:** Enero 2026
 **Versión:** 2.0 - Plan Completo para Community Manager

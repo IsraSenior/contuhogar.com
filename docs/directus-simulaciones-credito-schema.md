@@ -1,7 +1,7 @@
 # Directus Collection: simulaciones_credito
 
 ## Overview
-This collection stores credit simulation data from the ConTuHogar mortgage/leasing simulator. Each record represents a completed simulation with all user inputs and calculated results.
+This collection stores credit simulation data from the ContuHogar mortgage/leasing simulator. Each record represents a completed simulation with all user inputs and calculated results.
 
 ## Collection Configuration
 

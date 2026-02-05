@@ -172,7 +172,7 @@ const socialLinks = [
         <!-- Company Info Column (DERECHA) -->
         <div class="lg:col-span-4 order-1 lg:order-3">
           <!-- Logo -->
-          <NuxtLink to="/" class="inline-block" aria-label="ConTuHogar - Ir al inicio">
+          <NuxtLink to="/" class="inline-block" aria-label="ContuHogar - Ir al inicio">
             <Logo class="h-10 w-auto brightness-0 invert" aria-hidden="true" />
           </NuxtLink>
 
@@ -231,7 +231,7 @@ const socialLinks = [
 
           <!-- Copyright & Credits -->
           <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-gray-500 text-center">
-            <span>&copy; {{ currentYear }} ConTuHogar. Todos los derechos reservados.</span>
+            <span>&copy; {{ currentYear }} ContuHogar. Todos los derechos reservados.</span>
             <span class="hidden sm:inline text-gray-700">·</span>
             <span class="flex gap-1">
               Desarrollado por

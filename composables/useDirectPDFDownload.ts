@@ -331,7 +331,7 @@ export const useDirectPDFDownload = () => {
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <p style="font-size: 9px; color: white; margin: 0;">www.contuhogar.com</p>
               <p style="font-size: 9px; color: white; margin: 0;">Especialistas en crédito de vivienda para colombianos en el exterior</p>
-              <p style="font-size: 9px; color: white; margin: 0;">© ${new Date().getFullYear()} ConTuHogar</p>
+              <p style="font-size: 9px; color: white; margin: 0;">© ${new Date().getFullYear()} ContuHogar</p>
             </div>
           </div>
         </div>
@@ -365,7 +365,7 @@ export const useDirectPDFDownload = () => {
       pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
       // Generar nombre del archivo
-      const filename = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
+      const filename = `preaprobación_ContuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
 
       // Guardar PDF
       pdf.save(filename);

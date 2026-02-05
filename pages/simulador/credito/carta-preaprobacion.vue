@@ -166,7 +166,7 @@
         <div class="flex justify-between items-center">
           <p class="text-[9px] text-white"><a href="https://www.contuhogar.com" target="_blank" rel="noopener noreferrer">www.contuhogar.com</a></p>
           <p class="text-[9px] text-white">Especialistas en crédito de vivienda para colombianos en el exterior</p>
-          <p class="text-[9px] text-white">© {{ new Date().getFullYear() }} ConTuHogar</p>
+          <p class="text-[9px] text-white">© {{ new Date().getFullYear() }} ContuHogar</p>
         </div>
       </div>
 
@@ -189,7 +189,7 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: 'Preview Carta de preaprobación | ConTuHogar',
+  title: 'Preview Carta de preaprobación | ContuHogar',
   robots: 'noindex, nofollow'
 });
 
@@ -276,7 +276,7 @@ const expirationDate = computed(() => {
 
 // Función para descargar PDF
 const handleDownloadPDF = async () => {
-  const filename = `preaprobación_ConTuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
+  const filename = `preaprobación_ContuHogar_${new Date().toISOString().split('T')[0]}.pdf`;
   await generatePDFFromElement('pdf-container', filename);
 };
 

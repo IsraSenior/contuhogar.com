@@ -4,7 +4,7 @@ const store = useMainStore();
 const { isLoading } = useLoading(150)
 const route = useRoute();
 
-const title = `Preguntas Frecuentes | ConTuHogar`;
+const title = `Preguntas Frecuentes | ContuHogar`;
 const description = "Encuentra respuestas a las preguntas más comunes sobre crédito hipotecario, leasing habitacional y financiamiento de vivienda en Colombia para residentes en el exterior."
 
 // SEO optimizado

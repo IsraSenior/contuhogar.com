@@ -226,7 +226,7 @@ export const useMainStore = defineStore('main', {
     ],
     testimonials: [
       {
-        quote: 'Hice el proceso con ConTuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin súper bien. La verdad súper recomendado.',
+        quote: 'Hice el proceso con ContuHogar de una compra de vivienda desde el extranjero y la verdad fue súper fácil, nos fue muy bien, pudimos adquirir el inmueble y también me están ayudando para otro. La asesoría, todo el proceso de principio a fin súper bien. La verdad súper recomendado.',
         name: 'Juan Camilo Manrique Olave',
         handle: '@juancamilolave',
         avatar: '/testimonials/juancamilolave.jpeg',
@@ -240,14 +240,14 @@ export const useMainStore = defineStore('main', {
         location: 'España'
       },
       {
-        quote: 'Tuve una excelente experiencia con ConTuHogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. Muy feliz con el resultado y los recomiendo totalmente!',
+        quote: 'Tuve una excelente experiencia con ContuHogar. Me ayudaron a gestionar un crédito hipotecario desde Suiza para comprar un inmueble en Colombia, y todo el proceso fue rápido, claro y exitoso. Son muy atentos, profesionales y se nota que tienen el conocimiento y la experiencia para lograr la aprobación del banco sin complicaciones. Muy feliz con el resultado y los recomiendo totalmente!',
         name: 'German Enrique Cortes Hernandez',
         handle: '@Gecortes92',
         avatar: '/testimonials/Gecortes92.jpeg',
         location: 'Suiza'
       },
       {
-        quote: 'Vivo en Estados Unidos y mi experiencia con ConTuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, 100 de 10!',
+        quote: 'Vivo en Estados Unidos y mi experiencia con ContuHogar ha sido excelente. Marly me acompañó en todo el proceso y en solo un mes ya tenía aprobado mi préstamo en Colombia. Es una herramienta muy útil para quienes vivimos fuera del país. Estoy muy agradecida, 100 de 10!',
         name: 'Bibiana Patricia Velasquez Velasquez',
         avatar: '/testimonials/bibiana.jpeg',
         location: 'Estados Unidos'
@@ -260,14 +260,14 @@ export const useMainStore = defineStore('main', {
         location: 'Estados Unidos'
       },
       {
-        quote: 'En ConTuHogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido. Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia. Gracias mil veces por su apoyo incondicional.',
+        quote: 'En ContuHogar obtuve todo el apoyo y la guía para poder realizar el estudio de crédito desde un lugar fuera de Colombia. La paciencia, la constancia y dedicación que ustedes me brindaron paso a paso me hicieron sentir protegido. Ustedes hicieron posible que yo tenga un lugar para vivir propio en mi amada Colombia. Gracias mil veces por su apoyo incondicional.',
         name: 'Diana Piedrahita',
         handle: '@dmilenep',
         avatar: '/testimonials/dmilenep.jpeg',
         location: 'Europa'
       },
       {
-        quote: 'Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con ConTuHogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.',
+        quote: 'Mi nombre es Elena M. Quiroga, resido en la ciudad de Fort Myers Fl, Estados Unidos, les comparto mi experiencia con ContuHogar, la cual fue excelente, el personal muy amable, la señora Marly y el señor Carlos me apoyaron y estuvieron siempre pendientes hasta el final del proceso con el préstamo. Realmente excelentes personas y muy profesionales, los recomiendo.',
         name: 'Elena Marcela Quiroga Imparato',
         avatar: '/testimonials/Elena.jpeg',
         location: 'Fort Myers, FL - Estados Unidos'

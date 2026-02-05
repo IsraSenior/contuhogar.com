@@ -65,7 +65,7 @@ const serviceIcons = {
       <!-- Logo -->
       <div class="flex lg:flex-1">
         <NuxtLink to="/" class="-m-1.5 p-1.5 transition-transform hover:scale-105">
-          <span class="sr-only">ConTuHogar</span>
+          <span class="sr-only">ContuHogar</span>
           <Logo class="h-10 xl:h-11 w-auto" />
         </NuxtLink>
       </div>

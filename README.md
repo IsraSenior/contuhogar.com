@@ -82,7 +82,7 @@
 
 ## 🏠 Sobre el Proyecto
 
-ConTuHogar.com es una plataforma web diseñada para conectar a colombianos que viven en el exterior con oportunidades de inversión inmobiliaria y financiera en Colombia. La plataforma ofrece:
+ContuHogar.com es una plataforma web diseñada para conectar a colombianos que viven en el exterior con oportunidades de inversión inmobiliaria y financiera en Colombia. La plataforma ofrece:
 
 - ✅ Asesoría personalizada en créditos hipotecarios
 - ✅ Información sobre leasing habitacional
@@ -1146,7 +1146,7 @@ Ve a GitHub y crea un Pull Request describiendo:
 
 ## 📄 Licencia
 
-Este proyecto es privado y pertenece a ConTuHogar. Todos los derechos reservados.
+Este proyecto es privado y pertenece a ContuHogar. Todos los derechos reservados.
 
 ---
 
@@ -1169,7 +1169,7 @@ Este proyecto es privado y pertenece a ConTuHogar. Todos los derechos reservados
 
 <div align="center">
 
-**Hecho con ❤️ por el equipo de ConTuHogar**
+**Hecho con ❤️ por el equipo de ContuHogar**
 
 [⬆ Volver arriba](#contuhogarcom)
 

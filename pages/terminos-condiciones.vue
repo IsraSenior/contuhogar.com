@@ -4,8 +4,8 @@
  * Contenido simplificado y accesible
  */
 
-const title = 'Terminos y Condiciones | ConTuHogar'
-const description = 'Lee los terminos y condiciones de uso de los servicios de asesoria financiera e inmobiliaria de ConTuHogar. Conoce tus derechos y obligaciones.'
+const title = 'Terminos y Condiciones | ContuHogar'
+const description = 'Lee los terminos y condiciones de uso de los servicios de asesoria financiera e inmobiliaria de ContuHogar. Conoce tus derechos y obligaciones.'
 
 useSeo({
   title,
@@ -47,7 +47,7 @@ const sections = [
         :default-open="true"
       >
         <p class="mb-4">
-          Bienvenido a <strong>ConTuHogar</strong>. Somos una empresa colombiana especializada en ayudar a colombianos
+          Bienvenido a <strong>ContuHogar</strong>. Somos una empresa colombiana especializada en ayudar a colombianos
           en el exterior a conseguir credito hipotecario para comprar vivienda en Colombia.
         </p>
         <p class="mb-4">
@@ -71,7 +71,7 @@ const sections = [
 
         <ul class="space-y-3">
           <li>
-            <strong class="text-gray-900">ConTuHogar:</strong>
+            <strong class="text-gray-900">ContuHogar:</strong>
             CONTUHOGAR S.A.S., la empresa que te brinda el servicio de asesoria.
           </li>
           <li>
@@ -144,7 +144,7 @@ const sections = [
         title="4. Tus derechos"
         icon="heroicons:shield-check"
       >
-        <p class="mb-4">Como usuario de ConTuHogar, tienes derecho a:</p>
+        <p class="mb-4">Como usuario de ContuHogar, tienes derecho a:</p>
 
         <div class="space-y-4">
           <div class="bg-gray-50 rounded-lg p-4">
@@ -180,7 +180,7 @@ const sections = [
         title="5. Nuestras obligaciones"
         icon="heroicons:clipboard-document-check"
       >
-        <p class="mb-4">ConTuHogar se compromete a:</p>
+        <p class="mb-4">ContuHogar se compromete a:</p>
 
         <ul class="space-y-3">
           <li class="flex items-start gap-3">

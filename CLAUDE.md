@@ -4,7 +4,7 @@ Guía para Claude Code (claude.ai/code) en este repositorio.
 
 ---
 
-## Proyecto: ConTuHogar
+## Proyecto: ContuHogar
 
 **Tipo**: Nuxt 4 application para servicios financieros especializados en crédito habitacional para colombianos en el exterior.
 

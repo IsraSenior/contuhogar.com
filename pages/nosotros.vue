@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const store = useMainStore();
 const { isLoading } = useLoading(150)
-const title = `ConTuHogar | Nosotros`;
-const description = "Conoce a ConTuHogar: más de 16 años ayudando a colombianos en el exterior a invertir en vivienda en Colombia. Aliados con los principales bancos del país."
+const title = `ContuHogar | Nosotros`;
+const description = "Conoce a ContuHogar: más de 16 años ayudando a colombianos en el exterior a invertir en vivienda en Colombia. Aliados con los principales bancos del país."
 
 // SEO optimizado
 useSeo({
@@ -108,7 +108,7 @@ const valores = [
 
                     <div class="space-y-6 text-gray-600">
                         <p class="text-lg font-medium text-secondary">
-                            ConTuHogar nació en 2009 con una misión clara: ayudar a los colombianos en el exterior a invertir en su país de manera segura y confiable.
+                            ContuHogar nació en 2009 con una misión clara: ayudar a los colombianos en el exterior a invertir en su país de manera segura y confiable.
                         </p>
                         <p>
                             Desde entonces, hemos acompañado a más de 3.000 familias a cumplir su sueño de tener vivienda propia en Colombia. Entendemos las dificultades de gestionar un crédito desde el exterior: la distancia, los trámites, la desconfianza, entre otras.

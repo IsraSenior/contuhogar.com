@@ -1,5 +1,5 @@
 # Plan de Redes Sociales - Febrero 2026
-## ConTuHogar - Campaña Meta Ads
+## ContuHogar - Campaña Meta Ads
 
 **Preparado para:** Community Manager
 **Fecha:** Enero 2026
@@ -25,7 +25,7 @@
 ## 1. Resumen Ejecutivo
 
 ### Enfoque del mes
-Febrero 2026 se centra en **generar leads cualificados** a través del simulador de crédito, posicionando a ConTuHogar como el aliado experto para colombianos en el exterior que desean adquirir vivienda en Colombia.
+Febrero 2026 se centra en **generar leads cualificados** a través del simulador de crédito, posicionando a ContuHogar como el aliado experto para colombianos en el exterior que desean adquirir vivienda en Colombia.
 
 ### Mercados objetivo
 - **Primario:** Colombianos en Estados Unidos (Miami, NYC, Houston, Los Angeles, Atlanta)
@@ -142,7 +142,7 @@ Febrero 2026 se centra en **generar leads cualificados** a través del simulador
 | Día | Fecha | Tipo | Pilar | Contenido | CTA | Formato |
 |-----|-------|------|-------|-----------|-----|---------|
 | Sáb | 8 Feb | Feed | Educativo | Carrusel: "Requisitos para aplicar a un crédito de vivienda desde el exterior" | "¿Cumples los requisitos? Averígualo aquí" | Carrusel 6 slides |
-| Dom | 9 Feb | Story | Testimonial | Quote de cliente: "Gracias a ConTuHogar, mis papás ya tienen donde quedarse cuando los visito" | Inspiración | Story con diseño quote |
+| Dom | 9 Feb | Story | Testimonial | Quote de cliente: "Gracias a ContuHogar, mis papás ya tienen donde quedarse cuando los visito" | Inspiración | Story con diseño quote |
 | Lun | 10 Feb | Feed | Testimonial | Historia de pareja: "Carlos y Ana, desde España, compraron su primera vivienda juntos en Bogotá" | "¿Listo para dar el paso?" | Carrusel historia |
 | Mar | 11 Feb | Story | Producto | Countdown a San Valentín: "El mejor regalo: un hogar para tu familia en Colombia ❤️" | Link al simulador | Story con countdown |
 | Mié | 12 Feb | Reel | Testimonial | Compilación: "Esto dijeron nuestros clientes sobre su experiencia" (3-4 testimonios cortos) | "Únete a +3.000 familias" | Reel 45-60s |
@@ -195,7 +195,7 @@ Te las cuento en este carrusel 👉
 
 (Guárdalo para cuando lo necesites 📌)
 
-#ColombianosEnElExterior #CreditoHipotecario #ViviendaColombia #ConTuHogar
+#ColombianosEnElExterior #CreditoHipotecario #ViviendaColombia #ContuHogar
 ```
 
 #### Copy 2: Carrusel "Requisitos"
@@ -212,7 +212,7 @@ La respuesta es más simple de lo que crees 👇
 
 Desliza para ver los requisitos completos →
 
-#CreditoDesdeElExterior #ViviendaEnColombia #ConTuHogar
+#CreditoDesdeElExterior #ViviendaEnColombia #ContuHogar
 ```
 
 #### Copy 3: Carrusel "Errores comunes"
@@ -225,7 +225,7 @@ Después de ayudar a más de 3.000 familias, sabemos exactamente qué evitar.
 
 Desliza y guarda este post para no cometer ninguno 👉
 
-#TipsInmobiliarios #ColombianosUSA #ColombianosEspaña #ConTuHogar
+#TipsInmobiliarios #ColombianosUSA #ColombianosEspaña #ContuHogar
 ```
 
 ---
@@ -246,7 +246,7 @@ Su historia podría ser la tuya.
 
 👉 Link en bio para simular tu crédito gratis
 
-#HistoriaReal #SueñoCumplido #ConTuHogar
+#HistoriaReal #SueñoCumplido #ContuHogar
 ```
 
 #### Copy 5: Historia de pareja
@@ -261,7 +261,7 @@ Este año, lo lograron 🏠
 
 ¿Cuál es tu sueño? Cuéntanos en los comentarios 👇
 
-#FamiliaColombiana #ViviendaPropia #ConTuHogar
+#FamiliaColombiana #ViviendaPropia #ContuHogar
 ```
 
 ---
@@ -282,7 +282,7 @@ Hoy, tu inversión en Colombia rinde más que nunca.
 
 👉 Simula tu crédito y descubre cuánto puedes financiar
 
-#InversionInteligente #TipoDeCambio #ConTuHogar
+#InversionInteligente #TipoDeCambio #ContuHogar
 ```
 
 #### Copy 7: San Valentín
@@ -301,7 +301,7 @@ El sueño está más cerca de lo que crees.
 
 👉 Simula tu crédito hoy (link en bio)
 
-#SanValentin #AmorPorColombia #ConTuHogar
+#SanValentin #AmorPorColombia #ContuHogar
 ```
 
 ---
@@ -323,7 +323,7 @@ Te mostramos cómo funciona 👉
 
 (Desliza para ver el paso a paso)
 
-#SimuladorCredito #CreditoHipotecario #ConTuHogar
+#SimuladorCredito #CreditoHipotecario #ContuHogar
 ```
 
 #### Copy 9: Cierre de mes
@@ -340,7 +340,7 @@ No dejes que febrero termine sin dar el primer paso.
 
 👉 Link en bio
 
-#NuevoMes #NuevasOportunidades #ConTuHogar
+#NuevoMes #NuevasOportunidades #ContuHogar
 ```
 
 ---
@@ -383,7 +383,7 @@ Slide 2:
 #### Story 4: Behind the scenes
 ```
 Slide 1:
-"Un día normal en ConTuHogar 👀"
+"Un día normal en ContuHogar 👀"
 [Foto/video del equipo trabajando]
 
 Slide 2:
@@ -464,7 +464,7 @@ Colombia tiene uno de los mercados inmobiliarios más dinámicos de Latinoaméri
 ### Paleta de colores
 | Color | Código | Uso |
 |-------|--------|-----|
-| Primario (Verde ConTuHogar) | #0E66A2 | Títulos, CTAs, elementos destacados |
+| Primario (Verde ContuHogar) | #0E66A2 | Títulos, CTAs, elementos destacados |
 | Secundario | #F5A623 | Acentos, iconos, highlights |
 | Fondo claro | #FFFFFF | Fondos principales |
 | Fondo alternativo | #F8F9FA | Fondos de slides pares |
@@ -488,7 +488,7 @@ Colombia tiene uno de los mercados inmobiliarios más dinámicos de Latinoaméri
 | Cover de Reel | 1080 x 1920 px | N/A |
 
 ### Elementos visuales obligatorios
-- ✅ Logo de ConTuHogar en todas las piezas (esquina inferior derecha)
+- ✅ Logo de ContuHogar en todas las piezas (esquina inferior derecha)
 - ✅ Bandera de Colombia 🇨🇴 cuando sea relevante
 - ✅ Iconos simples y modernos
 - ✅ Fotos de alta calidad (viviendas, familias, ciudades colombianas)
@@ -507,7 +507,7 @@ Colombia tiene uno de los mercados inmobiliarios más dinámicos de Latinoaméri
 
 ### Hashtags principales (usar en cada post)
 ```
-#ConTuHogar #ViviendaColombia #CreditoHipotecario
+#ContuHogar #ViviendaColombia #CreditoHipotecario
 ```
 
 ### Hashtags por audiencia
@@ -638,7 +638,7 @@ Las más populares entre nuestros clientes:
 ```
 ¡Hola [nombre]! Entendemos la precaución, es importante verificar antes de confiar.
 
-ConTuHogar es una empresa colombiana con más de [X] años de experiencia, regulada por [autoridades]. Hemos ayudado a más de 3.000 familias.
+ContuHogar es una empresa colombiana con más de [X] años de experiencia, regulada por [autoridades]. Hemos ayudado a más de 3.000 familias.
 
 Te invitamos a:
 ✅ Visitar nuestra web: contuhogar.com
@@ -718,7 +718,7 @@ Incluir:
 - [ ] Hashtags incluidos (en descripción o primer comentario)
 - [ ] Link en bio actualizado si es necesario
 - [ ] Imagen/video en la dimensión correcta
-- [ ] Logo de ConTuHogar visible
+- [ ] Logo de ContuHogar visible
 - [ ] CTA claro y visible
 - [ ] Hora de publicación óptima
 - [ ] Etiquetas de ubicación si aplica

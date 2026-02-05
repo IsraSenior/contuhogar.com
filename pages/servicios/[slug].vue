@@ -71,7 +71,7 @@ function getServiceContent(slug) {
           <li><strong>Vigencia de la aprobación:</strong> 6 meses para que encuentres el inmueble perfecto.</li>
           <li><strong>Montos:</strong> sin límite máximo, sujeto a tu capacidad de pago y avalúo del inmueble.</li>
         </ul>
-        <p class="mt-4"><strong>Importante:</strong> ConTuHogar te acompaña en todo el proceso de legalización, elaboración de poderes y hasta el desembolso del crédito.</p>`
+        <p class="mt-4"><strong>Importante:</strong> ContuHogar te acompaña en todo el proceso de legalización, elaboración de poderes y hasta el desembolso del crédito.</p>`
       },
       {
         title: '¿A quién va dirigido el crédito?',

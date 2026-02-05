@@ -7,9 +7,9 @@ definePageMeta({
 
 // SEO optimizado
 useSeoMeta({
-  title: 'Simulador de crédito | ConTuHogar',
+  title: 'Simulador de crédito | ContuHogar',
   description: 'Simula tu crédito hipotecario desde el exterior. Descubre cuánto puedes solicitar y cuál sería tu cuota mensual en minutos.',
-  ogTitle: 'Simulador de crédito | ConTuHogar',
+  ogTitle: 'Simulador de crédito | ContuHogar',
   ogDescription: 'Simula tu crédito hipotecario desde el exterior. Descubre cuánto puedes solicitar y cuál sería tu cuota mensual en minutos.',
   ogUrl: 'https://contuhogar.com/simulador/credito',
   twitterCard: 'summary'

@@ -98,7 +98,7 @@ const articleContent = computed(() => {
 watchEffect(() => {
   if (currentArticle.value) {
     useSeo({
-      title: `${currentArticle.value.title} | Blog ConTuHogar`,
+      title: `${currentArticle.value.title} | Blog ContuHogar`,
       description: currentArticle.value.excerpt,
       type: 'article',
       image: currentArticle.value.image,

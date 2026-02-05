@@ -192,7 +192,7 @@ export const useSimuladorCalculations = () => {
           'Necesitas sanear tu historial crediticio antes de aplicar.',
           'Contacta a las centrales de riesgo de tu país para conocer el estado de tus reportes.',
           'Considera trabajar en mejorar tu score crediticio durante los próximos 12-24 meses.',
-          'ConTuHogar podrá evaluar tu caso una vez mejore tu situación crediticia.'
+          'ContuHogar podrá evaluar tu caso una vez mejore tu situación crediticia.'
         ]
       };
     }

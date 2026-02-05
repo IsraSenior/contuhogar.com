@@ -2,7 +2,7 @@
 
 ## Información General
 
-**Marca:** ConTuHogar
+**Marca:** ContuHogar
 **Audiencia:** Colombianos viviendo en el exterior (USA, España, otros países)
 **Objetivos:**
 - Generar leads calificados a través del simulador de crédito
@@ -81,7 +81,7 @@ Desliza para descubrir las 5 cosas que NADIE te cuenta antes de comprar vivienda
 
 ¿Tienes más preguntas? Déjalas en los comentarios 👇
 
-#ConTuHogar #ColombianosenelExterior #CréditoHipotecario #CasaEnColombia #InversiónInmobiliaria #ColombianosUSA #ColombianosEspaña #SueñoPropio
+#ContuHogar #ColombianosenelExterior #CréditoHipotecario #CasaEnColombia #InversiónInmobiliaria #ColombianosUSA #ColombianosEspaña #SueñoPropio
 ```
 
 **Contenido por Slide:**
@@ -108,7 +108,7 @@ Desliza para descubrir las 5 cosas que NADIE te cuenta antes de comprar vivienda
 
 **Copy para Caption:**
 ```
-"Nunca pensé que desde Miami podría comprar mi apartamento en Medellín. ConTuHogar me ayudó a cumplir mi sueño." - María, 34 años.
+"Nunca pensé que desde Miami podría comprar mi apartamento en Medellín. ContuHogar me ayudó a cumplir mi sueño." - María, 34 años.
 
 Hace 8 meses, María vivía en Miami trabajando como enfermera. Su sueño era tener un lugar propio en Colombia para sus papás.
 
@@ -129,13 +129,13 @@ Todo empezó con 3 minutos en nuestro simulador 👇
 
 Tu historia puede ser la siguiente 💚
 
-#ConTuHogar #TestimonioReal #ColombianosenUSA #CasaEnMedellín #SueñoCumplido #DesdeElExterior #MiCasaEnColombia
+#ContuHogar #TestimonioReal #ColombianosenUSA #CasaEnMedellín #SueñoCumplido #DesdeElExterior #MiCasaEnColombia
 ```
 
 **Elemento Visual:**
 - Foto de familia feliz en apartamento (modelo/stock)
 - Overlay con quote destacado
-- Logo ConTuHogar en esquina
+- Logo ContuHogar en esquina
 
 **CTA:** "¿Quieres ser nuestra próxima historia de éxito?"
 
@@ -184,7 +184,7 @@ Tu historia puede ser la siguiente 💚
 💬 Texto: "DESCUBRE CUÁL ES PARA TI ⬇️"
 
 [SEGUNDO 50-60] - CIERRE
-🎬 Visual: Logo ConTuHogar + QR code
+🎬 Visual: Logo ContuHogar + QR code
 🎤 Audio: "Link en bio. Es gratis y solo toma 3 minutos."
 💬 Texto: "SIMULA AHORA 👆 Link en bio"
 ```
@@ -257,7 +257,7 @@ La buena noticia: es más sencillo de lo que piensas. La mayoría de documentos 
 
 ¿Falta algún documento en la lista? Cuéntanos en comentarios 👇
 
-#ConTuHogar #CréditoHipotecario #ColombianosenelExterior #DocumentosVivienda #PasoAPaso #InversiónColombia #CasaEnColombia
+#ContuHogar #CréditoHipotecario #ColombianosenelExterior #DocumentosVivienda #PasoAPaso #InversiónColombia #CasaEnColombia
 ```
 
 **Contenido por Slide:**
@@ -282,7 +282,7 @@ La buena noticia: es más sencillo de lo que piensas. La mayoría de documentos 
 
 **Copy para Caption:**
 ```
-"Llevábamos 5 años en Barcelona. Nuestros hijos crecían lejos de sus abuelos. ConTuHogar nos ayudó a volver a casa." - Carlos y Ana
+"Llevábamos 5 años en Barcelona. Nuestros hijos crecían lejos de sus abuelos. ContuHogar nos ayudó a volver a casa." - Carlos y Ana
 
 Esta es la historia de una familia que decidió volver 💚
 
@@ -310,14 +310,14 @@ La solución:
 
 Tu familia te está esperando 🏠
 
-#ConTuHogar #ColombianosEspaña #HistoriaReal #VueltaAColombia #FamiliaReunida #CasaEnBogotá #SueñoCumplido
+#ContuHogar #ColombianosEspaña #HistoriaReal #VueltaAColombia #FamiliaReunida #CasaEnBogotá #SueñoCumplido
 ```
 
 **Elemento Visual:**
 - Foto dividida: Izquierda (Barcelona), Derecha (Bogotá)
 - Familia feliz en ambas fotos
 - Quote destacado en el centro
-- Logo ConTuHogar
+- Logo ContuHogar
 
 **CTA:** "Escríbenos y cuéntanos tu historia"
 
@@ -346,7 +346,7 @@ Tu familia te está esperando 🏠
 
 [SEGUNDO 18-30] - TESTIMONIO 2 (Carlos - Madrid)
 🎬 Visual: Clip de Carlos con su familia
-🎤 Audio: "ConTuHogar nos ayudó a volver a casa. Ahora mis hijos están cerca de sus abuelos"
+🎤 Audio: "ContuHogar nos ayudó a volver a casa. Ahora mis hijos están cerca de sus abuelos"
 💬 Texto: "Carlos - Madrid 🇪🇸 → Bogotá 🇨🇴"
 
 [SEGUNDO 30-42] - TESTIMONIO 3 (Andrea - New York)
@@ -360,7 +360,7 @@ Tu familia te está esperando 🏠
 💬 Texto: "MÁS DE 3.000 FAMILIAS NOS CONFIARON SU SUEÑO"
 
 [SEGUNDO 50-60] - CTA
-🎬 Visual: Logo ConTuHogar + familia feliz de fondo
+🎬 Visual: Logo ContuHogar + familia feliz de fondo
 🎤 Audio: Música fade out
 💬 Texto: "¿Cuándo será tu turno? SIMULA GRATIS 👆"
 Subtexto: "Link en bio | 3 minutos | Sin compromiso"
@@ -446,7 +446,7 @@ Error #7: No aprovechar tu ingreso en moneda extranjera
 
 ¿Cometiste alguno de estos errores? Cuéntanos en comentarios 👇
 
-#ConTuHogar #ErroresAlComprar #CréditoHipotecario #ConsejosInmobiliarios #ColombianosenelExterior #TipsVivienda #EvitaErrores
+#ContuHogar #ErroresAlComprar #CréditoHipotecario #ConsejosInmobiliarios #ColombianosenelExterior #TipsVivienda #EvitaErrores
 ```
 
 **Contenido por Slide:**
@@ -500,7 +500,7 @@ Es TAN fácil que tu abuelita podría hacerlo 😊
 
 ¿Tienes dudas? Déjalas en comentarios y te respondemos 👇
 
-#ConTuHogar #SimuladorCrédito #PasoAPaso #TutorialCrédito #CómoFunciona #FácilYRápido #CréditoHipotecario
+#ContuHogar #SimuladorCrédito #PasoAPaso #TutorialCrédito #CómoFunciona #FácilYRápido #CréditoHipotecario
 ```
 
 **Contenido por Slide:**
@@ -566,7 +566,7 @@ Es TAN fácil que tu abuelita podría hacerlo 😊
 ✓ ASNEF (ES)
 
 [SEGUNDO 52-60] - CTA
-🎬 Visual: Checkmark gigante + Logo ConTuHogar
+🎬 Visual: Checkmark gigante + Logo ContuHogar
 🎤 Audio: "¿Ya tienes estos documentos? Descubre si calificas en nuestro simulador. Link en bio."
 💬 Texto: "¿TIENES ESTOS 4? SIMULA AHORA 👆"
 "Link en bio | Gratis | 3 minutos"
@@ -586,7 +586,7 @@ Es TAN fácil que tu abuelita podría hacerlo 😊
 **Formato:** 1080x1920px
 
 **Diseño:**
-- Foto real del equipo ConTuHogar trabajando (oficina, computadoras)
+- Foto real del equipo ContuHogar trabajando (oficina, computadoras)
 - Filtro cálido/profesional
 - Texto superior: "DETRÁS DE CÁMARAS"
 - Texto central: "Nuestro equipo trabajando para hacer realidad TU sueño 💼"
@@ -654,7 +654,7 @@ Aquí está la GUÍA DEFINITIVA de financiación según tu ingreso mensual 👇
 
 ¿En qué rango estás? 💭
 
-#ConTuHogar #GuíaFinanciación #CapacidadCrédito #CuántoNecesito #CréditoHipotecario #PlanificaciónFinanciera #InversiónVivienda
+#ContuHogar #GuíaFinanciación #CapacidadCrédito #CuántoNecesito #CréditoHipotecario #PlanificaciónFinanciera #InversiónVivienda
 ```
 
 **Diseño Visual:**
@@ -662,7 +662,7 @@ Aquí está la GUÍA DEFINITIVA de financiación según tu ingreso mensual 👇
 - Código de colores por rango (gradiente)
 - Iconos de casas de diferentes tamaños
 - Disclaimer en letra pequeña al pie
-- Logo ConTuHogar
+- Logo ContuHogar
 
 **CTA:** Link al simulador en bio
 
@@ -716,7 +716,7 @@ D) Buscar mi casa ideal
 
 Comenta la letra 👇
 
-#ConTuHogar #NuevoMes #TuOportunidad #MarzoDeCambios #SueñoPropio #CasaEnColombia #NoEsperesMás #EmpiezaHoy
+#ContuHogar #NuevoMes #TuOportunidad #MarzoDeCambios #SueñoPropio #CasaEnColombia #NoEsperesMás #EmpiezaHoy
 ```
 
 **Diseño Visual:**
@@ -867,7 +867,7 @@ Comenta la letra 👇
 
 ---
 
-## Paleta de Colores ConTuHogar
+## Paleta de Colores ContuHogar
 
 ### Colores Principales
 
@@ -926,7 +926,7 @@ Disclaimer: Light, 10-12pt
 ### Principales (Usar SIEMPRE)
 
 ```
-#ConTuHogar
+#ContuHogar
 #ColombianosenelExterior
 #CréditoHipotecario
 #CasaEnColombia
@@ -1037,7 +1037,7 @@ Disclaimer: Light, 10-12pt
 
 #### 1️⃣ Educativo (30%)
 
-**Objetivo:** Posicionar a ConTuHogar como autoridad en financiación de vivienda.
+**Objetivo:** Posicionar a ContuHogar como autoridad en financiación de vivienda.
 
 **Formatos:**
 - Carruseles informativos (5-7 slides)
@@ -1247,7 +1247,7 @@ Meta: 5% de simulaciones se conviertan en leads calificados
 
 ## Notas de Implementación
 
-### Tono de Voz ConTuHogar
+### Tono de Voz ContuHogar
 
 **Atributos de marca:**
 - ✅ Profesional pero cercano
@@ -1355,7 +1355,7 @@ Meta: 5% de simulaciones se conviertan en leads calificados
 - "Real Estate Reel Template"
 
 **Personalizar con:**
-- Colores de marca ConTuHogar
+- Colores de marca ContuHogar
 - Logo en todas las piezas
 - Tipografía consistente
 
