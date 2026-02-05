@@ -165,6 +165,7 @@
         :class="{
           'border-gray-200': localReportesNegativos === null || localReportesNegativos === false,
           'border-red-300 bg-red-50/30': localReportesNegativos === true,
+          'border-amber-300 bg-amber-50/30': localNoSabeReportes,
           'opacity-50 pointer-events-none': localStatusMigratorio === false
         }"
       >
@@ -182,12 +183,14 @@
                 <div
                   class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                   :class="{
-                    'bg-green-500 text-white': localReportesNegativos === false,
+                    'bg-green-500 text-white': localReportesNegativos === false && !localNoSabeReportes,
                     'bg-red-500 text-white': localReportesNegativos === true,
-                    'bg-gray-200 text-gray-500': localReportesNegativos === null
+                    'bg-amber-500 text-white': localNoSabeReportes,
+                    'bg-gray-200 text-gray-500': localReportesNegativos === null && !localNoSabeReportes
                   }"
                 >
-                  <span v-if="localReportesNegativos === false">✓</span>
+                  <span v-if="localNoSabeReportes">?</span>
+                  <span v-else-if="localReportesNegativos === false">✓</span>
                   <span v-else-if="localReportesNegativos === true">✗</span>
                   <span v-else>?</span>
                 </div>
@@ -198,7 +201,13 @@
                   </h3>
                   <!-- Respuesta seleccionada cuando está cerrado -->
                   <p
-                    v-if="openQuestion !== 2 && localReportesNegativos !== null"
+                    v-if="openQuestion !== 2 && localNoSabeReportes"
+                    class="text-sm mt-1 text-amber-600"
+                  >
+                    No estoy seguro
+                  </p>
+                  <p
+                    v-else-if="openQuestion !== 2 && localReportesNegativos !== null"
                     class="text-sm mt-1"
                     :class="{
                       'text-green-600': localReportesNegativos === false,
@@ -236,16 +245,16 @@
                 @click="selectReportesNegativos(false)"
                 class="w-full p-4 border-2 rounded-lg transition-all duration-300 text-left flex items-center justify-between"
                 :class="{
-                  'border-green-500 bg-green-50': localReportesNegativos === false,
-                  'border-gray-300 hover:border-gray-400': localReportesNegativos !== false
+                  'border-green-500 bg-green-50': localReportesNegativos === false && !localNoSabeReportes,
+                  'border-gray-300 hover:border-gray-400': localReportesNegativos !== false || localNoSabeReportes
                 }"
               >
                 <div class="flex items-center gap-3">
                   <div
                     class="w-10 h-10 rounded-full flex items-center justify-center text-xl"
                     :class="{
-                      'bg-green-500 text-white': localReportesNegativos === false,
-                      'bg-gray-100': localReportesNegativos !== false
+                      'bg-green-500 text-white': localReportesNegativos === false && !localNoSabeReportes,
+                      'bg-gray-100': localReportesNegativos !== false || localNoSabeReportes
                     }"
                   >
                     ✓
@@ -280,6 +289,31 @@
                   </span>
                 </div>
               </button>
+
+              <button
+                type="button"
+                @click="selectNoSabeReportes"
+                class="w-full p-4 border-2 rounded-lg transition-all duration-300 text-left flex items-center justify-between"
+                :class="{
+                  'border-amber-500 bg-amber-50': localNoSabeReportes,
+                  'border-gray-300 hover:border-gray-400': !localNoSabeReportes
+                }"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full flex items-center justify-center text-xl"
+                    :class="{
+                      'bg-amber-500 text-white': localNoSabeReportes,
+                      'bg-gray-100': !localNoSabeReportes
+                    }"
+                  >
+                    ?
+                  </div>
+                  <span class="font-medium text-gray-800">
+                    No estoy seguro
+                  </span>
+                </div>
+              </button>
             </div>
 
             <!-- Blocked Message Inline -->
@@ -307,6 +341,21 @@
             </div>
           </div>
         </Transition>
+      </div>
+
+      <!-- "No sé" Info Message (fuera del accordion para que siempre sea visible) -->
+      <div v-if="localNoSabeReportes" class="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+        <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <div class="flex-1">
+          <p class="text-sm font-semibold text-amber-700 mb-1">
+            Puedes continuar, pero ten en cuenta lo siguiente
+          </p>
+          <p class="text-sm text-gray-600">
+            Te recomendamos consultar tu estado en centrales de riesgo (DataCredito, TransUnion) antes de formalizar tu solicitud. Si tienes reportes negativos activos, la entidad financiera podría rechazar tu crédito durante la evaluación final.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -365,6 +414,7 @@ const store = useSimuladorStore();
 
 const localStatusMigratorio = ref<boolean | null>(store.datosElegibilidad.statusMigratorio);
 const localReportesNegativos = ref<boolean | null>(store.datosElegibilidad.reportesNegativos);
+const localNoSabeReportes = ref<boolean>(store.datosElegibilidad.reportesNegativosNoSabe);
 const openQuestion = ref<number | null>(1); // Primera pregunta abierta por defecto
 
 const hasBlockingIssue = computed(() => {
@@ -404,7 +454,8 @@ const selectStatusMigratorio = (value: boolean) => {
 
 const selectReportesNegativos = (value: boolean) => {
   localReportesNegativos.value = value;
-  store.updateDatosElegibilidad({ reportesNegativos: value });
+  localNoSabeReportes.value = false;
+  store.updateDatosElegibilidad({ reportesNegativos: value, reportesNegativosNoSabe: false });
 
   if (value === false) {
     // Si es positivo (no tiene reportes), cerrar accordion
@@ -415,18 +466,30 @@ const selectReportesNegativos = (value: boolean) => {
   }
 };
 
+const selectNoSabeReportes = () => {
+  localReportesNegativos.value = false; // Permite avanzar
+  localNoSabeReportes.value = true;
+  store.updateDatosElegibilidad({
+    reportesNegativos: false,
+    reportesNegativosNoSabe: true
+  });
+  // Cerrar accordion - puede continuar
+  openQuestion.value = null;
+};
+
 // Cargar datos al montar
 onMounted(() => {
   localStatusMigratorio.value = store.datosElegibilidad.statusMigratorio;
   localReportesNegativos.value = store.datosElegibilidad.reportesNegativos;
+  localNoSabeReportes.value = store.datosElegibilidad.reportesNegativosNoSabe;
 
   // Si ya hay respuestas, determinar qué abrir
   if (localStatusMigratorio.value === false) {
     openQuestion.value = 1; // Mantener pregunta 1 abierta si es bloqueante
   } else if (localReportesNegativos.value === true) {
     openQuestion.value = 2; // Mantener pregunta 2 abierta si es bloqueante
-  } else if (localStatusMigratorio.value !== null && localReportesNegativos.value !== null) {
-    openQuestion.value = null; // Cerrar todo si ambas están respondidas positivamente
+  } else if (localStatusMigratorio.value !== null && (localReportesNegativos.value !== null || localNoSabeReportes.value)) {
+    openQuestion.value = null; // Cerrar todo si ambas están respondidas
   }
 });
 </script>

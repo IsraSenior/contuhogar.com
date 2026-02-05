@@ -34,7 +34,8 @@ export const useSimuladorStore = defineStore('simulador', {
     },
     datosElegibilidad: {
       statusMigratorio: null,
-      reportesNegativos: null
+      reportesNegativos: null,
+      reportesNegativosNoSabe: false
     },
     resultado: null,
     completado: false,
@@ -98,7 +99,7 @@ export const useSimuladorStore = defineStore('simulador', {
 
       // Validar porcentaje de financiación
       const porcentaje = (state.datosBien.montoSolicitado / state.datosBien.valorBien) * 100;
-      const limiteMax = state.datosPersonales.tipoCredito === 'hipotecario' ? 70 : 80;
+      const limiteMax = state.datosPersonales.tipoCredito === 'leasing' ? 80 : 70;
 
       if (porcentaje > limiteMax) {
         return false;
@@ -449,7 +450,8 @@ export const useSimuladorStore = defineStore('simulador', {
         case 4:
           return {
             statusMigratorio: this.datosElegibilidad.statusMigratorio,
-            reportesNegativos: this.datosElegibilidad.reportesNegativos
+            reportesNegativos: this.datosElegibilidad.reportesNegativos,
+            reportesNegativosNoSabe: this.datosElegibilidad.reportesNegativosNoSabe
           };
         case 5:
           return {
@@ -644,6 +646,7 @@ export const useSimuladorStore = defineStore('simulador', {
           // Datos de elegibilidad
           statusMigratorio: this.datosElegibilidad.statusMigratorio,
           reportesNegativos: this.datosElegibilidad.reportesNegativos,
+          reportesNegativosNoSabe: this.datosElegibilidad.reportesNegativosNoSabe,
 
           // Resultado
           resultado: this.resultado,

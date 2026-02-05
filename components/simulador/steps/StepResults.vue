@@ -420,6 +420,7 @@
 import { formatCurrency, formatPercentage, formatPercentageUp } from '~/utils/formatters';
 import type { ResultadoCalculo } from '~/types/simulador';
 import { useDirectPDFDownload } from '~/composables/useDirectPDFDownload';
+import { getCreditTypeLabel } from '~/utils/creditTypeLabels';
 
 const store = useSimuladorStore();
 const mainStore = useMainStore();
@@ -491,7 +492,7 @@ const buildWhatsAppMessage = (tipo: 'aprobado' | 'rechazado' | 'advertencia'): s
   const { datosPersonales, datosBien } = store;
   const res = resultado.value;
   const fullName = [datosPersonales.nombres, datosPersonales.apellidos].filter(Boolean).join(' ');
-  const tipoCredito = datosPersonales.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+  const tipoCredito = getCreditTypeLabel(datosPersonales.tipoCredito);
 
   let message = `Hola, soy *${fullName}*.
 

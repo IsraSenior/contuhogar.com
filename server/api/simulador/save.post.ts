@@ -29,7 +29,7 @@ const schema = z.object({
   }),
   correo: z.string().email().toLowerCase(),
   edad: z.number().int().min(18).max(84),
-  tipoCredito: z.enum(['hipotecario', 'leasing']),
+  tipoCredito: z.enum(['hipotecario', 'leasing', 'remodelacion', 'compra_cartera']),
 
   // Datos del bien
   valorBien: z.number().positive(),
@@ -47,6 +47,7 @@ const schema = z.object({
   // Datos de elegibilidad
   statusMigratorio: z.boolean(),
   reportesNegativos: z.boolean(),
+  reportesNegativosNoSabe: z.boolean().optional().default(false),
 
   // Resultado de la simulación
   resultado: z.object({
@@ -174,7 +175,13 @@ export default defineEventHandler(async (event) => {
     const tgChatId = config.TELEGRAM_CHAT_ID as string | number | undefined;
 
     if (tgToken && tgChatId) {
-      const tipoCredito = data.data.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+      const TIPO_CREDITO_LABELS: Record<string, string> = {
+        hipotecario: 'Credito Hipotecario',
+        leasing: 'Leasing Habitacional',
+        remodelacion: 'Credito de Remodelacion',
+        compra_cartera: 'Compra de Cartera',
+      };
+      const tipoCredito = TIPO_CREDITO_LABELS[data.data.tipoCredito] || data.data.tipoCredito;
       const fullName = `${data.data.nombres} ${data.data.apellidos}`.trim();
       const tel = `${data.data.telefonoCodigo.code} ${data.data.telefono}`.trim();
       const resultadoEmoji = getResultEmoji(data.data.resultado.resultado);
@@ -196,7 +203,7 @@ export default defineEventHandler(async (event) => {
    ${resultadoEmoji} ${data.data.resultado.resultado.toUpperCase()}
    Cuota: ${formatCurrency(data.data.resultado.cuotaMensual)}
    Compromiso: ${Math.ceil(data.data.resultado.porcentajeCompromiso)}%
-   Financiación: ${Math.ceil(data.data.resultado.porcentajeFinanciacion)}%`;
+   Financiación: ${Math.ceil(data.data.resultado.porcentajeFinanciacion)}%${data.data.reportesNegativosNoSabe ? '\n\n⚠️ *Nota:* El usuario indicó que NO SABE si tiene reportes negativos en centrales de riesgo.' : ''}`;
 
       // Fire and forget - don't wait for Telegram response
       fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {

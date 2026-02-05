@@ -3,7 +3,8 @@ import type {
   SimuladorState,
   ResultadoCalculo,
   ValidacionResult,
-  ObligacionFinanciera
+  ObligacionFinanciera,
+  TipoCredito
 } from '~/types/simulador';
 
 export const useSimuladorCalculations = () => {
@@ -105,12 +106,12 @@ export const useSimuladorCalculations = () => {
   const validarFinanciacion = (
     valorBien: number,
     montoSolicitado: number,
-    tipoCredito: 'hipotecario' | 'leasing'
+    tipoCredito: TipoCredito
   ): ValidacionResult => {
     const porcentaje = (montoSolicitado / valorBien) * 100;
-    const limiteMax = tipoCredito === 'hipotecario'
-      ? PORCENTAJE_FINANCIACION_HIPOTECARIO
-      : PORCENTAJE_FINANCIACION_LEASING;
+    const limiteMax = tipoCredito === 'leasing'
+      ? PORCENTAJE_FINANCIACION_LEASING
+      : PORCENTAJE_FINANCIACION_HIPOTECARIO;
 
     if (porcentaje > limiteMax) {
       const montoMaximo = (valorBien * limiteMax) / 100;
