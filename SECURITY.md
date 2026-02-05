@@ -1,6 +1,6 @@
 # Security Documentation
 
-Documentación completa de las medidas de seguridad implementadas en ConTuHogar.com
+Documentación completa de las medidas de seguridad implementadas en ContuHogar.com
 
 ## 📋 Índice
 

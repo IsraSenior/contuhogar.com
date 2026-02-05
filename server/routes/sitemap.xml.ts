@@ -1,7 +1,7 @@
 import { defineEventHandler, setHeader } from 'h3'
 
 /**
- * Endpoint de sitemap dinámico para ConTuHogar
+ * Endpoint de sitemap dinámico para ContuHogar
  *
  * Genera un sitemap.xml con:
  * - Páginas estáticas principales

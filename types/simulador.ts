@@ -1,4 +1,4 @@
-// Tipos para el Simulador de Crédito ConTuHogar
+// Tipos para el Simulador de Crédito ContuHogar
 
 export type TipoCredito = 'hipotecario' | 'leasing';
 

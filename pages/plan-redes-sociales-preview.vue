@@ -36,7 +36,7 @@
         <!-- Titulo -->
         <div class="text-center mb-10 mt-8">
           <h1 class="text-4xl font-bold text-primary mb-2">PLAN DE REDES SOCIALES</h1>
-          <p class="text-xl text-gray-500">Febrero 2026 - ConTuHogar</p>
+          <p class="text-xl text-gray-500">Febrero 2026 - ContuHogar</p>
           <div class="w-24 h-1 bg-secondary mx-auto mt-4"></div>
         </div>
 
@@ -648,7 +648,7 @@
             <span class="text-xs text-gray-500">Dom 16 Feb</span>
             <span class="bg-orange-50 text-orange-600 text-[10px] px-2 py-0.5 rounded">Producto</span>
           </div>
-          <h4 class="font-bold text-primary text-sm mb-1">Behind the Scenes - Equipo ConTuHogar</h4>
+          <h4 class="font-bold text-primary text-sm mb-1">Behind the Scenes - Equipo ContuHogar</h4>
           <p class="text-xs text-gray-600 mb-1"><strong>Formato:</strong> 1080x1920px | Duracion: 15s</p>
           <p class="text-xs text-gray-500">Foto real del equipo trabajando. "DETRAS DE CAMARAS" - "Nuestro equipo trabajando para hacer realidad TU sueno". Link a WhatsApp.</p>
         </div>
@@ -888,7 +888,7 @@
         </div>
 
         <!-- Paleta de colores -->
-        <h3 class="font-bold text-primary text-sm mb-3">Paleta de Colores ConTuHogar</h3>
+        <h3 class="font-bold text-primary text-sm mb-3">Paleta de Colores ContuHogar</h3>
         <div class="flex items-center gap-3 mb-8">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-1.5">
@@ -914,7 +914,7 @@
         <div class="bg-muted rounded-lg p-3 mb-8">
           <div class="mb-3">
             <p class="font-semibold text-xs text-primary mb-1">Principales (usar SIEMPRE):</p>
-            <p class="text-[10px] text-gray-600">#ConTuHogar #ColombianosenelExterior #CreditoHipotecario #CasaEnColombia</p>
+            <p class="text-[10px] text-gray-600">#ContuHogar #ColombianosenelExterior #CreditoHipotecario #CasaEnColombia</p>
           </div>
           <div class="mb-3">
             <p class="font-semibold text-xs text-primary mb-1">Por ubicacion:</p>
@@ -1104,10 +1104,10 @@
           <p class="text-xs text-gray-700"><strong>Meta:</strong> 5% de simulaciones se conviertan en leads calificados = <strong>7-8 leads/mes</strong></p>
         </div>
 
-        <!-- Contacto ConTuHogar -->
+        <!-- Contacto ContuHogar -->
         <div class="bg-primary rounded-lg px-4 py-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white">Contacto ConTuHogar</h3>
+            <h3 class="text-sm font-bold text-white">Contacto ContuHogar</h3>
             <div class="flex items-center gap-4 text-[10px]">
               <span class="text-white"><span class="text-white/60">Web:</span> contuhogar.com</span>
               <span class="text-white/40">|</span>
@@ -1145,7 +1145,7 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: 'Plan de Redes Sociales - Febrero 2026 | ConTuHogar',
+  title: 'Plan de Redes Sociales - Febrero 2026 | ContuHogar',
   robots: 'noindex, nofollow'
 });
 

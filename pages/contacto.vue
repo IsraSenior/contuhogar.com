@@ -32,7 +32,7 @@ const isFromSimulador = computed(() => prefillData.value?.source === 'simulador'
 // Verificar si viene de un servicio
 const isFromServicio = computed(() => prefillData.value?.source === 'servicio')
 
-const title = `ConTuHogar | Contacto`;
+const title = `ContuHogar | Contacto`;
 const description = "Contáctanos para obtener asesoría especializada en crédito hipotecario, leasing habitacional y financiamiento de vivienda en Colombia. Atención personalizada para colombianos en el exterior."
 
 // SEO optimizado

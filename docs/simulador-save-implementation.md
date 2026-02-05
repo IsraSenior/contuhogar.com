@@ -7,7 +7,7 @@ This document describes the implementation of the credit simulator save function
 
 ### 1. API Endpoint Created
 
-**File:** `/Users/israsenior/Desktop/ConTuHogar/contuhogar.com/server/api/simulador/save.post.ts`
+**File:** `/Users/israsenior/Desktop/ContuHogar/contuhogar.com/server/api/simulador/save.post.ts`
 
 **Features:**
 - ✅ Zod validation for all simulation data
@@ -40,7 +40,7 @@ This document describes the implementation of the credit simulator save function
 
 ### 2. Store Action Added
 
-**File:** `/Users/israsenior/Desktop/ConTuHogar/contuhogar.com/stores/simulador.ts`
+**File:** `/Users/israsenior/Desktop/ContuHogar/contuhogar.com/stores/simulador.ts`
 
 **New Action:** `guardarSimulacion()`
 

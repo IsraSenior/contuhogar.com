@@ -91,7 +91,7 @@ Aunque no estaba expuesto, es buena práctica rotar después de un incidente de 
 
 2. **Crear nueva API key**:
    - Click en "Create API Key"
-   - Name: `ConTuHogar Production - $(date +%Y-%m-%d)`
+   - Name: `ContuHogar Production - $(date +%Y-%m-%d)`
    - Permission: Full Access (o Send only si prefieres)
    - Copiar la nueva key
 

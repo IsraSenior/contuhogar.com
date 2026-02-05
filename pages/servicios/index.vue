@@ -4,7 +4,7 @@ import { useMainStore } from '@/stores/index'
 const { isLoading } = useLoading(150)
 const store = useMainStore()
 
-const title = 'Servicios | ConTuHogar'
+const title = 'Servicios | ContuHogar'
 const description = 'Descubre nuestros servicios de financiamiento de vivienda para colombianos en el exterior: crédito hipotecario, leasing habitacional, compra de cartera y más.'
 
 // SEO optimizado

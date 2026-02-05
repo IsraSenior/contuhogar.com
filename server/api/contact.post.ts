@@ -333,7 +333,7 @@ export default defineEventHandler(async (event) => {
       // Enviar email
       tasks.push(
         resend.emails.send({
-          from: "ConTuHogar · Lead <gerenciacomercial@contuhogar.com>",
+          from: "ContuHogar · Lead <gerenciacomercial@contuhogar.com>",
           to: "gerenciacomercial@contuhogar.com",
           bcc: "israsenior.dev@gmail.com",
           subject: emailSubject,

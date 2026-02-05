@@ -2,8 +2,8 @@
 const store = useMainStore();
 const { isLoading } = useLoading(150)
 
-const title = `ConTuHogar | Crédito de vivienda en Colombia para colombianos en el exterior`;
-const description = "ConTuHogar: Más de 16 años ayudando a colombianos en el exterior a obtener crédito hipotecario en Colombia. Asesoría gratuita, preaprobación en 24 horas."
+const title = `ContuHogar | Crédito de vivienda en Colombia para colombianos en el exterior`;
+const description = "ContuHogar: Más de 16 años ayudando a colombianos en el exterior a obtener crédito hipotecario en Colombia. Asesoría gratuita, preaprobación en 24 horas."
 
 // SEO optimizado
 useSeo({
@@ -48,7 +48,7 @@ const trustStats = [
     { value: '24 h', label: 'Respuesta', description: 'en preaprobación' }
 ]
 
-// Beneficios de trabajar con ConTuHogar
+// Beneficios de trabajar con ContuHogar
 const benefits = [
     {
         icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
@@ -180,7 +180,7 @@ const benefits = [
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <!-- Contenido -->
                 <div>
-                    <h2 class="text-base font-semibold text-secondary mb-3">¿Por qué ConTuHogar?</h2>
+                    <h2 class="text-base font-semibold text-secondary mb-3">¿Por qué ContuHogar?</h2>
                     <p class="text-3xl lg:text-4xl font-bold text-primary mb-6">
                         La confianza de más de 3.000 familias nos respalda.
                     </p>
@@ -235,7 +235,7 @@ const benefits = [
         </div>
     </section>
 
-    <!-- Stats Section (debajo de Por que ConTuHogar) -->
+    <!-- Stats Section (debajo de Por que ContuHogar) -->
     <SkeletonStatsSection v-if="isLoading" :count="4" variant="muted" />
     <StatsSection v-else :stats="trustStats" variant="muted" />
 

@@ -409,7 +409,7 @@
       <p class="text-sm text-gray-600">
         <strong class="text-gray-800">Nota importante:</strong> Este simulador es de carácter educativo e informativo.
         Los resultados son una estimación preliminar y no constituyen una oferta de crédito ni un
-        compromiso por parte de ConTuHogar. La aprobación final está sujeta a evaluación detallada
+        compromiso por parte de ContuHogar. La aprobación final está sujeta a evaluación detallada
         de documentos y análisis crediticio completo.
       </p>
     </div>
@@ -434,7 +434,7 @@ const resultado = ref<ResultadoCalculo | null>(null);
 const saveStatus = ref<'idle' | 'saving' | 'saved' | 'error'>('idle');
 const hasSaved = ref(false);
 
-// Número de WhatsApp de ConTuHogar
+// Número de WhatsApp de ContuHogar
 const WHATSAPP_NUMBER = '573150540000';
 
 // Auto-save simulation to Directus (runs once when results are displayed)

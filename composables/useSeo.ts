@@ -38,9 +38,9 @@ export const useSeo = (options: SeoOptions) => {
   const ogImage = options.image || defaultOgImage
 
   // Título completo con marca
-  const fullTitle = options.title.includes('ConTuHogar')
+  const fullTitle = options.title.includes('ContuHogar')
     ? options.title
-    : `${options.title} | ConTuHogar`
+    : `${options.title} | ContuHogar`
 
   // Configurar metadatos básicos
   useSeoMeta({
@@ -55,7 +55,7 @@ export const useSeo = (options: SeoOptions) => {
     ogImageAlt: options.title,
     ogUrl: canonicalUrl,
     ogType: options.type || 'website',
-    ogSiteName: 'ConTuHogar',
+    ogSiteName: 'ContuHogar',
     ogLocale: 'es_CO',
 
     // Twitter Card
@@ -68,7 +68,7 @@ export const useSeo = (options: SeoOptions) => {
 
     // Metadatos adicionales
     robots: 'index, follow',
-    author: 'ConTuHogar',
+    author: 'ContuHogar',
 
     // Article metadata (si aplica)
     ...(options.type === 'article' && options.article && {
@@ -106,7 +106,7 @@ export const useLocalBusinessSchema = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
-    name: 'ConTuHogar',
+    name: 'ContuHogar',
     description: 'Asesoría especializada en crédito hipotecario y leasing habitacional para colombianos en el exterior',
     url: 'https://contuhogar.com',
     logo: 'https://contuhogar.com/logo.png',
@@ -242,11 +242,11 @@ export const useArticleSchema = (article: {
     dateModified: article.dateModified || article.datePublished,
     author: {
       '@type': 'Organization',
-      name: article.author || 'ConTuHogar'
+      name: article.author || 'ContuHogar'
     },
     publisher: {
       '@type': 'Organization',
-      name: 'ConTuHogar',
+      name: 'ContuHogar',
       logo: {
         '@type': 'ImageObject',
         url: 'https://contuhogar.com/logo.png'
@@ -315,7 +315,7 @@ export const useServiceSchema = (service: {
     ...(service.image && { image: service.image }),
     provider: {
       '@type': 'FinancialService',
-      name: 'ConTuHogar',
+      name: 'ContuHogar',
       url: 'https://contuhogar.com',
       telephone: [
         '+573208033672',

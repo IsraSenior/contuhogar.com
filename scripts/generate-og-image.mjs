@@ -1,5 +1,5 @@
 /**
- * Script para generar la imagen OG (Open Graph) para ConTuHogar
+ * Script para generar la imagen OG (Open Graph) para ContuHogar
  * Dimensiones: 1200x630px (estandar OG)
  * Formato: JPG
  *
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outputPath = join(__dirname, '..', 'public', 'og-image.jpg');
 
-// Colores de la marca ConTuHogar (extraidos de main.css y Logo.vue)
+// Colores de la marca ContuHogar (extraidos de main.css y Logo.vue)
 const COLORS = {
   primary: '#0f172b',    // Navy oscuro (cls-2 del logo)
   secondary: '#ea6f00',  // Naranja (cls-1 del logo)
@@ -175,7 +175,7 @@ const htmlTemplate = `
   <div class="accent-bar"></div>
 
   <div class="content">
-    <!-- Logo ConTuHogar SVG -->
+    <!-- Logo ContuHogar SVG -->
     <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 847.26 181.29">
       <g>
         <g>
@@ -219,7 +219,7 @@ const htmlTemplate = `
 `;
 
 async function generateOgImage() {
-  console.log('Generating OG image for ConTuHogar...');
+  console.log('Generating OG image for ContuHogar...');
   console.log('Output path:', outputPath);
 
   // Buscar Chrome local
