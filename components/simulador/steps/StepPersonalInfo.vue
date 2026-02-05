@@ -438,6 +438,7 @@
 <script setup lang="ts">
 import type { TipoCredito, TipoInmueble, CodigoPaisTelefono } from '~/types/simulador';
 import dialPhoneOptions from '@/db/tlf-dial.json';
+import countriesData from '@/db/countries.json';
 import { getPhoneFormat, getDialCodeFromCountry } from '@/utils/phoneFormats';
 import { useGeoLocation } from '@/composables/useGeoLocation';
 
@@ -457,26 +458,8 @@ const localTipoInmueble = ref<TipoInmueble | null>(store.datosBien.tipoInmueble)
 const localTipoCredito = ref<TipoCredito | null>(store.datosPersonales.tipoCredito);
 const calculatedAge = ref<number | null>(store.datosPersonales.edad);
 
-// Lista de países de residencia común para colombianos en el exterior
-const paisesResidencia = [
-  { code: 'US', name: 'Estados Unidos', flag: '🇺🇸' },
-  { code: 'ES', name: 'España', flag: '🇪🇸' },
-  { code: 'CL', name: 'Chile', flag: '🇨🇱' },
-  { code: 'MX', name: 'México', flag: '🇲🇽' },
-  { code: 'CA', name: 'Canadá', flag: '🇨🇦' },
-  { code: 'PA', name: 'Panamá', flag: '🇵🇦' },
-  { code: 'EC', name: 'Ecuador', flag: '🇪🇨' },
-  { code: 'PE', name: 'Perú', flag: '🇵🇪' },
-  { code: 'AR', name: 'Argentina', flag: '🇦🇷' },
-  { code: 'GB', name: 'Reino Unido', flag: '🇬🇧' },
-  { code: 'DE', name: 'Alemania', flag: '🇩🇪' },
-  { code: 'FR', name: 'Francia', flag: '🇫🇷' },
-  { code: 'IT', name: 'Italia', flag: '🇮🇹' },
-  { code: 'AU', name: 'Australia', flag: '🇦🇺' },
-  { code: 'AE', name: 'Emiratos Árabes Unidos', flag: '🇦🇪' },
-  { code: 'CO', name: 'Colombia', flag: '🇨🇴' },
-  { code: 'OTHER', name: 'Otro país', flag: '🌍' }
-];
+// Lista completa de países (importada desde db/countries.json)
+const paisesResidencia = countriesData;
 
 // Opciones de tipo de inmueble
 const tiposInmueble = [
