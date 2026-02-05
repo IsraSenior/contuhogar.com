@@ -272,9 +272,9 @@ export default defineEventHandler(async (event) => {
 
           if (simuladorInfo) {
             const TIPO_CREDITO_LABELS: Record<string, string> = {
-              hipotecario: 'Credito Hipotecario',
+              hipotecario: 'Crédito Hipotecario',
               leasing: 'Leasing Habitacional',
-              remodelacion: 'Credito de Remodelacion',
+              remodelacion: 'Crédito de Remodelación',
               compra_cartera: 'Compra de Cartera',
             };
             const tipoCredito = simuladorInfo.tipoCredito ? (TIPO_CREDITO_LABELS[simuladorInfo.tipoCredito] || 'N/D') : 'N/D';

@@ -251,7 +251,7 @@
                   'text-gray-800': localTipoCredito !== 'hipotecario'
                 }"
               >
-                Credito hipotecario
+                Crédito hipotecario
               </h3>
               <p class="text-xs text-gray-500">Hasta el 70%</p>
             </div>
@@ -361,7 +361,7 @@
                   'text-gray-800': localTipoCredito !== 'remodelacion'
                 }"
               >
-                Credito de remodelacion
+                Crédito de remodelación
               </h3>
               <p class="text-xs text-gray-500">Hasta el 70%</p>
             </div>
