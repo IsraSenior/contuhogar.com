@@ -9,8 +9,8 @@ const isServiceActive = (href) => route.path === `/servicios${href}`
 
 // Contact info
 const contactInfo = {
-  phone: '+57 310 819 2877',
-  email: 'info@contuhogar.com',
+  phone: '+57 320 803 3672',
+  email: 'gerenciacomercial@contuhogar.com',
   address: 'Bogotá, Colombia'
 }
 
@@ -217,7 +217,7 @@ const socialLinks = [
             </NuxtLink>
             <span class="hidden sm:inline text-gray-700">·</span>
             <a
-              href="https://wa.me/573108192877"
+              href="https://wa.me/573150540000"
               target="_blank"
               rel="noopener noreferrer"
               class="hover:text-gray-300 transition-colors flex items-center gap-1"

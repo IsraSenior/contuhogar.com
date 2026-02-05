@@ -137,7 +137,7 @@
           name="correo"
           v-model="localCorreo"
           type="email"
-          placeholder="Ej: info@contuhogar.com"
+          placeholder="Ej: tu@correo.com"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
           :class="{
             'border-red-500 ring-2 ring-red-200': validationErrors.correo

@@ -88,7 +88,7 @@ const sections = [
           </li>
           <li>
             <strong class="text-gray-900">Entidades financieras:</strong>
-            Bancos y entidades con las que trabajamos para gestionar tu credito (BBVA, Banco de Bogota, Banco de Occidente, Colpatria).
+            Bancos y entidades con las que trabajamos para gestionar tu crédito (BBVA, Banco de Bogotá, Banco de Occidente, Banco Unión).
           </li>
         </ul>
       </LegalSection>
@@ -313,7 +313,7 @@ const sections = [
             </svg>
             <span>
               <strong class="text-gray-900">Email:</strong>
-              <a href="mailto:info@contuhogar.com" class="text-primary hover:text-secondary ml-1">info@contuhogar.com</a>
+              <a href="mailto:gerenciacomercial@contuhogar.com" class="text-primary hover:text-secondary ml-1">gerenciacomercial@contuhogar.com</a>
             </span>
           </div>
 
@@ -323,7 +323,7 @@ const sections = [
             </svg>
             <span>
               <strong class="text-gray-900">Telefono:</strong>
-              <a href="tel:+573108192877" class="text-primary hover:text-secondary ml-1">+57 310 819 2877</a>
+              <a href="tel:+573208033672" class="text-primary hover:text-secondary ml-1">+57 320 803 3672</a>
             </span>
           </div>
 

@@ -90,11 +90,11 @@ const sections = [
           </p>
           <p>
             <strong class="text-gray-900">Correo electronico:</strong>
-            <a href="mailto:info@contuhogar.com" class="text-primary hover:text-secondary">info@contuhogar.com</a>
+            <a href="mailto:gerenciacomercial@contuhogar.com" class="text-primary hover:text-secondary">gerenciacomercial@contuhogar.com</a>
           </p>
           <p>
             <strong class="text-gray-900">Telefono:</strong>
-            <a href="tel:+573108192877" class="text-primary hover:text-secondary">+57 310 819 2877</a>
+            <a href="tel:+573208033672" class="text-primary hover:text-secondary">+57 320 803 3672</a>
           </p>
         </div>
       </LegalSection>
@@ -309,7 +309,7 @@ const sections = [
         <div class="mt-6 bg-blue-50 border border-blue-100 rounded-lg p-4">
           <p class="text-sm text-blue-800">
             Para ejercer estos derechos, puedes contactarnos en
-            <a href="mailto:info@contuhogar.com" class="font-semibold underline hover:text-blue-600">info@contuhogar.com</a>
+            <a href="mailto:gerenciacomercial@contuhogar.com" class="font-semibold underline hover:text-blue-600">gerenciacomercial@contuhogar.com</a>
           </p>
         </div>
       </LegalSection>
@@ -325,7 +325,7 @@ const sections = [
         <div class="space-y-4">
           <div class="border-l-4 border-secondary pl-4">
             <p class="font-semibold text-gray-900 mb-1">Entidades financieras</p>
-            <p class="text-sm">Bancos aliados para la gestion de tu credito (BBVA, Banco de Bogota, Banco de Occidente, Colpatria).</p>
+            <p class="text-sm">Bancos aliados para la gestión de tu crédito (BBVA, Banco de Bogotá, Banco de Occidente, Banco Unión).</p>
           </div>
 
           <div class="border-l-4 border-secondary pl-4">
@@ -489,7 +489,7 @@ const sections = [
             </svg>
             <span>
               <strong class="text-gray-900">Email:</strong>
-              <a href="mailto:info@contuhogar.com" class="text-primary hover:text-secondary ml-1">info@contuhogar.com</a>
+              <a href="mailto:gerenciacomercial@contuhogar.com" class="text-primary hover:text-secondary ml-1">gerenciacomercial@contuhogar.com</a>
             </span>
           </div>
 
@@ -499,7 +499,7 @@ const sections = [
             </svg>
             <span>
               <strong class="text-gray-900">Telefono:</strong>
-              <a href="tel:+573108192877" class="text-primary hover:text-secondary ml-1">+57 310 819 2877</a>
+              <a href="tel:+573208033672" class="text-primary hover:text-secondary ml-1">+57 320 803 3672</a>
             </span>
           </div>
 

@@ -120,7 +120,7 @@
         <div class="flex justify-between items-center">
           <a href="https://www.instagram.com/contuhogar_oficial" target="_blank" rel="noopener noreferrer" class="text-[9px] text-white hover:text-white/80">@contuhogar_oficial</a>
           <p class="text-[9px] text-white/60">Powered by <a href="https://www.neskeep.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-white/80">Neskeep</a></p>
-          <p class="text-[9px] text-white">gerenciacomercial@contuhogar.com | +57 301 241 8074</p>
+          <p class="text-[9px] text-white">gerenciacomercial@contuhogar.com | +57 320 803 3672</p>
         </div>
       </div>
     </div>
@@ -1113,7 +1113,7 @@
               <span class="text-white/40">|</span>
               <span class="text-white"><span class="text-white/60">Email:</span> gerenciacomercial@contuhogar.com</span>
               <span class="text-white/40">|</span>
-              <span class="text-white"><span class="text-white/60">WhatsApp:</span> +57 301 241 8074</span>
+              <span class="text-white"><span class="text-white/60">WhatsApp:</span> +57 315 054 0000</span>
             </div>
           </div>
         </div>

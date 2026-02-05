@@ -435,7 +435,7 @@ const saveStatus = ref<'idle' | 'saving' | 'saved' | 'error'>('idle');
 const hasSaved = ref(false);
 
 // Número de WhatsApp de ConTuHogar
-const WHATSAPP_NUMBER = '573012418074';
+const WHATSAPP_NUMBER = '573150540000';
 
 // Auto-save simulation to Directus (runs once when results are displayed)
 const autoSaveSimulation = async () => {
