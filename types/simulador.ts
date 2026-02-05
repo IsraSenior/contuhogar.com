@@ -1,6 +1,6 @@
 // Tipos para el Simulador de Crédito ContuHogar
 
-export type TipoCredito = 'hipotecario' | 'leasing';
+export type TipoCredito = 'hipotecario' | 'leasing' | 'remodelacion' | 'compra_cartera';
 
 export type TipoInmueble = 'nuevo' | 'usado' | 'por_definir';
 
@@ -52,6 +52,7 @@ export interface DatosIngresos {
 export interface DatosElegibilidad {
   statusMigratorio: boolean | null;
   reportesNegativos: boolean | null;
+  reportesNegativosNoSabe: boolean;
 }
 
 export interface ResultadoCalculo {

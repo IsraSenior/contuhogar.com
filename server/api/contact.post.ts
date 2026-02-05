@@ -15,7 +15,7 @@ import { formatCurrency } from "../utils/formatting";
 // Based on types/simulador.ts structure
 const simuladorInfoSchema = z.object({
   // From the simulator - credit type
-  tipoCredito: z.enum(['hipotecario', 'leasing']).optional().nullable(),
+  tipoCredito: z.enum(['hipotecario', 'leasing', 'remodelacion', 'compra_cartera']).optional().nullable(),
   tipoCreditoLabel: z.string().optional().nullable(),
 
   // Property and loan details
@@ -271,7 +271,13 @@ export default defineEventHandler(async (event) => {
           }
 
           if (simuladorInfo) {
-            const tipoCredito = simuladorInfo.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional';
+            const TIPO_CREDITO_LABELS: Record<string, string> = {
+              hipotecario: 'Credito Hipotecario',
+              leasing: 'Leasing Habitacional',
+              remodelacion: 'Credito de Remodelacion',
+              compra_cartera: 'Compra de Cartera',
+            };
+            const tipoCredito = simuladorInfo.tipoCredito ? (TIPO_CREDITO_LABELS[simuladorInfo.tipoCredito] || 'N/D') : 'N/D';
             const resultadoEmoji = simuladorInfo.resultado === 'aprobado' ? '✅' :
                                     simuladorInfo.resultado === 'rechazado' ? '❌' : '⚠️';
             simuladorText = `

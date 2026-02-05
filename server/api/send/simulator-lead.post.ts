@@ -15,7 +15,7 @@ const SimulatorLeadSchema = z.object({
       flag: z.string().optional(),
       code: z.string().optional()
     }).nullable().optional(),
-    tipoCredito: z.enum(['hipotecario', 'leasing']).nullable(),
+    tipoCredito: z.enum(['hipotecario', 'leasing', 'remodelacion', 'compra_cartera']).nullable(),
     // Campos adicionales del store que se envían pero no se usan aquí
     fechaNacimiento: z.string().nullable().optional(),
     edad: z.number().nullable().optional()
@@ -144,11 +144,15 @@ export default defineEventHandler(async (event) => {
       ? `${datosPersonales.telefonoCodigo?.code || ''} ${datosPersonales.telefono}`.trim()
       : 'N/D';
 
-    const tipoCredito = datosPersonales.tipoCredito === 'hipotecario'
-      ? 'Crédito Hipotecario'
-      : datosPersonales.tipoCredito === 'leasing'
-        ? 'Leasing Habitacional'
-        : 'N/D';
+    const TIPO_CREDITO_LABELS: Record<string, string> = {
+      hipotecario: 'Credito Hipotecario',
+      leasing: 'Leasing Habitacional',
+      remodelacion: 'Credito de Remodelacion',
+      compra_cartera: 'Compra de Cartera',
+    };
+    const tipoCredito = datosPersonales.tipoCredito
+      ? TIPO_CREDITO_LABELS[datosPersonales.tipoCredito] || 'N/D'
+      : 'N/D';
 
     const resultadoText = resultado?.resultado
       ? `${getResultEmoji(resultado.resultado)} ${resultado.resultado.toUpperCase()}`

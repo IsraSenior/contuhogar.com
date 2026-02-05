@@ -1,6 +1,7 @@
 // Composable para generar y descargar PDF directamente
 // Usa html-to-image + jsPDF en el cliente
 import type { SimuladorState } from '~/types/simulador';
+import { getCreditTypeLabel } from '~/utils/creditTypeLabels';
 
 // Tipo de error para manejar errores
 type PDFErrorType = 'generic' | 'module_load' | null;
@@ -209,9 +210,7 @@ export const useDirectPDFDownload = () => {
       };
 
       // Tipo de crédito label
-      const tipoCreditoLabel = data.tipoCredito === 'hipotecario'
-        ? 'Crédito Hipotecario'
-        : 'Leasing Habitacional';
+      const tipoCreditoLabel = getCreditTypeLabel(data.tipoCredito);
 
       // Nombre completo
       const nombreCompleto = `${data.nombres} ${data.apellidos}`.trim() || 'Estimado Cliente';

@@ -85,7 +85,7 @@
         </div>
         <p v-if="financiacionError.length === 0" class="mt-2 text-xs text-gray-600">
           Máximo permitido: {{ limiteFinanciacion }}% para
-          {{ store.datosPersonales.tipoCredito }}
+          {{ getCreditTypeLabel(store.datosPersonales.tipoCredito) }}
         </p>
       </div>
 
@@ -163,6 +163,8 @@
 </template>
 
 <script setup lang="ts">
+import { getCreditTypeLabel } from '~/utils/creditTypeLabels';
+
 const store = useSimuladorStore();
 const {
   PLAZO_MINIMO,
@@ -189,9 +191,9 @@ const errors = ref<Record<string, string>>({
 });
 
 const limiteFinanciacion = computed(() => {
-  return store.datosPersonales.tipoCredito === 'hipotecario'
-    ? PORCENTAJE_FINANCIACION_HIPOTECARIO
-    : PORCENTAJE_FINANCIACION_LEASING;
+  return store.datosPersonales.tipoCredito === 'leasing'
+    ? PORCENTAJE_FINANCIACION_LEASING
+    : PORCENTAJE_FINANCIACION_HIPOTECARIO;
 });
 
 const porcentajeValido = computed(() => {

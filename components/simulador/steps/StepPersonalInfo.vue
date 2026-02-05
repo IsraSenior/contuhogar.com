@@ -209,30 +209,29 @@
       <span id="tipo-credito-label" class="block text-sm font-semibold text-gray-700 mb-3">
         Tipo de crédito que deseas <span class="text-red-500">*</span>
       </span>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="group" aria-labelledby="tipo-credito-label">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="group" aria-labelledby="tipo-credito-label">
         <!-- Hipotecario -->
         <button
           type="button"
           @click="selectTipoCredito('hipotecario')"
-          class="relative p-6 border-2 rounded-xl transition-all duration-300 text-left"
+          class="relative px-4 py-3 border-2 rounded-xl transition-all duration-300 text-left"
           :class="{
             'border-primary bg-primary/5 shadow-md':
               localTipoCredito === 'hipotecario',
             'border-gray-300 hover:border-gray-400': localTipoCredito !== 'hipotecario'
           }"
         >
-          <div class="flex items-start gap-3">
+          <div class="flex items-center gap-3">
             <div
-              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
+              class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
               :class="{
                 'bg-primary':
                   localTipoCredito === 'hipotecario',
                 'bg-gray-100': localTipoCredito !== 'hipotecario'
               }"
             >
-              <!-- Home/House Icon (Heroicons Solid) -->
               <svg
-                class="w-6 h-6"
+                class="w-5 h-5"
                 :class="{
                   'text-white': localTipoCredito === 'hipotecario',
                   'text-gray-600': localTipoCredito !== 'hipotecario'
@@ -244,32 +243,25 @@
                 <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
               </svg>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
               <h3
-                class="font-bold text-lg mb-1"
+                class="font-semibold text-sm leading-tight"
                 :class="{
                   'text-primary': localTipoCredito === 'hipotecario',
                   'text-gray-800': localTipoCredito !== 'hipotecario'
                 }"
               >
-                Crédito hipotecario
+                Credito hipotecario
               </h3>
-              <p class="text-sm text-gray-600">
-                Financiamiento hasta el 70% del valor del inmueble
-              </p>
+              <p class="text-xs text-gray-500">Hasta el 70%</p>
             </div>
           </div>
-          <!-- Check mark -->
           <div
             v-if="localTipoCredito === 'hipotecario'"
-            class="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center"
+            class="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center"
           >
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
           </div>
         </button>
@@ -278,25 +270,24 @@
         <button
           type="button"
           @click="selectTipoCredito('leasing')"
-          class="relative p-6 border-2 rounded-xl transition-all duration-300 text-left"
+          class="relative px-4 py-3 border-2 rounded-xl transition-all duration-300 text-left"
           :class="{
             'border-primary bg-primary/5 shadow-md':
               localTipoCredito === 'leasing',
             'border-gray-300 hover:border-gray-400': localTipoCredito !== 'leasing'
           }"
         >
-          <div class="flex items-start gap-3">
+          <div class="flex items-center gap-3">
             <div
-              class="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
+              class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
               :class="{
                 'bg-primary':
                   localTipoCredito === 'leasing',
                 'bg-gray-100': localTipoCredito !== 'leasing'
               }"
             >
-              <!-- Key Icon (Heroicons Solid) -->
               <svg
-                class="w-6 h-6"
+                class="w-5 h-5"
                 :class="{
                   'text-white': localTipoCredito === 'leasing',
                   'text-gray-600': localTipoCredito !== 'leasing'
@@ -307,9 +298,9 @@
                 <path fill-rule="evenodd" d="M15.75 1.5a6.75 6.75 0 0 0-6.651 7.906c.067.39-.032.717-.221.906l-6.5 6.499a3 3 0 0 0-.878 2.121v2.818c0 .414.336.75.75.75H6a.75.75 0 0 0 .75-.75v-1.5h1.5A.75.75 0 0 0 9 19.5V18h1.5a.75.75 0 0 0 .53-.22l2.658-2.658c.19-.189.517-.288.906-.22A6.75 6.75 0 1 0 15.75 1.5Zm0 3a.75.75 0 0 0 0 1.5A2.25 2.25 0 0 1 18 8.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" />
               </svg>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
               <h3
-                class="font-bold text-lg mb-1"
+                class="font-semibold text-sm leading-tight"
                 :class="{
                   'text-primary': localTipoCredito === 'leasing',
                   'text-gray-800': localTipoCredito !== 'leasing'
@@ -317,22 +308,125 @@
               >
                 Leasing habitacional
               </h3>
-              <p class="text-sm text-gray-600">
-                Financiamiento hasta el 80% del valor del inmueble
-              </p>
+              <p class="text-xs text-gray-500">Hasta el 80%</p>
             </div>
           </div>
-          <!-- Check mark -->
           <div
             v-if="localTipoCredito === 'leasing'"
-            class="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center"
+            class="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center"
           >
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-              />
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </button>
+
+        <!-- Remodelacion -->
+        <button
+          type="button"
+          @click="selectTipoCredito('remodelacion')"
+          class="relative px-4 py-3 border-2 rounded-xl transition-all duration-300 text-left"
+          :class="{
+            'border-primary bg-primary/5 shadow-md':
+              localTipoCredito === 'remodelacion',
+            'border-gray-300 hover:border-gray-400': localTipoCredito !== 'remodelacion'
+          }"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+              :class="{
+                'bg-primary':
+                  localTipoCredito === 'remodelacion',
+                'bg-gray-100': localTipoCredito !== 'remodelacion'
+              }"
+            >
+              <svg
+                class="w-5 h-5"
+                :class="{
+                  'text-white': localTipoCredito === 'remodelacion',
+                  'text-gray-600': localTipoCredito !== 'remodelacion'
+                }"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path fill-rule="evenodd" d="M12 6.75a5.25 5.25 0 0 1 6.775-5.025.75.75 0 0 1 .313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 0 1 1.248.313 5.25 5.25 0 0 1-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 1 1 2.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309A5.342 5.342 0 0 1 12 6.75ZM4.117 19.125a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3
+                class="font-semibold text-sm leading-tight"
+                :class="{
+                  'text-primary': localTipoCredito === 'remodelacion',
+                  'text-gray-800': localTipoCredito !== 'remodelacion'
+                }"
+              >
+                Credito de remodelacion
+              </h3>
+              <p class="text-xs text-gray-500">Hasta el 70%</p>
+            </div>
+          </div>
+          <div
+            v-if="localTipoCredito === 'remodelacion'"
+            class="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center"
+          >
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </button>
+
+        <!-- Compra de Cartera -->
+        <button
+          type="button"
+          @click="selectTipoCredito('compra_cartera')"
+          class="relative px-4 py-3 border-2 rounded-xl transition-all duration-300 text-left"
+          :class="{
+            'border-primary bg-primary/5 shadow-md':
+              localTipoCredito === 'compra_cartera',
+            'border-gray-300 hover:border-gray-400': localTipoCredito !== 'compra_cartera'
+          }"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+              :class="{
+                'bg-primary':
+                  localTipoCredito === 'compra_cartera',
+                'bg-gray-100': localTipoCredito !== 'compra_cartera'
+              }"
+            >
+              <svg
+                class="w-5 h-5"
+                :class="{
+                  'text-white': localTipoCredito === 'compra_cartera',
+                  'text-gray-600': localTipoCredito !== 'compra_cartera'
+                }"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path fill-rule="evenodd" d="M15.97 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H7.5a.75.75 0 0 1 0-1.5h11.69l-3.22-3.22a.75.75 0 0 1 0-1.06Zm-7.94 9a.75.75 0 0 1 0 1.06l-3.22 3.22H16.5a.75.75 0 0 1 0 1.5H4.81l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3
+                class="font-semibold text-sm leading-tight"
+                :class="{
+                  'text-primary': localTipoCredito === 'compra_cartera',
+                  'text-gray-800': localTipoCredito !== 'compra_cartera'
+                }"
+              >
+                Compra de cartera
+              </h3>
+              <p class="text-xs text-gray-500">Hasta el 70%</p>
+            </div>
+          </div>
+          <div
+            v-if="localTipoCredito === 'compra_cartera'"
+            class="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center"
+          >
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
           </div>
         </button>
