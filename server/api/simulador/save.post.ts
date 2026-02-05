@@ -176,9 +176,9 @@ export default defineEventHandler(async (event) => {
 
     if (tgToken && tgChatId) {
       const TIPO_CREDITO_LABELS: Record<string, string> = {
-        hipotecario: 'Credito Hipotecario',
+        hipotecario: 'Crédito Hipotecario',
         leasing: 'Leasing Habitacional',
-        remodelacion: 'Credito de Remodelacion',
+        remodelacion: 'Crédito de Remodelación',
         compra_cartera: 'Compra de Cartera',
       };
       const tipoCredito = TIPO_CREDITO_LABELS[data.data.tipoCredito] || data.data.tipoCredito;

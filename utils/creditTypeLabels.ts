@@ -1,9 +1,9 @@
 import type { TipoCredito } from '~/types/simulador';
 
 export const CREDIT_TYPE_LABELS: Record<TipoCredito, string> = {
-  hipotecario: 'Credito Hipotecario',
+  hipotecario: 'Crédito Hipotecario',
   leasing: 'Leasing Habitacional',
-  remodelacion: 'Credito de Remodelacion',
+  remodelacion: 'Crédito de Remodelación',
   compra_cartera: 'Compra de Cartera',
 };
 
