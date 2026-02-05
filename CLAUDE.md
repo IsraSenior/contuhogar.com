@@ -202,7 +202,7 @@ El proyecto tiene Directus MCP configurado para operaciones directas de CMS.
 - Framework es **Nuxt 4.2.0** (NO Nuxt 3)
 - Package manager es **pnpm 9.15.0** (especificado en package.json)
 - Analytics/GTM solo enabled en producción
-- Email sender: admin@contuhogar.com
+- Email sender: gerenciacomercial@contuhogar.com
 - Target: Mercado colombiano + colombianos en exterior
 - Store files son TypeScript (`.ts` no `.js`)
 

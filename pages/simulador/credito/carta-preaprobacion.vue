@@ -134,17 +134,17 @@
 
           <div class="bg-white/10 rounded-lg p-3 flex items-center gap-3">
             <img
-              src="/team/fernando-munoz.avif"
-              alt="Fernando Muñoz Tatar"
+              src="/team/alejandra-perez.avif"
+              alt="Alejandra Pérez"
               class="w-10 h-10 rounded-lg object-cover"
             />
             <div class="flex-1">
-              <p class="font-semibold text-white text-sm">Fernando Muñoz Tatar</p>
-              <p class="text-white/70 text-xs">Director Comercial</p>
+              <p class="font-semibold text-white text-sm">Alejandra Pérez</p>
+              <p class="text-white/70 text-xs">Gerente</p>
             </div>
             <div class="text-right">
-              <p class="text-white text-sm"><a href="mailto:directorcomercial@contuhogar.com">directorcomercial@contuhogar.com</a></p>
-              <p class="text-white/70 text-sm">COL: <a href="tel:+573012418074">+57 301 241 8074</a> | USA: <a href="tel:+17185214701">+1 718 521 4701</a></p>
+              <p class="text-white text-sm"><a href="mailto:gerenciacomercial@contuhogar.com">gerenciacomercial@contuhogar.com</a></p>
+              <p class="text-white/70 text-sm"><a href="tel:+573208033672">+57 320 803 3672</a></p>
             </div>
           </div>
         </div>

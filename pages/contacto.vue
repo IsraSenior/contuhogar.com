@@ -715,8 +715,8 @@ ${form.value.message}
                 <div class="skeleton-shimmer h-5 w-64 rounded" />
               </div>
               <!-- Contact info cards skeleton -->
-              <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-12">
-                <div v-for="i in 4" :key="i" class="rounded-xl bg-gray-100 p-6">
+              <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+                <div v-for="i in 3" :key="i" class="rounded-xl bg-gray-100 p-6">
                   <div class="flex items-center gap-3 mb-4">
                     <div class="skeleton-shimmer w-10 h-10 rounded-full" />
                     <div class="skeleton-shimmer h-5 w-24 rounded" />
@@ -745,7 +745,7 @@ ${form.value.message}
             </div>
 
             <!-- Grid de información de contacto -->
-            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-12">
                 <!-- Tarjeta 1: Teléfonos -->
                 <div class="rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 p-6 hover:shadow-lg transition-shadow">
                     <div class="flex items-center gap-3 mb-4">
@@ -781,11 +781,11 @@ ${form.value.message}
                     </div>
                     <dl class="space-y-2 text-sm text-gray-600">
                         <dd><a class="font-medium text-primary hover:text-secondary transition-colors break-all"
-                                href="mailto:gerenciacomercial@contuhogar.com "
-                                @click="onEmailClick('gerenciacomercial@contuhogar.com ')">gerenciacomercial@contuhogar.com </a></dd>
-                        <dd><a class="font-medium text-primary hover:text-secondary transition-colors break-all"
                                 href="mailto:gerencia@contuhogar.com"
                                 @click="onEmailClick('gerencia@contuhogar.com')">gerencia@contuhogar.com</a></dd>
+                        <dd><a class="font-medium text-primary hover:text-secondary transition-colors break-all"
+                                href="mailto:gerenciacomercial@contuhogar.com"
+                                @click="onEmailClick('gerenciacomercial@contuhogar.com')">gerenciacomercial@contuhogar.com</a></dd>
                     </dl>
                 </div>
 
@@ -802,26 +802,10 @@ ${form.value.message}
                     </div>
                     <p class="text-sm text-gray-600">
                         Cra. 54 # 105-20<br>
-                        Puente Largo, Bogotá D.C.<br>
-                        Colombia
+                        Puente Largo, Bogotá D.C., Colombia
                     </p>
                 </div>
 
-                <!-- Tarjeta 4: Horarios -->
-                <div class="rounded-xl bg-gradient-to-br from-secondary/5 to-secondary/10 p-6 hover:shadow-lg transition-shadow">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
-                            <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">Horario</h3>
-                    </div>
-                    <dl class="space-y-2 text-sm text-gray-600">
-                        <dd><span class="font-medium text-gray-700">Lun - Vie:</span> 8:30 AM - 6:30 PM</dd>
-                        <dd><span class="font-medium text-gray-700">Sáb y Dom:</span> Cerrado</dd>
-                    </dl>
-                </div>
             </div>
 
             <!-- Mapa integrado - ancho completo pero discreto -->

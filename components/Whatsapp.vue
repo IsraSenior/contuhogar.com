@@ -401,7 +401,7 @@ const stepDescriptions = [
                                     @focus="onFormInteraction('email', 'focus')"
                                     @blur="onFormInteraction('email', 'blur')"
                                     @input="onFormInteraction('email', 'input')"
-                                    placeholder="info@contuhogar.com"
+                                    placeholder="tu@correo.com"
                                     class="block w-full rounded-xl bg-gray-50 px-4 py-3.5 text-base text-gray-900 border-2 border-transparent focus:border-[#25D366] focus:bg-white focus:ring-0 transition-all"
                                     required
                                 >

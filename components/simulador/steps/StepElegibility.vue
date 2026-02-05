@@ -330,7 +330,7 @@
             Agendar asesoría gratuita
           </NuxtLink>
           <a
-            href="https://wa.me/573204955434?text=Hola,%20necesito%20ayuda%20con%20mi%20solicitud%20de%20crédito"
+            href="https://wa.me/573150540000?text=Hola,%20necesito%20ayuda%20con%20mi%20solicitud%20de%20crédito"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"

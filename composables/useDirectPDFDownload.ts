@@ -134,12 +134,12 @@ export const useDirectPDFDownload = () => {
     let container: HTMLDivElement | null = null;
 
     try {
-      // Cargar imagen de Fernando como base64
-      let fernandoImageBase64 = '';
+      // Cargar imagen de Alejandra como base64
+      let alejandraImageBase64 = '';
       try {
-        fernandoImageBase64 = await imageToBase64('/team/fernando-munoz.avif');
+        alejandraImageBase64 = await imageToBase64('/team/alejandra-perez.avif');
       } catch (e) {
-        console.warn('Could not load Fernando image, using placeholder');
+        console.warn('Could not load Alejandra image, using placeholder');
       }
 
       // Importar dinámicamente las librerías con retry para manejar errores de cache/red
@@ -217,9 +217,9 @@ export const useDirectPDFDownload = () => {
       const nombreCompleto = `${data.nombres} ${data.apellidos}`.trim() || 'Estimado Cliente';
 
       // Imagen de Fernando (base64 o placeholder)
-      const fernandoImage = fernandoImageBase64
-        ? `<img src="${fernandoImageBase64}" alt="Fernando Muñoz Tatar" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;"/>`
-        : `<div style="width: 40px; height: 40px; background: #374151; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">FM</div>`;
+      const alejandraImage = alejandraImageBase64
+        ? `<img src="${alejandraImageBase64}" alt="Alejandra Pérez" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;"/>`
+        : `<div style="width: 40px; height: 40px; background: #374151; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">AP</div>`;
 
       // Colores correctos del brand
       const PRIMARY = '#0f172b';  // Dark blue from main.css
@@ -313,14 +313,14 @@ export const useDirectPDFDownload = () => {
                 <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0;">Contacta a tu asesor asignado para completar tu solicitud</p>
               </div>
               <div style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px;">
-                ${fernandoImage}
+                ${alejandraImage}
                 <div style="flex: 1;">
-                  <p style="font-weight: 600; color: white; font-size: 14px; margin: 0;">Fernando Muñoz Tatar</p>
-                  <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0;">Director Comercial</p>
+                  <p style="font-weight: 600; color: white; font-size: 14px; margin: 0;">Alejandra Pérez</p>
+                  <p style="color: rgba(255,255,255,0.7); font-size: 12px; margin: 0;">Gerente</p>
                 </div>
                 <div style="text-align: right;">
-                  <p style="color: white; font-size: 13px; margin: 0;">directorcomercial@contuhogar.com</p>
-                  <p style="color: rgba(255,255,255,0.7); font-size: 13px; margin: 0;">COL: +57 301 241 8074 | USA: +1 718 521 4701</p>
+                  <p style="color: white; font-size: 13px; margin: 0;">gerenciacomercial@contuhogar.com</p>
+                  <p style="color: rgba(255,255,255,0.7); font-size: 13px; margin: 0;">+57 320 803 3672</p>
                 </div>
               </div>
             </div>
