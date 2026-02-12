@@ -138,6 +138,9 @@ const store = useSimuladorStore();
 const mainStore = useMainStore();
 const transitionName = ref('slide-left');
 
+// Meta Pixel tracking
+const { trackInitiateCheckout, trackSimuladorStart, trackSimuladorStep } = useMetaPixel()
+
 // Componente del paso actual
 const currentStepComponent = computed(() => {
   switch (store.pasoActual) {
@@ -200,6 +203,9 @@ const handleNext = () => {
         step_name: getStepName(store.pasoActual - 1)
       });
     }
+
+    // Meta Pixel: Track step progression
+    trackSimuladorStep(store.pasoActual - 1, getStepName(store.pasoActual - 1))
   }
 };
 
@@ -237,6 +243,10 @@ onMounted(() => {
       event: 'simulador_started'
     });
   }
+
+  // Meta Pixel: Track simulator start
+  trackInitiateCheckout({ content_name: 'simulador_credito', content_category: 'simulator' })
+  trackSimuladorStart()
 });
 
 // Guardar antes de salir

@@ -33,6 +33,9 @@ const {
   reset: resetAntiSpam
 } = useAntiSpam()
 
+// Meta Pixel tracking
+const { trackSubscribe, createEventId } = useMetaPixel()
+
 // Route for source tracking
 const route = useRoute()
 
@@ -120,6 +123,9 @@ const onSubmit = async () => {
     const botDetectionPayload = getBotDetectionPayload()
     const utmParams = getUtmParams()
 
+    // Generate Meta event ID for deduplication
+    const metaEventId = createEventId()
+
     const res = await $fetch('/api/newsletter/subscribe', {
       method: 'POST',
       body: {
@@ -130,11 +136,17 @@ const onSubmit = async () => {
         ...antiSpamPayload,
         ...botDetectionPayload,
         _formStartTime: formStartTime.value,
+        _metaEventId: metaEventId,
       }
     })
 
     if ((res as any)?.ok) {
       state.value = 'success'
+
+      // Meta Pixel: Track Subscribe event (deduplicated with CAPI)
+      if (!(res as any)?.alreadySubscribed) {
+        trackSubscribe({ content_name: 'newsletter' }, metaEventId)
+      }
 
       // Customize success message based on response
       if ((res as any)?.alreadySubscribed) {

@@ -428,6 +428,9 @@ const router = useRouter();
 const { downloadPDF, canDownloadPDF, isGenerating, error: pdfError, errorType: pdfErrorType, clearError: clearPdfError } = useDirectPDFDownload();
 const { calculate } = useSimuladorCalculations();
 
+// Meta Pixel tracking
+const { trackCompleteRegistration, trackContact, trackDownloadPDF, createEventId } = useMetaPixel()
+
 const loading = ref(true);
 const resultado = ref<ResultadoCalculo | null>(null);
 
@@ -447,12 +450,24 @@ const autoSaveSimulation = async () => {
 
   saveStatus.value = 'saving';
 
+  // Generate Meta event ID for deduplication
+  const metaEventId = createEventId()
+
   try {
-    const result = await store.guardarSimulacion();
+    const result = await store.guardarSimulacion(metaEventId);
 
     if (result.ok) {
       saveStatus.value = 'saved';
       hasSaved.value = true;
+
+      // Meta Pixel: Track CompleteRegistration (deduplicated with CAPI)
+      trackCompleteRegistration({
+        content_name: 'simulador_credito',
+        content_category: store.datosPersonales.tipoCredito || 'unknown',
+        value: store.datosBien.montoSolicitado,
+        currency: 'COP',
+        status: resultado.value?.resultado,
+      }, metaEventId)
     } else {
       saveStatus.value = 'error';
     }
@@ -549,6 +564,8 @@ const handleWhatsAppClick = (url: string) => {
   notifySimulatorLead('whatsapp');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('whatsapp', 'resultados');
+  // Meta Pixel: Track Contact event
+  trackContact({ content_name: 'whatsapp_simulador', content_category: 'simulator_results' })
   window.open(url, '_blank', 'noopener,noreferrer');
 };
 
@@ -557,6 +574,8 @@ const handleDownloadPDF = async () => {
   notifySimulatorLead('pdf');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('pdf', 'resultados');
+  // Meta Pixel: Track PDF download
+  trackDownloadPDF({ content_name: 'preaprobacion_pdf', content_category: 'simulator_results' })
   await downloadPDF(store.$state);
 };
 
@@ -570,6 +589,8 @@ const handleContactClick = () => {
   notifySimulatorLead('contact');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('contact', 'resultados');
+  // Meta Pixel: Track Contact event
+  trackContact({ content_name: 'contact_simulador', content_category: 'simulator_results' })
 
   // Guardar datos en el store principal (no expuestos en URL)
   // Include flags to skip duplicate Telegram notification in contact form
