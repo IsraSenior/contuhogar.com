@@ -36,12 +36,14 @@ export default defineNuxtConfig({
     DIRECTUS_URL: process.env.DIRECTUS_URL,
     DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    META_CAPI_ACCESS_TOKEN: process.env.META_CAPI_ACCESS_TOKEN,
 
     // Variables públicas (expuestas al cliente)
     public: {
       DIRECTUS_URL: process.env.DIRECTUS_URL,
       // ⚠️ IMPORTANTE: Usar un token de SOLO LECTURA para el cliente
       DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_PUBLIC_TOKEN,
+      META_PIXEL_ID: process.env.META_PIXEL_ID,
     },
   },
 
