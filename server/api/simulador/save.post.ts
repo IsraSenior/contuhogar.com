@@ -63,6 +63,8 @@ const schema = z.object({
     motivoRechazo: z.string().optional(),
     recomendaciones: z.array(z.string()).optional(),
   }),
+  // Meta Pixel event ID for CAPI deduplication
+  _metaEventId: z.string().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -169,6 +171,28 @@ export default defineEventHandler(async (event) => {
     const saved = await directusServer.request(
       createItem("simulaciones_credito", payload)
     ) as any;
+
+    // Meta CAPI: Send CompleteRegistration event (fire-and-forget)
+    if (data.data._metaEventId) {
+      sendCapiEvent({
+        event,
+        eventName: 'CompleteRegistration',
+        eventId: data.data._metaEventId,
+        userData: {
+          email: data.data.correo,
+          phone: `${data.data.telefonoCodigo.code}${data.data.telefono}`.replace(/\s/g, ''),
+          firstName: data.data.nombres,
+          lastName: data.data.apellidos,
+        },
+        customData: {
+          content_name: 'simulador_credito',
+          content_category: data.data.tipoCredito,
+          value: data.data.montoSolicitado,
+          currency: 'COP',
+          status: data.data.resultado.resultado,
+        },
+      })
+    }
 
     // Send Telegram notification (non-blocking)
     const tgToken = config.TELEGRAM_BOT_TOKEN as string | undefined;

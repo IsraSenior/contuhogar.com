@@ -600,7 +600,7 @@ export const useSimuladorStore = defineStore('simulador', {
     },
 
     // Guardar simulación en Directus
-    async guardarSimulacion(): Promise<{ ok: boolean; id?: string | number; error?: string }> {
+    async guardarSimulacion(metaEventId?: string): Promise<{ ok: boolean; id?: string | number; error?: string }> {
       // Validate that we have all required data
       if (!this.completado || !this.resultado) {
         return {
@@ -655,7 +655,10 @@ export const useSimuladorStore = defineStore('simulador', {
         // Call API endpoint
         const response = await $fetch<{ ok: boolean; id?: string | number | null; message?: string }>('/api/simulador/save', {
           method: 'POST',
-          body: payload,
+          body: {
+            ...payload,
+            _metaEventId: metaEventId,
+          },
         });
 
         if (response.ok && response.id) {

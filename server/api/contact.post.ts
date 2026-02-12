@@ -56,6 +56,8 @@ const schema = z.object({
   _skipTelegramFromSimulator: z.boolean().optional(),
   // Simulator session ID for deduplication tracking
   _simuladorSessionId: z.string().optional(),
+  // Meta Pixel event ID for CAPI deduplication
+  _metaEventId: z.string().optional(),
 
   // === Anti-spam fields (layer 2-4) ===
   // Bot detection
@@ -421,6 +423,25 @@ export default defineEventHandler(async (event) => {
       if (tgResult && tgResult.status === "rejected") {
         console.error("[Telegram] envío fallido:", tgResult.reason);
       }
+    }
+
+    // Meta CAPI: Send Lead event (fire-and-forget)
+    if (data.data._metaEventId) {
+      sendCapiEvent({
+        event,
+        eventName: 'Lead',
+        eventId: data.data._metaEventId,
+        userData: {
+          email: data.data.email,
+          phone: `${data.data.dial.code}${data.data.phone}`.replace(/\s/g, ''),
+          firstName: data.data.firstName,
+          lastName: data.data.lastName || undefined,
+        },
+        customData: {
+          content_name: simuladorInfo ? 'simulador_contact' : 'contact_form',
+          content_category: 'lead',
+        },
+      })
     }
 
     return { ok: true, id: leadId };
