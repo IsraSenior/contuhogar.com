@@ -48,6 +48,9 @@ useLocalBusinessSchema()
 // GTM/GA4 tracking
 const { trackFormStart, trackFormSubmit, trackFormSuccess, trackFormError } = useTracking()
 
+// Meta Pixel tracking
+const { trackLead, trackContact, createEventId } = useMetaPixel()
+
 // Rate limiting info
 const { remainingAttemptsMessage, isNearLimit, recordAttempt, resetAttempts } = useRateLimit()
 
@@ -282,10 +285,12 @@ const { trackPhoneClick, trackEmailClick } = useTracking()
 
 const onPhoneClick = (phoneNumber: string) => {
     trackPhoneClick(phoneNumber, 'contact_page')
+    trackContact({ content_name: 'phone_contact', content_category: 'contact_page' })
 }
 
 const onEmailClick = (emailAddress: string) => {
     trackEmailClick(emailAddress, 'contact_page')
+    trackContact({ content_name: 'email_contact', content_category: 'contact_page' })
 }
 
 const onSubmit = async () => {
@@ -320,12 +325,16 @@ const onSubmit = async () => {
         const antiSpamPayload = getAntiSpamPayload()
         const botDetectionPayload = getBotDetectionPayload()
 
+        // Generate Meta event ID for deduplication
+        const metaEventId = createEventId()
+
         const res = await $fetch('/api/contact', {
             method: 'POST',
             body: {
                 ...form.value,
                 ...antiSpamPayload,
-                ...botDetectionPayload
+                ...botDetectionPayload,
+                _metaEventId: metaEventId,
             }
         })
 
@@ -334,6 +343,12 @@ const onSubmit = async () => {
 
             // Track successful form submission
             trackFormSuccess('contact_form', form.value.source_page, (res as any)?.id)
+
+            // Meta Pixel: Track Lead event (deduplicated with CAPI)
+            trackLead({
+              content_name: isFromSimulador.value ? 'simulador_contact' : 'contact_form',
+              content_category: 'lead',
+            }, metaEventId)
 
             const phone = "573150540000";
             const message = `Hola soy *${form.value.firstName} ${form.value.lastName}*,
