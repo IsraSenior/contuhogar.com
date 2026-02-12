@@ -46,6 +46,8 @@ const subscribeSchema = z.object({
 
   // Form timing
   _formStartTime: z.number().optional(),
+  // Meta Pixel event ID for CAPI deduplication
+  _metaEventId: z.string().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -236,6 +238,22 @@ export default defineEventHandler(async (event) => {
     );
 
     console.log(`[Newsletter] New subscriber: ${data.data.email} (ID: ${saved?.id})`);
+
+    // Meta CAPI: Send Subscribe event (fire-and-forget)
+    if (data.data._metaEventId) {
+      sendCapiEvent({
+        event,
+        eventName: 'Subscribe',
+        eventId: data.data._metaEventId,
+        userData: {
+          email: data.data.email,
+        },
+        customData: {
+          content_name: 'newsletter',
+          content_category: 'subscription',
+        },
+      })
+    }
 
     return {
       ok: true,
