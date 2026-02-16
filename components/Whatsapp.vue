@@ -64,6 +64,7 @@ const form = ref({
     dial: phoneDropdown.value.selected,
     message: '',
     source_page: '',
+    source_component: 'whatsapp_widget',
     website: '', // honeypot (debe quedar vacío)
     _formStartTime: 0 // timestamp para validación anti-bot
 })
@@ -138,7 +139,8 @@ const onSubmit = async () => {
 
     state.value = 'loading'
     errorMsg.value = ''
-    form.value.source_page = `WhatsApp · ${fullPath.value}`
+    form.value.source_page = fullPath.value
+    form.value.source_component = 'whatsapp_widget'
 
     // Registrar intento para rate limiting
     recordAttempt()

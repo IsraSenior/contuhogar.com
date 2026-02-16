@@ -120,6 +120,7 @@ onMounted(async () => {
 
         // Pre-llenar campos del formulario si vienen del simulador
         if (data.source === 'simulador') {
+            form.value.source_component = 'simulador'
             if (data.nombres) form.value.firstName = data.nombres
             if (data.apellidos) form.value.lastName = data.apellidos
             if (data.email) form.value.email = data.email
@@ -216,7 +217,8 @@ const form = ref({
     phone: '',
     dial: phoneDropdown.value.selected,
     message: '',
-    source_page: `Formulario · ${route.fullPath}`,
+    source_page: route.fullPath,
+    source_component: 'contact_form',
     website: '', // honeypot (debe quedar vacío)
     _formStartTime: 0, // timestamp para validación anti-bot
     simuladorInfo: '' // campo oculto con datos del simulador (JSON)
