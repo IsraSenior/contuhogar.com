@@ -216,7 +216,7 @@ const form = ref({
     phone: '',
     dial: phoneDropdown.value.selected,
     message: '',
-    source_page: route.fullPath,
+    source_page: `Formulario · ${route.fullPath}`,
     website: '', // honeypot (debe quedar vacío)
     _formStartTime: 0, // timestamp para validación anti-bot
     simuladorInfo: '' // campo oculto con datos del simulador (JSON)

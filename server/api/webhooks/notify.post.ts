@@ -36,13 +36,13 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { collection, payload } = parsed.data;
+  const { collection, payload, key } = parsed.data;
 
   // ── 3. Procesar segun coleccion ────────────────────────────────────────
   if (collection === 'leads') {
-    await handleLeadNotification(payload, config);
+    await handleLeadNotification(payload, config, key);
   } else if (collection === 'simulaciones_credito') {
-    await handleSimulationNotification(payload, config);
+    await handleSimulationNotification(payload, config, key);
   }
 
   return { ok: true };
@@ -55,9 +55,10 @@ export default defineEventHandler(async (event) => {
 async function handleLeadNotification(
   payload: Record<string, any>,
   config: ReturnType<typeof useRuntimeConfig>,
+  key: string,
 ) {
-  const tgText = buildLeadTelegramMessage(payload);
-  const { subject, html } = buildLeadEmailHtml(payload);
+  const tgText = buildLeadTelegramMessage(payload, key);
+  const { subject, html } = buildLeadEmailHtml(payload, key);
 
   const tasks: Promise<unknown>[] = [];
 
@@ -100,13 +101,14 @@ async function handleLeadNotification(
 async function handleSimulationNotification(
   payload: Record<string, any>,
   config: ReturnType<typeof useRuntimeConfig>,
+  key: string,
 ) {
   const tgToken = config.TELEGRAM_BOT_TOKEN as string | undefined;
   const tgChatId = config.TELEGRAM_CHAT_ID as string | number | undefined;
 
   if (!tgToken || !tgChatId) return;
 
-  const tgText = buildSimulationTelegramMessage(payload);
+  const tgText = buildSimulationTelegramMessage(payload, key);
 
   try {
     await sendTelegram(tgToken, tgChatId, tgText);

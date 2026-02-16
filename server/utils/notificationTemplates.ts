@@ -44,9 +44,9 @@ interface SimulationPayload {
 // ---------------------------------------------------------------------------
 // Leads — Telegram
 // ---------------------------------------------------------------------------
-export function buildLeadTelegramMessage(lead: LeadPayload): string {
+export function buildLeadTelegramMessage(lead: LeadPayload, directusKey?: string): string {
   const fullName = [lead.name, lead.lastname].filter(Boolean).join(' ') || 'N/D';
-  const source = lead.source_page || '/contacto';
+  const source = lead.source_page || 'Formulario · /contacto';
 
   const lines: string[] = [
     '\uD83C\uDD95 *Nuevo lead*',
@@ -64,15 +64,20 @@ export function buildLeadTelegramMessage(lead: LeadPayload): string {
     lines.push(lead.message.trim());
   }
 
+  if (directusKey) {
+    lines.push('');
+    lines.push(`\uD83D\uDD17 [Ver en Directus](https://admin.contuhogar.com/admin/content/leads/${directusKey})`);
+  }
+
   return lines.join('\n');
 }
 
 // ---------------------------------------------------------------------------
 // Leads — Email
 // ---------------------------------------------------------------------------
-export function buildLeadEmailHtml(lead: LeadPayload): { subject: string; html: string } {
+export function buildLeadEmailHtml(lead: LeadPayload, directusKey?: string): { subject: string; html: string } {
   const fullName = [lead.name, lead.lastname].filter(Boolean).join(' ') || 'N/D';
-  const source = lead.source_page || '/contacto';
+  const source = lead.source_page || 'Formulario · /contacto';
   const msg = lead.message?.trim() || '';
 
   // Sanitizacion HTML basica
@@ -80,6 +85,10 @@ export function buildLeadEmailHtml(lead: LeadPayload): { subject: string; html: 
 
   const messageSection = safeMsg
     ? `<div class="row" style="margin-top:14px;"><div class="label">Mensaje</div><div class="value message">${safeMsg}</div></div>`
+    : '';
+
+  const directusLink = directusKey
+    ? `<div class="row" style="margin-top:14px;"><a href="https://admin.contuhogar.com/admin/content/leads/${directusKey}" style="color:#2563eb;text-decoration:underline;">Ver lead en Directus</a></div>`
     : '';
 
   const html = `<!DOCTYPE html>
@@ -106,16 +115,17 @@ export function buildLeadEmailHtml(lead: LeadPayload): { subject: string; html: 
       <div class="row"><div class="label">Nombre</div><div class="value">${fullName}</div></div>
       <div class="row"><div class="label">Email</div><div class="value">${lead.email || 'N/D'}</div></div>
       <div class="row"><div class="label">Telefono</div><div class="value">${lead.phone || 'N/D'}</div></div>
-      <div class="row"><div class="label">Pagina de origen</div><div class="value">${source}</div></div>
+      <div class="row"><div class="label">Origen</div><div class="value">${source}</div></div>
       ${messageSection}
+      ${directusLink}
     </div>
-    <div class="footer">Este correo fue generado automaticamente desde el formulario de contacto.</div>
+    <div class="footer">Este correo fue generado automaticamente desde contuhogar.com</div>
   </div>
 </body>
 </html>`;
 
   return {
-    subject: `Nuevo mensaje de contacto [${fullName}]`,
+    subject: `Nuevo contacto [${fullName}] — ${source}`,
     html,
   };
 }
@@ -123,7 +133,7 @@ export function buildLeadEmailHtml(lead: LeadPayload): { subject: string; html: 
 // ---------------------------------------------------------------------------
 // Simulaciones — Telegram
 // ---------------------------------------------------------------------------
-export function buildSimulationTelegramMessage(simulation: SimulationPayload): string {
+export function buildSimulationTelegramMessage(simulation: SimulationPayload, directusKey?: string): string {
   const fullName = [simulation.nombres, simulation.apellidos].filter(Boolean).join(' ') || 'N/D';
   const tel = [simulation.telefono_codigo_pais, simulation.telefono].filter(Boolean).join(' ') || 'N/D';
   const tipoLabel = TIPO_CREDITO_LABELS[simulation.tipo_credito || ''] || simulation.tipo_credito || 'N/D';
@@ -155,6 +165,11 @@ export function buildSimulationTelegramMessage(simulation: SimulationPayload): s
   if (simulation.reportes_negativos_no_sabe) {
     lines.push('');
     lines.push('\u26A0\uFE0F *Nota:* El usuario indico que NO SABE si tiene reportes negativos en centrales de riesgo.');
+  }
+
+  if (directusKey) {
+    lines.push('');
+    lines.push(`\uD83D\uDD17 [Ver en Directus](https://admin.contuhogar.com/admin/content/simulaciones_credito/${directusKey})`);
   }
 
   return lines.join('\n');
