@@ -45,6 +45,7 @@ export const useSimuladorStore = defineStore('simulador', {
 
     // Simulation persistence
     simulacionId: null as string | null, // ID de la simulación guardada en Directus
+    leadId: null as string | null, // ID del lead creado al completar simulación
 
   }),
 
@@ -557,7 +558,7 @@ export const useSimuladorStore = defineStore('simulador', {
         };
 
         // Call API endpoint
-        const response = await $fetch<{ ok: boolean; id?: string | number | null; message?: string }>('/api/simulador/save', {
+        const response = await $fetch<{ ok: boolean; id?: string | number | null; leadId?: string | null; message?: string }>('/api/simulador/save', {
           method: 'POST',
           body: {
             ...payload,
@@ -568,6 +569,10 @@ export const useSimuladorStore = defineStore('simulador', {
         if (response.ok && response.id) {
           // Store the simulation ID for action tracking
           this.simulacionId = String(response.id);
+          // Store the lead ID created from the simulation
+          if (response.leadId) {
+            this.leadId = String(response.leadId);
+          }
           this.saveToLocalStorage();
 
           // Complete session tracking (non-blocking)
@@ -576,6 +581,7 @@ export const useSimuladorStore = defineStore('simulador', {
           return {
             ok: true,
             id: response.id,
+            leadId: response.leadId || undefined,
           };
         }
 

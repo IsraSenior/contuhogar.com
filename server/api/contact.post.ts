@@ -6,7 +6,7 @@ import {
   readBody,
   getRequestHeader,
 } from "h3";
-import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
+import { createDirectus, rest, staticToken, createItem, updateItem } from "@directus/sdk";
 import { isDuplicateSubmission } from "../utils/duplicateDetection";
 
 const schema = z.object({
@@ -27,6 +27,8 @@ const schema = z.object({
   _formStartTime: z.number().optional(),
   // Campo oculto con datos del simulador (JSON string)
   simuladorInfo: z.string().optional().or(z.literal("")),
+  // Lead ID existente (para actualizar en vez de crear, e.g. desde simulador)
+  _existingLeadId: z.string().uuid().optional(),
   // Meta Pixel event ID for CAPI deduplication
   _metaEventId: z.string().optional(),
 
@@ -213,9 +215,23 @@ export default defineEventHandler(async (event) => {
   // console.log(payload, "payload_res")
 
   try {
-    // 1. Guardar el lead en Directus
-    const saved = await directusServer.request(createItem("leads", payload));
-    const leadId = saved?.id;
+    let leadId: string | undefined;
+
+    if (data.data._existingLeadId) {
+      // Lead already exists (from simulator) — update instead of create.
+      // Updating does NOT trigger Directus Flow (items.create only), so no duplicate notification.
+      await directusServer.request(
+        updateItem("leads", data.data._existingLeadId, {
+          ...payload,
+          source_component: 'simulador', // Keep original source
+        })
+      );
+      leadId = data.data._existingLeadId;
+    } else {
+      // Create new lead — triggers Directus Flow -> webhook -> notification
+      const saved = await directusServer.request(createItem("leads", payload));
+      leadId = saved?.id;
+    }
 
     // 2. Meta CAPI: Send Lead event (fire-and-forget)
     const isFromSimulatorForCapi = !!data.data.simuladorInfo;
@@ -236,8 +252,6 @@ export default defineEventHandler(async (event) => {
         },
       })
     }
-
-    // Notificaciones (Telegram + Email) se envian via Directus Flow -> Webhook
 
     return { ok: true, id: leadId };
   } catch (e: any) {

@@ -566,6 +566,7 @@ const handleContactClick = () => {
   // Guardar datos en el store principal (no expuestos en URL)
   mainStore.setContactPrefill({
     source: 'simulador',
+    leadId: store.leadId || undefined,
     nombres: store.datosPersonales.nombres || '',
     apellidos: store.datosPersonales.apellidos || '',
     email: store.datosPersonales.correo || '',
