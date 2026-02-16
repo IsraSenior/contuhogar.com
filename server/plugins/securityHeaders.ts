@@ -48,7 +48,7 @@ export default defineNitroPlugin((nitroApp) => {
       // Conexiones: API propias, Directus, Google Analytics, Telegram, GeoJS
       "connect-src 'self' https://contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org https://get.geojs.io https://www.facebook.com",
       // Frames: solo mismo origen, Google, Cloudflare Turnstile (previene clickjacking)
-      "frame-src 'self' https://www.google.com https://www.googletagmanager.com https://challenges.cloudflare.com",
+      "frame-src 'self' https://www.google.com https://www.googletagmanager.com https://challenges.cloudflare.com https://www.facebook.com",
       // Frame ancestors: DENY (equivalente a X-Frame-Options)
       "frame-ancestors 'none'",
       // Object/Embed: ninguno (previene Flash/plugins antiguos)
@@ -56,7 +56,7 @@ export default defineNitroPlugin((nitroApp) => {
       // Base URI: solo mismo origen
       "base-uri 'self'",
       // Form actions: solo mismo origen y Google
-      "form-action 'self' https://www.google.com",
+      "form-action 'self' https://www.google.com https://www.facebook.com",
       // Upgrade insecure requests en producción
       process.env.NODE_ENV === "production" ? "upgrade-insecure-requests" : "",
     ]

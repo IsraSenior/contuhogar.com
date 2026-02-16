@@ -12,6 +12,19 @@ useSeo({
     type: 'website'
 })
 
+// Preload hero image for better LCP (only on this page)
+useHead({
+    link: [
+        {
+            rel: "preload",
+            href: "/2148392254.jpg",
+            as: "image",
+            type: "image/jpeg",
+            fetchpriority: "high",
+        },
+    ],
+})
+
 // Structured data para la pagina principal
 useLocalBusinessSchema()
 

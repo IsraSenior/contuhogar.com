@@ -74,9 +74,6 @@ export interface ContactPrefill {
     cuotaMensual?: number
     porcentajeCompromiso?: number
   }
-  // Notification deduplication
-  skipTelegramNotification?: boolean
-  simuladorSessionId?: string
 }
 
 /**

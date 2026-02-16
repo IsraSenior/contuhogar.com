@@ -16,14 +16,6 @@ export default defineNuxtConfig({
       link: [
         { rel: "preconnect", href: "https://contuhogar.com" },
         { rel: "dns-prefetch", href: "https://contuhogar.com" },
-        // Preload hero image for better LCP
-        {
-          rel: "preload",
-          href: "/2148392254.jpg",
-          as: "image",
-          type: "image/jpeg",
-          fetchpriority: "high",
-        },
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
@@ -37,6 +29,7 @@ export default defineNuxtConfig({
     DIRECTUS_ADMIN_TOKEN: process.env.DIRECTUS_ADMIN_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     META_CAPI_ACCESS_TOKEN: process.env.META_CAPI_ACCESS_TOKEN,
+    WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
 
     // Variables públicas (expuestas al cliente)
     public: {

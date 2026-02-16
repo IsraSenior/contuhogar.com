@@ -1,10 +1,9 @@
 // Pinia Store para el estado del simulador de crédito
 import { defineStore } from 'pinia';
-import type { SimuladorState, AccionNotificable } from '~/types/simulador';
+import type { SimuladorState } from '~/types/simulador';
 
 const STORAGE_KEY = 'contuhogar_simulador_state';
 const SESSION_STORAGE_KEY = 'contuhogar_simulador_session';
-const NOTIFICATIONS_STORAGE_KEY = 'contuhogar_simulador_notifications';
 
 export const useSimuladorStore = defineStore('simulador', {
   state: (): SimuladorState => ({
@@ -47,9 +46,6 @@ export const useSimuladorStore = defineStore('simulador', {
     // Simulation persistence
     simulacionId: null as string | null, // ID de la simulación guardada en Directus
 
-    // Notification deduplication
-    notificacionEnviada: false,
-    accionesNotificadas: [] as AccionNotificable[]
   }),
 
   getters: {
@@ -177,43 +173,13 @@ export const useSimuladorStore = defineStore('simulador', {
   },
 
   actions: {
-    // ==========================================
-    // NOTIFICATION DEDUPLICATION
-    // ==========================================
-
-    /**
-     * Mark that the main simulation notification was sent (via save.post.ts)
-     */
-    marcarNotificacionEnviada(): void {
-      this.notificacionEnviada = true;
-      this.saveNotificationsToStorage();
-    },
-
-    /**
-     * Mark a specific action as notified (whatsapp, pdf, contact)
-     * This prevents duplicate Telegram notifications for the same action
-     */
-    marcarAccionNotificada(accion: AccionNotificable): void {
-      if (!this.accionesNotificadas.includes(accion)) {
-        this.accionesNotificadas.push(accion);
-        this.saveNotificationsToStorage();
-      }
-    },
-
-    /**
-     * Check if an action was already notified
-     */
-    fueAccionNotificada(accion: AccionNotificable): boolean {
-      return this.accionesNotificadas.includes(accion);
-    },
-
     /**
      * Track user action in Directus (persistent storage)
      * Non-blocking: fire and forget with error handling
      * @param action - The action type (whatsapp, pdf, contact)
      * @param origen - Optional origin for more detailed tracking (default: 'resultados')
      */
-    async trackAccionUsuario(action: AccionNotificable, origen: string = 'resultados'): Promise<void> {
+    async trackAccionUsuario(action: string, origen: string = 'resultados'): Promise<void> {
       // Don't track if no simulacionId (simulation not saved yet)
       if (!this.simulacionId) {
         return;
@@ -230,59 +196,6 @@ export const useSimuladorStore = defineStore('simulador', {
       }).catch(() => {
         // Silent fail - tracking shouldn't break UX
       });
-    },
-
-    /**
-     * Save notification state to localStorage
-     */
-    saveNotificationsToStorage(): void {
-      if (typeof window !== 'undefined') {
-        try {
-          const data = {
-            notificacionEnviada: this.notificacionEnviada,
-            accionesNotificadas: this.accionesNotificadas,
-            sessionId: this.sessionId
-          };
-          localStorage.setItem(NOTIFICATIONS_STORAGE_KEY, JSON.stringify(data));
-        } catch {
-          // Silent fail - localStorage may be unavailable
-        }
-      }
-    },
-
-    /**
-     * Load notification state from localStorage
-     * Only restores if sessionId matches current session
-     */
-    loadNotificationsFromStorage(): void {
-      if (typeof window !== 'undefined') {
-        try {
-          const stored = localStorage.getItem(NOTIFICATIONS_STORAGE_KEY);
-          if (stored) {
-            const data = JSON.parse(stored);
-            // Only restore if same session
-            if (data.sessionId === this.sessionId) {
-              this.notificacionEnviada = data.notificacionEnviada || false;
-              this.accionesNotificadas = data.accionesNotificadas || [];
-            }
-          }
-        } catch {
-          // Silent fail - localStorage may be unavailable
-        }
-      }
-    },
-
-    /**
-     * Clear notification storage
-     */
-    clearNotificationsStorage(): void {
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.removeItem(NOTIFICATIONS_STORAGE_KEY);
-        } catch {
-          // Silent fail - localStorage may be unavailable
-        }
-      }
     },
 
     // ==========================================
@@ -302,8 +215,6 @@ export const useSimuladorStore = defineStore('simulador', {
       try {
         // Check if we already have a session ID in state
         if (this.sessionId) {
-          // Restore notification state for this session
-          this.loadNotificationsFromStorage();
           return this.sessionId;
         }
 
@@ -311,8 +222,6 @@ export const useSimuladorStore = defineStore('simulador', {
         const storedSessionId = localStorage.getItem(SESSION_STORAGE_KEY);
         if (storedSessionId) {
           this.sessionId = storedSessionId;
-          // Restore notification state for this session
-          this.loadNotificationsFromStorage();
           return storedSessionId;
         }
 
@@ -320,9 +229,6 @@ export const useSimuladorStore = defineStore('simulador', {
         const newSessionId = crypto.randomUUID();
         this.sessionId = newSessionId;
         localStorage.setItem(SESSION_STORAGE_KEY, newSessionId);
-        // Reset notification state for new session
-        this.notificacionEnviada = false;
-        this.accionesNotificadas = [];
         return newSessionId;
       } catch {
         // Fallback: generate temp ID
@@ -540,7 +446,6 @@ export const useSimuladorStore = defineStore('simulador', {
       this.$reset();
       this.clearLocalStorage();
       this.clearSessionStorage();
-      this.clearNotificationsStorage();
     },
 
     // Persistencia en LocalStorage
@@ -567,7 +472,6 @@ export const useSimuladorStore = defineStore('simulador', {
               // Limpiar todo el storage relacionado al simulador
               this.clearLocalStorage();
               this.clearSessionStorage();
-              this.clearNotificationsStorage();
               return; // No restaurar, empezar de cero
             }
 
@@ -665,9 +569,6 @@ export const useSimuladorStore = defineStore('simulador', {
           // Store the simulation ID for action tracking
           this.simulacionId = String(response.id);
           this.saveToLocalStorage();
-
-          // Mark main notification as sent (save.post.ts sends Telegram)
-          this.marcarNotificacionEnviada();
 
           // Complete session tracking (non-blocking)
           this.completeSession(String(response.id));
