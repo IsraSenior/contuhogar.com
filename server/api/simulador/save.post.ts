@@ -6,7 +6,7 @@ import {
   readBody,
   getRequestHeader,
 } from "h3";
-import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
+import { createDirectus, rest, staticToken, createItem, updateItem } from "@directus/sdk";
 
 // Validation schema for simulation data
 const obligacionSchema = z.object({
@@ -166,12 +166,61 @@ export default defineEventHandler(async (event) => {
   };
 
   try {
-    // Save simulation to Directus
+    // 1. Save simulation to Directus
     const saved = await directusServer.request(
       createItem("simulaciones_credito", payload)
     ) as any;
 
-    // Meta CAPI: Send CompleteRegistration event (fire-and-forget)
+    const simulacionId = saved?.id || null;
+
+    // 2. Create associated lead with source_component 'simulador'
+    //    This triggers the Directus Flow on leads -> webhook -> notification
+    const tipoLabel = TIPO_CREDITO_LABELS[data.data.tipoCredito] || data.data.tipoCredito;
+    const resultadoLabel = data.data.resultado.resultado === 'aprobado' ? 'Preaprobado' :
+                           data.data.resultado.resultado === 'rechazado' ? 'No cumple requisitos' :
+                           'Ajuste necesario';
+
+    const leadMessage = [
+      `Simulacion completada desde el simulador de credito.`,
+      '',
+      `Tipo: ${tipoLabel}`,
+      `Valor inmueble: ${formatCurrency(data.data.valorBien)}`,
+      `Monto solicitado: ${formatCurrency(data.data.montoSolicitado)}`,
+      `Plazo: ${data.data.plazoMeses} meses (${Math.floor(data.data.plazoMeses / 12)} anos)`,
+      `Resultado: ${resultadoLabel}`,
+      `Cuota mensual: ${formatCurrency(data.data.resultado.cuotaMensual)}`,
+      `Compromiso: ${Math.ceil(data.data.resultado.porcentajeCompromiso)}%`,
+    ].join('\n');
+
+    let leadId: string | null = null;
+    try {
+      const leadSaved = await directusServer.request(
+        createItem("leads", {
+          name: data.data.nombres,
+          lastname: data.data.apellidos,
+          email: data.data.correo,
+          phone: `${data.data.telefonoCodigo.code} ${data.data.telefono}`,
+          message: leadMessage,
+          source_page: '/simulador/credito',
+          source_component: 'simulador',
+          simulacion_id: simulacionId,
+          status: 'nuevo',
+        })
+      ) as any;
+      leadId = leadSaved?.id || null;
+
+      // Link lead back to simulation
+      if (leadId && simulacionId) {
+        directusServer.request(
+          updateItem("simulaciones_credito", simulacionId, { lead_id: leadId })
+        ).catch(() => {}); // Non-blocking, best-effort
+      }
+    } catch (leadErr: any) {
+      // Lead creation is non-blocking — simulation is already saved
+      console.error("Lead creation from simulator failed:", leadErr?.message || leadErr);
+    }
+
+    // 3. Meta CAPI: Send CompleteRegistration event (fire-and-forget)
     if (data.data._metaEventId) {
       sendCapiEvent({
         event,
@@ -193,11 +242,10 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Notificaciones (Telegram) se envian via Directus Flow -> Webhook
-
     return {
       ok: true,
-      id: saved?.id || null,
+      id: simulacionId,
+      leadId,
       message: "Simulación guardada exitosamente",
     };
   } catch (e: any) {

@@ -58,6 +58,7 @@ export interface Testimonial {
  */
 export interface ContactPrefill {
   source: 'simulador' | 'servicio' | null
+  leadId?: string // Lead ya creado (para evitar duplicados al enviar desde simulador)
   nombres?: string
   apellidos?: string
   email?: string
