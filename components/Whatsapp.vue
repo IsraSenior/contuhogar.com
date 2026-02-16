@@ -138,7 +138,7 @@ const onSubmit = async () => {
 
     state.value = 'loading'
     errorMsg.value = ''
-    form.value.source_page = fullPath.value
+    form.value.source_page = `WhatsApp · ${fullPath.value}`
 
     // Registrar intento para rate limiting
     recordAttempt()
