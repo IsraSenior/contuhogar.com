@@ -69,11 +69,9 @@ export interface ResultadoCalculo {
   recomendaciones?: string[];
 }
 
-export type AccionNotificable = 'whatsapp' | 'pdf' | 'contact';
-
 // Registro de acción del usuario para persistencia en Directus
 export interface AccionUsuarioRecord {
-  accion: AccionNotificable;
+  accion: string;
   timestamp: string;
   origen?: string; // Ej: 'resultados', 'carta-preaprobacion'
 }
@@ -93,10 +91,6 @@ export interface SimuladorState {
 
   // Simulation persistence
   simulacionId: string | null; // ID de la simulación guardada en Directus
-
-  // Notification deduplication
-  notificacionEnviada: boolean;
-  accionesNotificadas: AccionNotificable[];
 }
 
 export interface ValidacionResult {

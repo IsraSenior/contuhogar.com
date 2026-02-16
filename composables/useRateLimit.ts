@@ -55,8 +55,11 @@ export const useRateLimit = () => {
    * Número de intentos restantes
    */
   const remaining = computed(() => {
-    cleanOldAttempts()
-    return Math.max(0, RATE_LIMIT_MAX - globalAttempts.value.length)
+    const now = Date.now()
+    const activeCount = globalAttempts.value.filter(
+      attempt => now - attempt.timestamp < RATE_LIMIT_WINDOW_MS
+    ).length
+    return Math.max(0, RATE_LIMIT_MAX - activeCount)
   })
 
   /**

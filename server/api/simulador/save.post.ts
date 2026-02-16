@@ -7,7 +7,6 @@ import {
   getRequestHeader,
 } from "h3";
 import { createDirectus, rest, staticToken, createItem } from "@directus/sdk";
-import { formatCurrency, getResultEmoji } from "../../utils/formatting";
 
 // Validation schema for simulation data
 const obligacionSchema = z.object({
@@ -194,55 +193,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Send Telegram notification (non-blocking)
-    const tgToken = config.TELEGRAM_BOT_TOKEN as string | undefined;
-    const tgChatId = config.TELEGRAM_CHAT_ID as string | number | undefined;
-
-    if (tgToken && tgChatId) {
-      const TIPO_CREDITO_LABELS: Record<string, string> = {
-        hipotecario: 'Crédito Hipotecario',
-        leasing: 'Leasing Habitacional',
-        remodelacion: 'Crédito de Remodelación',
-        compra_cartera: 'Compra de Cartera',
-      };
-      const tipoCredito = TIPO_CREDITO_LABELS[data.data.tipoCredito] || data.data.tipoCredito;
-      const fullName = `${data.data.nombres} ${data.data.apellidos}`.trim();
-      const tel = `${data.data.telefonoCodigo.code} ${data.data.telefono}`.trim();
-      const resultadoEmoji = getResultEmoji(data.data.resultado.resultado);
-
-      const tgMessage = `🏠 *NUEVA SIMULACIÓN COMPLETADA*
-
-👤 *Contacto:*
-   Nombre: ${fullName}
-   Email: ${data.data.correo}
-   Tel: ${tel}
-
-📊 *Datos de Simulación:*
-   Tipo: ${tipoCredito}
-   Valor inmueble: ${formatCurrency(data.data.valorBien)}
-   Monto solicitado: ${formatCurrency(data.data.montoSolicitado)}
-   Plazo: ${data.data.plazoMeses} meses (${Math.floor(data.data.plazoMeses / 12)} años)
-
-💰 *Resultado:*
-   ${resultadoEmoji} ${data.data.resultado.resultado.toUpperCase()}
-   Cuota: ${formatCurrency(data.data.resultado.cuotaMensual)}
-   Compromiso: ${Math.ceil(data.data.resultado.porcentajeCompromiso)}%
-   Financiación: ${Math.ceil(data.data.resultado.porcentajeFinanciacion)}%${data.data.reportesNegativosNoSabe ? '\n\n⚠️ *Nota:* El usuario indicó que NO SABE si tiene reportes negativos en centrales de riesgo.' : ''}`;
-
-      // Fire and forget - don't wait for Telegram response
-      fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: tgChatId,
-          text: tgMessage,
-          parse_mode: "Markdown",
-          disable_web_page_preview: true
-        }),
-      }).catch((err) => {
-        console.error("[Telegram] notification failed:", err);
-      });
-    }
+    // Notificaciones (Telegram) se envian via Directus Flow -> Webhook
 
     return {
       ok: true,

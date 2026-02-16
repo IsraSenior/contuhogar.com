@@ -476,32 +476,6 @@ const autoSaveSimulation = async () => {
   }
 };
 
-// Notificar lead al servidor (Telegram) - with deduplication
-const notifySimulatorLead = async (action: 'whatsapp' | 'pdf' | 'contact') => {
-  // Check if this action was already notified
-  if (store.fueAccionNotificada(action)) {
-    return;
-  }
-
-  try {
-    await $fetch('/api/send/simulator-lead', {
-      method: 'POST',
-      body: {
-        action,
-        datosPersonales: store.datosPersonales,
-        datosBien: store.datosBien,
-        resultado: resultado.value,
-        sessionId: store.sessionId // Include sessionId for server-side deduplication
-      }
-    });
-
-    // Mark this action as notified to prevent duplicates
-    store.marcarAccionNotificada(action);
-  } catch {
-    // Silent fail - notification is non-critical
-  }
-};
-
 // Construir mensaje de WhatsApp con detalles del simulador
 const buildWhatsAppMessage = (tipo: 'aprobado' | 'rechazado' | 'advertencia'): string => {
   const { datosPersonales, datosBien } = store;
@@ -561,7 +535,6 @@ const whatsAppUrlAdvertencia = computed(() => `https://wa.me/${WHATSAPP_NUMBER}?
 
 // Handler para click en WhatsApp
 const handleWhatsAppClick = (url: string) => {
-  notifySimulatorLead('whatsapp');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('whatsapp', 'resultados');
   // Meta Pixel: Track Contact event
@@ -571,7 +544,6 @@ const handleWhatsAppClick = (url: string) => {
 
 // Handler para descargar PDF
 const handleDownloadPDF = async () => {
-  notifySimulatorLead('pdf');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('pdf', 'resultados');
   // Meta Pixel: Track PDF download
@@ -586,14 +558,12 @@ const reloadPage = () => {
 
 // Handler para ir a contacto con datos pre-llenados
 const handleContactClick = () => {
-  notifySimulatorLead('contact');
   // Track action in Directus (non-blocking)
   store.trackAccionUsuario('contact', 'resultados');
   // Meta Pixel: Track Contact event
   trackContact({ content_name: 'contact_simulador', content_category: 'simulator_results' })
 
   // Guardar datos en el store principal (no expuestos en URL)
-  // Include flags to skip duplicate Telegram notification in contact form
   mainStore.setContactPrefill({
     source: 'simulador',
     nombres: store.datosPersonales.nombres || '',
@@ -609,10 +579,7 @@ const handleContactClick = () => {
       resultado: resultado.value?.resultado,
       cuotaMensual: resultado.value?.cuotaMensual,
       porcentajeCompromiso: resultado.value?.porcentajeCompromiso
-    },
-    // Skip Telegram in contact form since we already sent notification
-    skipTelegramNotification: true,
-    simuladorSessionId: store.sessionId || undefined
+    }
   });
 
   router.push('/contacto');

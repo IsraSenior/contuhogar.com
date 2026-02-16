@@ -138,14 +138,6 @@ onMounted(async () => {
             if (data.simulador) {
                 form.value.simuladorInfo = JSON.stringify(data.simulador)
 
-                // Set deduplication flags to skip duplicate Telegram notification
-                if (data.skipTelegramNotification) {
-                    form.value._skipTelegramFromSimulator = true
-                }
-                if (data.simuladorSessionId) {
-                    form.value._simuladorSessionId = data.simuladorSessionId
-                }
-
                 // Generar mensaje automático con resumen del simulador
                 const sim = data.simulador
                 const tipoCredito = sim.tipoCredito === 'hipotecario' ? 'Crédito Hipotecario' : 'Leasing Habitacional'
@@ -227,9 +219,7 @@ const form = ref({
     source_page: route.fullPath,
     website: '', // honeypot (debe quedar vacío)
     _formStartTime: 0, // timestamp para validación anti-bot
-    simuladorInfo: '', // campo oculto con datos del simulador (JSON)
-    _skipTelegramFromSimulator: false, // flag to skip Telegram if coming from simulator
-    _simuladorSessionId: '' // simulator session ID for deduplication
+    simuladorInfo: '' // campo oculto con datos del simulador (JSON)
 })
 
 const state = ref<'idle' | 'loading' | 'success' | 'error'>('idle')
