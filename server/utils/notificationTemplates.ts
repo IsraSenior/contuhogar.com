@@ -12,6 +12,13 @@ export const TIPO_CREDITO_LABELS: Record<string, string> = {
   compra_cartera: 'Compra de Cartera',
 };
 
+const SOURCE_COMPONENT_LABELS: Record<string, string> = {
+  contact_form: 'Formulario de Contacto',
+  whatsapp_widget: 'Widget WhatsApp',
+  simulador: 'Simulador de Credito',
+  newsletter: 'Newsletter',
+};
+
 // ---------------------------------------------------------------------------
 // Tipos minimos esperados de los payloads de Directus
 // ---------------------------------------------------------------------------
@@ -22,6 +29,7 @@ interface LeadPayload {
   phone?: string;
   message?: string;
   source_page?: string;
+  source_component?: string;
 }
 
 interface SimulationPayload {
@@ -46,16 +54,18 @@ interface SimulationPayload {
 // ---------------------------------------------------------------------------
 export function buildLeadTelegramMessage(lead: LeadPayload, directusKey?: string): string {
   const fullName = [lead.name, lead.lastname].filter(Boolean).join(' ') || 'N/D';
-  const source = lead.source_page || 'Formulario · /contacto';
+  const component = SOURCE_COMPONENT_LABELS[lead.source_component || ''] || lead.source_component || 'Desconocido';
+  const page = lead.source_page || '/contacto';
 
   const lines: string[] = [
-    '\uD83C\uDD95 *Nuevo lead*',
+    `\uD83C\uDD95 *Nuevo lead* — ${component}`,
     '',
     '\uD83D\uDC64 *Contacto:*',
     `   Nombre: ${fullName}`,
     `   Email: ${lead.email || 'N/D'}`,
     `   Tel: ${lead.phone || 'N/D'}`,
-    `   Origen: ${source}`,
+    `   Componente: ${component}`,
+    `   Pagina: ${page}`,
   ];
 
   if (lead.message && lead.message.trim().length > 0) {
@@ -77,7 +87,8 @@ export function buildLeadTelegramMessage(lead: LeadPayload, directusKey?: string
 // ---------------------------------------------------------------------------
 export function buildLeadEmailHtml(lead: LeadPayload, directusKey?: string): { subject: string; html: string } {
   const fullName = [lead.name, lead.lastname].filter(Boolean).join(' ') || 'N/D';
-  const source = lead.source_page || 'Formulario · /contacto';
+  const component = SOURCE_COMPONENT_LABELS[lead.source_component || ''] || lead.source_component || 'Desconocido';
+  const page = lead.source_page || '/contacto';
   const msg = lead.message?.trim() || '';
 
   // Sanitizacion HTML basica
@@ -115,7 +126,8 @@ export function buildLeadEmailHtml(lead: LeadPayload, directusKey?: string): { s
       <div class="row"><div class="label">Nombre</div><div class="value">${fullName}</div></div>
       <div class="row"><div class="label">Email</div><div class="value">${lead.email || 'N/D'}</div></div>
       <div class="row"><div class="label">Telefono</div><div class="value">${lead.phone || 'N/D'}</div></div>
-      <div class="row"><div class="label">Origen</div><div class="value">${source}</div></div>
+      <div class="row"><div class="label">Componente</div><div class="value">${component}</div></div>
+      <div class="row"><div class="label">Pagina</div><div class="value">${page}</div></div>
       ${messageSection}
       ${directusLink}
     </div>
@@ -125,7 +137,7 @@ export function buildLeadEmailHtml(lead: LeadPayload, directusKey?: string): { s
 </html>`;
 
   return {
-    subject: `Nuevo contacto [${fullName}] — ${source}`,
+    subject: `Nuevo contacto [${fullName}] — ${component}`,
     html,
   };
 }

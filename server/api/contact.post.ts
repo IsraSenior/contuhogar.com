@@ -20,6 +20,7 @@ const schema = z.object({
   phone: z.string().min(5).max(25).trim(),
   message: z.string().max(2000).trim().optional().or(z.literal("")), // Aumentado para incluir datos del simulador
   source_page: z.string().optional(),
+  source_component: z.enum(['contact_form', 'whatsapp_widget', 'simulador', 'newsletter']).optional(),
   // Honeypot (debe venir vacío)
   website: z.string().max(0).optional().or(z.literal("")),
   // Timestamp para validar tiempo mínimo de envío
@@ -205,6 +206,7 @@ export default defineEventHandler(async (event) => {
     phone: `${data.data.dial.code} ${data.data.phone}`,
     message: data.data.message,
     source_page: data.data.source_page,
+    source_component: data.data.source_component || 'contact_form',
     status: "nuevo",
   };
 
