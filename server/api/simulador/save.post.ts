@@ -211,9 +211,13 @@ export default defineEventHandler(async (event) => {
 
       // Link lead back to simulation
       if (leadId && simulacionId) {
-        directusServer.request(
-          updateItem("simulaciones_credito", simulacionId, { lead_id: leadId })
-        ).catch(() => {}); // Non-blocking, best-effort
+        try {
+          await directusServer.request(
+            updateItem("simulaciones_credito", simulacionId, { lead_id: leadId })
+          );
+        } catch (linkErr: any) {
+          console.error("Failed to link lead to simulation:", linkErr?.message || linkErr);
+        }
       }
     } catch (leadErr: any) {
       // Lead creation is non-blocking — simulation is already saved
