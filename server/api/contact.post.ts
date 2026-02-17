@@ -28,7 +28,7 @@ const schema = z.object({
   // Campo oculto con datos del simulador (JSON string)
   simuladorInfo: z.string().optional().or(z.literal("")),
   // Lead ID existente (para actualizar en vez de crear, e.g. desde simulador)
-  _existingLeadId: z.string().uuid().optional(),
+  _existingLeadId: z.string().uuid().optional().or(z.literal("")),
   // Meta Pixel event ID for CAPI deduplication
   _metaEventId: z.string().optional(),
 
