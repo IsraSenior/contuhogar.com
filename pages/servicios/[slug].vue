@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const { isLoading } = useLoading(150)
 const store = useMainStore();
 const route = useRoute();
@@ -431,6 +431,30 @@ const whatIsTitle = computed(() => {
   return titles[currentService.value.slug] ?? '¿Qué es?'
 })
 
+// Anchor navigation state
+const activeSection = ref(0)
+const accordionRef = ref()
+
+const scrollToSection = (index: number) => {
+  activeSection.value = index
+  // Abrir la sección en el acordeón si no está abierta
+  if (accordionRef.value && !accordionRef.value.isOpen(index)) {
+    accordionRef.value.toggleSection(index)
+  }
+  nextTick(() => {
+    const accordionContainer = document.querySelector('.accordion-container')
+    if (accordionContainer) {
+      const items = accordionContainer.querySelectorAll(':scope > div > div')
+      const target = items[index]
+      if (target) {
+        const offset = 140
+        const top = target.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+    }
+  })
+}
+
 // Recursos útiles para sidebar
 const usefulResources = [
   { label: 'Simulador de crédito', to: '/simulador/credito' },
@@ -466,6 +490,27 @@ const handleSolicitarServicio = () => {
       :title="currentService.title"
       :subtitle="currentService.intro"
     />
+
+    <!-- Anchor navigation -->
+    <nav class="sticky top-[73px] z-30 bg-white border-b border-gray-200 shadow-sm">
+      <div class="mx-auto container px-6 lg:px-8">
+        <div class="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
+          <button
+            v-for="(item, index) in accordionItems"
+            :key="index"
+            @click="scrollToSection(index)"
+            class="shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap"
+            :class="[
+              activeSection === index
+                ? 'bg-primary text-white'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+            ]"
+          >
+            {{ item.title }}
+          </button>
+        </div>
+      </div>
+    </nav>
 
     <!-- Contenido principal -->
     <div class="bg-muted">
@@ -505,6 +550,33 @@ const handleSolicitarServicio = () => {
               </div>
             </div>
 
+            <!-- CTA inline -->
+            <div class="bg-primary/5 border border-primary/10 rounded-2xl p-6 lg:p-8 mb-8">
+              <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div class="text-center sm:text-left">
+                  <h3 class="text-lg font-bold text-primary mb-1">¿Listo para dar el primer paso?</h3>
+                  <p class="text-gray-600">Descubre en minutos cuánto puedes financiar</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <NuxtLink
+                    to="/simulador/credito"
+                    class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-sm"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Simular mi crédito
+                  </NuxtLink>
+                  <NuxtLink
+                    to="/contacto"
+                    class="inline-flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary hover:text-white transition-colors text-sm"
+                  >
+                    Hablar con un asesor
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
+
             <!-- Información detallada (acordeón siempre visible) -->
             <div>
               <!-- <div class="mb-6">
@@ -512,16 +584,20 @@ const handleSolicitarServicio = () => {
                 <p class="mt-2 text-gray-600">Explora cada sección para conocer todos los detalles de este servicio</p>
               </div> -->
 
-              <Accordion
-                :items="accordionItems"
-                :multiple="true"
-              />
+              <div class="accordion-container">
+                <Accordion
+                  ref="accordionRef"
+                  :items="accordionItems"
+                  :multiple="true"
+                  :default-open="0"
+                />
+              </div>
             </div>
           </article>
 
           <!-- Columna derecha: Sidebar -->
           <aside class="lg:col-span-4 mt-12 lg:mt-0">
-            <div class="lg:sticky lg:top-24 space-y-6">
+            <div class="lg:sticky lg:top-[140px] space-y-6">
 
               <!-- CTA Simulador -->
               <SidebarCTA

@@ -1,4 +1,5 @@
 import { defineEventHandler, setHeader } from 'h3'
+import { createDirectus, rest, readItems, staticToken } from '@directus/sdk'
 
 /**
  * Endpoint de sitemap dinámico para ContuHogar
@@ -6,11 +7,12 @@ import { defineEventHandler, setHeader } from 'h3'
  * Genera un sitemap.xml con:
  * - Páginas estáticas principales
  * - Páginas dinámicas de servicios del store
- * - Páginas dinámicas de blog (cuando estén disponibles en Directus)
+ * - Páginas dinámicas de blog posts (desde Directus)
+ * - Páginas programáticas de landing pages (desde Directus)
  *
  * @route GET /sitemap.xml
  */
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const baseUrl = 'https://contuhogar.com'
   const today = new Date().toISOString().split('T')[0]
 
@@ -73,7 +75,6 @@ export default defineEventHandler((event) => {
   ]
 
   // Servicios dinámicos del store
-  // Importamos directamente el array de servicios sin necesitar el store completo
   const serviceSlugs = [
     'credito-hipotecario',
     'leasing-habitacional',
@@ -89,8 +90,54 @@ export default defineEventHandler((event) => {
     priority: '0.9'
   }))
 
+  // Fetch blog posts y landing pages desde Directus
+  let blogPages: Array<{ loc: string; lastmod: string; changefreq: string; priority: string }> = []
+  let landingPages: Array<{ loc: string; lastmod: string; changefreq: string; priority: string }> = []
+
+  try {
+    const config = useRuntimeConfig()
+    const directusServer = createDirectus(config.DIRECTUS_URL)
+      .with(staticToken(config.DIRECTUS_ADMIN_TOKEN))
+      .with(rest())
+
+    // Fetch published blog posts
+    const posts = await directusServer.request(
+      readItems('posts', {
+        filter: { status: { _eq: 'published' } },
+        fields: ['slug', 'date_updated', 'date_created'],
+        sort: ['-date_created']
+      })
+    )
+
+    blogPages = posts.map((post: any) => ({
+      loc: `/blog/${post.slug}`,
+      lastmod: (post.date_updated || post.date_created || today).split('T')[0],
+      changefreq: 'weekly',
+      priority: '0.7'
+    }))
+
+    // Fetch published landing pages
+    const landings = await directusServer.request(
+      readItems('landing_pages', {
+        filter: { status: { _eq: 'published' } },
+        fields: ['slug', 'service_slug', 'date_updated', 'date_created'],
+        sort: ['-date_created']
+      })
+    )
+
+    landingPages = landings.map((lp: any) => ({
+      loc: `/servicios/${lp.service_slug}/${lp.slug}`,
+      lastmod: (lp.date_updated || lp.date_created || today).split('T')[0],
+      changefreq: 'monthly',
+      priority: '0.8'
+    }))
+  } catch (error) {
+    // Si Directus no responde, el sitemap sigue funcionando con las URLs estáticas
+    console.warn('[sitemap] Error fetching from Directus, continuing with static pages only:', error)
+  }
+
   // Combinar todas las URLs
-  const allPages = [...staticPages, ...servicePages]
+  const allPages = [...staticPages, ...servicePages, ...blogPages, ...landingPages]
 
   // Generar XML
   const urls = allPages.map(page => `  <url>

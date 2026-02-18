@@ -1,5 +1,7 @@
-<script setup>
+<script setup lang="ts">
 const { isLoading } = useLoading(150)
+const config = useRuntimeConfig()
+const directusUrl = config.public.DIRECTUS_URL as string
 
 const title = `Blog | ContuHogar`;
 const description = "Explora artículos sobre inversión inmobiliaria, crédito hipotecario, leasing habitacional y consejos para colombianos en el exterior que desean comprar vivienda en Colombia."
@@ -11,93 +13,72 @@ useSeo({
   type: 'website'
 })
 
-// Artículos del blog (hardcoded por ahora - en el futuro podría venir de Directus)
-const articles = ref([
-  {
-    slug: 'el-momento-es-ahora',
-    title: 'Aprovecha el poder de las tasas de cambio a tu favor',
-    excerpt: 'En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado o a través de créditos hipotecarios.',
-    image: 'https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg',
-    date: 'Junio 25, 2025',
-    datetime: '2025-06-25',
-    category: 'Inversión',
+// Fetch de categorías del blog desde Directus (query ligero e independiente)
+const { data: blogCategories } = await useDirectusItems<BlogCategory>('blog_categories', {
+  filter: { status: { _eq: 'published' } },
+  sort: ['sort']
+})
+
+// Fetch de artículos publicados con relación a categoría expandida
+const { data: posts } = await useDirectusItems<Post>('posts', {
+  filter: { status: { _eq: 'published' } },
+  sort: ['-date_created'],
+  fields: ['*', 'blog_category.id', 'blog_category.name', 'blog_category.slug'] as any
+})
+
+// Formatear fecha para display
+const formatDate = (dateStr: string | null | undefined): string => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+// Resolver nombre de categoría desde la relación M2O
+const getCategoryName = (post: Post): string => {
+  if (!post.blog_category) return 'General'
+  if (typeof post.blog_category === 'object') return post.blog_category.name
+  const cat = blogCategories.value?.find(c => c.id === post.blog_category)
+  return cat?.name || 'General'
+}
+
+const getCategorySlug = (post: Post): string => {
+  if (!post.blog_category) return 'general'
+  if (typeof post.blog_category === 'object') return post.blog_category.slug
+  const cat = blogCategories.value?.find(c => c.id === post.blog_category)
+  return cat?.slug || 'general'
+}
+
+// Transformar Post[] al formato que BlogCard espera
+const transformedArticles = computed(() => {
+  if (!posts.value) return []
+  return posts.value.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt || '',
+    image: post.featured_image ? `${directusUrl}/assets/${post.featured_image}` : '',
+    date: formatDate(post.date_created),
+    datetime: post.date_created?.split('T')[0] || '',
+    category: getCategoryName(post),
+    categorySlug: getCategorySlug(post),
+    readingTime: post.reading_time || null,
     author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
+      name: post.author_name || 'ContuHogar',
+      avatar: post.author_avatar || '',
+      role: post.author_role || ''
     }
-  },
-  {
-    slug: 'credito-hipotecario-desde-exterior',
-    title: 'Cómo obtener crédito hipotecario desde el exterior',
-    excerpt: 'Guía completa para colombianos residentes en el exterior que desean solicitar un crédito hipotecario en Colombia. Conoce los requisitos, documentos necesarios y el proceso paso a paso.',
-    image: 'https://img.freepik.com/foto-gratis/casa-modelo-madera-llave-sobre-plano_23-2148780574.jpg',
-    date: 'Mayo 15, 2025',
-    datetime: '2025-05-15',
-    category: 'Guías',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  },
-  {
-    slug: 'leasing-vs-credito-hipotecario',
-    title: 'Leasing vs Crédito Hipotecario: ¿Cuál elegir?',
-    excerpt: 'Análisis comparativo entre leasing habitacional y crédito hipotecario tradicional. Descubre cuál se adapta mejor a tu situación financiera y objetivos a largo plazo.',
-    image: 'https://img.freepik.com/foto-gratis/concepto-casa-diagrama-finanzas_23-2148780568.jpg',
-    date: 'Abril 20, 2025',
-    datetime: '2025-04-20',
-    category: 'Comparativas',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  },
-  {
-    slug: 'errores-comunes-compra-vivienda',
-    title: '5 Errores comunes al comprar vivienda desde el exterior',
-    excerpt: 'Evita los errores más frecuentes que cometen los colombianos en el exterior al comprar propiedad en Colombia. Aprende de la experiencia de otros y protege tu inversión.',
-    image: 'https://img.freepik.com/foto-gratis/agente-bienes-raices-dando-casa-cliente_23-2148780556.jpg',
-    date: 'Marzo 10, 2025',
-    datetime: '2025-03-10',
-    category: 'Consejos',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  },
-  {
-    slug: 'tendencias-mercado-inmobiliario-2025',
-    title: 'Tendencias del mercado inmobiliario colombiano 2025',
-    excerpt: 'Análisis de las principales tendencias del mercado inmobiliario en Colombia para 2025. Descubre las mejores zonas para invertir y las proyecciones de valorización.',
-    image: 'https://img.freepik.com/foto-gratis/grafico-negocios-crecimiento-estadisticas_23-2148780545.jpg',
-    date: 'Febrero 5, 2025',
-    datetime: '2025-02-05',
-    category: 'Análisis',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  },
-  {
-    slug: 'documentos-necesarios-credito',
-    title: 'Documentos necesarios para solicitar tu crédito',
-    excerpt: 'Lista completa y detallada de todos los documentos que necesitas preparar para solicitar un crédito hipotecario o leasing habitacional desde el exterior.',
-    image: 'https://img.freepik.com/foto-gratis/documentos-papeles-escritorio_23-2148780590.jpg',
-    date: 'Enero 18, 2025',
-    datetime: '2025-01-18',
-    category: 'Guías',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  }
-])
+  }))
+})
+
+// CollectionPage schema para SEO
+useCollectionPageSchema({
+  name: 'Blog | ContuHogar',
+  description,
+  url: 'https://contuhogar.com/blog',
+  items: transformedArticles.value.map((a) => ({
+    name: a.title,
+    url: `https://contuhogar.com/blog/${a.slug}`
+  }))
+})
 
 // Estados
 const searchQuery = ref('')
@@ -106,35 +87,26 @@ const currentPage = ref(1)
 const itemsPerPage = 6
 const minSearchLength = 3 // Mínimo de caracteres para iniciar búsqueda
 
-// Extraer categorías únicas (solo mostrar las que tienen contenido)
+// Categorías desde Directus con conteo de posts
 const categories = computed(() => {
-  const uniqueCategories = [...new Set(articles.value.map(a => a.category))]
-  const categoryCounts = {}
-
-  uniqueCategories.forEach(cat => {
-    categoryCounts[cat] = articles.value.filter(a => a.category === cat).length
-  })
-
   const allCategories = [
-    { id: 'all', label: 'Todas', count: articles.value.length },
-    ...uniqueCategories.map(cat => ({
-      id: cat.toLowerCase(),
-      label: cat,
-      count: categoryCounts[cat]
+    { id: 'all', label: 'Todas', count: transformedArticles.value.length },
+    ...(blogCategories.value || []).map(cat => ({
+      id: cat.slug,
+      label: cat.name,
+      count: transformedArticles.value.filter(a => a.categorySlug === cat.slug).length
     }))
   ]
-
-  // Filtrar: siempre mostrar "Todas", y las demás solo si tienen count > 0
   return allCategories.filter(cat => cat.id === 'all' || cat.count > 0)
 })
 
 // Filtrar artículos
 const filteredArticles = computed(() => {
-  let filtered = articles.value
+  let filtered = transformedArticles.value
 
-  // Filtrar por categoría
+  // Filtrar por categoría usando slug
   if (selectedCategory.value !== 'all') {
-    filtered = filtered.filter(a => a.category.toLowerCase() === selectedCategory.value)
+    filtered = filtered.filter(a => a.categorySlug === selectedCategory.value)
   }
 
   // Filtrar por búsqueda (solo si hay al menos 3 caracteres)

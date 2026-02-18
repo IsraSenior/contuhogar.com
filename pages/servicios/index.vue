@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useMainStore } from '@/stores/index'
 
 const { isLoading } = useLoading(150)
@@ -19,6 +19,17 @@ useBreadcrumbSchema([
   { name: 'Inicio', url: 'https://contuhogar.com' },
   { name: 'Servicios', url: 'https://contuhogar.com/servicios' }
 ])
+
+// CollectionPage schema for services listing
+useCollectionPageSchema({
+  name: title,
+  description: description,
+  url: 'https://contuhogar.com/servicios',
+  items: store.services.map(s => ({
+    name: s.title,
+    url: `https://contuhogar.com/servicios/${s.slug}`
+  }))
+})
 
 // Estadísticas de confianza
 const trustStats = [

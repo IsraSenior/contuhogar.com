@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const store = useMainStore()
 const route = useRoute()
 const currentYear = new Date().getFullYear()

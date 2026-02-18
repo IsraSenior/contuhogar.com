@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const store = useMainStore();
 const { isLoading } = useLoading(150)
 
@@ -27,6 +27,12 @@ useHead({
 
 // Structured data para la pagina principal
 useLocalBusinessSchema()
+
+// AggregateRating schema for testimonials
+useAggregateRatingSchema({
+  ratingValue: 4.9,
+  reviewCount: store.testimonials.length
+})
 
 // Configuracion del carrusel de servicios
 const carouselConfig = {

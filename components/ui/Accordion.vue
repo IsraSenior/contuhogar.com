@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   items: {
     type: Array,
@@ -48,6 +48,8 @@ const toggleSection = (index) => {
 }
 
 const isOpen = (index) => openSections.value.has(index)
+
+defineExpose({ openSections, toggleSection, isOpen })
 </script>
 
 <template>
@@ -133,7 +135,7 @@ const isOpen = (index) => openSections.value.has(index)
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // Animaciones de altura dinámica
 const onEnter = (el) => {
   el.style.height = '0'

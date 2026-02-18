@@ -4,6 +4,6 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Layout minimal para el simulador - sin header ni footer
 </script>

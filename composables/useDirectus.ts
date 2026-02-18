@@ -41,11 +41,12 @@ export const useDirectusItems = async <T = unknown>(
   collection: keyof DirectusCollections | string,
   params: DirectusQueryParams<T> = {}
 ) => {
-  const { $directus } = useNuxtApp()
+  const nuxtApp = useNuxtApp()
+  const client = import.meta.server ? nuxtApp.$directusServer : nuxtApp.$directus
 
   return await useAsyncData(
     `${collection}:${JSON.stringify(params)}`,
-    () => $directus.request(readItems(collection as string, params)),
+    () => client.request(readItems(collection as string, params)),
     { server: true, transform: (d) => d as T[] }
   )
 }

@@ -1,97 +1,92 @@
-<script setup>
+<script setup lang="ts">
 const { isLoading } = useLoading(150)
 const route = useRoute()
+const store = useMainStore()
+const config = useRuntimeConfig()
+const directusUrl = config.public.DIRECTUS_URL as string
 
-// Lista completa de artículos (misma que en blog/index.vue)
-const allArticles = [
-  {
-    slug: 'el-momento-es-ahora',
-    title: 'Aprovecha el poder de las tasas de cambio a tu favor',
-    excerpt: 'En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia.',
-    image: 'https://img.freepik.com/foto-gratis/mano-que-sostiene-flecha-crecimiento-monedas_23-2148780591.jpg',
-    date: 'Junio 25, 2025',
-    datetime: '2025-06-25',
-    category: 'Inversión',
-    readingTime: '5 min',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
+// Fetch del artículo actual por slug desde Directus (con categoría expandida)
+const { data: currentPosts } = await useDirectusItems<Post>('posts', {
+  filter: {
+    slug: { _eq: route.params.slug as string },
+    status: { _eq: 'published' }
   },
-  {
-    slug: 'credito-hipotecario-desde-exterior',
-    title: 'Cómo obtener crédito hipotecario desde el exterior',
-    excerpt: 'Guía completa para colombianos residentes en el exterior que desean solicitar un crédito hipotecario en Colombia.',
-    image: 'https://img.freepik.com/foto-gratis/casa-modelo-madera-llave-sobre-plano_23-2148780574.jpg',
-    date: 'Mayo 15, 2025',
-    datetime: '2025-05-15',
-    category: 'Guías',
-    readingTime: '8 min',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
+  fields: ['*', 'blog_category.id', 'blog_category.name', 'blog_category.slug'] as any,
+  limit: 1
+})
+
+const currentPost = computed(() => currentPosts.value?.[0] || null)
+
+// 404 si no existe el artículo
+if (!currentPost.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Artículo no encontrado' })
+}
+
+// Resolver ID de categoría para el filtro de relacionados
+const currentCategoryId = computed(() => {
+  const bc = currentPost.value?.blog_category
+  if (!bc) return null
+  return typeof bc === 'object' ? bc.id : bc
+})
+
+// Fetch de artículos relacionados (misma categoría, excluyendo el actual)
+const { data: relatedPosts } = await useDirectusItems<Post>('posts', {
+  filter: {
+    status: { _eq: 'published' },
+    slug: { _neq: route.params.slug as string },
+    ...(currentCategoryId.value ? { blog_category: { _eq: currentCategoryId.value } } : {})
   },
-  {
-    slug: 'leasing-vs-credito-hipotecario',
-    title: 'Leasing vs Crédito Hipotecario: ¿Cuál elegir?',
-    excerpt: 'Análisis comparativo entre leasing habitacional y crédito hipotecario tradicional.',
-    image: 'https://img.freepik.com/foto-gratis/concepto-casa-diagrama-finanzas_23-2148780568.jpg',
-    date: 'Abril 20, 2025',
-    datetime: '2025-04-20',
-    category: 'Comparativas',
-    readingTime: '6 min',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
-  },
-  {
-    slug: 'errores-comunes-compra-vivienda',
-    title: '5 Errores comunes al comprar vivienda desde el exterior',
-    excerpt: 'Evita los errores más frecuentes que cometen los colombianos en el exterior al comprar propiedad en Colombia.',
-    image: 'https://img.freepik.com/foto-gratis/agente-bienes-raices-dando-casa-cliente_23-2148780556.jpg',
-    date: 'Marzo 10, 2025',
-    datetime: '2025-03-10',
-    category: 'Consejos',
-    readingTime: '7 min',
-    author: {
-      name: 'Alejandra Pérez C.',
-      avatar: '/team/alejandra-perez.avif',
-      role: 'Gerente'
-    }
+  fields: ['*', 'blog_category.id', 'blog_category.name', 'blog_category.slug'] as any,
+  sort: ['-date_created'],
+  limit: 3
+})
+
+// Formatear fecha para display
+const formatDate = (dateStr: string | null | undefined): string => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+// Resolver nombre de categoría desde la relación M2O
+const getCategoryName = (post: Post): string => {
+  if (!post.blog_category) return 'General'
+  if (typeof post.blog_category === 'object') return post.blog_category.name
+  return 'General'
+}
+
+// Transformar Post al formato que BlogCard espera
+const transformPost = (post: Post) => ({
+  slug: post.slug,
+  title: post.title,
+  excerpt: post.excerpt || '',
+  image: post.featured_image ? `${directusUrl}/assets/${post.featured_image}` : '',
+  date: formatDate(post.date_created),
+  datetime: post.date_created?.split('T')[0] || '',
+  category: getCategoryName(post),
+  readingTime: post.reading_time || null,
+  author: {
+    name: post.author_name || 'ContuHogar',
+    avatar: post.author_avatar || '',
+    role: post.author_role || ''
   }
-]
+})
 
-// Encontrar artículo actual
+// Artículo actual transformado
 const currentArticle = computed(() => {
-  return allArticles.find(a => a.slug === route.params.slug) || allArticles[0]
+  if (!currentPost.value) return null
+  return transformPost(currentPost.value)
 })
 
-// Artículos relacionados (misma categoría, excluyendo el actual)
-const relatedArticles = computed(() => {
-  return allArticles
-    .filter(a => a.slug !== currentArticle.value.slug && a.category === currentArticle.value.category)
-    .slice(0, 3)
-})
-
-// Contenido del artículo (en el futuro vendría de CMS)
+// Contenido del artículo desde Directus
 const articleContent = computed(() => {
-  if (currentArticle.value.slug === 'el-momento-es-ahora') {
-    return `
-      <p>En los últimos años, la devaluación del peso colombiano ha dificultado que muchas familias en el país puedan acceder a una vivienda propia, ya sea mediante pagos de contado o a través de créditos hipotecarios. Sin embargo, esta realidad ha generado una gran oportunidad para los colombianos residentes en el exterior quienes reciben ingresos en monedas fuertes como el dólar, el euro u otras fuertes divisas.</p>
+  return currentPost.value?.content || '<p>Contenido del artículo próximamente...</p>'
+})
 
-      <p>Hoy, los colombianos quienes trabajan y residen en algunos países del exterior tienen una ventaja única: tu dinero vale más en Colombia. Esta diferencia les permite invertir de forma más estratégica, segura y rentable, incluso en mejores condiciones que en tu país de residencia.</p>
-
-      <p>La finca raíz continúa siendo una de las formas más estables y sólidas de inversión en el mundo. No solo incrementa el patrimonio, sino que también brinda seguridad y estabilidad financiera. Contar con ingresos en una moneda fuerte y acceder a créditos en pesos colombianos ofrece beneficios como cuotas más asequibles, posibilidad de hacer abonos a capital y, en muchos casos, pagar el préstamo en menos tiempo del previsto.</p>
-
-      <p>Hoy es el momento ideal para invertir en tu país, aplica a un crédito de vivienda y compra tu propiedad ya, o ayuda a tu familia a cumplir ese sueño que la economía local ha hecho difícil. La diferencia la haces tú. Tus buenas decisiones pueden convertirse en un hogar para ti o los tuyos en Colombia.</p>
-    `
-  }
-  return '<p>Contenido del artículo próximamente...</p>'
+// Artículos relacionados transformados
+const relatedArticles = computed(() => {
+  if (!relatedPosts.value) return []
+  return relatedPosts.value.map(transformPost)
 })
 
 // SEO optimizado para artículo
@@ -138,6 +133,12 @@ const usefulResources = [
   { label: 'Leasing habitacional', to: '/servicios/leasing-habitacional' },
   { label: 'Preguntas Frecuentes', to: '/faqs' }
 ]
+
+// Servicios destacados para sección de cross-selling
+const featuredSlugs = ['credito-hipotecario', 'leasing-habitacional']
+const featuredServices = computed(() => {
+  return store.services.filter(s => featuredSlugs.includes(s.slug))
+})
 </script>
 
 <template>
@@ -215,14 +216,66 @@ const usefulResources = [
               <div v-html="articleContent"></div>
             </div>
 
+            <!-- CTA Banner: Simulador -->
+            <div class="bg-primary/5 border border-primary/10 rounded-xl p-6 lg:p-8 mt-8">
+              <div class="flex flex-col sm:flex-row items-center gap-6">
+                <div class="shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="flex-1 text-center sm:text-left">
+                  <h3 class="text-lg font-bold text-primary mb-1">Descubre cuánto puedes financiar</h3>
+                  <p class="text-gray-600 text-sm">Simula tu crédito hipotecario en 2 minutos y conoce tu cuota estimada</p>
+                </div>
+                <NuxtLink
+                  to="/simulador/credito"
+                  class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-sm"
+                >
+                  Ir al simulador
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </NuxtLink>
+              </div>
+            </div>
+
             <!-- Artículos relacionados -->
-            <div v-if="relatedArticles.length > 0" class="mt-12">
-              <h2 class="text-2xl font-bold text-gray-900 mb-6">Artículos relacionados</h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <BlogCard
-                  v-for="article in relatedArticles"
-                  :key="article.slug"
-                  :article="article"
+            <div class="mt-12">
+              <template v-if="relatedArticles.length > 0">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Sigue explorando sobre {{ currentArticle.category }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <BlogCard
+                    v-for="article in relatedArticles"
+                    :key="article.slug"
+                    :article="article"
+                  />
+                </div>
+              </template>
+              <template v-else>
+                <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm text-center">
+                  <p class="text-gray-600 mb-4">Explora más contenido en nuestro blog sobre crédito de vivienda e inversión en Colombia</p>
+                  <NuxtLink
+                    to="/blog"
+                    class="inline-flex items-center gap-2 text-primary font-semibold hover:text-secondary transition-colors"
+                  >
+                    Ver todos los artículos
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </NuxtLink>
+                </div>
+              </template>
+            </div>
+
+            <!-- Servicios que te pueden interesar -->
+            <div class="mt-12">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Servicios que te pueden interesar</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <ServiceCard
+                  v-for="service in featuredServices"
+                  :key="service.slug"
+                  :service="service"
                 />
               </div>
             </div>
