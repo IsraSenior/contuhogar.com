@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 const store = useMainStore();
 const { isLoading } = useLoading(150)

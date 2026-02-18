@@ -342,3 +342,72 @@ export const useServiceSchema = (service: {
     ]
   })
 }
+
+/**
+ * Genera JSON-LD para CollectionPage (para páginas de listado)
+ */
+export const useCollectionPageSchema = (collection: {
+  name: string
+  description: string
+  url: string
+  items: Array<{ name: string; url: string }>
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: collection.name,
+    description: collection.description,
+    url: collection.url,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: collection.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url
+      }))
+    }
+  }
+
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(schema)
+      }
+    ]
+  })
+}
+
+/**
+ * Genera JSON-LD para AggregateRating (para testimoniales/reviews)
+ */
+export const useAggregateRatingSchema = (options: {
+  ratingValue: number
+  reviewCount: number
+  bestRating?: number
+  worstRating?: number
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialService',
+    name: 'ContuHogar',
+    url: 'https://contuhogar.com',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: options.ratingValue,
+      bestRating: options.bestRating || 5,
+      worstRating: options.worstRating || 1,
+      reviewCount: options.reviewCount
+    }
+  }
+
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify(schema)
+      }
+    ]
+  })
+}

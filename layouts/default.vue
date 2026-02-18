@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 useHead({
     htmlAttrs: {
-        lang: 'es'
+        lang: 'es-CO'
     },
     link: [
         {

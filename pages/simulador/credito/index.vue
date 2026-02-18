@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const { isLoading } = useLoading(150)
 
 definePageMeta({
@@ -12,7 +12,8 @@ useSeoMeta({
   ogTitle: 'Simulador de crédito | ContuHogar',
   ogDescription: 'Simula tu crédito hipotecario desde el exterior. Descubre cuánto puedes solicitar y cuál sería tu cuota mensual en minutos.',
   ogUrl: 'https://contuhogar.com/simulador/credito',
-  twitterCard: 'summary'
+  twitterCard: 'summary',
+  robots: 'noindex, follow'
 })
 </script>
 
