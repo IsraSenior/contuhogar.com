@@ -90,6 +90,24 @@ const benefits = [
         description: 'Un ejecutivo dedicado te acompaña desde la solicitud hasta el desembolso.'
     }
 ]
+
+// Feature flag: landing page links (solo desarrollo)
+const config = useRuntimeConfig()
+const enableLandingLinks = config.public.ENABLE_LANDING_LINKS
+
+// Fetch landing pages (solo si feature flag activo)
+const landingPages = ref<LandingPage[] | null>(null)
+if (enableLandingLinks) {
+  const { data } = await useDirectusItems<LandingPage>('landing_pages', {
+    filter: { status: { _eq: 'published' } }
+  })
+  landingPages.value = data.value
+}
+
+const countryFlag = (code: string) => {
+  if (!code) return ''
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)))
+}
 </script>
 
 <template>
@@ -257,6 +275,38 @@ const benefits = [
     <!-- Stats Section (debajo de Por que ContuHogar) -->
     <SkeletonStatsSection v-if="isLoading" :count="4" variant="muted" />
     <StatsSection v-else :stats="trustStats" variant="muted" />
+
+    <!-- Sección de países de residencia -->
+    <section v-if="!isLoading && landingPages?.length" class="bg-white py-16 lg:py-20">
+        <div class="mx-auto container px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-base font-semibold text-secondary mb-3">¿Dónde vives?</h2>
+                <p class="text-3xl lg:text-4xl font-bold text-primary mb-4">
+                    Te asesoramos desde donde estés
+                </p>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Selecciona tu país de residencia para ver información específica
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <NuxtLink
+                    v-for="lp in landingPages"
+                    :key="lp.slug"
+                    :to="`/servicios/${lp.service_slug}/${lp.slug}`"
+                    class="inline-flex items-center gap-3 px-6 py-4 rounded-xl border border-gray-200 hover:border-primary/30 hover:bg-primary/5 hover:shadow-md transition-all group"
+                >
+                    <span class="text-2xl">{{ countryFlag(lp.country_code || '') }}</span>
+                    <div class="text-left">
+                        <p class="font-semibold text-gray-900 group-hover:text-primary transition-colors">{{ lp.country }}</p>
+                        <p class="text-sm text-gray-500">{{ lp.title }}</p>
+                    </div>
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-primary shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </NuxtLink>
+            </div>
+        </div>
+    </section>
 
     <!-- Servicios (Carrusel infinito) -->
     <section id="servicios" class="bg-white py-20 lg:py-28">

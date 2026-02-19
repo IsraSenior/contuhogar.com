@@ -217,13 +217,37 @@
   @apply text-gray-600;
 }
 
+.prose h2 {
+  @apply text-2xl font-bold text-gray-900 mt-8 mb-4;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold text-gray-900 mt-6 mb-3;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold text-gray-900 mt-4 mb-2;
+}
+
 .prose p {
   @apply mb-3;
+}
+
+.prose strong {
+  @apply text-gray-900 font-semibold;
 }
 
 .prose ul,
 .prose ol {
   @apply ml-5 mb-3;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
 }
 
 .prose li {
