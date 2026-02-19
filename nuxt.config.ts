@@ -37,6 +37,7 @@ export default defineNuxtConfig({
       // ⚠️ IMPORTANTE: Usar un token de SOLO LECTURA para el cliente
       DIRECTUS_PUBLIC_TOKEN: process.env.DIRECTUS_PUBLIC_TOKEN,
       META_PIXEL_ID: process.env.META_PIXEL_ID,
+      ENABLE_LANDING_LINKS: process.env.ENABLE_LANDING_LINKS === 'true',
     },
   },
 

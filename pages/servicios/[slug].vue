@@ -462,6 +462,28 @@ const usefulResources = [
   { label: 'Blog', to: '/blog' }
 ]
 
+// Feature flag: landing page links (solo desarrollo)
+const config = useRuntimeConfig()
+const enableLandingLinks = config.public.ENABLE_LANDING_LINKS
+
+// Fetch landing pages para este servicio (solo si feature flag activo)
+const landingPages = ref<LandingPage[] | null>(null)
+if (enableLandingLinks) {
+  const { data } = await useDirectusItems<LandingPage>('landing_pages', {
+    filter: {
+      service_slug: { _eq: route.params.slug as string },
+      status: { _eq: 'published' }
+    }
+  })
+  landingPages.value = data.value
+}
+
+// Helper para convertir country_code (ISO 3166-1 alpha-2) a emoji de bandera
+const countryFlag = (code: string) => {
+  if (!code) return ''
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)))
+}
+
 // Handler para solicitar servicio - guarda datos en store y navega a contacto
 const handleSolicitarServicio = () => {
   if (!currentService.value) return
@@ -574,6 +596,29 @@ const handleSolicitarServicio = () => {
                     Hablar con un asesor
                   </NuxtLink>
                 </div>
+              </div>
+            </div>
+
+            <!-- Mercados disponibles para este servicio -->
+            <div v-if="landingPages?.length" class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm mb-8">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">Disponible en tu país</h2>
+              <p class="text-gray-600 mb-6">Conoce las condiciones específicas para tu lugar de residencia</p>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <NuxtLink
+                  v-for="lp in landingPages"
+                  :key="lp.slug"
+                  :to="`/servicios/${currentService.slug}/${lp.slug}`"
+                  class="flex items-center gap-4 p-4 rounded-xl border border-gray-200 hover:border-primary/30 hover:bg-primary/5 transition-colors group"
+                >
+                  <span class="text-3xl">{{ countryFlag(lp.country_code || '') }}</span>
+                  <div class="flex-1 min-w-0">
+                    <p class="font-semibold text-gray-900 group-hover:text-primary transition-colors">{{ lp.country }}</p>
+                    <p class="text-sm text-gray-500 truncate">{{ lp.hero_subtitle || `${currentService.title} en ${lp.country}` }}</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400 group-hover:text-primary shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
               </div>
             </div>
 
