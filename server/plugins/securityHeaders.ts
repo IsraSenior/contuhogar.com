@@ -46,7 +46,7 @@ export default defineNitroPlugin((nitroApp) => {
       // Fonts: 'self', data URIs, Google Fonts
       "font-src 'self' data: https://fonts.gstatic.com",
       // Conexiones: API propias, Directus, Google Analytics, Telegram, GeoJS
-      "connect-src 'self' https://contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org https://get.geojs.io https://www.facebook.com",
+      "connect-src 'self' https://contuhogar.com https://admin.contuhogar.com https://*.directus.app https://www.google-analytics.com https://www.googletagmanager.com https://api.telegram.org https://get.geojs.io https://www.facebook.com",
       // Frames: solo mismo origen, Google, Cloudflare Turnstile (previene clickjacking)
       "frame-src 'self' https://www.google.com https://www.googletagmanager.com https://challenges.cloudflare.com https://www.facebook.com",
       // Frame ancestors: DENY (equivalente a X-Frame-Options)

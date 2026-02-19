@@ -3,15 +3,17 @@ const { isLoading } = useLoading(150)
 const route = useRoute()
 const store = useMainStore()
 
-// Fetch landing page desde Directus
-const { data: pageData } = await useDirectusItems<LandingPage>('landing_pages', {
-  filter: {
-    service_slug: { _eq: route.params.service as string },
-    slug: { _eq: route.params.market as string },
-    status: { _eq: 'published' }
-  },
-  limit: 1
-})
+// Fetch landing page via server API (usa admin token server-side)
+const { data: pageData } = await useAsyncData(
+  `landing-page-${route.params.service}-${route.params.market}`,
+  () => $fetch<LandingPage[]>('/api/landing-pages', {
+    query: {
+      service_slug: route.params.service,
+      slug: route.params.market,
+      limit: 1
+    }
+  })
+)
 
 const page = computed(() => pageData.value?.[0] || null)
 
