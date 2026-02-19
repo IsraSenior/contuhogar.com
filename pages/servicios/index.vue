@@ -46,10 +46,12 @@ const enableLandingLinks = config.public.ENABLE_LANDING_LINKS
 // Fetch landing pages (solo si feature flag activo)
 const landingPages = ref<LandingPage[] | null>(null)
 if (enableLandingLinks) {
-  const { data } = await useDirectusItems<LandingPage>('landing_pages', {
-    filter: { status: { _eq: 'published' } },
-    sort: ['country']
-  })
+  const { data } = await useAsyncData(
+    'landing-pages-all',
+    () => $fetch<LandingPage[]>('/api/landing-pages', {
+      query: { sort: 'country' }
+    })
+  )
   landingPages.value = data.value
 }
 

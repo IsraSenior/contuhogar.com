@@ -469,12 +469,12 @@ const enableLandingLinks = config.public.ENABLE_LANDING_LINKS
 // Fetch landing pages para este servicio (solo si feature flag activo)
 const landingPages = ref<LandingPage[] | null>(null)
 if (enableLandingLinks) {
-  const { data } = await useDirectusItems<LandingPage>('landing_pages', {
-    filter: {
-      service_slug: { _eq: route.params.slug as string },
-      status: { _eq: 'published' }
-    }
-  })
+  const { data } = await useAsyncData(
+    `landing-pages-${route.params.slug}`,
+    () => $fetch<LandingPage[]>('/api/landing-pages', {
+      query: { service_slug: route.params.slug }
+    })
+  )
   landingPages.value = data.value
 }
 
