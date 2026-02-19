@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const store = useMainStore();
 const { isLoading } = useLoading(150)
 const title = `ContuHogar | Nosotros`;
 const description = "Conoce a ContuHogar: más de 16 años ayudando a colombianos en el exterior a invertir en vivienda en Colombia. Aliados con los principales bancos del país."
@@ -10,6 +9,12 @@ useSeo({
     description: description,
     type: 'website'
 })
+
+// Equipo dinámico desde Directus
+const { data: team } = await useAsyncData(
+  'team-members',
+  () => $fetch<TeamMember[]>('/api/team')
+)
 
 // Structured data
 useLocalBusinessSchema()
@@ -274,7 +279,7 @@ const valores = [
               </div>
 
               <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  <div v-for="(staff, index) in store.team" :key="index" class="group">
+                  <div v-for="(staff, index) in team" :key="staff?.id || index" class="group">
                       <div class="bg-gray-800 rounded-2xl overflow-hidden hover:bg-gray-700 transition-all">
                           <NuxtImg
                               class="w-full aspect-square object-cover object-top"
