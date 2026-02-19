@@ -113,6 +113,22 @@ export interface LandingPage {
 }
 
 /**
+ * Colección: team
+ * Miembros del equipo
+ */
+export interface TeamMember {
+  id?: string
+  status?: 'published' | 'draft'
+  sort?: number | null
+  name: string
+  title: string
+  email?: string | null
+  image?: string | null
+  date_created?: string | null
+  date_updated?: string | null
+}
+
+/**
  * Union type de todas las colecciones
  */
 export type DirectusCollections = {
@@ -121,4 +137,5 @@ export type DirectusCollections = {
   blog_categories: BlogCategory
   posts: Post
   landing_pages: LandingPage
+  team: TeamMember
 }
