@@ -28,10 +28,16 @@ useHead({
 // Structured data para la pagina principal
 useLocalBusinessSchema()
 
+// Testimonios dinámicos desde Directus
+const { data: testimonials } = await useAsyncData(
+  'testimonials',
+  () => $fetch<Testimonial[]>('/api/testimonials')
+)
+
 // AggregateRating schema for testimonials
 useAggregateRatingSchema({
   ratingValue: 4.9,
-  reviewCount: store.testimonials.length
+  reviewCount: testimonials.value?.length ?? 0
 })
 
 // Configuracion del carrusel de servicios
@@ -418,11 +424,11 @@ const countryFlag = (code: string) => {
         </div>
     </section>
     <TestimonialMarquee
-        v-else
+        v-else-if="testimonials?.length"
         id="testimonios"
         title="Lo que dicen nuestros clientes"
         subtitle="Historias reales de colombianos que cumplieron su sueño de tener vivienda propia"
-        :testimonials="store.testimonials"
+        :testimonials="testimonials"
     />
 
     <!-- Blog / Articulos -->

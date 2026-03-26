@@ -39,6 +39,12 @@ const trustStats = [
   { value: '6', label: 'Bancos aliados', description: 'para mejores tasas' }
 ]
 
+// Testimonios dinámicos desde Directus
+const { data: testimonials } = await useAsyncData(
+  'testimonials',
+  () => $fetch<Testimonial[]>('/api/testimonials')
+)
+
 // Feature flag: landing page links (solo desarrollo)
 const config = useRuntimeConfig()
 const enableLandingLinks = config.public.ENABLE_LANDING_LINKS
@@ -160,9 +166,10 @@ const countryFlag = (code: string) => {
 
     <!-- Testimonios -->
     <TestimonialMarquee
+      v-if="testimonials?.length"
       title="Lo que dicen nuestros clientes"
       subtitle="Historias reales de colombianos que cumplieron su sueño de tener vivienda propia"
-      :testimonials="store.testimonials"
+      :testimonials="testimonials"
     />
 
     <!-- CTA Final -->
