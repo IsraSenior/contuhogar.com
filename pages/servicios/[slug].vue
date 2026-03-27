@@ -601,8 +601,8 @@ const handleSolicitarServicio = () => {
 
             <!-- Mercados disponibles para este servicio -->
             <div v-if="landingPages?.length" class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm mb-8">
-              <h2 class="text-2xl font-bold text-gray-900 mb-2">Disponible en tu país</h2>
-              <p class="text-gray-600 mb-6">Conoce las condiciones específicas para tu lugar de residencia</p>
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">Atendemos colombianos en todo el mundo</h2>
+              <p class="text-gray-600 mb-6">Explora información específica para algunos de los países donde más nos buscan</p>
               <div class="grid sm:grid-cols-2 gap-4">
                 <NuxtLink
                   v-for="lp in landingPages"
@@ -620,6 +620,10 @@ const handleSolicitarServicio = () => {
                   </svg>
                 </NuxtLink>
               </div>
+              <p class="mt-6 text-sm text-gray-500 text-center">
+                ¿No ves tu país? No te preocupes — te asesoramos sin importar dónde te encuentres.
+                <NuxtLink to="/contacto" class="text-primary font-medium hover:underline">Contáctanos</NuxtLink>
+              </p>
             </div>
 
             <!-- Información detallada (acordeón siempre visible) -->
