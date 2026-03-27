@@ -599,8 +599,8 @@ const handleSolicitarServicio = () => {
               </div>
             </div>
 
-            <!-- Mercados disponibles para este servicio (oculto temporalmente — se habilitará cuando haya más contenido por país) -->
-            <!-- <div v-if="landingPages?.length" class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm mb-8">
+            <!-- Mercados disponibles para este servicio -->
+            <div v-if="landingPages?.length" class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm mb-8">
               <h2 class="text-2xl font-bold text-gray-900 mb-2">Atendemos colombianos en todo el mundo</h2>
               <p class="text-gray-600 mb-6">Explora información específica para algunos de los países donde más nos buscan</p>
               <div class="grid sm:grid-cols-2 gap-4">
@@ -624,7 +624,7 @@ const handleSolicitarServicio = () => {
                 ¿No ves tu país? No te preocupes — te asesoramos sin importar dónde te encuentres.
                 <NuxtLink to="/contacto" class="text-primary font-medium hover:underline">Contáctanos</NuxtLink>
               </p>
-            </div> -->
+            </div>
 
             <!-- Información detallada (acordeón siempre visible) -->
             <div>
