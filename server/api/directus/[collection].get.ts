@@ -27,9 +27,33 @@ export default defineEventHandler(async (event) => {
   if (query.deep) params.deep = JSON.parse(query.deep as string)
   if (query.page) params.page = Number(query.page)
 
-  const directus = createDirectus(config.DIRECTUS_URL)
+  const directusUrl = config.DIRECTUS_URL as string
+
+  const directus = createDirectus(directusUrl)
     .with(staticToken(config.DIRECTUS_ADMIN_TOKEN))
     .with(rest())
 
-  return await directus.request(readItems(collection, params))
+  const items = await directus.request(readItems(collection, params))
+
+  // Campos de tipo file/image que necesitan resolución de URL
+  const imageFields: Record<string, string[]> = {
+    posts: ['featured_image', 'author_avatar'],
+    team: ['image'],
+    testimonials: ['avatar'],
+  }
+
+  const fieldsToResolve = imageFields[collection]
+  if (fieldsToResolve && Array.isArray(items)) {
+    return items.map((item: Record<string, unknown>) => {
+      const resolved = { ...item }
+      for (const field of fieldsToResolve) {
+        if (resolved[field] && typeof resolved[field] === 'string') {
+          resolved[field] = `${directusUrl}/assets/${resolved[field]}`
+        }
+      }
+      return resolved
+    })
+  }
+
+  return items
 })

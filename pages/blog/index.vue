@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const { isLoading } = useLoading(150)
-const config = useRuntimeConfig()
-const directusUrl = config.public.DIRECTUS_URL as string
 
 const title = `Blog | ContuHogar`;
 const description = "Explora artículos sobre inversión inmobiliaria, crédito hipotecario, leasing habitacional y consejos para colombianos en el exterior que desean comprar vivienda en Colombia."
@@ -55,7 +53,7 @@ const transformedArticles = computed(() => {
     slug: post.slug,
     title: post.title,
     excerpt: post.excerpt || '',
-    image: post.featured_image ? `${directusUrl}/assets/${post.featured_image}` : '',
+    image: post.featured_image || '',
     date: formatDate(post.date_created),
     datetime: post.date_created?.split('T')[0] || '',
     category: getCategoryName(post),

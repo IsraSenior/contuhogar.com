@@ -2,8 +2,6 @@
 const { isLoading } = useLoading(150)
 const route = useRoute()
 const store = useMainStore()
-const config = useRuntimeConfig()
-const directusUrl = config.public.DIRECTUS_URL as string
 
 // Fetch del artículo actual por slug desde Directus (con categoría expandida)
 const { data: currentPosts } = await useDirectusItems<Post>('posts', {
@@ -60,14 +58,14 @@ const transformPost = (post: Post) => ({
   slug: post.slug,
   title: post.title,
   excerpt: post.excerpt || '',
-  image: post.featured_image ? `${directusUrl}/assets/${post.featured_image}` : '',
+  image: post.featured_image ? post.featured_image : '',
   date: formatDate(post.date_created),
   datetime: post.date_created?.split('T')[0] || '',
   category: getCategoryName(post),
   readingTime: post.reading_time || null,
   author: {
     name: post.author_name || 'ContuHogar',
-    avatar: post.author_avatar || '',
+    avatar: post.author_avatar ? post.author_avatar : '',
     role: post.author_role || ''
   }
 })

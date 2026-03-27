@@ -1,4 +1,3 @@
-import { readItems } from '@directus/sdk'
 import type { Query } from '@directus/sdk'
 import type { DirectusCollections } from '@/types/directus'
 
@@ -28,25 +27,17 @@ export interface DirectusQueryParams<T = unknown> {
 /**
  * Composable tipado para obtener items de Directus
  *
- * En SSR usa el SDK de Directus directamente con admin token.
- * En cliente usa /api/directus/[collection] para evitar CORS.
+ * Siempre usa /api/directus/[collection] como proxy para:
+ * - Evitar CORS en navegación client-side
+ * - Resolver URLs de assets (imágenes) de forma consistente
  */
 export const useDirectusItems = async <T = unknown>(
   collection: keyof DirectusCollections | string,
   params: DirectusQueryParams<T> = {}
 ) => {
-  const nuxtApp = useNuxtApp()
-
   return await useAsyncData(
     `${collection}:${JSON.stringify(params)}`,
     () => {
-      if (import.meta.server) {
-        // SSR: usar SDK directamente con admin token
-        const client = nuxtApp.$directusServer
-        return client.request(readItems(collection as string, params))
-      }
-
-      // Cliente: proxy a través de server API route
       const query: Record<string, string | number> = {}
       if (params.fields) query.fields = JSON.stringify(params.fields)
       if (params.filter) query.filter = JSON.stringify(params.filter)
