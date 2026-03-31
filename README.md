@@ -8,7 +8,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Directus](https://img.shields.io/badge/Directus-CMS-6644FF?style=for-the-badge&logo=directus&logoColor=white)
 
-**Plataforma de asesoria financiera e inmobiliaria para colombianos en el exterior**
+**Plataforma de asesoría financiera e inmobiliaria para colombianos en el exterior**
 
 [Sitio Web](https://contuhogar.com) · [Reportar Bug](https://github.com/contuhogar/contuhogar.com/issues) · [Solicitar Feature](https://github.com/contuhogar/contuhogar.com/issues)
 
@@ -19,20 +19,20 @@
 ## Tabla de Contenidos
 
 - [Sobre el Proyecto](#sobre-el-proyecto)
-- [Tecnologias](#tecnologias)
+- [Tecnologías](#tecnologías)
 - [Requisitos Previos](#requisitos-previos)
-- [Instalacion](#instalacion)
+- [Instalación](#instalación)
 - [Desarrollo](#desarrollo)
-- [Produccion](#produccion)
+- [Producción](#producción)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Variables de Entorno](#variables-de-entorno)
-- [Rutas de la Aplicacion](#rutas-de-la-aplicacion)
+- [Rutas de la Aplicación](#rutas-de-la-aplicación)
 - [Integraciones](#integraciones)
-- [Simulador de Credito](#simulador-de-credito)
+- [Simulador de Crédito](#simulador-de-crédito)
 - [Formulario de Contacto](#formulario-de-contacto)
 - [Landing Pages](#landing-pages)
 - [Scripts Disponibles](#scripts-disponibles)
-- [Performance y Optimizacion](#performance-y-optimizacion)
+- [Performance y Optimización](#performance-y-optimización)
 - [Contribuir](#contribuir)
 - [Changelog](#changelog)
 - [Licencia](#licencia)
@@ -41,38 +41,38 @@
 
 ## Sobre el Proyecto
 
-ContuHogar.com es una plataforma web que conecta a colombianos en el exterior con oportunidades de inversion inmobiliaria y financiera en Colombia. Ofrece:
+ContuHogar.com es una plataforma web que conecta a colombianos en el exterior con oportunidades de inversión inmobiliaria y financiera en Colombia. Ofrece:
 
-- Asesoria personalizada en creditos hipotecarios
-- Informacion sobre leasing habitacional
-- Opciones de remodelacion y compra de cartera
-- Gestion de declaracion de renta (ConTuRenta)
+- Asesoría personalizada en créditos hipotecarios
+- Información sobre leasing habitacional
+- Opciones de remodelación y compra de cartera
+- Gestión de declaración de renta (ConTuRenta)
 - Blog informativo sobre el mercado inmobiliario colombiano
-- Sistema de contacto y generacion de leads
-- **Simulador de credito interactivo** con evaluacion en 5 pasos
-- **Landing pages dinamicas** por servicio y mercado
-- **Newsletter** con suscripcion desde Directus
+- Sistema de contacto y generación de leads
+- **Simulador de crédito interactivo** con evaluación en 5 pasos
+- **Landing pages dinámicas** por servicio y mercado
+- **Newsletter** con suscripción desde Directus
 
 ### Funcionalidades Principales
 
-- **Simulador de Credito**: Wizard interactivo de 5 pasos para evaluar elegibilidad crediticia con calculos financieros en tiempo real (cuota mensual, DTI ratio, LTV, edad final)
-- **Formularios de Contacto Optimizados**: Validacion Zod, honeypot anti-spam, deteccion automatica de pais por IP, formato de telefono dinamico segun pais, notificaciones via Directus Flows + webhook
-- **Landing Pages Dinamicas**: Paginas por servicio y mercado (`/lp/credito-hipotecario/espana`) con contenido desde Directus
-- **CMS Headless**: Integracion con Directus para gestion de contenido dinamico (blog, servicios, equipo, testimonios, landing pages)
+- **Simulador de Crédito**: Wizard interactivo de 5 pasos para evaluar elegibilidad crediticia con cálculos financieros en tiempo real (cuota mensual, DTI ratio, LTV, edad final)
+- **Formularios de Contacto Optimizados**: Validación Zod, honeypot anti-spam, detección automática de país por IP, formato de teléfono dinámico según país, notificaciones vía Directus Flows + webhook
+- **Landing Pages Dinámicas**: Páginas por servicio y mercado (`/lp/credito-hipotecario/espana`) con contenido desde Directus
+- **CMS Headless**: Integración con Directus para gestión de contenido dinámico (blog, servicios, equipo, testimonios, landing pages)
 - **Meta Pixel + CAPI**: Tracking de conversiones client-side y server-side
-- **SEO Optimizado**: Meta tags, sitemap dinamico, robots.txt, JSON-LD structured data
-- **Analytics**: Google Analytics 4 + Google Tag Manager (solo produccion)
+- **SEO Optimizado**: Meta tags, sitemap dinámico, robots.txt, JSON-LD structured data
+- **Analytics**: Google Analytics 4 + Google Tag Manager (solo producción)
 - **SSR con ISR**: Renderizado del lado del servidor con Incremental Static Regeneration por ruta
 
 ---
 
-## Tecnologias
+## Tecnologías
 
 ### Core
 
 - **[Nuxt 4.2.0](https://nuxt.com/)** - Framework Vue.js full-stack
 - **[Vue 3.5.22](https://vuejs.org/)** - Framework JavaScript progresivo
-- **[TypeScript](https://www.typescriptlang.org/)** - JavaScript con tipado estatico
+- **[TypeScript](https://www.typescriptlang.org/)** - JavaScript con tipado estático
 
 ### Styling
 
@@ -82,16 +82,16 @@ ContuHogar.com es una plataforma web que conecta a colombianos en el exterior co
 ### State Management
 
 - **[Pinia 3.0+](https://pinia.vuejs.org/)** - State management para Vue 3
-- **[@pinia/nuxt](https://pinia.vuejs.org/ssr/nuxt.html)** - Modulo Nuxt para Pinia
+- **[@pinia/nuxt](https://pinia.vuejs.org/ssr/nuxt.html)** - Módulo Nuxt para Pinia
 
 ### Content & Data
 
 - **[Directus SDK 20.1.0](https://docs.directus.io/reference/sdk.html)** - SDK para headless CMS
-- **[Zod 4.1.12](https://zod.dev/)** - Validacion de esquemas TypeScript-first
+- **[Zod 4.1.12](https://zod.dev/)** - Validación de esquemas TypeScript-first
 
 ### Comunicaciones
 
-- **[Resend 6.4.0](https://resend.com/)** - API de envio de emails transaccionales
+- **[Resend 6.4.0](https://resend.com/)** - API de envío de emails transaccionales
 - **Telegram Bot API** - Notificaciones en tiempo real
 - **Directus Flows + Webhook** - Notificaciones centralizadas
 
@@ -105,18 +105,18 @@ ContuHogar.com es una plataforma web que conecta a colombianos en el exterior co
 
 - **[vue3-carousel-nuxt 1.1.6](https://github.com/ismail9k/vue3-carousel)** - Carrusel responsive
 - **[v-calendar 3.1.2](https://vcalendar.io/)** - Date picker component
-- **[@nuxt/image](https://image.nuxt.com/)** - Optimizacion automatica de imagenes (WebP, AVIF)
-- **[@vueuse/core 14.1+](https://vueuse.org/)** - Utilidades de composicion para Vue
-- **[@fingerprintjs/botd](https://github.com/nicedoc/fingerprint-pro-server-node-sdk)** - Deteccion de bots
+- **[@nuxt/image](https://image.nuxt.com/)** - Optimización automática de imágenes (WebP, AVIF)
+- **[@vueuse/core 14.1+](https://vueuse.org/)** - Utilidades de composición para Vue
+- **[@fingerprintjs/botd](https://github.com/nicedoc/fingerprint-pro-server-node-sdk)** - Detección de bots
 
 ### Client-side PDF Generation
 
 - **[html-to-image 1.11.13](https://github.com/bubkoo/html-to-image)** - DOM to image conversion
-- **[jsPDF 4.0.0](https://github.com/parallax/jsPDF)** - Generacion de PDF client-side
+- **[jsPDF 4.0.0](https://github.com/parallax/jsPDF)** - Generación de PDF client-side
 
 ### Package Manager
 
-- **[pnpm 9.15.0](https://pnpm.io/)** - Gestor de paquetes rapido y eficiente
+- **[pnpm 9.15.0](https://pnpm.io/)** - Gestor de paquetes rápido y eficiente
 
 ---
 
@@ -133,7 +133,7 @@ pnpm --version  # 9.15.0
 
 ---
 
-## Instalacion
+## Instalación
 
 ### 1. Clonar el Repositorio
 
@@ -148,7 +148,7 @@ cd contuhogar.com
 pnpm install
 ```
 
-Ejecuta automaticamente `nuxt prepare` via postinstall para generar tipos.
+Ejecuta automáticamente `nuxt prepare` vía postinstall para generar tipos.
 
 ### 3. Configurar Variables de Entorno
 
@@ -156,7 +156,7 @@ Ejecuta automaticamente `nuxt prepare` via postinstall para generar tipos.
 cp .env.example .env
 ```
 
-Edita `.env` con las variables requeridas (ver seccion [Variables de Entorno](#variables-de-entorno)).
+Edita `.env` con las variables requeridas (ver sección [Variables de Entorno](#variables-de-entorno)).
 
 ---
 
@@ -172,7 +172,7 @@ Servidor de desarrollo en `http://localhost:3000` con:
 - Nuxt DevTools habilitado
 - Auto-reload en cambios de archivos
 
-### Comandos utiles
+### Comandos útiles
 
 ```bash
 # Limpiar cache y archivos generados
@@ -187,7 +187,7 @@ npx nuxi typecheck
 
 ---
 
-## Produccion
+## Producción
 
 ### Build
 
@@ -203,7 +203,7 @@ Genera archivos optimizados en `.output/` (public + server Nitro).
 pnpm preview
 ```
 
-### Generar Sitio Estatico (SSG)
+### Generar Sitio Estático (SSG)
 
 ```bash
 pnpm generate
@@ -211,7 +211,7 @@ pnpm generate
 
 ### Deployment
 
-- **Vercel**: `npx vercel deploy` (configuracion incluida)
+- **Vercel**: `npx vercel deploy` (configuración incluida)
 - **Node.js Server**: Ejecutar `.output/server/index.mjs`
 - **Static Hosting**: Subir `.output/public`
 
@@ -225,15 +225,15 @@ contuhogar.com/
 │   └── css/
 │       └── main.css                  # Tailwind CSS + animaciones custom
 ├── components/
-│   ├── Header.vue                    # Header con navegacion
+│   ├── Header.vue                    # Header con navegación
 │   ├── Footer.vue                    # Footer con links
 │   ├── Logo.vue                      # Logo SVG
-│   ├── Whatsapp.vue                  # Boton flotante WhatsApp
-│   ├── NewsletterForm.vue            # Formulario de suscripcion
-│   ├── CountryCombobox.vue           # Selector de pais de residencia
+│   ├── Whatsapp.vue                  # Botón flotante WhatsApp
+│   ├── NewsletterForm.vue            # Formulario de suscripción
+│   ├── CountryCombobox.vue           # Selector de país de residencia
 │   ├── CurrencyInput.vue             # Input para montos en COP
 │   ├── DatePicker.vue                # Selector de fecha (v-calendar)
-│   ├── PhoneCountryCombobox.vue      # Selector pais + telefono
+│   ├── PhoneCountryCombobox.vue      # Selector país + teléfono
 │   ├── cards/
 │   │   ├── BlogCard.vue
 │   │   └── ServiceCard.vue
@@ -252,8 +252,8 @@ contuhogar.com/
 │   │   └── SearchBar.vue
 │   ├── skeleton/                     # 16 componentes de carga (shimmer)
 │   │   ├── SkeletonBox.vue           # Primitivo: caja
-│   │   ├── SkeletonText.vue          # Primitivo: lineas de texto
-│   │   ├── SkeletonCircle.vue        # Primitivo: circulo/avatar
+│   │   ├── SkeletonText.vue          # Primitivo: líneas de texto
+│   │   ├── SkeletonCircle.vue        # Primitivo: círculo/avatar
 │   │   ├── SkeletonImage.vue         # Primitivo: placeholder imagen
 │   │   ├── SkeletonBlogCard.vue
 │   │   ├── SkeletonServiceCard.vue
@@ -269,7 +269,7 @@ contuhogar.com/
 │   │   └── SkeletonLegalPage.vue
 │   ├── legal/
 │   │   ├── LegalPageLayout.vue       # Layout 2 columnas estilo Stripe
-│   │   └── LegalSection.vue          # Seccion colapsable
+│   │   └── LegalSection.vue          # Sección colapsable
 │   ├── lp/                           # Componentes de Landing Pages
 │   │   ├── LpCtaSticky.vue
 │   │   ├── LpFooterMinimal.vue
@@ -293,18 +293,18 @@ contuhogar.com/
 │           ├── StepNavigation.vue
 │           └── ValidationMessage.vue
 ├── composables/
-│   ├── useAntiSpam.ts                # Proteccion anti-spam multi-capa
-│   ├── useBotDetection.ts            # Deteccion de bots (fingerprintjs)
-│   ├── useDirectPDFDownload.ts       # Generacion directa PDF desde StepResults
+│   ├── useAntiSpam.ts                # Protección anti-spam multi-capa
+│   ├── useBotDetection.ts            # Detección de bots (fingerprintjs)
+│   ├── useDirectPDFDownload.ts       # Generación directa PDF desde StepResults
 │   ├── useDirectus.ts                # Helper para fetch de Directus
 │   ├── useGeneratePDFFromElement.ts  # PDF desde DOM element
-│   ├── useGeoLocation.ts             # Geolocalizacion por IP
+│   ├── useGeoLocation.ts             # Geolocalización por IP
 │   ├── useLoading.ts                 # Estado de carga para skeletons
 │   ├── useMetaPixel.ts               # Meta Pixel tracking events
-│   ├── usePreApprovalPDF.ts          # Navegacion a carta de preaprobacion
+│   ├── usePreApprovalPDF.ts          # Navegación a carta de preaprobación
 │   ├── useRateLimit.ts               # Rate limiting client-side
 │   ├── useSeo.ts                     # SEO metadata helpers
-│   ├── useSimuladorCalculations.ts   # Calculos financieros
+│   ├── useSimuladorCalculations.ts   # Cálculos financieros
 │   └── useTracking.ts               # Tracking unificado (GA4 + Meta)
 ├── layouts/
 │   ├── default.vue                   # Layout principal
@@ -315,11 +315,11 @@ contuhogar.com/
 │   ├── contacto.vue                  # Formulario de contacto
 │   ├── nosotros.vue                  # Sobre Nosotros
 │   ├── faqs.vue                      # Preguntas frecuentes
-│   ├── terminos-condiciones.vue      # Terminos y condiciones
-│   ├── politica-privacidad.vue       # Politica de privacidad
+│   ├── terminos-condiciones.vue      # Términos y condiciones
+│   ├── politica-privacidad.vue       # Política de privacidad
 │   ├── blog/
-│   │   ├── index.vue                 # Lista de articulos
-│   │   └── [slug].vue               # Articulo individual
+│   │   ├── index.vue                 # Lista de artículos
+│   │   └── [slug].vue               # Artículo individual
 │   ├── servicios/
 │   │   ├── index.vue                 # Lista de servicios
 │   │   ├── [slug].vue               # Servicio individual
@@ -330,16 +330,16 @@ contuhogar.com/
 │   │       └── [market].vue          # Landing page por servicio y mercado
 │   └── simulador/
 │       └── credito/
-│           ├── index.vue             # Simulador de credito
+│           ├── index.vue             # Simulador de crédito
 │           └── carta-preaprobacion.vue
 ├── plugins/
 │   ├── directus.client.ts            # Cliente Directus (navegador)
 │   ├── directus.server.ts            # Servidor Directus (SSR)
 │   ├── meta-pixel.client.ts          # Meta Pixel initialization
-│   └── v-calendar.client.ts          # Configuracion de v-calendar
+│   └── v-calendar.client.ts          # Configuración de v-calendar
 ├── public/
-│   ├── *.avif                        # Imagenes de servicios (AVIF)
-│   ├── images/                       # Imagenes generales (hero, etc.)
+│   ├── *.avif                        # Imágenes de servicios (AVIF)
+│   ├── images/                       # Imágenes generales (hero, etc.)
 │   ├── logos/                        # Logos de bancos y partners (WebP)
 │   ├── team/                         # Fotos del equipo
 │   ├── testimonials/                 # Fotos de testimonios
@@ -354,28 +354,28 @@ contuhogar.com/
 │   │   ├── testimonials.get.ts       # Testimonios desde Directus
 │   │   ├── landing-pages.get.ts      # Landing pages desde Directus
 │   │   ├── directus/
-│   │   │   └── [collection].get.ts   # Proxy generico a Directus
+│   │   │   └── [collection].get.ts   # Proxy genérico a Directus
 │   │   ├── newsletter/
-│   │   │   └── subscribe.post.ts     # Suscripcion newsletter
+│   │   │   └── subscribe.post.ts     # Suscripción newsletter
 │   │   ├── simulador/
 │   │   │   ├── action.post.ts        # Acciones del simulador
-│   │   │   ├── save.post.ts          # Guardar simulacion
+│   │   │   ├── save.post.ts          # Guardar simulación
 │   │   │   └── session/
-│   │   │       ├── start.post.ts     # Iniciar sesion
-│   │   │       ├── update.post.ts    # Actualizar sesion
-│   │   │       └── complete.post.ts  # Completar sesion
+│   │   │       ├── start.post.ts     # Iniciar sesión
+│   │   │       ├── update.post.ts    # Actualizar sesión
+│   │   │       └── complete.post.ts  # Completar sesión
 │   │   └── webhooks/
 │   │       └── notify.post.ts        # Webhook de notificaciones
 │   ├── plugins/
 │   │   └── securityHeaders.ts        # Headers de seguridad
 │   ├── routes/
-│   │   └── sitemap.xml.ts            # Sitemap dinamico
+│   │   └── sitemap.xml.ts            # Sitemap dinámico
 │   └── utils/
-│       ├── deviceDetection.ts        # Deteccion de dispositivo
-│       ├── duplicateDetection.ts     # Deteccion de duplicados
+│       ├── deviceDetection.ts        # Detección de dispositivo
+│       ├── duplicateDetection.ts     # Detección de duplicados
 │       ├── formatting.ts             # Formateo de datos
 │       ├── metaCapi.ts               # Meta Conversions API
-│       ├── notificationTemplates.ts  # Templates de notificacion
+│       ├── notificationTemplates.ts  # Templates de notificación
 │       └── rateLimit.ts              # Rate limiting por IP
 ├── stores/
 │   ├── index.ts                      # Store principal (servicios, equipo, FAQs, logos)
@@ -384,9 +384,9 @@ contuhogar.com/
 │   ├── directus.ts                   # Tipos de colecciones Directus
 │   └── simulador.ts                  # Tipos del simulador
 ├── utils/
-│   ├── creditTypeLabels.ts           # Labels de tipos de credito
-│   ├── formatters.ts                 # Formateadores de moneda/numeros
-│   └── phoneFormats.ts               # Formatos de telefono por pais
+│   ├── creditTypeLabels.ts           # Labels de tipos de crédito
+│   ├── formatters.ts                 # Formateadores de moneda/números
+│   └── phoneFormats.ts               # Formatos de teléfono por país
 ├── scripts/
 │   ├── directus-schema-export.ts     # Exportar schema de Directus
 │   ├── directus-generate-types.ts    # Generar tipos TypeScript
@@ -395,7 +395,6 @@ contuhogar.com/
 ├── nuxt.config.ts
 ├── package.json
 ├── tsconfig.json
-├── CLAUDE.md                         # Guia para Claude Code AI
 └── pnpm-lock.yaml
 ```
 
@@ -403,7 +402,7 @@ contuhogar.com/
 
 ## Variables de Entorno
 
-Crea un archivo `.env` basandote en `.env.example`:
+Crea un archivo `.env` basándote en `.env.example`:
 
 ```bash
 # Directus CMS
@@ -433,16 +432,16 @@ WEBHOOK_SECRET=tu_webhook_secret
 ENABLE_LANDING_LINKS=true
 ```
 
-### Descripcion de Variables
+### Descripción de Variables
 
-| Variable | Descripcion | Requerida |
+| Variable | Descripción | Requerida |
 |----------|-------------|-----------|
-| `DIRECTUS_URL` | URL de la instancia Directus CMS | Si |
-| `DIRECTUS_ADMIN_TOKEN` | Token admin para operaciones server-side | Si |
-| `DIRECTUS_PUBLIC_TOKEN` | Token de solo lectura para el cliente | Si |
-| `RESEND_API_KEY` | API key de Resend para emails transaccionales | Si |
-| `TURNSTILE_SITE_KEY` | Site key de Cloudflare Turnstile | Si |
-| `TURNSTILE_SECRET_KEY` | Secret key de Cloudflare Turnstile | Si |
+| `DIRECTUS_URL` | URL de la instancia Directus CMS | Sí |
+| `DIRECTUS_ADMIN_TOKEN` | Token admin para operaciones server-side | Sí |
+| `DIRECTUS_PUBLIC_TOKEN` | Token de solo lectura para el cliente | Sí |
+| `RESEND_API_KEY` | API key de Resend para emails transaccionales | Sí |
+| `TURNSTILE_SITE_KEY` | Site key de Cloudflare Turnstile | Sí |
+| `TURNSTILE_SECRET_KEY` | Secret key de Cloudflare Turnstile | Sí |
 | `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram | No |
 | `TELEGRAM_CHAT_ID` | ID del chat/canal de Telegram | No |
 | `META_PIXEL_ID` | ID del Meta Pixel (Facebook/Instagram) | No |
@@ -452,33 +451,33 @@ ENABLE_LANDING_LINKS=true
 
 ### Seguridad
 
-- **NUNCA** hacer commit de `.env` (esta en `.gitignore`)
-- Rotar tokens periodicamente (especialmente `DIRECTUS_ADMIN_TOKEN`)
+- **NUNCA** hacer commit de `.env` (está en `.gitignore`)
+- Rotar tokens periódicamente (especialmente `DIRECTUS_ADMIN_TOKEN`)
 - Usar tokens de solo lectura para el cliente (`DIRECTUS_PUBLIC_TOKEN`)
-- En produccion, usar variables de entorno del sistema
+- En producción, usar variables de entorno del sistema
 
 ---
 
-## Rutas de la Aplicacion
+## Rutas de la Aplicación
 
 Nuxt utiliza file-based routing. Cada archivo `.vue` en `pages/` se convierte en una ruta:
 
-| Archivo | Ruta | Descripcion |
+| Archivo | Ruta | Descripción |
 |---------|------|-------------|
 | `pages/index.vue` | `/` | Homepage |
 | `pages/contacto.vue` | `/contacto` | Formulario de contacto |
 | `pages/nosotros.vue` | `/nosotros` | Sobre Nosotros |
 | `pages/faqs.vue` | `/faqs` | Preguntas frecuentes |
-| `pages/terminos-condiciones.vue` | `/terminos-condiciones` | Terminos y condiciones |
-| `pages/politica-privacidad.vue` | `/politica-privacidad` | Politica de privacidad |
-| `pages/blog/index.vue` | `/blog` | Lista de articulos |
-| `pages/blog/[slug].vue` | `/blog/:slug` | Articulo individual |
+| `pages/terminos-condiciones.vue` | `/terminos-condiciones` | Términos y condiciones |
+| `pages/politica-privacidad.vue` | `/politica-privacidad` | Política de privacidad |
+| `pages/blog/index.vue` | `/blog` | Lista de artículos |
+| `pages/blog/[slug].vue` | `/blog/:slug` | Artículo individual |
 | `pages/servicios/index.vue` | `/servicios` | Lista de servicios |
 | `pages/servicios/[slug].vue` | `/servicios/:slug` | Servicio individual |
 | `pages/servicios/[service]/[market].vue` | `/servicios/:service/:market` | Servicio por mercado |
 | `pages/lp/[service]/[market].vue` | `/lp/:service/:market` | Landing page |
-| `pages/simulador/credito/index.vue` | `/simulador/credito` | Simulador de credito |
-| `pages/simulador/credito/carta-preaprobacion.vue` | `/simulador/credito/carta-preaprobacion` | Carta preaprobacion PDF |
+| `pages/simulador/credito/index.vue` | `/simulador/credito` | Simulador de crédito |
+| `pages/simulador/credito/carta-preaprobacion.vue` | `/simulador/credito/carta-preaprobacion` | Carta preaprobación PDF |
 
 ### Route Rules (ISR Caching)
 
@@ -500,9 +499,9 @@ routeRules: {
 
 ### Directus CMS
 
-Headless CMS para gestionar todo el contenido dinamico:
+Headless CMS para gestionar todo el contenido dinámico:
 
-- Blog posts y categorias
+- Blog posts y categorías
 - Servicios
 - Equipo (nosotros)
 - Testimonios
@@ -522,33 +521,12 @@ const { data } = await useDirectusItems<T>('collection_name', {
 })
 ```
 
-#### Directus MCP (Model Context Protocol)
-
-Integracion del servidor MCP de Directus para acceso directo al CMS desde Claude Code.
-
-Crea `.mcp.json` en la raiz del proyecto:
-
-```json
-{
-  "mcpServers": {
-    "directus": {
-      "url": "https://admin.contuhogar.com/mcp",
-      "headers": {
-        "Authorization": "Bearer TU_TOKEN_DIRECTUS"
-      }
-    }
-  }
-}
-```
-
-El archivo `.mcp.json` esta en `.gitignore`. Cada desarrollador crea el suyo.
-
 ### Resend (Email)
 
 Emails transaccionales al recibir leads:
 
 - Email HTML formateado con datos del contacto
-- BCC automatico a `contudigital@contuhogar.net`
+- BCC automático a `seguridad@contuhogar.net`
 - Sender: `gerenciacomercial@contuhogar.com`
 
 ### Telegram Bot
@@ -557,52 +535,52 @@ Notificaciones en tiempo real de nuevos leads con formato rich text.
 
 ### Directus Flows + Webhook
 
-Las notificaciones estan centralizadas via Directus Flows. El endpoint `webhooks/notify.post.ts` recibe eventos desde Directus y distribuye notificaciones.
+Las notificaciones están centralizadas vía Directus Flows. El endpoint `webhooks/notify.post.ts` recibe eventos desde Directus y distribuye notificaciones.
 
 ### Meta Pixel + Conversions API
 
 Tracking de conversiones dual:
 
-- **Client-side**: Meta Pixel via `meta-pixel.client.ts` y `useMetaPixel.ts`
-- **Server-side**: Conversions API via `server/utils/metaCapi.ts`
+- **Client-side**: Meta Pixel vía `meta-pixel.client.ts` y `useMetaPixel.ts`
+- **Server-side**: Conversions API vía `server/utils/metaCapi.ts`
 - Eventos: Lead, Subscribe, CompleteRegistration
 
 ### Google Analytics & GTM
 
 - **Google Analytics 4** (`G-1182NP1Z0D`): Tracking de eventos y pageviews
-- **Google Tag Manager** (`GTM-WMQV4M3F`): Gestion de tags y conversiones
+- **Google Tag Manager** (`GTM-WMQV4M3F`): Gestión de tags y conversiones
 - Solo activos en `NODE_ENV=production`
-- Inicializacion manual (defer) para reducir TBT
+- Inicialización manual (defer) para reducir TBT
 
 ---
 
-## Simulador de Credito
+## Simulador de Crédito
 
-Wizard interactivo de 5 pasos para evaluar elegibilidad en creditos hipotecarios y leasing habitacional.
+Wizard interactivo de 5 pasos para evaluar elegibilidad en créditos hipotecarios y leasing habitacional.
 
 ### Pasos
 
-1. **Informacion Personal**: Nombre, email, telefono, fecha de nacimiento, tipo de credito
-2. **Informacion del Inmueble**: Valor del inmueble, monto solicitado, plazo
+1. **Información Personal**: Nombre, email, teléfono, fecha de nacimiento, tipo de crédito
+2. **Información del Inmueble**: Valor del inmueble, monto solicitado, plazo
 3. **Ingresos y Gastos**: Ingresos fijos/variables, deducciones, obligaciones financieras
 4. **Elegibilidad**: Status migratorio, reportes crediticios
 5. **Resultados**: Estado (Aprobado/Advertencia/Rechazado), cuota mensual, DTI ratio, recomendaciones
 
-### Calculos Financieros
+### Cálculos Financieros
 
-- Formula PMT para cuota mensual
-- Ratio DTI (Debt-to-Income) - maximo 30%
+- Fórmula PMT para cuota mensual
+- Ratio DTI (Debt-to-Income) - máximo 30%
 - Ratio LTV (Loan-to-Value) - 70% hipotecario / 80% leasing
-- Validacion de edad al final del plazo (max 84 anos)
+- Validación de edad al final del plazo (máx. 84 años)
 
 ### Constantes
 
 ```
 TASA_EA = 14%
 TASA_MENSUAL = 1.0975%
-EDAD_FINAL_MAXIMA = 84 anos
-PLAZO = 12-240 meses (1-20 anos)
-DTI_MAXIMO = 30%
+EDAD_FINAL_MÁXIMA = 84 años
+PLAZO = 12-240 meses (1-20 años)
+DTI_MÁXIMO = 30%
 LTV_HIPOTECARIO = 70%
 LTV_LEASING = 80%
 ```
@@ -610,10 +588,10 @@ LTV_LEASING = 80%
 ### Funcionalidades
 
 - Persistencia de estado en localStorage
-- Generacion de carta de preaprobacion (PDF client-side con html-to-image + jsPDF)
+- Generación de carta de preaprobación (PDF client-side con html-to-image + jsPDF)
 - Pre-relleno del formulario de contacto desde resultados
 - Session tracking (start/update/complete) guardado en Directus
-- Creacion automatica de lead al completar
+- Creación automática de lead al completar
 
 ---
 
@@ -623,40 +601,40 @@ LTV_LEASING = 80%
 
 1. **Cloudflare Turnstile**: CAPTCHA invisible
 2. **Honeypot Field**: Campo oculto para bots
-3. **Validacion de Tiempo**: Minimo 3 segundos
+3. **Validación de Tiempo**: Mínimo 3 segundos
 4. **Rate Limiting**: 8 requests/5min por IP
 5. **Bot Detection**: FingerprintJS BotD
-6. **Validacion Zod**: Esquema TypeScript-first
+6. **Validación Zod**: Esquema TypeScript-first
 
-### Deteccion Automatica de Pais
+### Detección Automática de País
 
-Detecta pais por IP (geojs.io) y pre-selecciona codigo telefonico. 30+ paises con formato dinamico.
+Detecta país por IP (geojs.io) y pre-selecciona código telefónico. 30+ países con formato dinámico.
 
-| Pais | Codigo | Formato |
+| País | Código | Formato |
 |------|--------|---------|
 | Colombia | +57 | XXX XXX XXXX |
 | Estados Unidos | +1 | (XXX) XXX-XXXX |
-| Espana | +34 | XXX XX XX XX |
-| Mexico | +52 | XX XXXX XXXX |
+| España | +34 | XXX XX XX XX |
+| México | +52 | XX XXXX XXXX |
 
 ### Flujo del Endpoint `/api/contact`
 
-1. Verificacion de Turnstile
-2. Validacion de datos (Zod)
+1. Verificación de Turnstile
+2. Validación de datos (Zod)
 3. Rate limiting por IP
-4. Guardado en Directus (coleccion `leads`)
+4. Guardado en Directus (colección `leads`)
 5. Notificaciones paralelas (`Promise.allSettled`): Email (Resend), Telegram, Meta CAPI
 
 ---
 
 ## Landing Pages
 
-Sistema de landing pages dinamicas por servicio y mercado, generadas desde Directus.
+Sistema de landing pages dinámicas por servicio y mercado, generadas desde Directus.
 
 - Ruta: `/lp/:service/:market` (ej. `/lp/credito-hipotecario/espana`)
 - Layout dedicado: `layouts/landing.vue`
 - Componentes especializados en `components/lp/`
-- Contenido gestionado desde coleccion `landing_pages` en Directus
+- Contenido gestionado desde colección `landing_pages` en Directus
 - Feature flag: `ENABLE_LANDING_LINKS` controla visibilidad de links en el sitio
 
 ---
@@ -667,8 +645,8 @@ Sistema de landing pages dinamicas por servicio y mercado, generadas desde Direc
 
 ```bash
 pnpm dev          # Servidor de desarrollo
-pnpm build        # Build produccion
-pnpm generate     # Generar sitio estatico
+pnpm build        # Build producción
+pnpm generate     # Generar sitio estático
 pnpm preview      # Preview del build
 pnpm postinstall  # Regenerar tipos (auto)
 ```
@@ -686,29 +664,29 @@ pnpm directus:snapshot:list    # Listar snapshots
 ### Utilidades
 
 ```bash
-npx nuxi analyze     # Analisis de bundle
+npx nuxi analyze     # Análisis de bundle
 npx nuxi typecheck   # Verificar tipos
 npx nuxi cleanup     # Limpiar cache
 npx nuxi info        # Info del proyecto
-pnpm audit            # Auditoria de seguridad
+pnpm audit            # Auditoría de seguridad
 ```
 
 ---
 
-## Performance y Optimizacion
+## Performance y Optimización
 
 ### Optimizaciones Implementadas
 
 - SSR (Server-Side Rendering) con ISR por ruta
-- Code splitting automatico por pagina
+- Code splitting automático por página
 - Manual chunks: `vendor-pdf` (jsPDF + html-to-image), `vendor-calendar` (v-calendar)
 - `@nuxt/image` con formatos WebP/AVIF y responsive screens
-- Imagenes de servicios en AVIF (reduccion significativa vs PNG)
+- Imágenes de servicios en AVIF (reducción significativa vs PNG)
 - Logos en WebP
-- Lazy loading de imagenes
+- Lazy loading de imágenes
 - Defer de GA4 y GTM (initMode manual)
-- Sourcemaps deshabilitados en produccion
-- Headers de seguridad via server plugin
+- Sourcemaps deshabilitados en producción
+- Headers de seguridad vía server plugin
 - Sistema de skeletons para eliminar FOUC
 - Preconnect a recursos externos
 
@@ -737,7 +715,7 @@ git checkout -b feature/mi-feature
 ### 3. Commit
 
 ```bash
-git commit -m "feat: descripcion del cambio"
+git commit -m "feat: descripción del cambio"
 ```
 
 Prefijos: `feat:`, `fix:`, `perf:`, `refactor:`, `docs:`, `chore:`, `copy:`, `revert:`
@@ -754,61 +732,60 @@ git push origin feature/mi-feature
 
 ### [2.5.0] - 2026-03
 
-- **Landing Pages Dinamicas**: Sistema de landing pages por servicio y mercado desde Directus
+- **Landing Pages Dinámicas**: Sistema de landing pages por servicio y mercado desde Directus
 - **Layout Landing**: Layout dedicado para landing pages con componentes especializados
 - **Feature Flag Landing Links**: `ENABLE_LANDING_LINKS` para controlar visibilidad
-- **Performance LCP**: Optimizacion de Largest Contentful Paint, lazy-load de deps pesadas, cache headers ISR
-- **Notificaciones via Directus Flows**: Centralizacion de notificaciones via webhook
-- **Links a Landing Pages**: Panel de paises en homepage con feature flag
+- **Performance LCP**: Optimización de Largest Contentful Paint, lazy-load de deps pesadas, cache headers ISR
+- **Notificaciones vía Directus Flows**: Centralización de notificaciones vía webhook
+- **Links a Landing Pages**: Panel de países en homepage con feature flag
 
 ### [2.4.0] - 2026-02
 
-- **Testimonios Dinamicos**: Testimonios desde Directus CMS
-- **Equipo Dinamico**: Pagina nosotros con equipo desde Directus API
-- **Proxy Directus**: Rutas client-side a traves de server API para evitar CORS
-- **Imagenes Blog**: Resolucion server-side de asset URLs de Directus
+- **Testimonios Dinámicos**: Testimonios desde Directus CMS
+- **Equipo Dinámico**: Página nosotros con equipo desde Directus API
+- **Proxy Directus**: Rutas client-side a través de server API para evitar CORS
+- **Imágenes Blog**: Resolución server-side de asset URLs de Directus
 
 ### [2.3.0] - 2026-01
 
 - **Meta Pixel + CAPI**: Tracking client-side y server-side de conversiones
-- **Blog Directus**: Integracion completa de blog con Directus y `blog_categories`
+- **Blog Directus**: Integración completa de blog con Directus y `blog_categories`
 - **Session Tracking Simulador**: Sesiones de simulador con start/update/complete
-- **Lead en Simulacion**: Creacion automatica de lead al completar simulacion
+- **Lead en Simulación**: Creación automática de lead al completar simulación
 - **Source Component**: Campo `source_component` en leads para rastrear origen
-- **Notificaciones Diferenciadas**: Diferenciacion de fuente y links a Directus
+- **Notificaciones Diferenciadas**: Diferenciación de fuente y links a Directus
 
 ### [2.2.5] - 2025-12
 
-- **Newsletter**: Suscripcion a newsletter con endpoint dedicado
-- **CountryCombobox**: Selector de pais de residencia (~195 paises)
-- **Tipos de Credito Adicionales**: Remodelacion y compra de cartera + opcion "no se"
-- **Estandarizacion Marca**: Nombre unificado "ContuHogar" en todo el sitio
+- **Newsletter**: Suscripción a newsletter con endpoint dedicado
+- **CountryCombobox**: Selector de país de residencia (~195 países)
+- **Tipos de Crédito Adicionales**: Remodelación y compra de cartera + opción "no sé"
+- **Estandarización Marca**: Nombre unificado "ContuHogar" en todo el sitio
 - **Accesibilidad Formularios**: Labels, IDs, ARIA para form accessibility
 - **OG Image**: Open Graph image y script generador
-- **Sitemap Dinamico**: Server route para sitemap con contenido dinamico
+- **Sitemap Dinámico**: Server route para sitemap con contenido dinámico
 
 ### [2.2.0] - 2026-01-31
 
-- **Sistema de Skeletons**: 16 componentes de carga con animacion shimmer
-- **Paginas Legales**: Rediseno estilo Stripe/Notion con sidebar sticky y acordeones
+- **Sistema de Skeletons**: 16 componentes de carga con animación shimmer
+- **Páginas Legales**: Rediseño estilo Stripe/Notion con sidebar sticky y acordeones
 - **Composable useLoading**: Control centralizado de estados de carga
-- **PDF Client-Side**: Migracion de generacion PDF de server-side a client-side
+- **PDF Client-Side**: Migración de generación PDF de server-side a client-side
 
 ### [2.1.0] - 2025-01-12
 
-- **Simulador de Credito**: Wizard de 5 pasos con calculos financieros y PDF
+- **Simulador de Crédito**: Wizard de 5 pasos con cálculos financieros y PDF
 - **Cloudflare Turnstile**: CAPTCHA invisible reemplazando captcha manual
-- **Formulario Mejorado**: Deteccion de pais, formato de telefono, rate limiting
-- **Pagina Politica Privacidad**: Ley 1581/2012 Colombia
+- **Formulario Mejorado**: Detección de país, formato de teléfono, rate limiting
+- **Página Política Privacidad**: Ley 1581/2012 Colombia
 - **Layout Simulador**: Layout fullscreen sin header/footer
-- **Migracion pnpm**: De Yarn a pnpm 9.15.0
+- **Migración pnpm**: De Yarn a pnpm 9.15.0
 
 ### [2.0.0] - 2025-01-11
 
 - **BREAKING**: Nuxt 3.16.2 → 4.2.0
 - **BREAKING**: GTM module reemplazado por `@saslavik/nuxt-gtm` (Nuxt 4 compatible)
-- Actualizacion de todas las dependencias mayores
-- Creacion de `CLAUDE.md`
+- Actualización de todas las dependencias mayores
 
 ---
 
@@ -829,6 +806,8 @@ Proyecto privado. Todos los derechos reservados por ContuHogar.
 <div align="center">
 
 **Hecho con ❤️ por el equipo de ContuHogar**
+
+Desarrollado por [Neskeep](https://neskeep.com/)
 
 [Volver arriba](#contuhogarcom)
 
