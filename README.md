@@ -803,12 +803,10 @@ Proyecto privado. Todos los derechos reservados por ContuHogar.
 
 ---
 
-<div align="center">
+## Desarrollo
 
-**Hecho con ❤️ por el equipo de ContuHogar**
+Proyecto diseñado y desarrollado por **[Neskeep](https://neskeep.com/)** — Estudio de desarrollo web y marketing digital.
 
-Desarrollado por [Neskeep](https://neskeep.com/)
-
-[Volver arriba](#contuhogarcom)
-
-</div>
+- **Web**: [neskeep.com](https://neskeep.com/)
+- **Servicios**: Desarrollo web, aplicaciones, SEO, marketing digital, automatización
+- **Stack**: Nuxt, Vue, Tailwind CSS, Directus, Vercel
