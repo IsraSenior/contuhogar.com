@@ -1,7 +1,7 @@
 # HANDOFF — ContuHogar.com
 
 **Fecha de cierre:** 31 de marzo de 2026
-**Desarrollado por:** [Neskeep](https://neskeep.com/) — Israel Senior
+**Desarrollado por:** Israel Senior / [Neskeep](https://neskeep.com/)
 **Entregado a:** ContuHogar / Fernando Muñóz Tatar
 
 ---
@@ -29,7 +29,7 @@
 
 ## 1. Resumen Ejecutivo
 
-ContuHogar.com es una plataforma web full-stack para asesoría de crédito habitacional dirigida a colombianos en el exterior. El proyecto fue desarrollado por Neskeep según la propuesta escalonada original de Zunami.
+ContuHogar.com es una plataforma web full-stack para asesoría de crédito habitacional dirigida a colombianos en el exterior. El proyecto fue desarrollado por Israel Senior / Neskeep según la propuesta escalonada original.
 
 **Estado actual:** En producción, estable en [contuhogar.com](https://contuhogar.com)
 **Fecha de cierre de labores:** 31 de marzo de 2026
@@ -39,33 +39,36 @@ ContuHogar.com es una plataforma web full-stack para asesoría de crédito habit
 Se desarrolló un sitio web completo con:
 
 - Plataforma institucional con SSR (renderizado del lado del servidor) e ISR (caché incremental por ruta)
-- CMS headless con Directus para gestión total de contenido sin código
-- Simulador de crédito interactivo con 5 pasos y generación de carta de preaprobación en PDF
+- CMS headless con Directus para gestión del contenido dinámico en las colecciones establecidas (blog, servicios, equipo, FAQs, testimonios, leads, landing pages)
+- Simulador de crédito interactivo con 5 pasos y generación de carta de preaprobación en PDF (client-side)
 - Sistema de captación de leads con seguridad multicapa y notificaciones en tiempo real
 - Tracking de conversiones completo: GA4 + GTM + Meta Pixel + Meta CAPI (server-side)
 - Blog dinámico gestionado desde CMS
-- Landing pages dinámicas por servicio y mercado
-- Newsletter integrado
-- CRM básico (Directus como repositorio de leads y simulaciones)
+- Landing pages dinámicas por servicio y mercado (`/lp/:servicio/:mercado`)
+- Newsletter integrado con endpoint dedicado
+- Arreglos de DNS en dominios `.com` y `.net` vía GoDaddy
+- Migración de cuentas de correo a Google Workspace
+- Arreglos y ajustes vectoriales del logo corporativo
 
 ---
 
 ## 2. Entregables Completados
 
-Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - ConTuHogar.pdf`):
-
 | Entregable | Estado | Notas |
 |------------|--------|-------|
 | Diseño moderno y responsive | ✅ Completado | Tailwind CSS 4, mobile-first |
-| Contenido dinámico con CMS | ✅ Completado | Directus headless CMS |
+| Contenido dinámico con CMS (colecciones establecidas) | ✅ Completado | Directus headless CMS |
 | Estructura SEM (Meta Pixel + CAPI, GA4, GTM) | ✅ Completado | Implementado 2026-02-11 |
-| Blog con contenido gestionable | ✅ Completado | Posts, categorías desde Directus |
-| CRM integrado | ✅ Completado | Directus como repositorio de leads |
+| Blog con contenido gestionable | ✅ Completado | Posts y categorías desde Directus |
+| CRM integrado (Directus como repositorio de leads) | ✅ Completado | Colección `leads` en Directus |
 | SEO y analítica | ✅ Completado | Sitemap, robots.txt, JSON-LD, GA4 |
-| Simulador de crédito hipotecario | ✅ Completado | Wizard 5 pasos + PDF preaprobación |
+| Simulador de crédito hipotecario | ✅ Completado | Wizard 5 pasos + PDF carta preaprobación |
 | Newsletter | ✅ Completado | Suscripción con endpoint dedicado |
-| Landing pages dinámicas | ✅ Completado | `/lp/:servicio/:mercado` desde CMS |
-| Formulario de contacto seguro | ✅ Completado | 6 capas de seguridad |
+| Landing pages dinámicas por servicio y mercado | ✅ Completado | `/lp/:servicio/:mercado` desde Directus |
+| Formulario de contacto con seguridad multicapa | ✅ Completado | 6 capas de seguridad |
+| Arreglos DNS (dominios .com y .net) | ✅ Completado | Configuración en GoDaddy |
+| Migración cuentas de correo a Google Workspace | ✅ Completado | admin@ y contudigital@ |
+| Arreglos y ajustes vectoriales del logo | ✅ Completado | Logo.svg e Isotipo.svg |
 
 ---
 
@@ -85,11 +88,11 @@ Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - 
 
 | Componente | Valor |
 |------------|-------|
-| Servidor | Vultr VM — IP `45.77.95.16` |
-| Deployment | Dokploy (auto-deploy desde GitHub `main`) |
-| Base de datos | Supabase (PostgreSQL) |
-| CMS | Directus (headless) en `admin.contuhogar.com` |
-| Email transaccional | Resend |
+| Hosting (sitio web) | Vercel (auto-deploy desde GitHub `main`) |
+| Servidor VPS | Vultr — IP `45.77.95.16` |
+| Directus CMS | Docker en VPS — `admin.contuhogar.com` |
+| Base de datos | Supabase (PostgreSQL) — usada por Directus |
+| Email transaccional | Resend (`gerenciacomercial@contuhogar.com`) |
 | Dominio | GoDaddy (`contuhogar.com` + `contuhogar.net`) |
 
 ### Librerías Clave
@@ -98,7 +101,7 @@ Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - 
 |----------|---------|-----|
 | @directus/sdk | 20.1.0 | SDK para Directus CMS |
 | zod | 4.1.12 | Validación de datos server-side |
-| resend | 6.0+ | Envío de emails |
+| resend | 6.0+ | Envío de emails transaccionales |
 | jsPDF + html-to-image | 4.0.0 / 1.11.13 | Generación de PDF client-side |
 | @fingerprintjs/botd | — | Detección de bots |
 | nuxt-gtag | 3.0.3 | Google Analytics 4 |
@@ -118,23 +121,23 @@ Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - 
 |------|-------------|-----------|
 | `/` | Homepage | 1 hora |
 | `/nosotros` | Página Sobre Nosotros | 24 horas |
-| `/contacto` | Formulario de contacto | Sin caché (SSR) |
+| `/contacto` | Formulario de contacto | SSR (sin caché) |
 | `/faqs` | Preguntas frecuentes | 24 horas |
 | `/servicios` | Lista de servicios | 24 horas |
 | `/servicios/:slug` | Servicio individual | 24 horas |
 | `/blog` | Lista de artículos | 1 hora |
 | `/blog/:slug` | Artículo individual | 1 hora |
-| `/terminos-condiciones` | Términos y condiciones | Sin caché |
-| `/politica-privacidad` | Política de privacidad | Sin caché |
+| `/terminos-condiciones` | Términos y condiciones | SSR |
+| `/politica-privacidad` | Política de privacidad | SSR |
 
 ### Páginas Dinámicas / Especiales
 
 | Ruta | Descripción | Notas |
 |------|-------------|-------|
-| `/simulador/credito` | Simulador de crédito (5 pasos) | Sin indexar, layout propio |
-| `/simulador/credito/carta-preaprobacion` | Carta de preaprobación PDF | Sin indexar |
+| `/simulador/credito` | Simulador de crédito (5 pasos) | Noindex, layout propio |
+| `/simulador/credito/carta-preaprobacion` | Carta de preaprobación PDF | Noindex |
 | `/lp/:service/:market` | Landing pages dinámicas | Ej: `/lp/credito-hipotecario/espana` |
-| `/servicios/:service/:market` | Servicio por mercado | Variante de landing |
+| `/servicios/:service/:market` | Servicio por mercado | |
 
 ### Rutas del Servidor (API)
 
@@ -146,40 +149,35 @@ Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - 
 | `/api/simulador/session/start` | POST | Iniciar sesión de simulador |
 | `/api/simulador/session/update` | POST | Actualizar sesión |
 | `/api/simulador/session/complete` | POST | Completar sesión |
-| `/api/webhooks/notify` | POST | Notificaciones desde Directus Flows |
+| `/api/webhooks/notify` | POST | Receptor de notificaciones desde Directus Flows |
 | `/sitemap.xml` | GET | Sitemap dinámico |
 
 ---
 
 ## 5. Credenciales y Accesos
 
-> **IMPORTANTE:** Las credenciales completas están en el documento PDF:
-> `CREDENTIALS/Creadentials-2025101520153427.pdf`
+> **IMPORTANTE:** Las credenciales completas se encuentran en el documento PDF entregado por separado.
 >
-> **Recomendación de seguridad:** Cambiar TODAS las contraseñas y tokens inmediatamente después del handoff.
+> Las credenciales del sitio web permanecen bajo el desarrollo de Neskeep como desarrollador del proyecto hasta la entrega formal definida en el acuerdo de pagos (sección 16).
+>
+> **Recomendación de seguridad:** Cambiar TODAS las contraseñas y tokens inmediatamente después del handoff formal.
 
 ### Resumen de Servicios
 
 | Servicio | URL / Acceso | Propósito |
 |----------|--------------|-----------|
-| **Vultr** | vultr.com | Servidor VPS (IP: 45.77.95.16) |
-| **Dokploy** | `45.77.95.16:3000` | Panel de deployment y gestión de contenedores |
-| **Directus CMS** | admin.contuhogar.com | CMS, CRM de leads, gestión de contenido |
-| **Umami Analytics** | umami.contuhogar.com | Analytics propio (alternativa a GA4) |
+| **Vercel** | vercel.com | Hosting del sitio web (auto-deploy desde GitHub) |
+| **Vultr** | vultr.com | Servidor VPS (IP: 45.77.95.16) — aloja Directus CMS |
+| **Directus CMS** | admin.contuhogar.com | CMS, CRM de leads, gestión de contenido dinámico |
 | **GitHub** | github.com/contuhogar/contuhogar.com | Repositorio del código fuente |
 | **Resend** | resend.com | Envío de emails transaccionales |
-| **Gmail Admin** | admin@contuhogar.net | Cuenta administrativa Google |
+| **Gmail Admin** | admin@contuhogar.net | Cuenta administrativa Google Workspace |
 | **Gmail Marketing** | contudigital@contuhogar.net | Cuenta de redes sociales e Instagram |
 | **GoDaddy** | godaddy.com | Gestión de dominios (`contuhogar.com` y `.net`) |
-| **Supabase** | supabase.com | Base de datos PostgreSQL (Directus) |
+| **Supabase** | supabase.com | Base de datos PostgreSQL (usada por Directus) |
 | **Cloudflare Turnstile** | dash.cloudflare.com | CAPTCHA de formularios |
-| **Meta Business** | business.facebook.com | Meta Pixel y CAPI |
-| **Google Cloud (GCP)** | console.cloud.google.com | Proyecto `cth-web` (GA4 + GSC OAuth) |
-
-### Documentación Adicional de Credenciales
-
-- `CREDENTIALS/CTH-meta-pixel-events.pdf` — Documentación de eventos Meta Pixel
-- `CREDENTIALS/client_secret_*.json` — OAuth credentials para GSC y GA4
+| **Meta Business** | business.facebook.com | Meta Pixel y Conversions API |
+| **Google Cloud (GCP)** | console.cloud.google.com | Proyecto `cth-web` — integraciones Google |
 
 ---
 
@@ -207,11 +205,6 @@ Comparativo contra la propuesta original de Zunami (`OLD/Propuesta Escalonada - 
 
 - Deduplicación Pixel/CAPI implementada con `event_id` único por evento
 
-### Umami Analytics
-
-- **URL:** umami.contuhogar.com
-- Analytics self-hosted como alternativa/complemento a GA4
-
 ### Google Cloud / OAuth Apps
 
 Proyecto GCP: `cth-web`
@@ -225,21 +218,21 @@ Proyecto GCP: `cth-web`
 
 ## 7. Variables de Entorno
 
-El archivo `.env.example` contiene la plantilla completa. El archivo `.env` real está en el servidor (Dokploy) y NO está en el repositorio.
+El archivo `.env.example` en el repositorio contiene la plantilla completa. El archivo `.env` real está configurado en Vercel (dashboard → Settings → Environment Variables) y **no está en el repositorio**.
 
 | Variable | Requerida | Propósito |
 |----------|-----------|-----------|
 | `DIRECTUS_URL` | **Sí** | URL de la instancia Directus (`https://admin.contuhogar.com`) |
 | `DIRECTUS_ADMIN_TOKEN` | **Sí** | Token de admin para operaciones server-side |
-| `DIRECTUS_PUBLIC_TOKEN` | **Sí** | Token de solo lectura para el cliente browser |
+| `DIRECTUS_PUBLIC_TOKEN` | **Sí** | Token de solo lectura para el browser |
 | `RESEND_API_KEY` | **Sí** | API key de Resend para emails transaccionales |
 | `TURNSTILE_SITE_KEY` | **Sí** | Site key de Cloudflare Turnstile (CAPTCHA) |
 | `TURNSTILE_SECRET_KEY` | **Sí** | Secret key de Cloudflare Turnstile |
 | `TELEGRAM_BOT_TOKEN` | No | Token del bot de Telegram para notificaciones |
 | `TELEGRAM_CHAT_ID` | No | ID del chat/canal de Telegram |
-| `META_PIXEL_ID` | No | ID del Meta Pixel (795618300241488) |
+| `META_PIXEL_ID` | No | ID del Meta Pixel (`795618300241488`) |
 | `META_CAPI_ACCESS_TOKEN` | No | Token de acceso para Meta Conversions API |
-| `WEBHOOK_SECRET` | No | Secreto para verificar webhooks de Directus |
+| `WEBHOOK_SECRET` | No | Secreto para autenticar webhooks entrantes desde Directus |
 | `ENABLE_LANDING_LINKS` | No | `true` para mostrar links a landing pages en el sitio |
 
 > **Nota:** NUNCA hacer commit del archivo `.env`. Ya está en `.gitignore`.
@@ -251,23 +244,50 @@ El archivo `.env.example` contiene la plantilla completa. El archivo `.env` real
 ### Acceso
 
 - **URL Admin:** [admin.contuhogar.com](https://admin.contuhogar.com)
-- **Credenciales:** Ver `CREDENTIALS/Creadentials-2025101520153427.pdf`
+- Directus está instalado con Docker directamente en el VPS de Vultr (`45.77.95.16`)
+- La base de datos es Supabase (PostgreSQL externo)
 
-### Colecciones Principales
+### Qué gestiona Directus
+
+Directus gestiona únicamente el **contenido dinámico** del sitio, organizado en las siguientes colecciones:
 
 | Colección | Descripción | Quién la gestiona |
 |-----------|-------------|------------------|
 | `posts` | Artículos del blog | Equipo de contenido |
 | `blog_categories` | Categorías del blog | Equipo de contenido |
 | `servicios` | Servicios ofrecidos | Administrador |
-| `leads` | Leads del formulario de contacto | Equipo comercial |
-| `simulaciones_credito` | Resultados del simulador | Solo lectura |
+| `leads` | Leads del formulario de contacto y simulador | Equipo comercial |
+| `simulaciones_credito` | Resultados del simulador de crédito | Solo lectura |
 | `simulador_sesiones` | Sesiones de uso del simulador | Solo lectura |
 | `team` | Miembros del equipo (página Nosotros) | Administrador |
 | `faqs` | Preguntas frecuentes | Administrador |
 | `testimonials` | Testimonios de clientes | Administrador |
 | `bank_logos` | Logos de bancos aliados | Administrador |
 | `landing_pages` | Contenido de landing pages dinámicas | Equipo de marketing |
+
+### Cómo funcionan los Directus Flows (Notificaciones)
+
+Los **Flows** son automatizaciones configuradas dentro de Directus que se disparan ante eventos en las colecciones. El proyecto tiene el siguiente flujo implementado:
+
+**Trigger:** Cuando se crea un nuevo item en `leads` o `simulaciones_credito`
+
+**Acción:** Directus hace un `HTTP Request` (webhook) al endpoint `/api/webhooks/notify` del sitio, enviando los datos del nuevo registro junto con un `WEBHOOK_SECRET` en el header de autorización.
+
+**El endpoint `/api/webhooks/notify` recibe la llamada y:**
+1. Valida el secret de autorización
+2. Identifica si viene de `leads` o de `simulaciones_credito`
+3. Dispara en paralelo (`Promise.allSettled`):
+   - **Email** vía Resend a `gerenciacomercial@contuhogar.com` (con BCC a `contudigital@contuhogar.net`)
+   - **Mensaje Telegram** al canal configurado
+4. Los errores de notificación son silenciosos — no afectan al usuario final
+
+**Para configurar o revisar los Flows:**
+→ Directus Admin → Settings → Flows
+
+**Para que funcionen correctamente se necesitan estas variables de entorno activas:**
+- `WEBHOOK_SECRET` (coincide entre Directus Flow y el `.env` del sitio)
+- `RESEND_API_KEY`
+- `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` (opcionales)
 
 ### Cómo Gestionar Contenido
 
@@ -276,17 +296,16 @@ El archivo `.env.example` contiene la plantilla completa. El archivo `.env` real
 2. Ir a `posts` → "Create Item"
 3. Completar: título, slug, contenido (rich text), imagen destacada, categoría
 4. Cambiar status de `draft` a `published`
-5. El sitio actualiza la caché ISR en máximo 1 hora (o hacer redeploy para actualización inmediata)
+5. El sitio actualiza la caché ISR en máximo 1 hora (o hacer redeploy en Vercel para actualización inmediata)
 
 **Ver leads y simulaciones:**
-1. Ir a colección `leads` para ver contactos del formulario
-2. Ir a `simulaciones_credito` para ver resultados del simulador
-3. Los registros incluyen nombre, email, teléfono, país, servicio de interés y fecha
+1. Colección `leads` — todos los contactos del formulario y simulador
+2. Colección `simulaciones_credito` — resultados detallados del simulador
+3. Los registros incluyen: nombre, email, teléfono, país, servicio de interés, datos financieros y fecha
 
 **Actualizar equipo (Nosotros):**
-1. Ir a colección `team`
-2. Subir foto, nombre, cargo
-3. Publicar — aparece en `/nosotros` automáticamente
+1. Colección `team` → subir foto, nombre, cargo → publicar
+2. Aparece en `/nosotros` automáticamente
 
 ---
 
@@ -320,23 +339,17 @@ Ubicadas en: `composables/useSimuladorCalculations.ts`
 
 ### Funcionalidades del Simulador
 
-- Persistencia de estado en `localStorage` (datos no sensibles)
-- Generación de carta de preaprobación en PDF client-side (html-to-image + jsPDF)
+- Persistencia de estado en `localStorage` (solo datos no sensibles)
+- Generación de carta de preaprobación en PDF completamente en el navegador (html-to-image + jsPDF)
 - Pre-relleno automático del formulario de contacto desde los resultados
 - Session tracking guardado en Directus (`simulador_sesiones`)
 - Creación automática de lead al completar el paso 5
-
-### Carta de Preaprobación
-
-- Generada completamente en el navegador del usuario (sin servidor)
-- Código: `composables/usePreApprovalPDF.ts` y `useDirectPDFDownload.ts`
-- Página: `/simulador/credito/carta-preaprobacion`
 
 ---
 
 ## 10. Seguridad Implementada
 
-El formulario de contacto (y endpoints públicos) tienen 6 capas de protección:
+El formulario de contacto y los endpoints públicos tienen 6 capas de protección:
 
 | Capa | Tecnología | Descripción |
 |------|-----------|-------------|
@@ -372,9 +385,8 @@ Configurados en `server/plugins/securityHeaders.ts`:
 
 ### Notas Importantes
 
-- El simulador (`/simulador/*`) está marcado con `noindex` — no debe aparecer en Google
-- El sitemap incluye posts y servicios dinámicos desde Directus
-- Google Search Console: configurar con el OAuth client del proyecto `cth-web`
+- El simulador (`/simulador/*`) está marcado con `noindex` — no aparece en Google (intencional)
+- El sitemap incluye posts y servicios dinámicos desde Directus y se actualiza automáticamente
 
 ---
 
@@ -382,17 +394,17 @@ Configurados en `server/plugins/securityHeaders.ts`:
 
 ### Ubicación
 
-Todos los assets de marca están en la carpeta `ASSETS/` (fuera del repositorio git):
+Los assets de marca están en la carpeta `ASSETS/Branding/` (entregados fuera del repositorio git):
 
-| Asset | Ruta | Formato |
-|-------|------|---------|
-| Logo principal | `ASSETS/Branding/Logo.svg` | SVG vectorial |
-| Isotipo (icono) | `ASSETS/Branding/Isotipo.svg` | SVG vectorial |
-| Tipografía | `ASSETS/Branding/demo-tipografia.pdf` | PDF |
+| Asset | Archivo | Formato |
+|-------|---------|---------|
+| Logo principal (ajustado vectorialmente) | `Logo.svg` | SVG vectorial |
+| Isotipo (icono) | `Isotipo.svg` | SVG vectorial |
+| Tipografía | `demo-tipografia.pdf` | PDF referencia |
 
 ### Colores Corporativos
 
-Los tokens de color están definidos en `assets/css/main.css` y el config de Tailwind (`nuxt.config.ts`). La paleta principal usa tonos de azul/verde que representan confianza y finanzas.
+Los tokens de color están definidos en `assets/css/main.css` y en el config de Tailwind (`nuxt.config.ts`). La paleta usa tonos de azul/verde que representan confianza y finanzas.
 
 ### Assets en el Repositorio
 
@@ -406,11 +418,19 @@ Los tokens de color están definidos en `assets/css/main.css` y el config de Tai
 
 ## 13. Base de Leads Actual
 
-- **Archivo:** `BASE CONTUDIGITAL 2026 - MARZO (1).xlsx` (en la carpeta del proyecto, fuera del repo)
-- Los leads actuales en este archivo son parte del **convenio comercial vigente** entre Neskeep y ContuHogar
-- Los excedentes de conversión de estos leads están cubiertos por el acuerdo de pagos descrito en la sección 16
-- Los nuevos leads generados post-handoff pertenecen completamente a ContuHogar
-- Los leads también están almacenados en Directus CMS (`leads`) con todos los datos de contacto y seguimiento
+A la fecha de cierre (31/03/2026), la base de leads capturados incluye:
+
+- Leads del formulario de contacto (`/contacto`)
+- Leads generados desde el simulador de crédito
+- Leads capturados por landing pages
+
+Todos los leads están almacenados en Directus CMS (colección `leads`) con los siguientes datos por registro:
+- Nombre completo, email, teléfono con código de país
+- País de residencia, servicio de interés, mensaje
+- Fecha de creación, componente de origen (`source_component`)
+- Datos del simulador adjuntos cuando aplica (`simuladorInfo`)
+
+Los leads actuales a la fecha de cierre son parte del convenio comercial vigente entre **Israel Senior** y ContuHogar, según lo estipulado en el acuerdo de pagos (sección 16).
 
 ---
 
@@ -418,18 +438,14 @@ Los tokens de color están definidos en `assets/css/main.css` y el config de Tai
 
 ### Deployment
 
-El proyecto usa **Dokploy** con auto-deploy desde la rama `main` de GitHub:
+El sitio está en **Vercel** con auto-deploy desde la rama `main` de GitHub:
 
-1. Cualquier push a `main` dispara automáticamente un nuevo deploy
-2. Dokploy construye la imagen Docker y reemplaza el contenedor
-3. No se requiere acceso SSH para deploys normales
+1. Cualquier push a `main` dispara automáticamente un nuevo deploy en Vercel
+2. Vercel construye el proyecto Nuxt y lo publica
+3. Las variables de entorno están configuradas en el dashboard de Vercel (Settings → Environment Variables)
+4. No se requiere acceso al servidor VPS para deployments del sitio web
 
-**Fix conocido — si el sitio da error 404 después de un deploy:**
-```bash
-# Conectarse al servidor vía SSH y ejecutar:
-docker system prune -a
-# Luego redeploy desde Dokploy
-```
+**Directus CMS** corre por separado en Docker directamente en el VPS de Vultr y no forma parte del proceso de deploy del sitio.
 
 ### Comandos de Desarrollo Local
 
@@ -483,82 +499,65 @@ pnpm directus:snapshot  # Crear snapshot del schema
 1. Acceder a [admin.contuhogar.com](https://admin.contuhogar.com)
 2. Colección `posts` → "Create Item"
 3. Completar campos requeridos: título, slug único, contenido, imagen, categoría, status = `published`
-4. El caché ISR se actualiza automáticamente en ~1 hora
+4. La caché ISR se actualiza automáticamente en ~1 hora, o redeploy desde Vercel para inmediato
 
 ### Ver y Gestionar Leads
 
 1. Acceder a [admin.contuhogar.com](https://admin.contuhogar.com)
 2. Colección `leads` para ver todos los contactos
 3. Colección `simulaciones_credito` para simulaciones completadas
-4. Cada lead incluye: nombre, email, teléfono, país, servicio de interés, fecha, notas
+4. Cada lead incluye: nombre, email, teléfono, país, servicio de interés, fecha, datos del simulador
 
 ### Notificaciones de Nuevos Leads
 
-Las notificaciones de nuevos leads están configuradas vía **Directus Flows**:
-- Email a `gerenciacomercial@contuhogar.com` (via Resend)
+Las notificaciones están gestionadas vía **Directus Flows** (ver sección 8 para detalle completo):
+- Email a `gerenciacomercial@contuhogar.com` via Resend
 - Notificación en Telegram (si está configurado)
 - Evento a Meta CAPI (Lead)
 
-Si las notificaciones dejan de funcionar, revisar los Flows en Directus Admin → Settings → Flows.
+Si las notificaciones dejan de llegar, revisar:
+1. Directus Admin → Settings → Flows — verificar que el Flow esté activo
+2. Variables de entorno en Vercel — verificar `WEBHOOK_SECRET`, `RESEND_API_KEY`
+3. Logs del sitio en Vercel dashboard → Functions → Logs
 
 ---
 
 ## 15. Issues Conocidos / Deuda Técnica
 
-Aspectos técnicos conocidos que la nueva agencia debería considerar:
-
 | Issue | Severidad | Descripción |
 |-------|-----------|-------------|
-| CSP con `unsafe-inline`/`unsafe-eval` | Media | El Content Security Policy actual requiere estas directivas por dependencias de terceros (GTM, Meta Pixel). Ideal migrar a nonces. |
-| Rate limiting in-memory | Baja | El rate limiting no persiste entre reinicios del servidor ni entre múltiples instancias. Para escalar, migrar a Redis. |
-| Sin CSRF tokens explícitos | Baja | Los endpoints públicos usan Turnstile como protección. Bajo riesgo pero se podría fortalecer. |
-| SEO gaps menores | Baja | Falta `CollectionPage` schema en blog, el simulador tiene `noindex` (intencional pero podría revisarse estratégicamente). |
-| Landing pages sin git tracking | Baja | Los componentes `lp/` y la página `pages/lp/` fueron creados recientemente y están como "untracked" en git. |
-| Plan de redes sociales | N/A | Archivos de plan de redes sociales (marzo 2026) generados pero no versionados en git. |
+| CSP con `unsafe-inline`/`unsafe-eval` | Media | Requerido por GTM y Meta Pixel. Ideal migrar a nonces en una iteración futura. |
+| Rate limiting in-memory | Baja | No persiste entre reinicios. Para escalar a múltiples instancias, migrar a Redis. |
+| Sin CSRF tokens explícitos | Baja | Los endpoints públicos usan Turnstile como protección principal. Bajo riesgo. |
+| SEO gaps menores | Baja | Falta `CollectionPage` schema en el blog. El simulador tiene `noindex` (intencional). |
 
 ---
 
 ## 16. Acuerdo de Pagos
 
-> Esta sección es de referencia informativa. El acuerdo completo fue establecido verbalmente y por escrito entre las partes.
+> Esta sección es de referencia informativa sobre el acuerdo establecido entre Israel Senior y ContuHogar.
 
 ### Estructura de Pagos Acordada
 
 | Tramo | Porcentaje | Condición |
 |-------|-----------|-----------|
-| Primer pago | 20% | Fecha pendiente de confirmación (Fernando Muñóz Tatar) |
-| Segundo pago | 30% | Contra entrega de credenciales (Israel Senior) con verificación de nueva agencia |
+| Primer pago | 20% | Fecha pendiente de confirmación — Fernando Muñóz Tatar |
+| Segundo pago | 30% | Contra entrega de credenciales a ContuHogar |
 | Pagos restantes | 50% | A medida que se den desembolsos de leads actuales |
 
 ### Condición de Entrega de Credenciales
 
-- Las credenciales del servidor, Directus y servicios son entregadas al recibir el 30% correspondiente
-- La verificación debe ser realizada por la nueva agencia antes de confirmar el pago
-- **Plazo máximo:** diciembre 2026 para los pagos restantes del 50%
+- Las credenciales del servidor, Directus y todos los servicios son entregadas a ContuHogar al recibir el 30% correspondiente
+- El compromiso de Israel Senior es con ContuHogar como empresa
+- **Plazo máximo para el 50% restante:** diciembre 2026
 
 ### Leads Actuales
 
 - Los leads existentes a la fecha de cierre (31/03/2026) son parte del convenio vigente
-- Los excedentes de conversión de estos leads benefician a Neskeep según el acuerdo
+- Los excedentes de conversión de estos leads corresponden a **Israel Senior** según el acuerdo
 - Los nuevos leads generados post-handoff pertenecen completamente a ContuHogar
 
 ---
 
-## Archivos de Referencia
-
-| Archivo | Descripción |
-|---------|-------------|
-| `CREDENTIALS/Creadentials-2025101520153427.pdf` | Credenciales completas de todos los servicios |
-| `CREDENTIALS/CTH-meta-pixel-events.pdf` | Documentación de eventos del Meta Pixel |
-| `CREDENTIALS/client_secret_*.json` | OAuth credentials GCP (GSC + GA4) |
-| `ASSETS/Branding/` | Logo, isotipo y tipografía de marca |
-| `BASE CONTUDIGITAL 2026 - MARZO (1).xlsx` | Base de leads activos (parte del convenio) |
-| `OLD/Propuesta Escalonada - ConTuHogar.pdf` | Propuesta original de Zunami (referencia) |
-| `.env.example` | Template de variables de entorno |
-| `README.md` | Documentación técnica completa del proyecto |
-| `.claude/context/` | Documentación modular técnica (para agencias/devs) |
-
----
-
 *Documento preparado por Israel Senior / Neskeep — 31 de marzo de 2026*
-*Para consultas técnicas post-handoff: [neskeep.com](https://neskeep.com/)*
+*Web: [neskeep.com](https://neskeep.com/)*
