@@ -28,7 +28,7 @@ useHead({
             <NuxtPage />
         </main>
         <Footer />
-        <Whatsapp />
+        <LazyWhatsapp />
     </div>
 </template>
 

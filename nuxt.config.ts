@@ -12,12 +12,7 @@ export default defineNuxtConfig({
   ],
 
   app: {
-    head: {
-      link: [
-        { rel: "preconnect", href: "https://contuhogar.com" },
-        { rel: "dns-prefetch", href: "https://contuhogar.com" },
-      ],
-    },
+    head: {},
     pageTransition: { name: "page", mode: "out-in" },
   },
 
@@ -105,5 +100,16 @@ export default defineNuxtConfig({
     enableRouterSync: true, // auto pageviews en SPA
     debug: false, // útil en dev
     defer: true, // Defer script loading to reduce TBT
+  },
+
+  // Route-level caching for static pages
+  routeRules: {
+    '/': { isr: 3600 },
+    '/nosotros': { isr: 86400 },
+    '/faqs': { isr: 86400 },
+    '/servicios': { isr: 86400 },
+    '/servicios/**': { isr: 86400 },
+    '/blog': { isr: 3600 },
+    '/blog/**': { isr: 3600 },
   },
 });

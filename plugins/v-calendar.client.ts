@@ -1,6 +1,5 @@
-import { setupCalendar } from 'v-calendar';
-import 'v-calendar/style.css';
-
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
+  const { setupCalendar } = await import('v-calendar');
+  await import('v-calendar/style.css');
   nuxtApp.vueApp.use(setupCalendar, {});
 });

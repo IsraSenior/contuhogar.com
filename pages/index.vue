@@ -12,15 +12,16 @@ useSeo({
     type: 'website'
 })
 
-// Preload hero image for better LCP (only on this page)
+// Preload hero image for better LCP (desktop only — hidden on mobile via lg:block)
 useHead({
     link: [
         {
             rel: "preload",
-            href: "/2148392254.jpg",
+            href: "/images/hero-familia.jpg",
             as: "image",
             type: "image/jpeg",
             fetchpriority: "high",
+            media: "(min-width: 1024px)",
         },
     ],
 })
@@ -191,14 +192,14 @@ const countryFlag = (code: string) => {
                 <div class="relative hidden lg:block">
                     <div class="aspect-4/3 rounded-2xl overflow-hidden shadow-2xl">
                         <NuxtImg
-                            src="/2148392254.jpg"
+                            src="/images/hero-familia.jpg"
                             alt="Familia feliz con las llaves de su nueva casa"
                             class="w-full h-full object-cover"
                             format="webp"
-                            quality="85"
-                            sizes="sm:100vw lg:600px"
-                            width="640"
-                            height="429"
+                            quality="80"
+                            sizes="(max-width: 1023px) 0px, (max-width: 1280px) 50vw, 600px"
+                            width="1024"
+                            height="686"
                             loading="eager"
                             fetchpriority="high"
                         />

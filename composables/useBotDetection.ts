@@ -1,6 +1,6 @@
 // composables/useBotDetection.ts
 import { ref, onMounted } from 'vue'
-import { load, type BotDetectionResult, type BotKind } from '@fingerprintjs/botd'
+import type { BotDetectionResult, BotKind } from '@fingerprintjs/botd'
 
 interface BotDetectionState {
   isBot: boolean
@@ -26,6 +26,7 @@ export const useBotDetection = () => {
     state.value.error = null
 
     try {
+      const { load } = await import('@fingerprintjs/botd')
       const botd = await load()
       const result = await botd.detect()
 
