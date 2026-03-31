@@ -6,8 +6,9 @@
 ![Vue 3](https://img.shields.io/badge/Vue.js-3.5.22-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.16-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Directus](https://img.shields.io/badge/Directus-CMS-6644FF?style=for-the-badge&logo=directus&logoColor=white)
 
-**Plataforma de asesoría financiera e inmobiliaria para colombianos en el exterior**
+**Plataforma de asesoria financiera e inmobiliaria para colombianos en el exterior**
 
 [Sitio Web](https://contuhogar.com) · [Reportar Bug](https://github.com/contuhogar/contuhogar.com/issues) · [Solicitar Feature](https://github.com/contuhogar/contuhogar.com/issues)
 
@@ -15,103 +16,63 @@
 
 ---
 
-## Estado del Proyecto - Auditoría Técnica
+## Tabla de Contenidos
 
-**Puntuación Global: 7.9/10** ✅
-
-| # | Aspecto | Puntuación | Estado |
-|---|---------|------------|--------|
-| 1 | Anti-Spam & Bot Detection | 9/10 | Excelente |
-| 2 | Rate Limiting | 9/10 | Excelente* |
-| 3 | State Management (Pinia) | 8.5/10 | Muy Bueno |
-| 4 | TypeScript | 8.5/10 | Muy Bueno |
-| 5 | Structured Data (JSON-LD) | 8.5/10 | Muy Bueno |
-| 6 | SEO Meta Tags | 8.2/10 | Muy Bueno |
-| 7 | Validación de Inputs (Zod) | 8/10 | Bueno |
-| 8 | Security Headers | 8/10 | Bueno* |
-| 9 | Styling (Tailwind) | 8/10 | Bueno |
-| 10 | Sitemap & Robots | 8/10 | Bueno |
-| 11 | Arquitectura Componentes | 7.5/10 | Bueno |
-| 12 | Accesibilidad (A11y) | 7.5/10 | Bueno |
-| 13 | Manejo de Errores | 7/10 | Aceptable |
-| 14 | Performance | 7/10 | Aceptable |
-| 15 | CSRF/CORS | 5/10 | Débil |
-
-*Con advertencias para producción (ver sección de vulnerabilidades)
-
-### Fortalezas
-- Anti-spam: 6 capas de protección (Turnstile, honeypot, timing, rate limit, bot detection, Zod)
-- SEO: 5 schemas JSON-LD implementados
-- TypeScript: Sin uso de `any`
-- State: Pinia con persistencia
-
-### Vulnerabilidades Conocidas (Pre-Producción)
-| Prioridad | Issue | Archivo | Estado |
-|-----------|-------|---------|--------|
-| 🔴 Crítico | CSP `unsafe-inline` | `server/plugins/securityHeaders.ts` | Pendiente |
-| 🔴 Crítico | Rate limiting en memoria | `server/utils/rateLimit.ts` | Pendiente |
-| 🔴 Crítico | Sin CSRF tokens | - | Pendiente |
-| 🟠 Alto | Sitemap sin blog dinámico | `server/routes/sitemap.xml.ts` | Pendiente |
-| 🟠 Alto | Simulador sin lazy loading | `components/simulador/` | Pendiente |
-
-### Validadores Recomendados
-- SEO: [Google Rich Results](https://search.google.com/test/rich-results) · [Schema Validator](https://validator.schema.org/)
-- Seguridad: [Security Headers](https://securityheaders.com/) · [Mozilla Observatory](https://observatory.mozilla.org/)
-- Performance: [PageSpeed](https://pagespeed.web.dev/) · Lighthouse
+- [Sobre el Proyecto](#sobre-el-proyecto)
+- [Tecnologias](#tecnologias)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalacion](#instalacion)
+- [Desarrollo](#desarrollo)
+- [Produccion](#produccion)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Variables de Entorno](#variables-de-entorno)
+- [Rutas de la Aplicacion](#rutas-de-la-aplicacion)
+- [Integraciones](#integraciones)
+- [Simulador de Credito](#simulador-de-credito)
+- [Formulario de Contacto](#formulario-de-contacto)
+- [Landing Pages](#landing-pages)
+- [Scripts Disponibles](#scripts-disponibles)
+- [Performance y Optimizacion](#performance-y-optimizacion)
+- [Contribuir](#contribuir)
+- [Changelog](#changelog)
+- [Licencia](#licencia)
 
 ---
 
-## 📋 Tabla de Contenidos
+## Sobre el Proyecto
 
-- [Sobre el Proyecto](#-sobre-el-proyecto)
-- [Tecnologías](#-tecnologías)
-- [Requisitos Previos](#-requisitos-previos)
-- [Instalación](#-instalación)
-- [Desarrollo](#-desarrollo)
-- [Producción](#-producción)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Variables de Entorno](#-variables-de-entorno)
-- [Integraciones](#-integraciones)
-- [Scripts Disponibles](#-scripts-disponibles)
-- [Análisis y Optimización](#-análisis-y-optimización)
-- [Contribuir](#-contribuir)
-- [Changelog](#-changelog)
-- [Licencia](#-licencia)
+ContuHogar.com es una plataforma web que conecta a colombianos en el exterior con oportunidades de inversion inmobiliaria y financiera en Colombia. Ofrece:
 
----
-
-## 🏠 Sobre el Proyecto
-
-ContuHogar.com es una plataforma web diseñada para conectar a colombianos que viven en el exterior con oportunidades de inversión inmobiliaria y financiera en Colombia. La plataforma ofrece:
-
-- ✅ Asesoría personalizada en créditos hipotecarios
-- ✅ Información sobre leasing habitacional
-- ✅ Opciones de remodelación y compra de cartera
-- ✅ Gestión de declaración de renta (ConTuRenta)
-- ✅ Blog informativo sobre el mercado inmobiliario colombiano
-- ✅ Sistema de contacto y generación de leads
-- ✅ **Simulador de crédito interactivo** con evaluación en 5 pasos
+- Asesoria personalizada en creditos hipotecarios
+- Informacion sobre leasing habitacional
+- Opciones de remodelacion y compra de cartera
+- Gestion de declaracion de renta (ConTuRenta)
+- Blog informativo sobre el mercado inmobiliario colombiano
+- Sistema de contacto y generacion de leads
+- **Simulador de credito interactivo** con evaluacion en 5 pasos
+- **Landing pages dinamicas** por servicio y mercado
+- **Newsletter** con suscripcion desde Directus
 
 ### Funcionalidades Principales
 
-- **Simulador de Crédito**: Wizard interactivo de 5 pasos para evaluar elegibilidad crediticia con cálculos financieros en tiempo real (cuota mensual, DTI ratio, LTV, edad final)
-- **Formularios de Contacto Optimizados**: Sistema con validación Zod, honeypot anti-spam, detección automática de país por IP, formato de teléfono dinámico según país, y notificaciones vía email (Resend) y Telegram
-- **CMS Headless**: Integración con Directus para gestión de contenido dinámico
-- **SEO Optimizado**: Meta tags configurables, sitemap generado, robots.txt
-- **Analytics**: Google Analytics 4 y Google Tag Manager integrados
-- **Responsive Design**: Diseño adaptativo con Tailwind CSS 4
-- **SSR/SSG**: Renderizado del lado del servidor para mejor performance y SEO
+- **Simulador de Credito**: Wizard interactivo de 5 pasos para evaluar elegibilidad crediticia con calculos financieros en tiempo real (cuota mensual, DTI ratio, LTV, edad final)
+- **Formularios de Contacto Optimizados**: Validacion Zod, honeypot anti-spam, deteccion automatica de pais por IP, formato de telefono dinamico segun pais, notificaciones via Directus Flows + webhook
+- **Landing Pages Dinamicas**: Paginas por servicio y mercado (`/lp/credito-hipotecario/espana`) con contenido desde Directus
+- **CMS Headless**: Integracion con Directus para gestion de contenido dinamico (blog, servicios, equipo, testimonios, landing pages)
+- **Meta Pixel + CAPI**: Tracking de conversiones client-side y server-side
+- **SEO Optimizado**: Meta tags, sitemap dinamico, robots.txt, JSON-LD structured data
+- **Analytics**: Google Analytics 4 + Google Tag Manager (solo produccion)
+- **SSR con ISR**: Renderizado del lado del servidor con Incremental Static Regeneration por ruta
 
 ---
 
-## 🚀 Tecnologías
+## Tecnologias
 
 ### Core
 
 - **[Nuxt 4.2.0](https://nuxt.com/)** - Framework Vue.js full-stack
 - **[Vue 3.5.22](https://vuejs.org/)** - Framework JavaScript progresivo
-- **[TypeScript](https://www.typescriptlang.org/)** - JavaScript con tipado estático
-- **[Vite 7.1.12](https://vitejs.dev/)** - Build tool ultrarrápido
+- **[TypeScript](https://www.typescriptlang.org/)** - JavaScript con tipado estatico
 
 ### Styling
 
@@ -121,61 +82,58 @@ ContuHogar.com es una plataforma web diseñada para conectar a colombianos que v
 ### State Management
 
 - **[Pinia 3.0+](https://pinia.vuejs.org/)** - State management para Vue 3
-- **[@pinia/nuxt](https://pinia.vuejs.org/ssr/nuxt.html)** - Módulo Nuxt para Pinia
+- **[@pinia/nuxt](https://pinia.vuejs.org/ssr/nuxt.html)** - Modulo Nuxt para Pinia
 
 ### Content & Data
 
 - **[Directus SDK 20.1.0](https://docs.directus.io/reference/sdk.html)** - SDK para headless CMS
-- **[Zod 4.1.12](https://zod.dev/)** - Validación de esquemas TypeScript-first
+- **[Zod 4.1.12](https://zod.dev/)** - Validacion de esquemas TypeScript-first
 
 ### Comunicaciones
 
-- **[Resend 6.4.0](https://resend.com/)** - API de envío de emails transaccionales
+- **[Resend 6.4.0](https://resend.com/)** - API de envio de emails transaccionales
 - **Telegram Bot API** - Notificaciones en tiempo real
+- **Directus Flows + Webhook** - Notificaciones centralizadas
 
 ### Analytics & Tracking
 
 - **[nuxt-gtag 3.0.3](https://github.com/johannschopplich/nuxt-gtag)** - Google Analytics 4
 - **[@saslavik/nuxt-gtm 0.1.3](https://github.com/saslavik/nuxt-gtm)** - Google Tag Manager (Nuxt 4 compatible)
+- **Meta Pixel + Conversions API** - Tracking de conversiones Facebook/Instagram
 
-### UI Components
+### UI Components & Libraries
 
 - **[vue3-carousel-nuxt 1.1.6](https://github.com/ismail9k/vue3-carousel)** - Carrusel responsive
-
-### UI & Security
-
 - **[v-calendar 3.1.2](https://vcalendar.io/)** - Date picker component
-- **[@nuxtjs/turnstile 1.1.1](https://github.com/nuxt-modules/turnstile)** - Cloudflare Turnstile CAPTCHA
+- **[@nuxt/image](https://image.nuxt.com/)** - Optimizacion automatica de imagenes (WebP, AVIF)
+- **[@vueuse/core 14.1+](https://vueuse.org/)** - Utilidades de composicion para Vue
+- **[@fingerprintjs/botd](https://github.com/nicedoc/fingerprint-pro-server-node-sdk)** - Deteccion de bots
 
 ### Client-side PDF Generation
 
 - **[html-to-image 1.11.13](https://github.com/bubkoo/html-to-image)** - DOM to image conversion
-- **[jsPDF 4.0.0](https://github.com/parallax/jsPDF)** - Client-side PDF generation
+- **[jsPDF 4.0.0](https://github.com/parallax/jsPDF)** - Generacion de PDF client-side
 
 ### Package Manager
 
-- **[pnpm 9.15.0](https://pnpm.io/)** - Gestor de paquetes rápido y eficiente
+- **[pnpm 9.15.0](https://pnpm.io/)** - Gestor de paquetes rapido y eficiente
 
 ---
 
-## 📦 Requisitos Previos
-
-Antes de comenzar, asegúrate de tener instalado:
+## Requisitos Previos
 
 - **Node.js**: v18.0.0 o superior ([descargar](https://nodejs.org/))
 - **pnpm**: v9.15.0 ([instalar](https://pnpm.io/installation))
 - **Git**: Para clonar el repositorio
 
-Verificar instalación:
-
 ```bash
-node --version  # Debe ser >= v18.0.0
-pnpm --version  # Debe ser 9.15.0
+node --version  # >= v18.0.0
+pnpm --version  # 9.15.0
 ```
 
 ---
 
-## ⚙️ Instalación
+## Instalacion
 
 ### 1. Clonar el Repositorio
 
@@ -190,35 +148,31 @@ cd contuhogar.com
 pnpm install
 ```
 
-Este comando instalará todas las dependencias listadas en `package.json` y ejecutará automáticamente `pnpm postinstall` (que ejecuta `nuxt prepare` para generar tipos).
+Ejecuta automaticamente `nuxt prepare` via postinstall para generar tipos.
 
 ### 3. Configurar Variables de Entorno
-
-Crea un archivo `.env` en la raíz del proyecto basándote en el ejemplo:
 
 ```bash
 cp .env.example .env
 ```
 
-Edita `.env` y configura las variables requeridas (ver sección [Variables de Entorno](#-variables-de-entorno)).
+Edita `.env` con las variables requeridas (ver seccion [Variables de Entorno](#variables-de-entorno)).
 
 ---
 
-## 💻 Desarrollo
-
-### Iniciar Servidor de Desarrollo
+## Desarrollo
 
 ```bash
 pnpm dev
 ```
 
-El servidor de desarrollo se iniciará en `http://localhost:3000` con:
+Servidor de desarrollo en `http://localhost:3000` con:
 
-- ✅ Hot Module Replacement (HMR)
-- ✅ Nuxt DevTools habilitado
-- ✅ Auto-reload en cambios de archivos
+- Hot Module Replacement (HMR)
+- Nuxt DevTools habilitado
+- Auto-reload en cambios de archivos
 
-### Comandos de Desarrollo Útiles
+### Comandos utiles
 
 ```bash
 # Limpiar cache y archivos generados
@@ -227,278 +181,342 @@ rm -rf .nuxt .output
 # Regenerar tipos de TypeScript
 pnpm postinstall
 
-# Verificar tipos de TypeScript
+# Verificar tipos
 npx nuxi typecheck
 ```
 
 ---
 
-## 🏗️ Producción
+## Produccion
 
-### Build para Producción
+### Build
 
 ```bash
 pnpm build
 ```
 
-Este comando:
-1. Compila el código optimizado para producción
-2. Genera archivos estáticos en `.output/public`
-3. Prepara el servidor Nitro en `.output/server`
+Genera archivos optimizados en `.output/` (public + server Nitro).
 
-### Preview de Build de Producción
+### Preview
 
 ```bash
 pnpm preview
 ```
 
-Inicia un servidor local para previsualizar el build de producción en `http://localhost:3000`.
-
-### Generar Sitio Estático (SSG)
+### Generar Sitio Estatico (SSG)
 
 ```bash
 pnpm generate
 ```
 
-Genera un sitio completamente estático en `.output/public` listo para ser desplegado en cualquier hosting estático.
-
 ### Deployment
 
-El proyecto puede ser desplegado en:
-
-- **Vercel**: `npx vercel deploy`
-- **Netlify**: Drag & drop de `.output/public`
+- **Vercel**: `npx vercel deploy` (configuracion incluida)
 - **Node.js Server**: Ejecutar `.output/server/index.mjs`
-- **Static Hosting**: Subir contenido de `.output/public`
-
-Ver [documentación de deployment de Nuxt](https://nuxt.com/docs/getting-started/deployment) para más detalles.
+- **Static Hosting**: Subir `.output/public`
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 contuhogar.com/
-├── assets/                 # Assets no procesados (CSS, fuentes)
+├── assets/
 │   └── css/
-│       └── main.css       # Configuración de Tailwind CSS
-├── components/            # Componentes Vue reutilizables
-│   ├── Header.vue        # Header principal con navegación
-│   ├── Footer.vue        # Footer con links
-│   ├── Logo.vue          # Componente de logo
-│   ├── Whatsapp.vue      # Botón flotante de WhatsApp
-│   ├── CurrencyInput.vue # Input para cantidades en COP
-│   ├── DatePicker.vue    # Selector de fecha con v-calendar
-│   ├── PhoneCountryCombobox.vue  # Selector de país + teléfono con formato
-│   ├── cards/            # Componentes de tarjetas
+│       └── main.css                  # Tailwind CSS + animaciones custom
+├── components/
+│   ├── Header.vue                    # Header con navegacion
+│   ├── Footer.vue                    # Footer con links
+│   ├── Logo.vue                      # Logo SVG
+│   ├── Whatsapp.vue                  # Boton flotante WhatsApp
+│   ├── NewsletterForm.vue            # Formulario de suscripcion
+│   ├── CountryCombobox.vue           # Selector de pais de residencia
+│   ├── CurrencyInput.vue             # Input para montos en COP
+│   ├── DatePicker.vue                # Selector de fecha (v-calendar)
+│   ├── PhoneCountryCombobox.vue      # Selector pais + telefono
+│   ├── cards/
 │   │   ├── BlogCard.vue
 │   │   └── ServiceCard.vue
-│   ├── sections/         # Secciones de página
+│   ├── sections/
 │   │   ├── BankLogosSection.vue
 │   │   ├── CTASection.vue
 │   │   ├── HeroSection.vue
 │   │   ├── StatsSection.vue
 │   │   └── TestimonialMarquee.vue
-│   ├── sidebar/          # Componentes de sidebar
+│   ├── sidebar/
 │   │   ├── ResourcesList.vue
 │   │   └── SidebarCTA.vue
-│   ├── ui/               # Componentes UI generales
+│   ├── ui/
 │   │   ├── Accordion.vue
 │   │   ├── CategoryPills.vue
 │   │   └── SearchBar.vue
-│   ├── skeleton/         # Componentes de carga (skeletons)
-│   │   ├── SkeletonBox.vue           # Primitivo: caja rectangular
-│   │   ├── SkeletonText.vue          # Primitivo: líneas de texto
-│   │   ├── SkeletonCircle.vue        # Primitivo: círculo/avatar
+│   ├── skeleton/                     # 16 componentes de carga (shimmer)
+│   │   ├── SkeletonBox.vue           # Primitivo: caja
+│   │   ├── SkeletonText.vue          # Primitivo: lineas de texto
+│   │   ├── SkeletonCircle.vue        # Primitivo: circulo/avatar
 │   │   ├── SkeletonImage.vue         # Primitivo: placeholder imagen
-│   │   ├── SkeletonBlogCard.vue      # Card de blog
-│   │   ├── SkeletonServiceCard.vue   # Card de servicio
+│   │   ├── SkeletonBlogCard.vue
+│   │   ├── SkeletonServiceCard.vue
 │   │   ├── SkeletonTestimonialCard.vue
-│   │   ├── SkeletonHeroHome.vue      # Hero del homepage
-│   │   ├── SkeletonHeroSection.vue   # Hero genérico
-│   │   ├── SkeletonStatsSection.vue  # Sección de stats
-│   │   ├── SkeletonBankLogos.vue     # Logos de bancos
-│   │   ├── SkeletonAccordion.vue     # Acordeón FAQ
-│   │   ├── SkeletonBlogPost.vue      # Página de blog post
-│   │   ├── SkeletonServicePage.vue   # Página de servicio
-│   │   ├── SkeletonSimulador.vue     # Wizard del simulador
-│   │   └── SkeletonLegalPage.vue     # Páginas legales
-│   ├── legal/            # Componentes para páginas legales
-│   │   ├── LegalPageLayout.vue       # Layout con sidebar + acordeones
-│   │   └── LegalSection.vue          # Sección colapsable
-│   └── simulador/        # Componentes del simulador
-│       ├── SimuladorWizard.vue    # Wizard principal (5 pasos)
+│   │   ├── SkeletonHeroHome.vue
+│   │   ├── SkeletonHeroSection.vue
+│   │   ├── SkeletonStatsSection.vue
+│   │   ├── SkeletonBankLogos.vue
+│   │   ├── SkeletonAccordion.vue
+│   │   ├── SkeletonBlogPost.vue
+│   │   ├── SkeletonServicePage.vue
+│   │   ├── SkeletonSimulador.vue
+│   │   └── SkeletonLegalPage.vue
+│   ├── legal/
+│   │   ├── LegalPageLayout.vue       # Layout 2 columnas estilo Stripe
+│   │   └── LegalSection.vue          # Seccion colapsable
+│   ├── lp/                           # Componentes de Landing Pages
+│   │   ├── LpCtaSticky.vue
+│   │   ├── LpFooterMinimal.vue
+│   │   ├── LpHero.vue
+│   │   ├── LpLeadForm.vue
+│   │   ├── LpNavbar.vue
+│   │   ├── LpProcess.vue
+│   │   ├── LpTestimonialQuote.vue
+│   │   └── LpTrustBar.vue
+│   └── simulador/
+│       ├── SimuladorWizard.vue        # Wizard principal (5 pasos)
 │       ├── steps/
-│       │   ├── StepPersonalInfo.vue   # Paso 1: Datos personales
-│       │   ├── StepPropertyInfo.vue   # Paso 2: Datos del bien
-│       │   ├── StepIncomeInfo.vue     # Paso 3: Ingresos y gastos
-│       │   ├── StepElegibility.vue    # Paso 4: Elegibilidad
-│       │   └── StepResults.vue        # Paso 5: Resultados
+│       │   ├── StepPersonalInfo.vue
+│       │   ├── StepPropertyInfo.vue
+│       │   ├── StepIncomeInfo.vue
+│       │   ├── StepElegibility.vue
+│       │   └── StepResults.vue
 │       └── ui/
-│           ├── ProgressBar.vue         # Barra de progreso
-│           ├── VerticalStepper.vue     # Indicador de pasos
-│           ├── StepNavigation.vue      # Navegación entre pasos
-│           └── ValidationMessage.vue   # Mensajes de validación
-├── composables/          # Composables de Vue
-│   ├── useDirectus.ts    # Helper para fetch de Directus
-│   ├── useLoading.ts     # Estado de carga para skeletons
-│   ├── useSeo.ts         # SEO metadata helpers
-│   ├── useSimuladorCalculations.ts   # Cálculos financieros
-│   └── usePreApprovalPDF.ts          # Generación de PDF
-├── layouts/              # Layouts de página
-│   ├── default.vue       # Layout por defecto
-│   └── simulador.vue     # Layout para simulador (sin header/footer)
-├── pages/                # Páginas (file-based routing)
-│   ├── index.vue         # Homepage
-│   ├── contacto.vue      # Formulario de contacto
-│   ├── nosotros.vue      # Página "Sobre Nosotros"
-│   ├── faqs.vue          # Preguntas frecuentes
-│   ├── terminos-condiciones.vue
-│   ├── politica-privacidad.vue  # Política de privacidad
+│           ├── ProgressBar.vue
+│           ├── VerticalStepper.vue
+│           ├── StepNavigation.vue
+│           └── ValidationMessage.vue
+├── composables/
+│   ├── useAntiSpam.ts                # Proteccion anti-spam multi-capa
+│   ├── useBotDetection.ts            # Deteccion de bots (fingerprintjs)
+│   ├── useDirectPDFDownload.ts       # Generacion directa PDF desde StepResults
+│   ├── useDirectus.ts                # Helper para fetch de Directus
+│   ├── useGeneratePDFFromElement.ts  # PDF desde DOM element
+│   ├── useGeoLocation.ts             # Geolocalizacion por IP
+│   ├── useLoading.ts                 # Estado de carga para skeletons
+│   ├── useMetaPixel.ts               # Meta Pixel tracking events
+│   ├── usePreApprovalPDF.ts          # Navegacion a carta de preaprobacion
+│   ├── useRateLimit.ts               # Rate limiting client-side
+│   ├── useSeo.ts                     # SEO metadata helpers
+│   ├── useSimuladorCalculations.ts   # Calculos financieros
+│   └── useTracking.ts               # Tracking unificado (GA4 + Meta)
+├── layouts/
+│   ├── default.vue                   # Layout principal
+│   ├── landing.vue                   # Layout para landing pages
+│   └── simulador.vue                 # Layout simulador (sin header/footer)
+├── pages/
+│   ├── index.vue                     # Homepage
+│   ├── contacto.vue                  # Formulario de contacto
+│   ├── nosotros.vue                  # Sobre Nosotros
+│   ├── faqs.vue                      # Preguntas frecuentes
+│   ├── terminos-condiciones.vue      # Terminos y condiciones
+│   ├── politica-privacidad.vue       # Politica de privacidad
 │   ├── blog/
-│   │   ├── index.vue     # Lista de artículos
-│   │   └── [slug].vue    # Artículo individual
+│   │   ├── index.vue                 # Lista de articulos
+│   │   └── [slug].vue               # Articulo individual
 │   ├── servicios/
-│   │   ├── index.vue     # Lista de servicios
-│   │   └── [slug].vue    # Servicio individual
+│   │   ├── index.vue                 # Lista de servicios
+│   │   ├── [slug].vue               # Servicio individual
+│   │   └── [service]/
+│   │       └── [market].vue          # Servicio por mercado
+│   ├── lp/
+│   │   └── [service]/
+│   │       └── [market].vue          # Landing page por servicio y mercado
 │   └── simulador/
 │       └── credito/
-│           ├── index.vue           # Simulador de crédito
-│           └── carta-preaprobacion.vue  # Carta de preaprobación
-├── plugins/              # Plugins de Nuxt
-│   ├── directus.client.ts # Cliente Directus (navegador)
-│   ├── directus.server.ts # Servidor Directus (SSR)
-│   └── v-calendar.client.ts # Configuración de v-calendar
-├── public/               # Assets estáticos
-│   ├── logos/           # Logos de bancos y partners (WebP)
-│   │   ├── amarilo-logo.webp
-│   │   ├── banco-occidental.webp
-│   │   ├── banco-union.webp
-│   │   ├── colpatria-logo.webp
-│   │   └── logo-banco-de-bogota.webp
-│   ├── team/            # Fotos del equipo
-│   ├── testimonials/    # Fotos de testimonios
-│   ├── docs/            # Documentos PDF
+│           ├── index.vue             # Simulador de credito
+│           └── carta-preaprobacion.vue
+├── plugins/
+│   ├── directus.client.ts            # Cliente Directus (navegador)
+│   ├── directus.server.ts            # Servidor Directus (SSR)
+│   ├── meta-pixel.client.ts          # Meta Pixel initialization
+│   └── v-calendar.client.ts          # Configuracion de v-calendar
+├── public/
+│   ├── *.avif                        # Imagenes de servicios (AVIF)
+│   ├── images/                       # Imagenes generales (hero, etc.)
+│   ├── logos/                        # Logos de bancos y partners (WebP)
+│   ├── team/                         # Fotos del equipo
+│   ├── testimonials/                 # Fotos de testimonios
+│   ├── docs/                         # Documentos PDF (formatos bancarios)
+│   ├── og-image.jpg                  # Open Graph image
 │   ├── favicon.ico
 │   └── robots.txt
-├── server/               # API y server routes
+├── server/
 │   ├── api/
-│   │   ├── contact.post.ts      # Endpoint para guardar leads
-│   │   ├── pdf/
-│   │   │   └── pre-approval.post.ts  # Generación de PDF
-│   │   └── send/
-│   │       ├── lead.post.ts           # Envío de emails
-│   │       └── simulator-lead.post.ts # Notificación de simulador
+│   │   ├── contact.post.ts           # Guardar leads + notificaciones
+│   │   ├── team.get.ts               # Equipo desde Directus
+│   │   ├── testimonials.get.ts       # Testimonios desde Directus
+│   │   ├── landing-pages.get.ts      # Landing pages desde Directus
+│   │   ├── directus/
+│   │   │   └── [collection].get.ts   # Proxy generico a Directus
+│   │   ├── newsletter/
+│   │   │   └── subscribe.post.ts     # Suscripcion newsletter
+│   │   ├── simulador/
+│   │   │   ├── action.post.ts        # Acciones del simulador
+│   │   │   ├── save.post.ts          # Guardar simulacion
+│   │   │   └── session/
+│   │   │       ├── start.post.ts     # Iniciar sesion
+│   │   │       ├── update.post.ts    # Actualizar sesion
+│   │   │       └── complete.post.ts  # Completar sesion
+│   │   └── webhooks/
+│   │       └── notify.post.ts        # Webhook de notificaciones
 │   ├── plugins/
-│   │   └── securityHeaders.ts
+│   │   └── securityHeaders.ts        # Headers de seguridad
+│   ├── routes/
+│   │   └── sitemap.xml.ts            # Sitemap dinamico
 │   └── utils/
-│       └── turnstile.ts              # Verificación de Turnstile
-├── stores/               # Stores de Pinia
-│   ├── index.ts         # Store principal con datos (TypeScript)
-│   └── simulador.ts     # Store del simulador
-├── types/                # Definiciones de TypeScript
-│   └── simulador.ts     # Tipos del simulador
-├── utils/                # Utilidades
-│   └── formatters.ts    # Formateadores de moneda/números
-├── .env                 # Variables de entorno (NO commit)
-├── .env.example         # Template de variables de entorno
-├── .gitignore           # Archivos ignorados por Git
-├── CLAUDE.md            # Guía para Claude Code AI
-├── nuxt.config.ts       # Configuración de Nuxt
-├── package.json         # Dependencias del proyecto
-├── README.md            # Este archivo
-├── tsconfig.json        # Configuración de TypeScript
-└── pnpm-lock.yaml       # Lock file de pnpm
+│       ├── deviceDetection.ts        # Deteccion de dispositivo
+│       ├── duplicateDetection.ts     # Deteccion de duplicados
+│       ├── formatting.ts             # Formateo de datos
+│       ├── metaCapi.ts               # Meta Conversions API
+│       ├── notificationTemplates.ts  # Templates de notificacion
+│       └── rateLimit.ts              # Rate limiting por IP
+├── stores/
+│   ├── index.ts                      # Store principal (servicios, equipo, FAQs, logos)
+│   └── simulador.ts                  # Store del simulador
+├── types/
+│   ├── directus.ts                   # Tipos de colecciones Directus
+│   └── simulador.ts                  # Tipos del simulador
+├── utils/
+│   ├── creditTypeLabels.ts           # Labels de tipos de credito
+│   ├── formatters.ts                 # Formateadores de moneda/numeros
+│   └── phoneFormats.ts               # Formatos de telefono por pais
+├── scripts/
+│   ├── directus-schema-export.ts     # Exportar schema de Directus
+│   ├── directus-generate-types.ts    # Generar tipos TypeScript
+│   ├── directus-snapshot.ts          # Snapshots de Directus
+│   └── generate-og-image.mjs        # Generador de OG image
+├── nuxt.config.ts
+├── package.json
+├── tsconfig.json
+├── CLAUDE.md                         # Guia para Claude Code AI
+└── pnpm-lock.yaml
 ```
-
-### Directorio `pages/`
-
-Nuxt utiliza file-based routing. Cada archivo `.vue` en `pages/` se convierte automáticamente en una ruta:
-
-| Archivo | Ruta |
-|---------|------|
-| `pages/index.vue` | `/` |
-| `pages/contacto.vue` | `/contacto` |
-| `pages/nosotros.vue` | `/nosotros` |
-| `pages/faqs.vue` | `/faqs` |
-| `pages/terminos-condiciones.vue` | `/terminos-condiciones` |
-| `pages/politica-privacidad.vue` | `/politica-privacidad` |
-| `pages/simulador/credito/index.vue` | `/simulador/credito` |
-| `pages/simulador/credito/carta-preaprobacion.vue` | `/simulador/credito/carta-preaprobacion` |
-| `pages/blog/index.vue` | `/blog` |
-| `pages/blog/[slug].vue` | `/blog/:slug` |
-| `pages/servicios/index.vue` | `/servicios` |
-| `pages/servicios/[slug].vue` | `/servicios/:slug` |
 
 ---
 
-## 🔐 Variables de Entorno
+## Variables de Entorno
 
-### Variables Requeridas
-
-Crea un archivo `.env` con las siguientes variables:
+Crea un archivo `.env` basandote en `.env.example`:
 
 ```bash
 # Directus CMS
 DIRECTUS_URL=https://tu-instancia.directus.app
-DIRECTUS_ADMIN_TOKEN=tu_token_admin_aqui
-DIRECTUS_PUBLIC_TOKEN=tu_token_publico_aqui
+DIRECTUS_ADMIN_TOKEN=tu_token_admin
+DIRECTUS_PUBLIC_TOKEN=tu_token_publico_solo_lectura
 
 # Resend (Email)
-RESEND_API_KEY=re_tu_api_key_aqui
+RESEND_API_KEY=re_tu_api_key
 
 # Cloudflare Turnstile (CAPTCHA)
-TURNSTILE_SITE_KEY=tu_site_key_aqui
-TURNSTILE_SECRET_KEY=tu_secret_key_aqui
+TURNSTILE_SITE_KEY=tu_site_key
+TURNSTILE_SECRET_KEY=tu_secret_key
 
 # Telegram (Opcional)
-TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+TELEGRAM_BOT_TOKEN=123456:ABC-DEF
 TELEGRAM_CHAT_ID=-1001234567890
 
-# Otros
-NODE_ENV=development  # o 'production'
-BASE_URL=https://contuhogar.com
+# Meta Pixel + Conversions API (Opcional)
+META_PIXEL_ID=tu_pixel_id
+META_CAPI_ACCESS_TOKEN=tu_capi_token
+
+# Webhook (Opcional)
+WEBHOOK_SECRET=tu_webhook_secret
+
+# Feature Flags
+ENABLE_LANDING_LINKS=true
 ```
 
-### Descripción de Variables
+### Descripcion de Variables
 
-| Variable | Descripción | Requerida |
+| Variable | Descripcion | Requerida |
 |----------|-------------|-----------|
-| `DIRECTUS_URL` | URL de tu instancia de Directus CMS | ✅ Sí |
-| `DIRECTUS_ADMIN_TOKEN` | Token de admin para operaciones del servidor | ✅ Sí |
-| `DIRECTUS_PUBLIC_TOKEN` | Token público de solo lectura para el cliente | ✅ Sí |
-| `RESEND_API_KEY` | API key de Resend para envío de emails | ✅ Sí |
-| `TURNSTILE_SITE_KEY` | Site key de Cloudflare Turnstile (CAPTCHA invisible) | ✅ Sí |
-| `TURNSTILE_SECRET_KEY` | Secret key de Cloudflare Turnstile | ✅ Sí |
-| `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram | ❌ Opcional |
-| `TELEGRAM_CHAT_ID` | ID del chat/canal de Telegram | ❌ Opcional |
-| `BASE_URL` | URL base del sitio (para meta tags) | ❌ Opcional |
+| `DIRECTUS_URL` | URL de la instancia Directus CMS | Si |
+| `DIRECTUS_ADMIN_TOKEN` | Token admin para operaciones server-side | Si |
+| `DIRECTUS_PUBLIC_TOKEN` | Token de solo lectura para el cliente | Si |
+| `RESEND_API_KEY` | API key de Resend para emails transaccionales | Si |
+| `TURNSTILE_SITE_KEY` | Site key de Cloudflare Turnstile | Si |
+| `TURNSTILE_SECRET_KEY` | Secret key de Cloudflare Turnstile | Si |
+| `TELEGRAM_BOT_TOKEN` | Token del bot de Telegram | No |
+| `TELEGRAM_CHAT_ID` | ID del chat/canal de Telegram | No |
+| `META_PIXEL_ID` | ID del Meta Pixel (Facebook/Instagram) | No |
+| `META_CAPI_ACCESS_TOKEN` | Token de acceso para Conversions API | No |
+| `WEBHOOK_SECRET` | Secreto para verificar webhooks entrantes | No |
+| `ENABLE_LANDING_LINKS` | Habilitar links a landing pages en el sitio | No |
 
-### ⚠️ Seguridad
+### Seguridad
 
-- **NUNCA** commits `.env` al repositorio (ya está en `.gitignore`)
-- Rotar tokens periódicamente (especialmente `DIRECTUS_ADMIN_TOKEN`)
+- **NUNCA** hacer commit de `.env` (esta en `.gitignore`)
+- Rotar tokens periodicamente (especialmente `DIRECTUS_ADMIN_TOKEN`)
 - Usar tokens de solo lectura para el cliente (`DIRECTUS_PUBLIC_TOKEN`)
-- En producción, usar variables de entorno del sistema o servicios como Vault
+- En produccion, usar variables de entorno del sistema
 
 ---
 
-## 🔌 Integraciones
+## Rutas de la Aplicacion
+
+Nuxt utiliza file-based routing. Cada archivo `.vue` en `pages/` se convierte en una ruta:
+
+| Archivo | Ruta | Descripcion |
+|---------|------|-------------|
+| `pages/index.vue` | `/` | Homepage |
+| `pages/contacto.vue` | `/contacto` | Formulario de contacto |
+| `pages/nosotros.vue` | `/nosotros` | Sobre Nosotros |
+| `pages/faqs.vue` | `/faqs` | Preguntas frecuentes |
+| `pages/terminos-condiciones.vue` | `/terminos-condiciones` | Terminos y condiciones |
+| `pages/politica-privacidad.vue` | `/politica-privacidad` | Politica de privacidad |
+| `pages/blog/index.vue` | `/blog` | Lista de articulos |
+| `pages/blog/[slug].vue` | `/blog/:slug` | Articulo individual |
+| `pages/servicios/index.vue` | `/servicios` | Lista de servicios |
+| `pages/servicios/[slug].vue` | `/servicios/:slug` | Servicio individual |
+| `pages/servicios/[service]/[market].vue` | `/servicios/:service/:market` | Servicio por mercado |
+| `pages/lp/[service]/[market].vue` | `/lp/:service/:market` | Landing page |
+| `pages/simulador/credito/index.vue` | `/simulador/credito` | Simulador de credito |
+| `pages/simulador/credito/carta-preaprobacion.vue` | `/simulador/credito/carta-preaprobacion` | Carta preaprobacion PDF |
+
+### Route Rules (ISR Caching)
+
+```typescript
+routeRules: {
+  '/':              { isr: 3600 },   // 1 hora
+  '/nosotros':      { isr: 86400 },  // 24 horas
+  '/faqs':          { isr: 86400 },
+  '/servicios':     { isr: 86400 },
+  '/servicios/**':  { isr: 86400 },
+  '/blog':          { isr: 3600 },
+  '/blog/**':       { isr: 3600 },
+}
+```
+
+---
+
+## Integraciones
 
 ### Directus CMS
 
-El proyecto utiliza Directus como headless CMS para gestionar:
+Headless CMS para gestionar todo el contenido dinamico:
 
-- Blog posts
+- Blog posts y categorias
 - Servicios
-- Configuraciones dinámicas
+- Equipo (nosotros)
+- Testimonios
+- Landing pages
 - Leads de contacto
+- Simulaciones
+- Newsletter subscribers
+
+**Plugins**: `directus.client.ts` (navegador) y `directus.server.ts` (SSR con admin token)
 
 **Composable** para fetch de datos:
 
 ```typescript
-// composables/useDirectus.ts
-const { data, error } = await useDirectusItems<T>('collection_name', {
+const { data } = await useDirectusItems<T>('collection_name', {
   filter: { status: { _eq: 'published' } },
   sort: ['-date_created']
 })
@@ -506,18 +524,9 @@ const { data, error } = await useDirectusItems<T>('collection_name', {
 
 #### Directus MCP (Model Context Protocol)
 
-El proyecto integra el servidor MCP de Directus para acceso directo al CMS desde Claude Code. Esto permite a los agentes de IA interactuar con las colecciones de Directus sin escribir codigo de API.
+Integracion del servidor MCP de Directus para acceso directo al CMS desde Claude Code.
 
-**Herramientas MCP disponibles:**
-- `mcp__directus__items` - Operaciones CRUD en colecciones
-- `mcp__directus__files` - Gestion de archivos
-- `mcp__directus__schema` - Informacion del schema
-- `mcp__directus__collections` - Metadata de colecciones
-- `mcp__directus__flows` - Automatizaciones
-
-**Configuracion para desarrolladores:**
-
-1. Crea un archivo `.mcp.json` en la raiz del proyecto:
+Crea `.mcp.json` en la raiz del proyecto:
 
 ```json
 {
@@ -532,625 +541,284 @@ El proyecto integra el servidor MCP de Directus para acceso directo al CMS desde
 }
 ```
 
-2. Reemplaza `TU_TOKEN_DIRECTUS` con tu token de Directus
-
-**Seguridad:**
-- El archivo `.mcp.json` esta en `.gitignore` - nunca hacer commit de credenciales
-- Cada desarrollador debe crear su propio `.mcp.json` con su token personal
-- Usar tokens con permisos apropiados segun el rol
+El archivo `.mcp.json` esta en `.gitignore`. Cada desarrollador crea el suyo.
 
 ### Resend (Email)
 
-Envío de emails transaccionales cuando se recibe un lead:
+Emails transaccionales al recibir leads:
 
-- Email formateado HTML con información del contacto
-- BCC automático a `contudigital@contuhogar.net`
-- Manejo de errores y retry logic
+- Email HTML formateado con datos del contacto
+- BCC automatico a `contudigital@contuhogar.net`
+- Sender: `gerenciacomercial@contuhogar.com`
 
 ### Telegram Bot
 
-Notificaciones en tiempo real de nuevos leads:
+Notificaciones en tiempo real de nuevos leads con formato rich text.
 
-```
-🆕 Nuevo lead
-Nombre: Juan Pérez
-Email: juan@example.com
-Tel: +57 310 123 4567
-Origen: /contacto
-Mensaje:
-Interesado en crédito hipotecario...
-```
+### Directus Flows + Webhook
+
+Las notificaciones estan centralizadas via Directus Flows. El endpoint `webhooks/notify.post.ts` recibe eventos desde Directus y distribuye notificaciones.
+
+### Meta Pixel + Conversions API
+
+Tracking de conversiones dual:
+
+- **Client-side**: Meta Pixel via `meta-pixel.client.ts` y `useMetaPixel.ts`
+- **Server-side**: Conversions API via `server/utils/metaCapi.ts`
+- Eventos: Lead, Subscribe, CompleteRegistration
 
 ### Google Analytics & GTM
 
 - **Google Analytics 4** (`G-1182NP1Z0D`): Tracking de eventos y pageviews
-- **Google Tag Manager** (`GTM-WMQV4M3F`): Gestión de tags y conversiones
+- **Google Tag Manager** (`GTM-WMQV4M3F`): Gestion de tags y conversiones
 - Solo activos en `NODE_ENV=production`
+- Inicializacion manual (defer) para reducir TBT
 
 ---
 
-## 💳 Simulador de Crédito
+## Simulador de Credito
 
-### Descripción
+Wizard interactivo de 5 pasos para evaluar elegibilidad en creditos hipotecarios y leasing habitacional.
 
-El simulador de crédito es un wizard interactivo de 5 pasos que permite a los usuarios evaluar su elegibilidad para créditos hipotecarios y leasing habitacional. Incluye validaciones en tiempo real, cálculos financieros precisos, y generación de carta de preaprobación en PDF.
+### Pasos
 
-### Características Principales
+1. **Informacion Personal**: Nombre, email, telefono, fecha de nacimiento, tipo de credito
+2. **Informacion del Inmueble**: Valor del inmueble, monto solicitado, plazo
+3. **Ingresos y Gastos**: Ingresos fijos/variables, deducciones, obligaciones financieras
+4. **Elegibilidad**: Status migratorio, reportes crediticios
+5. **Resultados**: Estado (Aprobado/Advertencia/Rechazado), cuota mensual, DTI ratio, recomendaciones
 
-- **Wizard Multi-Paso**: Navegación fluida entre 5 pasos con validación progresiva
-- **Cálculos Financieros Avanzados**:
-  - Fórmula PMT para cuota mensual
-  - Ratio DTI (Debt-to-Income) - máximo 30%
-  - Ratio LTV (Loan-to-Value) - 70% hipotecario / 80% leasing
-  - Validación de edad al final del plazo (máx. 84 años)
-- **Validaciones Inteligentes**:
-  - Edad + plazo ≤ 84 años
-  - Capacidad de pago ≤ 30% de ingresos netos
-  - Financiación: 70% (hipotecario) / 80% (leasing)
-  - Status migratorio y reportes crediticios
-- **Generación de PDF**: Carta de preaprobación profesional (client-side con html-to-image + jsPDF)
-- **Persistencia**: Estado guardado en localStorage (sobrevive recargas)
-- **Responsive**: Diseño adaptativo para móvil y desktop
-- **Resultados Detallados**: Aprobado ✅, Rechazado ❌ o Advertencia ⚠️ con recomendaciones
-- **Integración con Contacto**: Pre-rellena datos en formulario de contacto
+### Calculos Financieros
 
-### Pasos del Simulador
+- Formula PMT para cuota mensual
+- Ratio DTI (Debt-to-Income) - maximo 30%
+- Ratio LTV (Loan-to-Value) - 70% hipotecario / 80% leasing
+- Validacion de edad al final del plazo (max 84 anos)
 
-1. **Información Personal**:
-   - Nombre completo, correo, teléfono con código de país
-   - Fecha de nacimiento (validación de edad 18-74 años)
-   - Tipo de crédito: Hipotecario o Leasing
-
-2. **Información del Inmueble**:
-   - Valor del inmueble (min: $50M, máx: $5.000M COP)
-   - Monto solicitado (validación LTV según tipo)
-   - Plazo en meses (12-240 meses / 1-20 años)
-
-3. **Ingresos y Gastos**:
-   - Ingresos fijos mensuales
-   - Ingresos variables - adicionales (opcionales)
-   - Deducciones (salud, pensión, etc.)
-   - Obligaciones financieras actuales:
-     - Tarjetas de crédito (se calcula 3% del cupo)
-     - Arriendos, otros créditos, pensiones alimenticias
-
-4. **Elegibilidad**:
-   - Status migratorio válido (cédula extranjería, doble nacionalidad, visa temporal/permanente)
-   - Reportes crediticios negativos en Colombia
-
-5. **Resultados**:
-   - Estado: Aprobado ✅ / Advertencia ⚠️ / Rechazado ❌
-   - Cuota mensual estimada
-   - Tasa de interés EA
-   - Relación cuota/ingreso (DTI ratio)
-   - Recomendaciones personalizadas
-   - Opciones:
-     - Descargar carta de preaprobación (PDF)
-     - Enviar por WhatsApp
-     - Solicitar asesoría (redirige a contacto)
-
-### Estructura de Archivos
+### Constantes
 
 ```
-pages/simulador/credito/
-├── index.vue                    // Página principal del simulador
-└── carta-preaprobacion.vue      // Template de carta de preaprobación
-
-components/simulador/
-├── SimuladorWizard.vue          // Lógica principal del wizard
-├── steps/                       // Componentes de cada paso
-│   ├── StepPersonalInfo.vue
-│   ├── StepPropertyInfo.vue
-│   ├── StepIncomeInfo.vue
-│   ├── StepElegibility.vue
-│   └── StepResults.vue
-└── ui/                          // Componentes de UI reutilizables
-    ├── ProgressBar.vue
-    └── VerticalStepper.vue
-
-components/
-├── CurrencyInput.vue            // Input para valores monetarios
-└── DatePicker.vue               // Selector de fecha
-
-stores/
-└── simulador.ts                 // Store Pinia con estado del simulador
-
-composables/
-├── useSimuladorCalculations.ts  // Lógica de cálculos financieros
-├── usePreApprovalPDF.ts         // Navegación a página de preaprobación
-├── useDirectPDFDownload.ts      // Generación directa de PDF desde StepResults
-└── useGeneratePDFFromElement.ts // Generación de PDF desde DOM element
-
-server/api/
-└── send/
-    └── simulator-lead.post.ts   // Notificación de simulador
-
-types/
-└── simulador.ts                 // Tipos TypeScript
-
-utils/
-└── formatters.ts                // Helpers para formateo de moneda
+TASA_EA = 14%
+TASA_MENSUAL = 1.0975%
+EDAD_FINAL_MAXIMA = 84 anos
+PLAZO = 12-240 meses (1-20 anos)
+DTI_MAXIMO = 30%
+LTV_HIPOTECARIO = 70%
+LTV_LEASING = 80%
 ```
 
-### Ejemplo de Uso
+### Funcionalidades
 
-```typescript
-// En cualquier componente
-import { useSimuladorStore } from '~/stores/simulador'
-import { useSimuladorCalculations } from '~/composables/useSimuladorCalculations'
-
-const store = useSimuladorStore()
-const { calculate } = useSimuladorCalculations()
-
-// Calcular resultado
-const resultado = calculate({
-  datosPersonales: store.datosPersonales,
-  datosBien: store.datosBien,
-  datosIngresos: store.datosIngresos,
-  datosElegibilidad: store.datosElegibilidad
-})
-
-// Acceder al resultado almacenado
-const status = store.resultado.estado // 'aprobado' | 'rechazado' | 'advertencia'
-
-// Generar PDF (solo si está aprobado)
-import { usePreApprovalPDF } from '~/composables/usePreApprovalPDF'
-const { generatePDF, isGenerating, canGeneratePDF } = usePreApprovalPDF()
-
-if (canGeneratePDF.value) {
-  await generatePDF()
-}
-
-// Resetear simulador
-store.resetearTodo()
-```
-
-### Constantes Financieras
-
-```typescript
-TASA_EA = 14%                          // Tasa Efectiva Anual
-TASA_MENSUAL = 1.0975%                 // Calculada de EA
-EDAD_FINAL_MAXIMA = 84 años
-PLAZO_MINIMO = 12 meses (1 año)
-PLAZO_MAXIMO = 240 meses (20 años)
-PORCENTAJE_COMPROMISO_MAXIMO = 30%    // DTI Ratio
-FINANCIACION_HIPOTECARIO = 70%        // LTV
-FINANCIACION_LEASING = 80%            // LTV
-```
+- Persistencia de estado en localStorage
+- Generacion de carta de preaprobacion (PDF client-side con html-to-image + jsPDF)
+- Pre-relleno del formulario de contacto desde resultados
+- Session tracking (start/update/complete) guardado en Directus
+- Creacion automatica de lead al completar
 
 ---
 
-## 📞 Formulario de Contacto Mejorado
+## Formulario de Contacto
 
-### Características de Seguridad
+### Seguridad (6 capas)
 
-- **Cloudflare Turnstile**: CAPTCHA invisible que protege contra bots sin afectar UX
-- **Validación de Tiempo**: Mínimo 3 segundos desde que se abre el formulario
-- **Honeypot Field**: Campo oculto para detectar bots
-- **Rate Limiting**: Máximo 8 solicitudes cada 5 minutos por IP
-- **Validación con Zod**: Esquemas TypeScript-first con mensajes claros
+1. **Cloudflare Turnstile**: CAPTCHA invisible
+2. **Honeypot Field**: Campo oculto para bots
+3. **Validacion de Tiempo**: Minimo 3 segundos
+4. **Rate Limiting**: 8 requests/5min por IP
+5. **Bot Detection**: FingerprintJS BotD
+6. **Validacion Zod**: Esquema TypeScript-first
 
-### Detección Automática de País
+### Deteccion Automatica de Pais
 
-El formulario detecta automáticamente el país del usuario por IP y pre-selecciona el código de teléfono:
+Detecta pais por IP (geojs.io) y pre-selecciona codigo telefonico. 30+ paises con formato dinamico.
 
-```typescript
-// Usa servicio geojs.io para geolocalización
-const dialCode = await detectDialCode() // "+57" para Colombia
-```
+| Pais | Codigo | Formato |
+|------|--------|---------|
+| Colombia | +57 | XXX XXX XXXX |
+| Estados Unidos | +1 | (XXX) XXX-XXXX |
+| Espana | +34 | XXX XX XX XX |
+| Mexico | +52 | XX XXXX XXXX |
 
-### Formato de Teléfono Inteligente
+### Flujo del Endpoint `/api/contact`
 
-Los números se formatean automáticamente según el país seleccionado con 30+ países soportados:
-
-| País | Código | Formato | Ejemplo |
-|------|--------|---------|---------|
-| Colombia | +57 | XXX XXX XXXX | 300 123 4567 |
-| Estados Unidos | +1 | (XXX) XXX-XXXX | (555) 123-4567 |
-| España | +34 | XXX XX XX XX | 612 34 56 78 |
-| México | +52 | XX XXXX XXXX | 55 1234 5678 |
-| Argentina | +54 | XX XXXX-XXXX | 11 1234-5678 |
-
-**Características**:
-- Formateo en tiempo real mientras se escribe
-- Placeholder dinámico según país
-- Soporte para múltiples códigos (Rep. Dominicana: +1809/+1829/+1849)
-- Preservación de posición del cursor
-- Validación de longitud por país
-
-### Pre-llenado desde Simulador
-
-Cuando el usuario viene del simulador, el formulario se pre-rellena automáticamente con:
-- Nombre completo
-- Email
-- Teléfono con código de país
-- Resumen de simulación en el mensaje
-
-### Integraciones del Endpoint `/api/contact`
-
-El endpoint maneja todo en una sola llamada:
-
-1. **Verificación de Turnstile** - Valida token de Cloudflare
-2. **Validación de Datos** - Esquema Zod estricto
-3. **Rate Limiting** - Control por IP con headers personalizados
-4. **Guardado en Directus** - Colección `leads` con todos los datos
-5. **Notificaciones Paralelas** (`Promise.allSettled`):
-   - Email via Resend a gerenciacomercial@contuhogar.com
-   - BCC automático a contudigital@contuhogar.net
-   - Telegram (opcional) con formato emoji-rich
-
-### Campos del Formulario
-
-| Campo | Tipo | Validación | Requerido |
-|-------|------|------------|-----------|
-| firstName | string | Min 2 caracteres | ✅ Sí |
-| lastName | string | Min 2 caracteres | ❌ No |
-| email | string | Email válido | ✅ Sí |
-| dialCode | string | Código válido de país | ✅ Sí |
-| phone | string | Según formato de país | ✅ Sí |
-| message | string | Min 10 caracteres | ❌ No |
-| source_page | string | URL de origen | ❌ No |
-| simuladorInfo | object | Datos del simulador | ❌ No |
-| cf-turnstile-response | string | Token de CAPTCHA | ✅ Sí |
+1. Verificacion de Turnstile
+2. Validacion de datos (Zod)
+3. Rate limiting por IP
+4. Guardado en Directus (coleccion `leads`)
+5. Notificaciones paralelas (`Promise.allSettled`): Email (Resend), Telegram, Meta CAPI
 
 ---
 
-## 📜 Scripts Disponibles
+## Landing Pages
 
-```json
-{
-  "dev": "nuxt dev",              // Iniciar servidor de desarrollo
-  "build": "nuxt build",          // Build para producción
-  "generate": "nuxt generate",    // Generar sitio estático
-  "preview": "nuxt preview",      // Preview de build
-  "postinstall": "nuxt prepare"   // Preparar tipos (auto-ejecutado)
-}
-```
+Sistema de landing pages dinamicas por servicio y mercado, generadas desde Directus.
 
-### Scripts de Directus
+- Ruta: `/lp/:service/:market` (ej. `/lp/credito-hipotecario/espana`)
+- Layout dedicado: `layouts/landing.vue`
+- Componentes especializados en `components/lp/`
+- Contenido gestionado desde coleccion `landing_pages` en Directus
+- Feature flag: `ENABLE_LANDING_LINKS` controla visibilidad de links en el sitio
+
+---
+
+## Scripts Disponibles
+
+### Desarrollo
 
 ```bash
-# Exportar schema de Directus
-pnpm directus:schema
-
-# Generar tipos TypeScript desde Directus
-pnpm directus:types
-
-# Gestionar snapshots de Directus
-pnpm directus:snapshot
-pnpm directus:snapshot:create
-pnpm directus:snapshot:list
+pnpm dev          # Servidor de desarrollo
+pnpm build        # Build produccion
+pnpm generate     # Generar sitio estatico
+pnpm preview      # Preview del build
+pnpm postinstall  # Regenerar tipos (auto)
 ```
 
-### Comandos Adicionales Útiles
+### Directus
 
 ```bash
-# Análisis de bundle
-npx nuxi analyze
+pnpm directus:schema           # Exportar schema
+pnpm directus:types            # Generar tipos TypeScript
+pnpm directus:snapshot         # Ver snapshots
+pnpm directus:snapshot:create  # Crear snapshot
+pnpm directus:snapshot:list    # Listar snapshots
+```
 
-# Verificación de tipos
-npx nuxi typecheck
+### Utilidades
 
-# Limpiar cache
-npx nuxi cleanup
-
-# Info del proyecto
-npx nuxi info
-
-# Actualizar dependencias
-pnpm update --interactive
-
-# Auditoría de seguridad
-pnpm audit
-
-# Actualizar browserslist
-npx update-browserslist-db@latest
-
-# Ejecutar scripts personalizados
-npx tsx [archivo.ts]
+```bash
+npx nuxi analyze     # Analisis de bundle
+npx nuxi typecheck   # Verificar tipos
+npx nuxi cleanup     # Limpiar cache
+npx nuxi info        # Info del proyecto
+pnpm audit            # Auditoria de seguridad
 ```
 
 ---
 
-## 📊 Análisis y Optimización
-
-### Performance Metrics
-
-| Métrica | Target | Actual |
-|---------|--------|--------|
-| Largest Contentful Paint (LCP) | < 2.5s | 🟡 Optimizable |
-| First Input Delay (FID) | < 100ms | ✅ Bueno |
-| Cumulative Layout Shift (CLS) | < 0.1 | ✅ Bueno |
-| Bundle Size (gzip) | < 200KB | ✅ ~72KB |
+## Performance y Optimizacion
 
 ### Optimizaciones Implementadas
 
-- ✅ SSR (Server-Side Rendering) para mejor SEO
-- ✅ Code splitting automático por página
-- ✅ Tree shaking de dependencias no utilizadas
-- ✅ Compresión gzip/brotli en producción
-- ✅ Lazy loading de imágenes
-- ✅ Preconnect a recursos externos
-- ✅ WebP para imágenes (reducción ~80% vs PNG)
-- ✅ Cloudflare Turnstile para seguridad sin fricción
-- ✅ Rate limiting por IP en endpoints sensibles
-- ✅ Headers de seguridad configurados
-- ✅ TypeScript en stores y composables
-- ✅ PDF generation client-side (html-to-image + jsPDF)
+- SSR (Server-Side Rendering) con ISR por ruta
+- Code splitting automatico por pagina
+- Manual chunks: `vendor-pdf` (jsPDF + html-to-image), `vendor-calendar` (v-calendar)
+- `@nuxt/image` con formatos WebP/AVIF y responsive screens
+- Imagenes de servicios en AVIF (reduccion significativa vs PNG)
+- Logos en WebP
+- Lazy loading de imagenes
+- Defer de GA4 y GTM (initMode manual)
+- Sourcemaps deshabilitados en produccion
+- Headers de seguridad via server plugin
+- Sistema de skeletons para eliminar FOUC
+- Preconnect a recursos externos
 
-### Mejoras Pendientes (Roadmap)
+### Validadores
 
-- 🔄 Implementar `@nuxt/image` para optimización automática
-- 🔄 Agregar sitemap dinámico con `@nuxtjs/sitemap`
-- 🔄 Agregar testing (Vitest + Vue Test Utils)
-- 🔄 Implementar PWA con `@vite-pwa/nuxt`
-- 🔄 Mejorar accesibilidad (ARIA labels, navegación por teclado)
-- 🔄 Agregar i18n para inglés con `@nuxtjs/i18n`
+- **SEO**: [Google Rich Results](https://search.google.com/test/rich-results) · [Schema Validator](https://validator.schema.org/)
+- **Seguridad**: [Security Headers](https://securityheaders.com/) · [Mozilla Observatory](https://observatory.mozilla.org/)
+- **Performance**: [PageSpeed](https://pagespeed.web.dev/) · Lighthouse
 
 ---
 
-## 👥 Contribuir
+## Contribuir
 
-Contribuciones son bienvenidas. Por favor sigue estos pasos:
-
-### 1. Fork del Proyecto
+### 1. Fork
 
 ```bash
 gh repo fork contuhogar/contuhogar.com
 ```
 
-### 2. Crear Branch de Feature
+### 2. Crear Branch
 
 ```bash
-git checkout -b feature/AmazingFeature
+git checkout -b feature/mi-feature
 ```
 
-### 3. Commit de Cambios
+### 3. Commit
 
 ```bash
-git commit -m "Add: descripción del cambio"
+git commit -m "feat: descripcion del cambio"
 ```
 
-Prefijos de commit recomendados:
-- `Add:` Nueva funcionalidad
-- `Fix:` Corrección de bug
-- `Update:` Actualización de funcionalidad existente
-- `Refactor:` Refactorización de código
-- `Docs:` Cambios en documentación
-- `Style:` Cambios de formato (sin afectar lógica)
-- `Test:` Agregar o actualizar tests
+Prefijos: `feat:`, `fix:`, `perf:`, `refactor:`, `docs:`, `chore:`, `copy:`, `revert:`
 
-### 4. Push al Branch
+### 4. Push y PR
 
 ```bash
-git push origin feature/AmazingFeature
+git push origin feature/mi-feature
 ```
-
-### 5. Abrir Pull Request
-
-Ve a GitHub y crea un Pull Request describiendo:
-- Qué cambios realizaste
-- Por qué son necesarios
-- Cómo fueron testeados
 
 ---
 
-## 📝 Changelog
+## Changelog
+
+### [2.5.0] - 2026-03
+
+- **Landing Pages Dinamicas**: Sistema de landing pages por servicio y mercado desde Directus
+- **Layout Landing**: Layout dedicado para landing pages con componentes especializados
+- **Feature Flag Landing Links**: `ENABLE_LANDING_LINKS` para controlar visibilidad
+- **Performance LCP**: Optimizacion de Largest Contentful Paint, lazy-load de deps pesadas, cache headers ISR
+- **Notificaciones via Directus Flows**: Centralizacion de notificaciones via webhook
+- **Links a Landing Pages**: Panel de paises en homepage con feature flag
+
+### [2.4.0] - 2026-02
+
+- **Testimonios Dinamicos**: Testimonios desde Directus CMS
+- **Equipo Dinamico**: Pagina nosotros con equipo desde Directus API
+- **Proxy Directus**: Rutas client-side a traves de server API para evitar CORS
+- **Imagenes Blog**: Resolucion server-side de asset URLs de Directus
+
+### [2.3.0] - 2026-01
+
+- **Meta Pixel + CAPI**: Tracking client-side y server-side de conversiones
+- **Blog Directus**: Integracion completa de blog con Directus y `blog_categories`
+- **Session Tracking Simulador**: Sesiones de simulador con start/update/complete
+- **Lead en Simulacion**: Creacion automatica de lead al completar simulacion
+- **Source Component**: Campo `source_component` en leads para rastrear origen
+- **Notificaciones Diferenciadas**: Diferenciacion de fuente y links a Directus
+
+### [2.2.5] - 2025-12
+
+- **Newsletter**: Suscripcion a newsletter con endpoint dedicado
+- **CountryCombobox**: Selector de pais de residencia (~195 paises)
+- **Tipos de Credito Adicionales**: Remodelacion y compra de cartera + opcion "no se"
+- **Estandarizacion Marca**: Nombre unificado "ContuHogar" en todo el sitio
+- **Accesibilidad Formularios**: Labels, IDs, ARIA para form accessibility
+- **OG Image**: Open Graph image y script generador
+- **Sitemap Dinamico**: Server route para sitemap con contenido dinamico
 
 ### [2.2.0] - 2026-01-31
 
-#### ✨ Nuevas Funcionalidades
-
-- **Sistema de Skeletons Profesional**: Sistema completo de componentes de carga para eliminar FOUC
-  - 4 primitivos base (Box, Text, Circle, Image) con animación shimmer
-  - 4 skeletons de cards (Blog, Service, Testimonial, Accordion)
-  - 4 skeletons de secciones (HeroHome, HeroSection, Stats, BankLogos)
-  - 4 skeletons de página completa (BlogPost, ServicePage, Simulador, LegalPage)
-  - Composable `useLoading(minDuration)` para control centralizado
-  - Soporte para `prefers-reduced-motion` (accesibilidad)
-  - Variantes light/dark para fondos oscuros
-
-- **Rediseño de Páginas Legales**: Nueva UI estilo Stripe/Notion
-  - Layout de 2 columnas con sidebar sticky
-  - Navegación por anclas con detección de sección activa (Intersection Observer)
-  - Secciones colapsables con acordeones
-  - Dropdown de índice en móvil
-  - Contenido simplificado y legible
-  - Iconos SVG inline por sección
-
-#### 📦 Nuevos Archivos
-
-**Composables**:
-- `composables/useLoading.ts` - Estado de carga con duración mínima
-
-**Componentes Skeleton**:
-- `components/skeleton/SkeletonBox.vue`
-- `components/skeleton/SkeletonText.vue`
-- `components/skeleton/SkeletonCircle.vue`
-- `components/skeleton/SkeletonImage.vue`
-- `components/skeleton/SkeletonBlogCard.vue`
-- `components/skeleton/SkeletonServiceCard.vue`
-- `components/skeleton/SkeletonTestimonialCard.vue`
-- `components/skeleton/SkeletonHeroHome.vue`
-- `components/skeleton/SkeletonHeroSection.vue`
-- `components/skeleton/SkeletonStatsSection.vue`
-- `components/skeleton/SkeletonBankLogos.vue`
-- `components/skeleton/SkeletonAccordion.vue`
-- `components/skeleton/SkeletonBlogPost.vue`
-- `components/skeleton/SkeletonServicePage.vue`
-- `components/skeleton/SkeletonSimulador.vue`
-- `components/skeleton/SkeletonLegalPage.vue`
-
-**Componentes Legal**:
-- `components/legal/LegalPageLayout.vue`
-- `components/legal/LegalSection.vue`
-
-#### 🔧 Modificaciones
-
-- `assets/css/main.css`: Animación shimmer y variante light
-- `pages/index.vue`: Integración completa de skeletons
-- `pages/blog/index.vue`: Skeletons para hero, featured, grid
-- `pages/blog/[slug].vue`: SkeletonBlogPost
-- `pages/servicios/index.vue`: Skeletons para secciones
-- `pages/servicios/[slug].vue`: SkeletonServicePage
-- `pages/simulador/credito/index.vue`: SkeletonSimulador
-- `pages/faqs.vue`: Skeletons para hero y acordeones
-- `pages/nosotros.vue`: Skeletons para todas las secciones
-- `pages/contacto.vue`: Skeleton para formulario
-- `pages/terminos-condiciones.vue`: Rediseño completo con LegalPageLayout
-- `pages/politica-privacidad.vue`: Rediseño con 13 secciones colapsables
-
----
+- **Sistema de Skeletons**: 16 componentes de carga con animacion shimmer
+- **Paginas Legales**: Rediseno estilo Stripe/Notion con sidebar sticky y acordeones
+- **Composable useLoading**: Control centralizado de estados de carga
+- **PDF Client-Side**: Migracion de generacion PDF de server-side a client-side
 
 ### [2.1.0] - 2025-01-12
 
-#### ✨ Nuevas Funcionalidades
-
-- **Simulador de Crédito Completo**: Wizard interactivo de 5 pasos con cálculos financieros en tiempo real y generación de PDF
-  - Evaluación de elegibilidad para crédito hipotecario y leasing
-  - Validación de edad + plazo (máx. 84 años), capacidad de pago (DTI ≤30%), y LTV (70%/80%)
-  - Cálculo de cuota mensual usando fórmula PMT
-  - Resultados detallados: Aprobado ✅, Rechazado ❌ o Advertencia ⚠️
-  - **Generación de Carta de Preaprobación en PDF** usando Puppeteer
-  - Persistencia de estado en localStorage
-  - Pre-relleno de formulario de contacto desde simulador
-  - Integración con Telegram para notificaciones de simulador
-  - 25+ nuevos componentes y archivos (4000+ líneas de código)
-
-- **Formulario de Contacto con Cloudflare Turnstile**:
-  - **CAPTCHA invisible** usando Cloudflare Turnstile (sin fricción UX)
-  - **Validación de tiempo** (mínimo 3 segundos antes de submit)
-  - Detección automática de país por IP
-  - Formato de teléfono dinámico en tiempo real (30+ países)
-  - Rate limiting mejorado (8 requests/5min con feedback visual)
-  - Soporte para múltiples códigos de área por país
-  - API consolidada con ejecución paralela de notificaciones
-
-- **Nuevas Páginas**:
-  - `/politica-privacidad` - Política de privacidad (Ley 1581/2012 Colombia)
-  - `/simulador/credito` - Simulador de crédito
-  - `/simulador/credito/carta-preaprobacion` - Template de carta PDF
-
-- **Componentes de UI Modernos**:
-  - Cards (BlogCard, ServiceCard)
-  - Sections (Hero, CTA, Stats, BankLogos, TestimonialMarquee)
-  - Sidebar (ResourcesList, SidebarCTA)
-  - UI generales (Accordion, SearchBar, CategoryPills)
-  - Inputs especializados (CurrencyInput, DatePicker)
-
-#### 📦 Nuevos Archivos Clave
-
-**Stores (TypeScript)**:
-- `stores/simulador.ts` - Store Pinia del simulador con localStorage
-- `stores/index.ts` - Store principal migrado a TypeScript
-
-**Composables**:
-- `composables/useSimuladorCalculations.ts` - Cálculos financieros avanzados
-- `composables/usePreApprovalPDF.ts` - Generación de PDF
-- `composables/useSeo.ts` - Helpers para SEO
-
-**Server Endpoints**:
-- `server/api/pdf/pre-approval.post.ts` - Generación de PDF con Puppeteer
-- `server/api/send/simulator-lead.post.ts` - Notificaciones de simulador
-- `server/utils/turnstile.ts` - Verificación de Cloudflare Turnstile
-
-**Tipos y Utilidades**:
-- `types/simulador.ts` - Interfaces TypeScript completas
-- `utils/formatters.ts` - Formateadores de moneda/números
-
-**Layouts**:
-- `layouts/simulador.vue` - Layout sin header/footer para experiencia fullscreen
-
-**Plugins**:
-- `plugins/v-calendar.client.ts` - Configuración de v-calendar
-
-#### 🔧 Modificaciones Importantes
-
-- `server/api/contact.post.ts`:
-  - Integración de **Cloudflare Turnstile**
-  - Validación de tiempo de formulario
-  - Campos opcionales: lastName, message, simuladorInfo
-  - Rate limit: 8 requests/5min (aumentado)
-  - Ejecución paralela de notificaciones
-
-- `components/Header.vue`: Botón CTA para simulador
-- `nuxt.config.ts`: Módulo Turnstile agregado
-- `package.json`: Nuevas dependencias (turnstile, puppeteer, v-calendar)
-- Migración completa a `pnpm 9.15.0`
-
-#### 🗑️ Archivos Eliminados
-
-- `components/SimpleCaptcha.vue` → Reemplazado por Turnstile
-- `components/simulador/SimuladorModal.vue` → Reestructurado
-- `composables/useCaptcha.ts` → Obsoleto
-- `composables/useSimuladorStore.ts` → Movido a `stores/simulador.ts`
-- `pages/simulador/index.vue` → Reorganizado a `/credito/`
-- Logos PNG/SVG → Convertidos a WebP (reducción 80% tamaño)
-
-#### 🎨 Assets Optimizados
-
-**Nuevos Logos WebP**:
-- `amarilo-logo.webp` (11.6 KB)
-- `banco-occidental.webp` (1.8 KB)
-- `banco-union.webp` (3.8 KB)
-- `colpatria-logo.webp` (2.4 KB)
-- `logo-banco-de-bogota.webp` (13.9 KB)
-
-#### 📚 Documentación
-
-- Actualización masiva de README.md:
-  - Sección completa de Simulador de Crédito
-  - Documentación de Formulario de Contacto mejorado
-  - Estructura de proyecto actualizada
-  - Tabla de rutas completa
-  - Variables de entorno (Turnstile)
-  - Cambio de Yarn a pnpm en todos los comandos
+- **Simulador de Credito**: Wizard de 5 pasos con calculos financieros y PDF
+- **Cloudflare Turnstile**: CAPTCHA invisible reemplazando captcha manual
+- **Formulario Mejorado**: Deteccion de pais, formato de telefono, rate limiting
+- **Pagina Politica Privacidad**: Ley 1581/2012 Colombia
+- **Layout Simulador**: Layout fullscreen sin header/footer
+- **Migracion pnpm**: De Yarn a pnpm 9.15.0
 
 ### [2.0.0] - 2025-01-11
 
-#### 🚀 Actualización Mayor: Nuxt 4
-
-- **BREAKING**: Actualización de Nuxt 3.16.2 → 4.2.0
-- **BREAKING**: Reemplazo de `@zadigetvoltaire/nuxt-gtm` → `@saslavik/nuxt-gtm`
-
-#### ⬆️ Actualizaciones de Dependencias
-
-- Nuxt: 3.16.2 → **4.2.0**
-- Vue: 3.5.13 → 3.5.22
-- Vite: 5.x → 7.1.12
-- Tailwind CSS: 4.1.5 → 4.1.16
-- @tailwindcss/vite: 4.1.5 → 4.1.16
-- Directus SDK: 20.0.2 → 20.1.0
-- Resend: 6.0.1 → 6.4.0
-- Zod: 4.0.17 → 4.1.12
-- Vue Router: 4.5.0 → 4.6.3
-- vue3-carousel-nuxt: 1.1.5 → 1.1.6
-
-#### 🐛 Correcciones
-
-- Resolución de warnings de peer dependencies de Vite
-- Actualización de browserslist database
-
-#### 📚 Documentación
-
-- Creación de `CLAUDE.md` para guía de desarrollo con IA
-- Actualización completa de `README.md` con nueva estructura y badges
-- Documentación de todas las integraciones
-
-#### 🔒 Seguridad
-
-- Identificación de token de admin expuesto al cliente (pendiente de corrección)
-- Documentación de mejores prácticas de seguridad
+- **BREAKING**: Nuxt 3.16.2 → 4.2.0
+- **BREAKING**: GTM module reemplazado por `@saslavik/nuxt-gtm` (Nuxt 4 compatible)
+- Actualizacion de todas las dependencias mayores
+- Creacion de `CLAUDE.md`
 
 ---
 
-## 📄 Licencia
+## Licencia
 
-Este proyecto es privado y pertenece a ContuHogar. Todos los derechos reservados.
+Proyecto privado. Todos los derechos reservados por ContuHogar.
 
 ---
 
-## 📞 Contacto
+## Contacto
 
 - **Sitio Web**: [https://contuhogar.com](https://contuhogar.com)
 - **Email**: gerenciacomercial@contuhogar.com
@@ -1158,19 +826,10 @@ Este proyecto es privado y pertenece a ContuHogar. Todos los derechos reservados
 
 ---
 
-## 🙏 Agradecimientos
-
-- [Nuxt Team](https://nuxt.com/) por el excelente framework
-- [Directus](https://directus.io/) por el headless CMS
-- [Tailwind CSS](https://tailwindcss.com/) por el sistema de diseño
-- [Vercel](https://vercel.com/) por el hosting y deployment
-
----
-
 <div align="center">
 
 **Hecho con ❤️ por el equipo de ContuHogar**
 
-[⬆ Volver arriba](#contuhogarcom)
+[Volver arriba](#contuhogarcom)
 
 </div>
