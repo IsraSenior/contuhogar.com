@@ -33,5 +33,6 @@ directus/schema.json
 !directus/snapshots/
 !directus/README.md
 
-.claude
+.claude/
+CLAUDE.md
 test-simulation-payload.json

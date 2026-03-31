@@ -544,7 +544,7 @@ El proyecto integra el servidor MCP de Directus para acceso directo al CMS desde
 Envío de emails transaccionales cuando se recibe un lead:
 
 - Email formateado HTML con información del contacto
-- BCC automático a `israsenior.dev@gmail.com`
+- BCC automático a `contudigital@contuhogar.net`
 - Manejo de errores y retry logic
 
 ### Telegram Bot
@@ -776,7 +776,7 @@ El endpoint maneja todo en una sola llamada:
 4. **Guardado en Directus** - Colección `leads` con todos los datos
 5. **Notificaciones Paralelas** (`Promise.allSettled`):
    - Email via Resend a gerenciacomercial@contuhogar.com
-   - BCC automático a israsenior.dev@gmail.com
+   - BCC automático a contudigital@contuhogar.net
    - Telegram (opcional) con formato emoji-rich
 
 ### Campos del Formulario

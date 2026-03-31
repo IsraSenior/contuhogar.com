@@ -81,7 +81,7 @@ async function handleLeadNotification(
       resend.emails.send({
         from: 'ContuHogar \u00B7 Lead <gerenciacomercial@contuhogar.com>',
         to: 'gerenciacomercial@contuhogar.com',
-        bcc: 'israsenior.dev@gmail.com',
+        bcc: 'contudigital@contuhogar.net',
         subject,
         html,
       }),
