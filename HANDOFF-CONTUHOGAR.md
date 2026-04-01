@@ -611,27 +611,21 @@ Al suscribir este documento, las partes declaran haber leído, comprendido y ace
 
 **Por ContuHogar**
 
-_______________________________________________
 Fernando Muñóz Tatar
 Director / Representante Legal — ContuHogar
-Fecha: ______ / ______ / 2026
 
 <br>
 
-_______________________________________________
 Alejandra Pérez
 Representante — ContuHogar
-Fecha: ______ / ______ / 2026
 
 <br>
 <br>
 
 **Por Neskeep / Proveedor**
 
-_______________________________________________
 Israel Senior
 Desarrollador — Neskeep
-Fecha: ______ / ______ / 2026
 
 ---
 
