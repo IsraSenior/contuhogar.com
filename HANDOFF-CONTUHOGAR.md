@@ -24,6 +24,9 @@
 14. [Guía de Mantenimiento para Nueva Agencia](#14-guía-de-mantenimiento-para-nueva-agencia)
 15. [Issues Conocidos / Deuda Técnica](#15-issues-conocidos--deuda-técnica)
 16. [Acuerdo de Pagos](#16-acuerdo-de-pagos)
+17. [Servicio de Estrategia de Redes Sociales](#17-servicio-de-estrategia-de-redes-sociales)
+18. [Descargo de Responsabilidad y Condiciones Post-Entrega](#18-descargo-de-responsabilidad-y-condiciones-post-entrega)
+19. [Firmas](#firmas)
 
 ---
 
@@ -525,7 +528,7 @@ Si las notificaciones dejan de llegar, revisar:
 |-------|-----------|-------------|
 | CSP con `unsafe-inline`/`unsafe-eval` | Media | Requerido por GTM y Meta Pixel. Ideal migrar a nonces en una iteración futura. |
 | Rate limiting in-memory | Baja | No persiste entre reinicios. Para escalar a múltiples instancias, migrar a Redis. |
-| Sin CSRF tokens explícitos | Baja | Los endpoints públicos usan Turnstile como protección principal. Bajo riesgo. |
+| Sin CSRF tokens explícitos | Baja | Los endpoints públicos están protegidos por honeypots, bot detection y rate limiting. Bajo riesgo. |
 | SEO gaps menores | Baja | Falta `CollectionPage` schema en el blog. El simulador tiene `noindex` (intencional). |
 
 ---
@@ -553,6 +556,82 @@ Si las notificaciones dejan de llegar, revisar:
 - Los leads existentes a la fecha de cierre (31/03/2026) son parte del convenio vigente
 - Los excedentes de conversión de estos leads corresponden a **Israel Senior** según el acuerdo
 - Los nuevos leads generados post-handoff pertenecen completamente a ContuHogar
+
+---
+
+## 17. Servicio de Estrategia de Redes Sociales
+
+### Estado del Servicio
+
+A partir del mes de **febrero de 2026**, Israel Senior / Neskeep prestó a ContuHogar el servicio de **Estrategia de Redes Sociales** bajo una gestión mensual recurrente con un valor de **$450.000 COP / mes**.
+
+| Concepto | Detalle |
+|----------|---------|
+| Servicio | Estrategia de redes sociales |
+| Valor mensual | $450.000 COP |
+| Inicio | Febrero 2026 |
+| Estado de pagos | Al día a la fecha de cierre |
+| Cierre del servicio | 31 de marzo de 2026 |
+
+### Cierre
+
+El servicio se da por terminado en la misma fecha que el proyecto web — **31 de marzo de 2026**. Los pagos correspondientes a los meses de febrero y marzo de 2026 se encuentran cancelados en su totalidad. No quedan saldos pendientes por este concepto.
+
+---
+
+## 18. Descargo de Responsabilidad y Condiciones Post-Entrega
+
+### Alcance de la Entrega
+
+Este documento formaliza el cierre de la relación de desarrollo y servicios entre **Israel Senior / Neskeep** y **ContuHogar**. A partir de la entrega formal de credenciales y la firma del presente documento:
+
+1. Israel Senior / Neskeep queda exento de toda responsabilidad sobre el funcionamiento, disponibilidad, seguridad y continuidad del sitio web contuhogar.com y sus servicios asociados.
+2. Cualquier modificación, intervención o configuración realizada por terceros (nueva agencia, personal interno u otros proveedores) sobre el código, infraestructura o servicios entregados, libera completamente a Israel Senior / Neskeep de responsabilidad sobre los resultados derivados.
+3. La información y credenciales contenidas en este documento pasan a ser responsabilidad exclusiva de ContuHogar a partir del momento de su recepción.
+
+### Servicios Futuros
+
+Cualquier requerimiento, consulta técnica, soporte, ajuste o desarrollo adicional solicitado a Israel Senior / Neskeep **con posterioridad a la firma de este documento** será considerado un servicio nuevo e independiente, sujeto a cotización y facturación conforme a las tarifas vigentes de Neskeep en el momento de la solicitud.
+
+Esto incluye, de manera enunciativa y no limitativa:
+- Corrección de errores o bugs introducidos por terceros
+- Actualizaciones de dependencias o framework
+- Nuevas funcionalidades o páginas
+- Soporte técnico o consultoría
+- Capacitación a nuevo personal o agencia
+- Cualquier intervención sobre el servidor, CMS o servicios de terceros
+
+---
+
+## Firmas
+
+Al suscribir este documento, las partes declaran haber leído, comprendido y aceptado la totalidad de su contenido, incluidos los entregables, el estado de pagos, el descargo de responsabilidad y las condiciones post-entrega aquí establecidas.
+
+<br>
+
+**Por ContuHogar**
+
+_______________________________________________
+Fernando Muñóz Tatar
+Director / Representante Legal — ContuHogar
+Fecha: ______ / ______ / 2026
+
+<br>
+
+_______________________________________________
+Alejandra Pérez
+Representante — ContuHogar
+Fecha: ______ / ______ / 2026
+
+<br>
+<br>
+
+**Por Neskeep / Proveedor**
+
+_______________________________________________
+Israel Senior
+Desarrollador — Neskeep
+Fecha: ______ / ______ / 2026
 
 ---
 
