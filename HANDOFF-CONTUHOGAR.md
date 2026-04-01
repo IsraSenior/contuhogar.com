@@ -1,8 +1,8 @@
 # HANDOFF — ContuHogar.com
 
-**Fecha de cierre:** 31 de marzo de 2026
-**Desarrollado por:** Israel Senior / [Neskeep](https://neskeep.com/)
-**Entregado a:** ContuHogar / Fernando Muñóz Tatar
+**Fecha de cierre:** 31 de marzo de 2026 <br>
+**Desarrollado por:** Israel Senior / [Neskeep](https://neskeep.com/) <br>
+**Entregado a:** ContuHogar / Fernando Muñóz Tatar y Alejandra Pérez <br>
 
 ---
 
@@ -29,16 +29,16 @@
 
 ## 1. Resumen Ejecutivo
 
-ContuHogar.com es una plataforma web full-stack para asesoría de crédito habitacional dirigida a colombianos en el exterior. El proyecto fue desarrollado por Israel Senior / Neskeep según la propuesta escalonada original.
+ContuHogar.com es un sitio web institucional para un broker de crédito hipotecario especializado en colombianos residentes en el exterior. El proyecto fue desarrollado por Israel Senior / Neskeep según la propuesta escalonada original.
 
-**Estado actual:** En producción, estable en [contuhogar.com](https://contuhogar.com)
+**Estado actual:** En producción, estable en [contuhogar.com](https://contuhogar.com) <br>
 **Fecha de cierre de labores:** 31 de marzo de 2026
 
 ### Qué se construyó
 
 Se desarrolló un sitio web completo con:
 
-- Plataforma institucional con SSR (renderizado del lado del servidor) e ISR (caché incremental por ruta)
+- Website institucional con SSR (renderizado del lado del servidor) e ISR (caché incremental por ruta)
 - CMS headless con Directus para gestión del contenido dinámico en las colecciones establecidas (blog, servicios, equipo, FAQs, testimonios, leads, landing pages)
 - Simulador de crédito interactivo con 5 pasos y generación de carta de preaprobación en PDF (client-side)
 - Sistema de captación de leads con seguridad multicapa y notificaciones en tiempo real
@@ -226,8 +226,6 @@ El archivo `.env.example` en el repositorio contiene la plantilla completa. El a
 | `DIRECTUS_ADMIN_TOKEN` | **Sí** | Token de admin para operaciones server-side |
 | `DIRECTUS_PUBLIC_TOKEN` | **Sí** | Token de solo lectura para el browser |
 | `RESEND_API_KEY` | **Sí** | API key de Resend para emails transaccionales |
-| `TURNSTILE_SITE_KEY` | **Sí** | Site key de Cloudflare Turnstile (CAPTCHA) |
-| `TURNSTILE_SECRET_KEY` | **Sí** | Secret key de Cloudflare Turnstile |
 | `TELEGRAM_BOT_TOKEN` | No | Token del bot de Telegram para notificaciones |
 | `TELEGRAM_CHAT_ID` | No | ID del chat/canal de Telegram |
 | `META_PIXEL_ID` | No | ID del Meta Pixel (`795618300241488`) |
@@ -349,16 +347,15 @@ Ubicadas en: `composables/useSimuladorCalculations.ts`
 
 ## 10. Seguridad Implementada
 
-El formulario de contacto y los endpoints públicos tienen 6 capas de protección:
+El formulario de contacto y los endpoints públicos tienen 5 capas de protección:
 
 | Capa | Tecnología | Descripción |
 |------|-----------|-------------|
-| 1 | Cloudflare Turnstile | CAPTCHA invisible, verificado server-side |
-| 2 | Honeypot fields | Campo oculto en formulario — los bots lo llenan, los humanos no |
-| 3 | Validación de tiempo | Mínimo 3 segundos desde que se carga el formulario |
-| 4 | Rate limiting | 8 requests / 5 minutos por IP (in-memory) |
-| 5 | Bot Detection | FingerprintJS BotD detecta browsers automatizados |
-| 6 | Validación Zod | Esquema estricto server-side en todos los endpoints |
+| 1 | Honeypot fields | Campos ocultos (estáticos y dinámicos con nombre rotativo por hora) — los bots los llenan, los humanos no |
+| 2 | Validación de comportamiento | Mide interacciones reales del usuario: mínimo 2 campos distintos tocados, 3 interacciones, 1.5 segundos de actividad |
+| 3 | Rate limiting | 8 requests / 5 minutos por IP (in-memory) |
+| 4 | Bot Detection | FingerprintJS BotD detecta browsers automatizados |
+| 5 | Validación Zod | Esquema estricto server-side en todos los endpoints |
 
 ### Security Headers
 
